@@ -1,6 +1,23 @@
 # GitHub Projects
 # Generated on 2026-06-13 22:41:32
-# Total projects: 2
+# Total projects: 4
+
+
+
+[[project]]
+name = "markview"
+description = "A beautiful Markdown previewer with syntax highlighting, themes, and instant rendering."
+created = "Jul 2026"
+pushed = "Jul 2026"
+stars = 0
+forks = 0
+language = "CSS, JavaScript, HTML, Shell"
+links = [
+  { name = "URL", url = "https://markview.pankajkumar.xyz/" },
+  { name = "GitHub", url = "https://github.com/ipankajkumar93/markview" },
+]
+highlight = true
+
 
 [[project]]
 name = "covidTracker"
@@ -14,7 +31,7 @@ links = [
   { name = "URL", url = "https://www.trackcovid19.info/" },
   { name = "GitHub", url = "https://github.com/ipankajkumar93/covidtracker" },
 ]
-highlight = true
+highlight = false
 
 [[project]]
 name = "website"
