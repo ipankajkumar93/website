@@ -192,6 +192,34 @@ document.addEventListener('DOMContentLoaded', function () {
     // Replace all copy icons in one pass after every button is in the DOM
     replaceFeather();
 
+    // ── Code Block Copy-Event Interceptor ───────────────────────────────────
+    // CSS `white-space: pre-wrap` makes long lines wrap visually, but the
+    // browser would normally insert \n at each visual break when the user
+    // copies selected text. The handler below intercepts the native `copy`
+    // event and writes the original unwrapped text to the clipboard instead,
+    // so code executes correctly after pasting.
+    document.querySelectorAll('pre code').forEach(codeEl => {
+        codeEl.addEventListener('copy', function (e) {
+            const selection = window.getSelection();
+            if (!selection || selection.isCollapsed) return;
+
+            // Only intercept when the selection is inside this code element
+            const range = selection.getRangeAt(0);
+            if (!codeEl.contains(range.commonAncestorContainer)) return;
+
+            // `textContent` of the selected range preserves original newlines
+            // (the real \n between lines) without inserting extra ones from wrapping.
+            // We clone the range contents into a temporary node and read its text.
+            const fragment = range.cloneContents();
+            const tmp = document.createElement('div');
+            tmp.appendChild(fragment);
+            const cleanText = tmp.innerText;
+
+            e.clipboardData.setData('text/plain', cleanText);
+            e.preventDefault();
+        });
+    });
+
     // ── AJAX Pagination ─────────────────────────────────────────────────────
     let currentPageController = null;
 
