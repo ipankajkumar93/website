@@ -1256,34 +1256,24 @@ pre code {
     padding: var(--space-lg) var(--space-xl);
     font-size: 0.875rem;
     line-height: var(--line-height-code);
-    white-space: pre;
+    /* pre-wrap gives visual soft-wrap; JS copy handler restores original lines */
+    white-space: pre-wrap;
+    word-break: normal;
+    overflow-wrap: anywhere;
     background: transparent;
     border: none;
     border-radius: 0;
-    overflow-x: auto;
+    /* No horizontal scroll — content wraps instead */
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: "liga" 1, "calt" 1;
     /* Enable ligatures */
 }
 
-/* Scrollbar styling for code blocks */
+/* Scrollbar styling for code blocks — hidden; content wraps instead of scrolling */
 pre code::-webkit-scrollbar {
-    height: 8px;
-}
-
-pre code::-webkit-scrollbar-track {
-    background: rgba(128, 128, 128, 0.1);
-    border-radius: 4px;
-}
-
-pre code::-webkit-scrollbar-thumb {
-    background: rgba(128, 128, 128, 0.3);
-    border-radius: 4px;
-}
-
-pre code::-webkit-scrollbar-thumb:hover {
-    background: rgba(128, 128, 128, 0.5);
+    display: none;
 }
 
 
