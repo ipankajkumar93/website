@@ -34,6 +34,15 @@ if (themeToggle) {
         document.documentElement.style.colorScheme = theme;
         localStorage.setItem('theme', theme);
 
+        // Sync the status-bar / browser chrome color with the active theme.
+        // We update both media-prefixed <meta name="theme-color"> tags so
+        // Android Chrome picks the right one regardless of the OS dark-mode setting.
+        const themeColors = { dark: '#0C0A09', light: '#FAF9F7' };
+        document.querySelectorAll('meta[name="theme-color"]').forEach(meta => {
+            const mediaDark = meta.media && meta.media.includes('dark');
+            meta.content = mediaDark ? themeColors.dark : themeColors.light;
+        });
+
         setTimeout(() => document.body.classList.remove('theme-transition'), 500);
     });
 }
