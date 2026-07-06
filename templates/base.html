@@ -9,7 +9,10 @@
     {%- endif -%}
     <link rel="manifest" href="{{ get_url(path='site.webmanifest', trailing_slash=false, cachebust=true) | safe }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ get_url(path='icons/icon-180x180.png', trailing_slash=false, cachebust=true) | safe }}">
-    <meta name="theme-color" content="#2870C2">
+    <meta name="theme-color" content="#0C0A09" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#FAF9F7" media="(prefers-color-scheme: light)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>{%- block title %}{{ config.title }}{%- endblock %}</title>
 
     {% include "og.html" %}
