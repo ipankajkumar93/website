@@ -17,19 +17,10 @@
       {% endif %}
       <div class="filter-header">
         <h1 class="filter-heading">Filtering for "<span class="text-accent">{{ term.name }}</span>"</h1>
-        <a href="{{ back_url }}" class="filter-clear" id="filter-clear" aria-label="Clear filter">
+        <a href="{{ back_url }}" class="filter-clear" id="filter-clear" data-topics-url="{{ get_url(path='@/topics.md') }}" aria-label="Clear filter">
           Clear <i data-feather="x"></i>
         </a>
       </div>
-      <script>
-        if (new URLSearchParams(window.location.search).get('ref') === 'topics') {
-            document.getElementById('filter-clear').href = '{{ get_url(path="@/topics.md") }}';
-            document.addEventListener('DOMContentLoaded', () => {
-                document.getElementById('default-taxonomy-view').style.display = 'none';
-                document.getElementById('unified-topics-view').style.display = 'block';
-            });
-        }
-      </script>
     {%- endif %}
 
     <div id="default-taxonomy-view">

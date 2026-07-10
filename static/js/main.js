@@ -443,4 +443,18 @@ document.addEventListener('DOMContentLoaded', function () {
             updateActiveLink();
         }
     }
+
+    // ── Taxonomy Filter Logic ───────────────────────────────────────────────
+    const filterClear = document.getElementById('filter-clear');
+    if (filterClear && new URLSearchParams(window.location.search).get('ref') === 'topics') {
+        const topicsUrl = filterClear.getAttribute('data-topics-url');
+        if (topicsUrl) {
+            filterClear.href = topicsUrl;
+        }
+        const defaultView = document.getElementById('default-taxonomy-view');
+        const unifiedView = document.getElementById('unified-topics-view');
+        if (defaultView) defaultView.style.display = 'none';
+        if (unifiedView) unifiedView.style.display = 'block';
+    }
+
 });
