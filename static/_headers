@@ -3,7 +3,7 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self' https://pankajkumar.xyz https://*.pankajkumar.xyz; script-src 'self' https://pankajkumar.xyz https://*.pankajkumar.xyz um.pankajkumar.xyz static.cloudflareinsights.com; style-src 'self' https://pankajkumar.xyz https://*.pankajkumar.xyz 'unsafe-inline'; img-src 'self' https://pankajkumar.xyz https://*.pankajkumar.xyz data:; font-src 'self' https://pankajkumar.xyz https://*.pankajkumar.xyz; connect-src 'self' https://pankajkumar.xyz https://*.pankajkumar.xyz um.pankajkumar.xyz cloudflareinsights.com; frame-src www.youtube-nocookie.com www.youtube.com
+  Content-Security-Policy: default-src 'self' https://pankajkumar.xyz https://*.pankajkumar.xyz; script-src 'self' https://pankajkumar.xyz https://*.pankajkumar.xyz 'unsafe-inline' um.pankajkumar.xyz static.cloudflareinsights.com; style-src 'self' https://pankajkumar.xyz https://*.pankajkumar.xyz 'unsafe-inline'; img-src 'self' https://pankajkumar.xyz https://*.pankajkumar.xyz data:; font-src 'self' https://pankajkumar.xyz https://*.pankajkumar.xyz; connect-src 'self' https://pankajkumar.xyz https://*.pankajkumar.xyz um.pankajkumar.xyz cloudflareinsights.com; frame-src www.youtube-nocookie.com www.youtube.com
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 
 /fonts/*
