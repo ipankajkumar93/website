@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Scroll to top of the section (just below the fixed header)
                 container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-               
+
             }
         } catch (error) {
             if (error.name === 'AbortError') return; // Intentional cancellation — do nothing
@@ -310,5 +310,77 @@ document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('pagination-container')) {
         window.history.replaceState({ path: window.location.href }, '', window.location.href);
         initAjaxPagination();
+    }
+
+    // TOC Sticky Observer & Toggle Logic
+    const tocSentinel = document.getElementById('toc-sentinel');
+    const toc = document.querySelector('.toc');
+    if (toc) {
+        if (tocSentinel) {
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].boundingClientRect.top < 0) {
+                    toc.classList.add('is-stuck');
+                } else {
+                    toc.classList.remove('is-stuck');
+                }
+            });
+            observer.observe(tocSentinel);
+        }
+
+        const tocTitle = toc.querySelector('.toc-title');
+        if (tocTitle) {
+            tocTitle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toc.classList.toggle('is-open');
+            });
+        }
+
+        // Close TOC on outside click or when clicking a link inside
+        document.addEventListener('click', (e) => {
+            if (toc.classList.contains('is-open')) {
+                if (!toc.contains(e.target) || e.target.closest('a')) {
+                    toc.classList.remove('is-open');
+                }
+            }
+        });
+
+        // ScrollSpy - TOC Active Link Highlighting
+        const tocLinks = Array.from(toc.querySelectorAll('a'));
+        const headings = tocLinks
+            .map(link => document.getElementById(link.hash.substring(1)))
+            .filter(h => h);
+
+        if (headings.length > 0) {
+            let activeHeadingId = null;
+
+            const updateActiveLink = () => {
+                let current = null;
+                // Find the last heading that has scrolled past the top offset
+                for (let h of headings) {
+                    if (h.getBoundingClientRect().top <= 150) {
+                        current = h.id;
+                    }
+                }
+                // Fallback to first heading if at the very top
+                if (!current && headings.length > 0) {
+                    current = headings[0].id;
+                }
+
+                if (current !== activeHeadingId) {
+                    activeHeadingId = current;
+                    tocLinks.forEach(link => {
+                        if (link.hash === '#' + current) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            };
+
+            window.addEventListener('scroll', updateActiveLink, { passive: true });
+            // Initial check
+            updateActiveLink();
+        }
     }
 });
