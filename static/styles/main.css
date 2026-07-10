@@ -1016,7 +1016,7 @@ article h1 {
     
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: var(--z-sticky);
     transition: margin 0.3s ease, border-radius 0.3s ease, border-color 0.3s ease;
     overflow: visible;
 }
@@ -1047,7 +1047,7 @@ article h1 {
 }
 
 .toc.restricted-width.is-stuck {
-    max-width: var(--content-width);
+    max-width: 870px;
     border-left-width: 0;
     border-right-width: 0;
 }
