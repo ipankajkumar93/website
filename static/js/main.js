@@ -53,12 +53,43 @@ document.addEventListener('DOMContentLoaded', function () {
     // Replace feather icons once after the full DOM is ready
     replaceFeather();
 
+    // ── Focus Trap Helper ───────────────────────────────────────────────────
+    function createFocusTrap(element) {
+        element.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                const focusable = Array.from(
+                    element.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])')
+                ).filter(el => !el.closest('[aria-hidden="true"]') && el.offsetWidth > 0);
+
+                if (focusable.length === 0) return;
+
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+
+                if (e.shiftKey) {
+                    if (document.activeElement === first || document.activeElement === element) {
+                        e.preventDefault();
+                        last.focus();
+                    }
+                } else {
+                    if (document.activeElement === last) {
+                        e.preventDefault();
+                        first.focus();
+                    }
+                }
+            }
+        });
+    }
+
     // ── Lightbox ────────────────────────────────────────────────────────────
     const lightboxModal = document.createElement('div');
     lightboxModal.className = 'lightbox-modal';
     lightboxModal.setAttribute('role', 'dialog');
+    lightboxModal.setAttribute('aria-modal', 'true');
     lightboxModal.innerHTML = '<button class="lightbox-close" aria-label="Close lightbox">&times;</button><img src="" alt="">';
     document.body.appendChild(lightboxModal);
+    
+    createFocusTrap(lightboxModal);
 
     const lightboxImg = lightboxModal.querySelector('img');
     const lightboxCloseBtn = lightboxModal.querySelector('.lightbox-close');
@@ -70,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
             lightboxImg.alt = this.querySelector('img')?.getAttribute('alt') || '';
             lightboxModal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            lightboxCloseBtn.focus();
         });
     });
 
@@ -96,22 +128,35 @@ document.addEventListener('DOMContentLoaded', function () {
     const navItems = document.querySelector('.nav-items');
     const mobileBackdrop = document.querySelector('.mobile-menu-backdrop');
 
+    if (mobileMenuBtn) {
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        mobileCloseBtn.addEventListener('click', closeMobileMenu);
+        mobileBackdrop.addEventListener('click', closeMobileMenu);
+        
+        createFocusTrap(navItems);
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navItems.classList.contains('active')) {
+                closeMobileMenu();
+                mobileMenuBtn.focus();
+            }
+        });
+    }
+
     function openMobileMenu() {
         navItems.classList.add('active');
         mobileBackdrop.classList.add('active');
         document.body.style.overflow = 'hidden';
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        mobileCloseBtn.focus();
     }
 
     function closeMobileMenu() {
         navItems.classList.remove('active');
         mobileBackdrop.classList.remove('active');
         document.body.style.overflow = '';
-    }
-
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', openMobileMenu);
-        mobileCloseBtn.addEventListener('click', closeMobileMenu);
-        mobileBackdrop.addEventListener('click', closeMobileMenu);
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
     }
 
     // ── Back to Top ─────────────────────────────────────────────────────────
@@ -244,8 +289,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         container.classList.add('loading');
 
+        let isTimeout = false;
         try {
+            const timeoutId = setTimeout(() => {
+                isTimeout = true;
+                if (currentPageController) currentPageController.abort();
+            }, 15000);
+            
             const response = await fetch(url, { signal: currentPageController.signal });
+            clearTimeout(timeoutId);
+            
             if (!response.ok) throw new Error('Network response was not ok');
 
             const text = await response.text();
@@ -272,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             }
         } catch (error) {
-            if (error.name === 'AbortError') return; // Intentional cancellation — do nothing
+            if (error.name === 'AbortError' && !isTimeout) return; // Intentional cancellation — do nothing
             console.error('Pagination fetch error:', error);
             window.location.href = url; // Fallback to full navigation
         } finally {
@@ -352,6 +405,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (headings.length > 0) {
             let activeHeadingId = null;
+            let scrollTicking = false;
 
             const updateActiveLink = () => {
                 let current = null;
@@ -376,9 +430,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     });
                 }
+                scrollTicking = false;
             };
 
-            window.addEventListener('scroll', updateActiveLink, { passive: true });
+            window.addEventListener('scroll', () => {
+                if (!scrollTicking) {
+                    requestAnimationFrame(updateActiveLink);
+                    scrollTicking = true;
+                }
+            }, { passive: true });
             // Initial check
             updateActiveLink();
         }

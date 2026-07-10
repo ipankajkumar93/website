@@ -7,6 +7,11 @@ SRC_DIR := public
 # Default target
 all: build
 
+# Check for broken links using lychee
+check-links:
+	@echo "Checking links in public directory..."
+	@lychee "public/**/*.html"
+
 # Serve the site using zola (includes drafts for local preview)
 preview:
 	$(ZOLA) serve --drafts

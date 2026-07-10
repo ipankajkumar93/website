@@ -234,16 +234,10 @@
                 openSearch();
             }
         }
-        // Escape to clear or close
+        // Escape to close
         if (e.key === 'Escape' && searchModal.classList.contains('active')) {
             e.preventDefault();
-            if (searchInput.value) {
-                searchInput.value = '';
-                performSearch('');
-                searchInput.focus();
-            } else {
-                closeSearch();
-            }
+            closeSearch();
         }
     });
 
