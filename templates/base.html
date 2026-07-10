@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ get_url(path='icons/icon-180x180.png', trailing_slash=false, cachebust=true) | safe }}">
     <meta name="theme-color" content="#0C0A09" media="(prefers-color-scheme: dark)">
     <meta name="theme-color" content="#FAF9F7" media="(prefers-color-scheme: light)">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>{%- block title %}{{ config.title }}{%- endblock %}</title>
 
@@ -28,40 +28,10 @@
     <link rel="preload" href="{{ get_url(path="fonts/jetbrains_6.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{{ get_url(path="styles/fonts.css", trailing_slash=false, cachebust=true) | safe }}">
     <link rel="stylesheet" href="{{ get_url(path="styles/main.css", trailing_slash=false, cachebust=true) | safe }}">
-    <script>
-        (function () {
-            const stored = localStorage.getItem('theme');
-            let theme;
-            if (stored === 'light' || stored === 'dark') {
-                theme = stored;
-            } else {
-                try {
-                    const mq = window.matchMedia('(prefers-color-scheme: light)');
-                    theme = mq.matches ? 'light' : 'dark';
-                } catch (e) {
-                    theme = 'dark';
-                }
-            }
-            document.documentElement.setAttribute('data-theme', theme);
-            document.documentElement.style.colorScheme = theme;
-            // Only write to localStorage if the value has changed (avoids redundant writes)
-            if (stored !== theme) {
-                localStorage.setItem('theme', theme);
-            }
-        })();
-    </script>
+    <script src="{{ get_url(path='js/theme.js', cachebust=true) | safe }}"></script>
+    <script src="{{ get_url(path='js/analytics.js', cachebust=true) | safe }}"></script>
     <script src="{{ get_url(path='js/feather.min.js', trailing_slash=false, cachebust=true) | safe }}" defer></script>
     <script src="{{ get_url(path='js/lucide.min.js', trailing_slash=false, cachebust=true) | safe }}" defer></script>
-    <script>
-        // Only load Umami analytics on production
-        if (location.hostname === 'pankajkumar.xyz' || location.hostname === 'www.pankajkumar.xyz') {
-            const s = document.createElement('script');
-            s.defer = true;
-            s.src = 'https://um.pankajkumar.xyz/script.js';
-            s.dataset.websiteId = 'ada632ca-2811-47a4-ab84-82c2edc0280f';
-            document.head.appendChild(s);
-        }
-    </script>
 </head>
 
 <body>
@@ -171,65 +141,8 @@
         <i data-feather="arrow-up"></i>
     </button>
     <script src="{{ get_url(path='js/main.js', cachebust=true) | safe }}"></script>
-    <script>
-    // Lazy search loader — loads elasticlunr + search index without blocking page render
-    (function() {
-        const searchScripts = [
-            "{{ get_url(path='elasticlunr.min.js', trailing_slash=false, cachebust=true) | safe }}",
-            "{{ get_url(path='search_index.en.js', trailing_slash=false, cachebust=true) | safe }}"
-        ];
-        let loaded = false;
-        let callbacks = [];
-
-        function loadSearchScripts(cb) {
-            if (loaded) { if (cb) cb(); return; }
-            if (callbacks.length > 0) { if (cb) callbacks.push(cb); return; } // already loading
-            if (cb) callbacks.push(cb);
-
-            let remaining = searchScripts.length;
-            function onLoad() {
-                remaining--;
-                if (remaining === 0) {
-                    loaded = true;
-                    callbacks.forEach(function(fn) { fn(); });
-                    callbacks = [];
-                }
-            }
-            // Load in order: elasticlunr first, then search index.
-            // remaining starts at 2; onLoad() must be called twice (once per script)
-            // to decrement 2→1→0 and trigger the callbacks.
-            const s1 = document.createElement('script');
-            s1.src = searchScripts[0];
-            s1.onload = function() {
-                const s2 = document.createElement('script');
-                s2.src = searchScripts[1];
-                s2.onload = onLoad;
-                document.body.appendChild(s2);
-                onLoad(); // decrement for s1 (2→1); s2.onload will fire the final decrement (1→0)
-            };
-            document.body.appendChild(s1);
-        }
-
-        // Expose for search.html
-        window.__loadSearch = loadSearchScripts;
-        window.__searchLoaded = function() { return loaded; };
-
-        // Strategy 1: Load during browser idle time (covers 90%+ of cases)
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(function() { loadSearchScripts(); }, { timeout: 3000 });
-        } else {
-            // Fallback: load after 1.5s
-            setTimeout(function() { loadSearchScripts(); }, 1500);
-        }
-
-        // Strategy 2: Preload on hover/focus of search button
-        const searchBtn = document.querySelector('.search-btn');
-        if (searchBtn) {
-            searchBtn.addEventListener('mouseenter', function() { loadSearchScripts(); }, { once: true });
-            searchBtn.addEventListener('focus', function() { loadSearchScripts(); }, { once: true });
-        }
-    })();
-    </script>
+    <meta id="search-config" data-elasticlunr="{{ get_url(path='elasticlunr.min.js', trailing_slash=false, cachebust=true) | safe }}" data-search-index="{{ get_url(path='search_index.en.js', trailing_slash=false, cachebust=true) | safe }}">
+    <script src="{{ get_url(path='js/search-loader.js', cachebust=true) | safe }}"></script>
     {% include "includes/search.html" %}
 
 </body>

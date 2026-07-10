@@ -335,7 +335,7 @@ h3 {
     color: var(--color-text-secondary);
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-accent-muted);
-    padding: 0.25rem 0.75rem;
+    padding: var(--space-xs) var(--space-md);
     border-radius: var(--radius-md);
     text-decoration: none;
     transition: all var(--transition-fast);
@@ -508,7 +508,7 @@ nav {
     align-items: center;
     gap: 10px;
     height: 40px;
-    padding: 0 6px;
+    padding: 0 var(--space-xs);
     background: var(--color-bg-subtle);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -536,7 +536,7 @@ nav {
 .search-btn-shortcut {
     font-size: 0.75rem;
     font-family: var(--font-mono);
-    padding: 1px 3px;
+    padding: 2px var(--space-xs);
     background: var(--color-border-subtle);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
@@ -897,14 +897,14 @@ ul.blog-posts li:has(+ li:hover) {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 0.8rem;
-    margin-top: 3rem;
+    margin-top: var(--space-2xl);
 }
 
 .topic-pill {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.6rem 0.8rem;
+    padding: var(--space-sm) var(--space-md);
     background-color: var(--color-bg-subtle);
     border: 1px solid var(--color-border);
     border-radius: 6px;
@@ -2263,7 +2263,7 @@ main {
         width: 100%;
         padding: var(--space-sm);
         border-radius: var(--radius-sm);
-        font-size: 1.25rem;
+        font-size: 1.1rem;
         gap: 12px;
     }
 
@@ -2273,8 +2273,8 @@ main {
 
     .nav-items a svg,
     .nav-items a i {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
     }
 
     .search-btn {
@@ -2285,7 +2285,7 @@ main {
         order: -1;
         align-self: flex-start;
         justify-content: flex-start;
-        font-size: 1.25rem;
+        font-size: 1.1rem;
         font-weight: 500;
         padding: var(--space-sm);
         gap: 12px;
@@ -2449,7 +2449,7 @@ main {
 
 .category-badge {
     display: inline-block;
-    margin-left: 0.5rem;
+    margin-left: var(--space-sm);
     padding: 0.15rem 0.4rem;
     font-size: 0.7rem;
     font-weight: 500;
@@ -2566,10 +2566,10 @@ main {
     /* Target 'Prev' button (2nd child) to separate it from 'Next' */
     .pagination > *:nth-child(2) {
         /* Total gap = 36px (width of page button). margin-right = 36px - 12px (flex gap) */
-        margin-right: 24px;
+        margin-right: var(--space-lg);
     }
     .pagination-btn {
-        padding: 0 1.25rem;
+        padding: 0 var(--space-lg);
     }
 }
 
@@ -2635,7 +2635,7 @@ main:has(.page-404-content) {
     width: 16px;
     height: 16px;
     vertical-align: middle;
-    margin-right: 4px;
+    margin-right: var(--space-xs);
     transition: color var(--transition-fast);
 }
 
@@ -2746,7 +2746,7 @@ table.in-wrapper {
     letter-spacing: 0.05em;
     color: white;
     background-color: var(--color-accent-brand);
-    padding: 2px 8px;
+    padding: 2px var(--space-sm);
     border-radius: 9999px;
     box-shadow: var(--shadow-sm);
     white-space: nowrap;
