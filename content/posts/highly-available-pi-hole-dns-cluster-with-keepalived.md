@@ -14,7 +14,7 @@ featured = true
 # og_preview_img = "/images/sample-image.jpeg"    #Uncomment this to add your own OG preview image or let the python script generate one for you for OG images.
 
 [taxonomies]
-post_tags = ["post", "pi-hole", "keepalived", "dns", "raspberry-pi", "home-lab"]
+post_tags = ["post", "pi-hole", "keepalived", "dns", "home-lab"]
 +++
 
 ## Background
