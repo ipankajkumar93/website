@@ -6,7 +6,7 @@ in_search_index = true
 title = "Setting Up a Highly Available Pi-hole DNS Cluster with Keepalived"
 description = "A highly available Pi-hole DNS setup using keepalived and VRRP - automatic failover between two nodes with floating virtual IPs, so your network never loses DNS."
 date = 2026-07-01
-updated = 2026-07-02
+updated = 2026-07-10
 
 [extra]
 toc = true # Generates Table of Contents for the page if true
