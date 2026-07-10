@@ -285,6 +285,7 @@ h4 {
     margin-top: var(--space-2xl);
     margin-bottom: var(--space-md);
     letter-spacing: -0.02em;
+    scroll-margin-top: 70px;
 }
 
 h5,
@@ -295,6 +296,7 @@ h6 {
     margin-bottom: var(--space-md);
     /* body-weight headings — use normal tracking, not display negative */
     letter-spacing: normal;
+    scroll-margin-top: 70px;
 }
 
 h1 {
@@ -542,15 +544,8 @@ nav {
     opacity: 0.8;
 }
 
-@media screen and (max-width: 768px) {
-    .search-btn {
-        width: 40px;
-        padding: 0;
-        justify-content: center;
-    }
-    .search-btn-shortcut {
-        display: none;
-    }
+.search-btn-text {
+    display: none;
 }
 
 /* Theme Toggle */
@@ -1018,17 +1013,49 @@ article h1 {
     border-radius: var(--radius-md);
     margin-top: var(--space-xl);
     margin-bottom: var(--space-lg);
-    overflow: hidden;
+    
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    transition: margin 0.3s ease, border-radius 0.3s ease, border-color 0.3s ease;
+    overflow: visible;
+}
+
+.toc.is-open {
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    border-bottom-color: transparent;
 }
 
 .toc.restricted-width {
-    max-width: var(--content-width);
+    max-width: calc(var(--content-width) - var(--space-xl)); /* Slightly narrower initially */
     margin-left: auto;
     margin-right: auto;
+    transition: max-width 0.3s ease, border-radius 0.3s ease, border-color 0.3s ease, margin 0.3s ease;
+}
+
+.toc.is-stuck:not(.restricted-width) {
+    margin-left: calc(-1 * var(--space-lg));
+    margin-right: calc(-1 * var(--space-lg));
+    border-left-width: 0;
+    border-right-width: 0;
+}
+
+.toc.is-stuck,
+.toc.restricted-width.is-stuck {
+    border-radius: 0;
+    border-top-color: transparent;
+}
+
+.toc.restricted-width.is-stuck {
+    max-width: var(--content-width);
+    border-left-width: 0;
+    border-right-width: 0;
 }
 
 .toc-title {
     padding: var(--space-sm) var(--space-lg);
+    transition: padding 0.3s ease;
+
     font-family: var(--font-body);
     font-weight: 450;
     font-size: var(--step-0);
@@ -1063,11 +1090,36 @@ article h1 {
 .toc-content {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows 0.3s ease-out;
+    transition: grid-template-rows 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s;
+    opacity: 0;
+    visibility: hidden;
+    
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    box-shadow: -1px 0 0 var(--color-border), 1px 0 0 var(--color-border), var(--shadow-md);
+    clip-path: inset(0 -20px -20px -20px);
+    z-index: 20;
+}
+
+.toc.is-stuck .toc-content {
+    border-radius: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: var(--shadow-md); /* Remove the side border shadows */
 }
 
 .toc.is-open .toc-content {
     grid-template-rows: 1fr;
+    opacity: 1;
+    visibility: visible;
 }
 
 .toc-inner {
@@ -1106,7 +1158,12 @@ article h1 {
     color: var(--color-text-secondary);
     text-decoration: none;
     font-size: 0.9375rem;
-    transition: color var(--transition-fast);
+    transition: color var(--transition-fast), font-weight var(--transition-fast);
+}
+
+.toc a.active {
+    color: var(--color-link);
+    font-weight: 600;
 }
 
 .toc a:hover {
@@ -1290,7 +1347,7 @@ pre .line-number {
 .copy-code-btn {
     grid-area: 1 / 1;
     position: sticky;
-    top: var(--space-sm);
+    top: calc(50px + var(--space-sm)); /* Account for sticky TOC height (~50px) */
     justify-self: end;
     align-self: start;
     margin-top: var(--space-sm);
@@ -2141,9 +2198,10 @@ main {
         border-radius: var(--radius-sm);
         cursor: pointer;
         color: var(--color-text-secondary);
-        margin-bottom: var(--space-xl);
-        align-self: flex-end;
-        order: -2;
+        position: absolute;
+        top: var(--space-xl);
+        right: var(--space-lg);
+        z-index: 2;
         transition: all var(--transition-fast);
     }
 
@@ -2194,6 +2252,7 @@ main {
         box-shadow: var(--shadow-lg);
         border-right: 1px solid var(--color-border);
         gap: var(--space-sm);
+        overflow-y: auto;
     }
 
     .nav-items.active {
@@ -2204,16 +2263,47 @@ main {
         width: 100%;
         padding: var(--space-sm);
         border-radius: var(--radius-sm);
-        font-size: 1rem;
+        font-size: 1.25rem;
+        gap: 12px;
+    }
+
+    .nav-items a:last-of-type {
+        margin-bottom: auto;
+    }
+
+    .nav-items a svg,
+    .nav-items a i {
+        width: 20px;
+        height: 20px;
     }
 
     .search-btn {
-        margin-top: 0;
+        margin: 0;
+        margin-top: auto;
         margin-bottom: var(--space-md);
-        margin-left: 0;
-        width: 40px;
+        width: 100%;
         order: -1;
-        align-self: center;
+        align-self: flex-start;
+        justify-content: flex-start;
+        font-size: 1.25rem;
+        font-weight: 500;
+        padding: var(--space-sm);
+        gap: 12px;
+        height: auto;
+    }
+
+    .search-btn i,
+    .search-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .search-btn-text {
+        display: inline;
+    }
+
+    .search-btn-shortcut {
+        display: none;
     }
 
     header,
@@ -2275,6 +2365,20 @@ main {
     .image-grid a:nth-child(odd):last-child {
         grid-column: auto;
         max-width: 100%;
+    }
+
+    .toc.is-stuck,
+    .toc.restricted-width.is-stuck {
+        margin-left: calc(-1 * var(--space-md));
+        margin-right: calc(-1 * var(--space-md));
+    }
+
+    .toc.is-stuck .toc-title {
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .toc.is-stuck.is-open .toc-inner {
+        padding: 0 var(--space-md) var(--space-sm) var(--space-md);
     }
 }
 
