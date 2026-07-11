@@ -2,6 +2,7 @@
 
 [![Built with Zola](https://img.shields.io/badge/Built%20with-Zola-blue?style=flat-square&logo=zola)](https://www.getzola.org/)
 [![Deployed on Cloudflare Pages](https://img.shields.io/badge/Deployed%20on-Cloudflare%20Pages-F38020?style=flat-square&logo=cloudflare)](https://pages.cloudflare.com/)
+[![Website Status](https://img.shields.io/badge/Website-UP-success?style=flat-square)](https://pankajkumar.xyz)
 
 The source code for my personal website and blog, available at [pankajkumar.xyz](https://pankajkumar.xyz).
 
@@ -19,11 +20,11 @@ I have heavily customized the base theme to meet my personal requirements and im
 
 - 🔍 **Global Search:** Interactive modal for full-text site search.
 - 🏷️ **Topics Taxonomy:** A unified page to browse global tags across posts and notes.
-- 📱 **Responsive Design:** Fully mobile-responsive navigation menu and layout.
+- 📱 **Responsive Design:** Fully fluid and responsive layout, including a dynamic sticky Table of Contents that perfectly adapts across mobile, tablet, and desktop views.
 - 📄 **AJAX Pagination:** Seamless, JavaScript-powered pagination without page reloads.
 - ⬆️ **Back to Top:** Convenient floating button for long articles.
 - 🖼️ **Dynamic OG Images:** Automated Open Graph image generation for rich social sharing.
-- 🎨 **UI Polish:** Various typography, spacing, and styling improvements for a better reading experience.
+- 🎨 **UI Polish:** Various typography, spacing, component-centering, and styling improvements for a highly polished reading experience.
 
 ---
 
