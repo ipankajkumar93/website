@@ -252,26 +252,22 @@ document.addEventListener('DOMContentLoaded', function () {
     // copies selected text. The handler below intercepts the native `copy`
     // event and writes the original unwrapped text to the clipboard instead,
     // so code executes correctly after pasting.
-    document.querySelectorAll('pre code').forEach(codeEl => {
-        codeEl.addEventListener('copy', function (e) {
-            const selection = window.getSelection();
-            if (!selection || selection.isCollapsed) return;
+    document.addEventListener('copy', function (e) {
+        const selection = window.getSelection();
+        if (!selection || selection.isCollapsed) return;
 
-            // Only intercept when the selection is inside this code element
-            const range = selection.getRangeAt(0);
-            if (!codeEl.contains(range.commonAncestorContainer)) return;
+        const range = selection.getRangeAt(0);
+        const codeEl = range.commonAncestorContainer.nodeType === 1
+            ? range.commonAncestorContainer.closest('pre code')
+            : range.commonAncestorContainer.parentElement?.closest('pre code');
+        if (!codeEl || !codeEl.contains(range.commonAncestorContainer)) return;
 
-            // `textContent` of the selected range preserves original newlines
-            // (the real \n between lines) without inserting extra ones from wrapping.
-            // We clone the range contents into a temporary node and read its text.
-            const fragment = range.cloneContents();
-            const tmp = document.createElement('div');
-            tmp.appendChild(fragment);
-            const cleanText = tmp.innerText;
-
-            e.clipboardData.setData('text/plain', cleanText);
-            e.preventDefault();
-        });
+        const fragment = range.cloneContents();
+        const tmp = document.createElement('div');
+        tmp.appendChild(fragment);
+        
+        e.clipboardData.setData('text/plain', tmp.textContent);
+        e.preventDefault();
     });
 
     // ── AJAX Pagination ─────────────────────────────────────────────────────

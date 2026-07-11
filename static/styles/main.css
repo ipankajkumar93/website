@@ -1328,10 +1328,7 @@ pre code {
     /* Enable ligatures */
 }
 
-/* Scrollbar styling for code blocks — hidden; content wraps instead of scrolling */
-pre code::-webkit-scrollbar {
-    display: none;
-}
+
 
 
 /* Line numbers (if enabled) */
