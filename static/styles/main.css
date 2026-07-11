@@ -273,7 +273,7 @@ footer {
 main {
     flex: 1;
     padding-top: var(--space-xl);
-    padding-bottom: var(--space-3xl);
+    padding-bottom: var(--space-2xl);
 }
 
 /* --------------------------------------------------------------------------
@@ -1295,7 +1295,7 @@ a.tag:hover {
     flex-wrap: wrap;
     gap: var(--space-sm);
     margin-top: var(--space-2xl);
-    padding-top: var(--space-lg);
+    padding-top: var(--space-2xl);
     border-top: 1px solid var(--color-border-subtle);
 }
 
@@ -2518,7 +2518,7 @@ main {
     align-items: center;
     gap: 12px;
     margin-top: var(--space-2xl);
-    padding-top: var(--space-lg);
+    padding-top: var(--space-2xl);
     border-top: 1px solid var(--color-border);
     font-family: var(--font-body);
 }
