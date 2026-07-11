@@ -982,7 +982,7 @@ article,
 /* Base rule (all screen sizes) — critical for mobile horizontal scroll */
 .table-responsive-wrapper {
     overflow-x: auto;
-    margin-bottom: var(--space-lg);
+    margin: var(--space-lg) 0;
 }
 
 article h1 {
@@ -2678,7 +2678,7 @@ main:has(.page-404-content) {
    Suppress table margin when inside responsive wrapper (set via JS)
    -------------------------------------------------------------------------- */
 table.in-wrapper {
-    margin-bottom: 0;
+    margin: 0;
 }
 
 /* --------------------------------------------------------------------------
