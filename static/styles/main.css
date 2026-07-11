@@ -994,13 +994,17 @@ article {
 
 @media screen and (min-width: 769px) {
     .post-content.restricted-width {
-        width: 100%;
+        width: 90%;
         max-width: var(--content-width);
         margin: 0 auto;
     }
 
+    .toc.restricted-width {
+        width: 90%;
+    }
+
     .tags.restricted-width {
-        width: 100%;
+        width: 90%;
         max-width: var(--content-width);
         margin-left: auto;
         margin-right: auto;
@@ -1095,7 +1099,7 @@ article h1 {
 
 @media screen and (min-width: 769px) and (max-width: 920px) {
     .toc.restricted-width.is-stuck {
-        width: calc(100% + 10px);
+        width: calc(90% + 10px);
         margin-left: -5px;
         margin-right: -5px;
         max-width: none;
@@ -1282,6 +1286,7 @@ h6:hover .zola-anchor {
 .tags {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: var(--space-sm);
     margin-top: auto;
     padding-top: var(--space-lg);
@@ -1322,6 +1327,7 @@ a.tag:hover {
 .section-tags {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: var(--space-sm);
     margin-top: var(--space-lg);
     padding-top: var(--space-lg);
