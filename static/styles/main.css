@@ -704,6 +704,8 @@ nav {
     overflow-y: auto;
     padding: var(--space-sm);
     max-height: calc(70vh - 80px);
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
 }
 
 .search-empty-state {
@@ -1003,7 +1005,7 @@ article h1 {
 .post-date,
 .reading-time {
     font-size: 0.875rem;
-    color: var(--color-text-muted);
+    color: var(--color-text-secondary);
     font-family: var(--font-mono);
 }
 
