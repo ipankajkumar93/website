@@ -28,7 +28,7 @@
   {% endfor %}
 </ul>
 
-{% if paginator %}
+{% if paginator and paginator.number_pagers > 1 %}
 <nav class="pagination" aria-label="Pagination">
   <!-- First Page Button -->
   {% if paginator.current_index == 1 %}
@@ -119,16 +119,17 @@
 {% endif %}
 </div>
 
-<div class="section-tags">
   {% if section.extra.taxonomy %}
   {% set tags = get_taxonomy(kind=section.extra.taxonomy, fail_on_missing=false) %}
   {% else %}
   {% set tags = false %}
   {% endif %}
-  {% if tags %}
-  {% for post in tags.items %}
-  <a href="{{ post.permalink }}" class="tag">#{{ post.name }}</a>
-  {% endfor %}
+  
+  {% if tags and tags.items | length > 0 %}
+  <div class="section-tags">
+    {% for post in tags.items %}
+    <a href="{{ post.permalink }}" class="tag">#{{ post.name }}</a>
+    {% endfor %}
+  </div>
   {% endif %}
-</div>
 {% endblock %}
