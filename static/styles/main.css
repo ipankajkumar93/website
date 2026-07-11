@@ -99,7 +99,7 @@
     /* Transitions */
     --transition-fast: 150ms ease;
     --transition-base: 250ms ease;
-    --transition-slow: 400ms ease;
+    --transition-slow: 200ms ease;
 
     /* Border Radius */
     --radius-sm: 4px;
@@ -822,7 +822,7 @@ nav {
     line-height: 1.8;
 }
 
-main > h2 + p {
+main>h2+p {
     color: var(--color-text-secondary);
 }
 
@@ -869,7 +869,7 @@ ul.blog-posts li {
     padding: var(--space-md) 0;
     border-bottom: 1px solid var(--color-border-subtle);
     transition: background-color var(--transition-fast),
-                border-color var(--transition-fast);
+        border-color var(--transition-fast);
 }
 
 ul.blog-posts li:last-child {
@@ -953,13 +953,14 @@ ul.blog-posts li a:hover {
 /* --------------------------------------------------------------------------
    Article / Post Page
    -------------------------------------------------------------------------- */
-article, .post-content {
+article,
+.post-content {
     line-height: 1.75;
     color: var(--color-text-secondary);
     text-wrap: pretty;
 }
 
-.post-content > *:first-child {
+.post-content>*:first-child {
     margin-top: 0;
 }
 
@@ -968,7 +969,7 @@ article, .post-content {
         max-width: var(--content-width);
         margin: 0 auto;
     }
-    
+
     .tags.restricted-width {
         max-width: var(--content-width);
         margin-left: auto;
@@ -1013,7 +1014,7 @@ article h1 {
     border-radius: var(--radius-md);
     margin-top: var(--space-xl);
     margin-bottom: var(--space-lg);
-    
+
     position: sticky;
     top: 0;
     z-index: var(--z-sticky);
@@ -1027,7 +1028,8 @@ article h1 {
 }
 
 .toc.restricted-width {
-    max-width: calc(var(--content-width) - var(--space-xl)); /* Slightly narrower initially */
+    max-width: calc(var(--content-width) - var(--space-xl));
+    /* Slightly narrower initially */
     margin-left: auto;
     margin-right: auto;
     transition: max-width 0.3s ease, border-radius 0.3s ease, border-color 0.3s ease, margin 0.3s ease;
@@ -1050,6 +1052,15 @@ article h1 {
     max-width: 870px;
     border-left-width: 0;
     border-right-width: 0;
+}
+
+@media screen and (min-width: 769px) and (max-width: 920px) {
+    .toc.restricted-width.is-stuck {
+        width: calc(100% + 10px);
+        margin-left: -5px;
+        margin-right: -5px;
+        max-width: none;
+    }
 }
 
 .toc-title {
@@ -1093,7 +1104,7 @@ article h1 {
     transition: grid-template-rows 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s;
     opacity: 0;
     visibility: hidden;
-    
+
     position: absolute;
     top: 100%;
     left: 0;
@@ -1113,7 +1124,8 @@ article h1 {
     border-radius: 0;
     left: 0;
     width: 100%;
-    box-shadow: var(--shadow-md); /* Remove the side border shadows */
+    box-shadow: var(--shadow-md);
+    /* Remove the side border shadows */
 }
 
 .toc.is-open .toc-content {
@@ -1124,6 +1136,8 @@ article h1 {
 
 .toc-inner {
     overflow: hidden;
+    min-height: 0;
+    /* Fixes grid-template-rows transition in Safari/iOS */
     padding: 0 var(--space-lg);
     opacity: 0;
     transition: opacity 0.3s ease-out, padding 0.3s ease-out;
@@ -1328,10 +1342,7 @@ pre code {
     /* Enable ligatures */
 }
 
-/* Scrollbar styling for code blocks — hidden; content wraps instead of scrolling */
-pre code::-webkit-scrollbar {
-    display: none;
-}
+
 
 
 /* Line numbers (if enabled) */
@@ -1347,7 +1358,8 @@ pre .line-number {
 .copy-code-btn {
     grid-area: 1 / 1;
     position: sticky;
-    top: calc(50px + var(--space-sm)); /* Account for sticky TOC height (~50px) */
+    top: calc(50px + var(--space-sm));
+    /* Account for sticky TOC height (~50px) */
     justify-self: end;
     align-self: start;
     margin-top: var(--space-sm);
@@ -1367,9 +1379,9 @@ pre .line-number {
     cursor: pointer;
     opacity: 0;
     transition: opacity var(--transition-base),
-                background-color var(--transition-fast),
-                color var(--transition-fast),
-                border-color var(--transition-fast);
+        background-color var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast);
 }
 
 pre:hover .copy-code-btn,
@@ -2018,7 +2030,7 @@ hr {
 }
 
 main {
-    animation: fadeInUp 0.5s ease-out;
+    animation: fadeInUp 0.3s ease-out;
 }
 
 /* Respect OS-level reduced-motion preference.
@@ -2040,7 +2052,7 @@ main {
     .search-modal-content,
     .search-result-item,
     .back-to-top,
-    .tags > a,
+    .tags>a,
     a.tag,
     .project-card,
     .social-icon,
@@ -2082,10 +2094,10 @@ main {
     pointer-events: none;
     transform: translateY(8px);
     transition: opacity var(--transition-base),
-                transform var(--transition-base),
-                border-color var(--transition-fast),
-                color var(--transition-fast),
-                background-color var(--transition-fast);
+        transform var(--transition-base),
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        background-color var(--transition-fast);
     box-shadow: var(--shadow-md);
 }
 
@@ -2145,9 +2157,13 @@ main {
         font-size: 15px;
     }
 
-    h1 { font-size: calc(var(--step-4) * 0.9); }
+    h1 {
+        font-size: calc(var(--step-4) * 0.9);
+    }
 
-    h2 { font-size: calc(var(--step-3) * 0.9); }
+    h2 {
+        font-size: calc(var(--step-3) * 0.9);
+    }
 
     header {
         display: flex;
@@ -2179,7 +2195,7 @@ main {
         color: var(--color-text-secondary);
         transition: all var(--transition-fast);
     }
-    
+
     .mobile-menu-btn:hover {
         border-color: var(--color-accent);
         color: var(--color-text);
@@ -2383,10 +2399,12 @@ main {
 }
 
 @media screen and (max-width: 480px) {
-    h1 { font-size: var(--step-3); }
+    h1 {
+        font-size: var(--step-3);
+    }
 
-    article h1 { 
-        font-size: var(--step-3); 
+    article h1 {
+        font-size: var(--step-3);
         text-wrap: balance;
     }
 
@@ -2469,6 +2487,7 @@ main {
         text-align: center;
         gap: var(--space-xs) var(--space-sm);
     }
+
     .draft-note {
         width: 100%;
     }
@@ -2557,17 +2576,20 @@ main {
     .pagination {
         flex-wrap: wrap;
     }
+
     .pagination-numbers {
         order: -1;
         width: 100%;
         justify-content: center;
         margin: 0;
     }
+
     /* Target 'Prev' button (2nd child) to separate it from 'Next' */
-    .pagination > *:nth-child(2) {
+    .pagination>*:nth-child(2) {
         /* Total gap = 36px (width of page button). margin-right = 36px - 12px (flex gap) */
         margin-right: var(--space-lg);
     }
+
     .pagination-btn {
         padding: 0 var(--space-lg);
     }
