@@ -878,6 +878,14 @@ ul.blog-posts li {
     padding: var(--space-md) 0;
     transition: background-color var(--transition-fast),
         border-color var(--transition-fast);
+    position: relative;
+}
+
+ul.blog-posts li a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
 }
 
 
