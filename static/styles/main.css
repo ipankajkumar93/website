@@ -171,8 +171,13 @@
 }
 
 /* --------------------------------------------------------------------------
-   Base & Reset
+   Reset & Base
    -------------------------------------------------------------------------- */
+[data-feather],
+[data-lucide] {
+    display: inline-block;
+}
+
 *,
 *::before,
 *::after {
@@ -341,6 +346,7 @@ h3 {
     transition: all var(--transition-fast);
 }
 
+.filter-clear i,
 .filter-clear svg {
     width: 14px;
     height: 14px;
@@ -486,6 +492,7 @@ nav {
     text-decoration: none;
 }
 
+.nav-items a i,
 .nav-items a svg {
     width: 14px;
     height: 14px;
@@ -1455,6 +1462,7 @@ blockquote p:last-child {
     letter-spacing: normal;
 }
 
+.admonition .admonition-header i,
 .admonition .admonition-header svg {
     flex-shrink: 0;
     width: 1em;
@@ -2122,6 +2130,7 @@ main {
     transform: translateY(-1.5px);
 }
 
+.back-to-top i,
 .back-to-top svg {
     width: 18px;
     height: 18px;
