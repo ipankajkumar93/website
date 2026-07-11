@@ -876,14 +876,11 @@ ul.blog-posts li {
     align-items: baseline;
     gap: var(--space-lg);
     padding: var(--space-md) 0;
-    border-bottom: 1px solid var(--color-border-subtle);
     transition: background-color var(--transition-fast),
         border-color var(--transition-fast);
 }
 
-ul.blog-posts li:last-child {
-    border-bottom: none;
-}
+
 
 ul.blog-posts li:hover {
     background-color: var(--color-border);
@@ -892,11 +889,6 @@ ul.blog-posts li:hover {
     padding-left: var(--space-md);
     padding-right: var(--space-md);
     border-radius: var(--radius-sm);
-    border-bottom-color: transparent;
-}
-
-ul.blog-posts li:has(+ li:hover) {
-    border-bottom-color: transparent;
 }
 
 /* --------------------------------------------------------------------------
@@ -1718,7 +1710,6 @@ figcaption {
     margin-top: var(--space-2xl);
     margin-bottom: var(--space-lg);
     padding-bottom: var(--space-sm);
-    border-bottom: 1px solid var(--color-border);
 }
 
 .projects-section h2:first-child {
