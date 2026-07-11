@@ -994,13 +994,17 @@ article {
 
 @media screen and (min-width: 769px) {
     .post-content.restricted-width {
-        width: 100%;
+        width: 90%;
         max-width: var(--content-width);
         margin: 0 auto;
     }
 
+    .toc.restricted-width {
+        width: 90%;
+    }
+
     .tags.restricted-width {
-        width: 100%;
+        width: 90%;
         max-width: var(--content-width);
         margin-left: auto;
         margin-right: auto;
@@ -1038,15 +1042,19 @@ article h1 {
 }
 
 /* Table of Contents */
+#toc-sentinel {
+    margin-top: var(--space-xl);
+}
+
 .toc {
     background-color: var(--color-bg-subtle);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    margin-top: var(--space-xl);
+    margin-top: 0;
     margin-bottom: var(--space-lg);
 
     position: sticky;
-    top: 0;
+    top: -1px;
     z-index: var(--z-sticky);
     transition: margin 0.3s ease, border-radius 0.3s ease, border-color 0.3s ease;
     overflow: visible;
@@ -1091,7 +1099,7 @@ article h1 {
 
 @media screen and (min-width: 769px) and (max-width: 920px) {
     .toc.restricted-width.is-stuck {
-        width: calc(100% + 10px);
+        width: calc(90% + 10px);
         margin-left: -5px;
         margin-right: -5px;
         max-width: none;
@@ -1278,6 +1286,7 @@ h6:hover .zola-anchor {
 .tags {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: var(--space-sm);
     margin-top: auto;
     padding-top: var(--space-lg);
@@ -1318,6 +1327,7 @@ a.tag:hover {
 .section-tags {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: var(--space-sm);
     margin-top: var(--space-lg);
     padding-top: var(--space-lg);
@@ -2428,6 +2438,8 @@ main {
     .toc.restricted-width.is-stuck {
         margin-left: calc(-1 * var(--space-md));
         margin-right: calc(-1 * var(--space-md));
+        width: calc(100% + 2 * var(--space-md));
+        max-width: none;
     }
 
     .toc.is-stuck .toc-title {
