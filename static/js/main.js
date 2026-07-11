@@ -50,7 +50,7 @@ if (themeToggle) {
 // ── DOM-dependent functionality ─────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Replace feather icons once after the full DOM is ready
+    // Replace feather and lucide icons once after the full DOM is ready
     replaceFeather();
 
     // ── Focus Trap Helper ───────────────────────────────────────────────────
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         block.appendChild(button);
     });
-    // Replace all copy icons in one pass after every button is in the DOM
+    // Replace all copy icons (feather and lucide) in one pass after every button is in the DOM
     replaceFeather();
 
     // ── Code Block Copy-Event Interceptor ───────────────────────────────────
@@ -377,10 +377,24 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const tocTitle = toc.querySelector('.toc-title');
+        const tocInner = toc.querySelector('.toc-inner');
         if (tocTitle) {
             tocTitle.addEventListener('click', (e) => {
                 e.stopPropagation();
                 toc.classList.toggle('is-open');
+                
+                if (tocInner) {
+                    if (toc.classList.contains('is-open')) {
+                        setTimeout(() => {
+                            // Only set if still open after transition
+                            if (toc.classList.contains('is-open')) {
+                                tocInner.style.overflowY = 'auto';
+                            }
+                        }, 300);
+                    } else {
+                        tocInner.style.overflowY = 'hidden';
+                    }
+                }
             });
         }
 
@@ -389,6 +403,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (toc.classList.contains('is-open')) {
                 if (!toc.contains(e.target) || e.target.closest('a')) {
                     toc.classList.remove('is-open');
+                    if (tocInner) tocInner.style.overflowY = 'hidden';
                 }
             }
         });
