@@ -1028,7 +1028,7 @@ article h1 {
 }
 
 .toc.restricted-width {
-    max-width: calc(var(--content-width) - var(--space-xl));
+    max-width: var(--content-width);
     /* Slightly narrower initially */
     margin-left: auto;
     margin-right: auto;
@@ -1044,8 +1044,12 @@ article h1 {
 
 .toc.is-stuck,
 .toc.restricted-width.is-stuck {
-    border-radius: 0;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
     border-top-color: transparent;
+}
+
+.toc.is-stuck.is-open {
+    border-radius: 0;
 }
 
 .toc.restricted-width.is-stuck {
@@ -1099,9 +1103,8 @@ article h1 {
 }
 
 .toc-content {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s;
+    display: block;
+    transition: opacity 0.3s ease-out, visibility 0.3s;
     opacity: 0;
     visibility: hidden;
 
@@ -1121,7 +1124,7 @@ article h1 {
 }
 
 .toc.is-stuck .toc-content {
-    border-radius: 0;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
     left: 0;
     width: 100%;
     box-shadow: var(--shadow-md);
@@ -1129,21 +1132,24 @@ article h1 {
 }
 
 .toc.is-open .toc-content {
-    grid-template-rows: 1fr;
     opacity: 1;
     visibility: visible;
 }
 
 .toc-inner {
     overflow: hidden;
-    min-height: 0;
-    /* Fixes grid-template-rows transition in Safari/iOS */
+    max-height: 0;
+    /* max-height is more reliable than grid-template-rows on mobile browsers */
     padding: 0 var(--space-lg);
     opacity: 0;
-    transition: opacity 0.3s ease-out, padding 0.3s ease-out;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
 }
 
 .toc.is-open .toc-inner {
+    max-height: 70vh;
     padding: 0 var(--space-lg) var(--space-sm) var(--space-lg);
     opacity: 1;
 }
