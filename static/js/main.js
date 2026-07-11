@@ -316,8 +316,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 replaceFeather();
 
-                // Scroll to top of the section (just below the fixed header)
-                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Scroll to absolute top of the page
+                window.scrollTo({ top: 0, behavior: 'smooth' });
 
             }
         } catch (error) {

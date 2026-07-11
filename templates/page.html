@@ -74,15 +74,15 @@
     <div class="post-content{% if is_restricted %} restricted-width{% endif %}">
       {{ page.content | safe }}
     </div>
+    {%- if page.taxonomies %}
     <div class="tags{% if is_restricted %} restricted-width{% endif %}" aria-label="Tags">
-      {%- if page.taxonomies %}
-        {%- for name, taxon in page.taxonomies %}
-          {%- for item in taxon %}
-            <a href="{{ get_taxonomy_url(kind=name, name=item) }}" class="tag">#{{ item }}</a>
-          {%- endfor %}
+      {%- for name, taxon in page.taxonomies %}
+        {%- for item in taxon %}
+          <a href="{{ get_taxonomy_url(kind=name, name=item) }}" class="tag">#{{ item }}</a>
         {%- endfor %}
-      {%- endif %}
+      {%- endfor %}
     </div>
+    {%- endif %}
   </article>
 
   {% if is_restricted %}
