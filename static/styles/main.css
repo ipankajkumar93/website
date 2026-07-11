@@ -8,13 +8,13 @@
     --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
 
     /* Modular Scale */
-    --step--1: 0.85rem;
-    --step-0: 1rem;
-    --step-1: 1.25rem;
-    --step-2: 1.5625rem;
-    --step-3: 1.953rem;
-    --step-4: 2.441rem;
-    --step-5: 3.052rem;
+    --step-0: 0.875rem;
+    --step-1: 1.0625rem;
+    --step-2: 1.25rem;
+    --step-3: 1.5rem;
+    --step-4: 2rem;
+    --step-5: 2.75rem;
+    --step-6: 3.5rem;
 
     --line-height-body: 1.7;
     --line-height-heading: 1.2;
@@ -196,7 +196,7 @@ html {
 
 body {
     font-family: var(--font-body);
-    font-size: var(--step-0);
+    font-size: var(--step-1);
     line-height: var(--line-height-body);
     color: var(--color-text);
     background-color: var(--color-bg);
@@ -307,16 +307,16 @@ h6 {
 }
 
 h1 {
-    font-size: var(--step-4);
+    font-size: var(--step-5);
     margin-top: 0;
 }
 
 h2 {
-    font-size: var(--step-3);
+    font-size: var(--step-4);
 }
 
 h3 {
-    font-size: var(--step-2);
+    font-size: var(--step-3);
 }
 
 .filter-header {
@@ -369,7 +369,7 @@ h3 {
 .also-found-header {
     margin-top: var(--space-xl);
     margin-bottom: var(--space-md);
-    font-size: var(--step--1);
+    font-size: var(--step-0);
     color: var(--color-text-muted);
     font-weight: 600;
     text-transform: uppercase;
@@ -378,16 +378,16 @@ h3 {
 
 .cross-tax-heading {
     margin-top: 0;
-    font-size: var(--step-1);
+    font-size: var(--step-2);
 }
 
 h4 {
-    font-size: var(--step-1);
+    font-size: var(--step-2);
 }
 
 h5,
 h6 {
-    font-size: var(--step-0);
+    font-size: var(--step-1);
     font-family: var(--font-body);
     font-weight: 600;
 }
@@ -807,7 +807,7 @@ nav {
 }
 
 .home-title {
-    font-size: var(--step-3);
+    font-size: var(--step-4);
     font-weight: 400;
 }
 
@@ -927,7 +927,7 @@ ul.blog-posts li:hover {
     border-radius: 6px;
     color: var(--color-text-secondary);
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: var(--step-0);
     font-family: var(--font-mono);
     transition: all var(--transition-base);
 }
@@ -1016,7 +1016,7 @@ article {
 }
 
 article h1 {
-    font-size: var(--step-4);
+    font-size: var(--step-5);
     margin-bottom: var(--space-lg);
     text-align: center;
     word-break: break-word;
@@ -1116,7 +1116,7 @@ article h1 {
 
     font-family: var(--font-body);
     font-weight: 450;
-    font-size: var(--step-0);
+    font-size: var(--step-1);
     color: var(--color-text-secondary);
     cursor: pointer;
     user-select: none;
@@ -1245,7 +1245,7 @@ article h1 {
 }
 
 .section-description {
-    font-size: var(--step-0);
+    font-size: var(--step-1);
     color: var(--color-text-secondary);
     margin-bottom: 0;
 }
@@ -2213,11 +2213,11 @@ main {
     }
 
     h1 {
-        font-size: calc(var(--step-4) * 0.9);
+        font-size: calc(var(--step-5) * 0.9);
     }
 
     h2 {
-        font-size: calc(var(--step-3) * 0.9);
+        font-size: calc(var(--step-4) * 0.9);
     }
 
     header {
@@ -2457,11 +2457,11 @@ main {
 
 @media screen and (max-width: 480px) {
     h1 {
-        font-size: var(--step-3);
+        font-size: var(--step-4);
     }
 
     article h1 {
-        font-size: var(--step-3);
+        font-size: var(--step-4);
         text-wrap: balance;
     }
 
