@@ -50,7 +50,7 @@ if (themeToggle) {
 // ── DOM-dependent functionality ─────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Replace feather icons once after the full DOM is ready
+    // Replace feather and lucide icons once after the full DOM is ready
     replaceFeather();
 
     // ── Focus Trap Helper ───────────────────────────────────────────────────
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         block.appendChild(button);
     });
-    // Replace all copy icons in one pass after every button is in the DOM
+    // Replace all copy icons (feather and lucide) in one pass after every button is in the DOM
     replaceFeather();
 
     // ── Code Block Copy-Event Interceptor ───────────────────────────────────
