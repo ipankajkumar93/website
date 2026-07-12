@@ -24,6 +24,7 @@ I have heavily customized the base theme to meet my personal requirements and im
 - 📄 **AJAX Pagination:** Seamless, JavaScript-powered pagination without page reloads.
 - ⬆️ **Back to Top:** Convenient floating button for long articles.
 - 🖼️ **Dynamic OG Images:** Automated Open Graph image generation for rich social sharing.
+- 🔗 **Share & Navigate:** Built-in social sharing buttons ("Share via") and intuitive Next/Previous post navigation for better content discovery.
 - 🎨 **UI Polish:** Various typography, spacing, component-centering, and styling improvements for a highly polished reading experience.
 
 ---
@@ -122,3 +123,14 @@ graph TD;
 ````
 
 The site will automatically detect these blocks, load the necessary local scripts, and render them as interactive vector graphics on the page.
+
+---
+
+## 📄 Licenses
+
+This repository contains two primary licenses:
+
+- **Source Code**: All source code, templates, and scripts in this repository are licensed under the [GNU General Public License v3.0 (GPLv3)](LICENSE).
+- **Content**: All original content, articles, images, and text are licensed under the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](LICENSE-CONTENT).
+
+Additionally, this project builds upon open-source software and themes. Please see [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md) for licensing information regarding Zola, Bearblog, and other third-party components.

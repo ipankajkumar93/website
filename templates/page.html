@@ -79,6 +79,12 @@
   {%- endif %}
   <div class="post-content{% if is_restricted %} restricted-width{% endif %}">
     {{ page.content | safe }}
+    
+    {% if page.extra.license and page.extra.license == "CC-BY-SA-4.0" %}
+    <div class="post-license">
+      - This post is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>
+    </div>
+    {% endif %}
   </div>
 
   <div class="share-block{% if is_restricted %} restricted-width{% endif %}">
