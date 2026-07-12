@@ -12,6 +12,7 @@ date = 2026-07-12
 toc = true
 featured = false
 # og_preview_img = "/images/sample-image.jpeg" # Uncomment to specify a custom OG preview image, otherwise the build script will auto-generate one.
+# cover_image = "/images/sample-image.jpeg"
 
 [taxonomies]
 post_tags = ["post"]

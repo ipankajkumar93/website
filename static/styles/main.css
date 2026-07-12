@@ -796,6 +796,24 @@ nav {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
+/* Article Cover */
+.article-cover {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border-subtle);
+    background-color: var(--color-bg-subtle);
+}
+.article-cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    object-fit: cover;
+}
+
 /* Share Block */
 .share-block {
     display: flex;

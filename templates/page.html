@@ -44,6 +44,12 @@
       </div>  
     {%- endif %}
 
+    {%- if page.extra.cover_image %}
+    <div class="article-cover{% if is_restricted %} restricted-width{% endif %}">
+      <img src="{{ page.extra.cover_image | safe }}" alt="Cover image for {{ page.title }}" loading="lazy" />
+    </div>
+    {%- endif %}
+
     {%- if page.extra.toc and page.toc %}
     <div id="toc-sentinel"></div>
     <div class="toc{% if is_restricted %} restricted-width{% endif %}">
