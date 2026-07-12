@@ -45,6 +45,7 @@ date = $CURRENT_DATE
 toc = true
 featured = false
 # og_preview_img = "/images/sample-image.jpeg" # Uncomment to specify a custom OG preview image, otherwise the build script will auto-generate one.
+# cover_image = "/images/sample-image.jpeg"
 
 [taxonomies]
 rtd_tags = ["rtd"]

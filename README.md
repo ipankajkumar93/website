@@ -80,3 +80,45 @@ make travel My Trip to Tokyo
 # Create a new RTD (Read The Docs) entry
 make rtd How to configure Nginx, A quick reference for Nginx routing
 ```
+
+### 🧑‍💻 Code Block Diffs
+
+You can highlight line additions and deletions in your Markdown code blocks (similar to Shiki) while maintaining Zola's native syntax highlighting. This works universally across different programming languages by using their native comment syntax.
+
+Just append `[!code ++]` or `[!code --]` inside a comment at the end of a line in your code block:
+
+````markdown
+```kotlin
+fun main() {
+    println("Hello Old World") // [!code --]
+    println("Hello New World") // [!code ++]
+}
+```
+````
+
+The site's JavaScript automatically detects and strips the comment marker, colors the line background green or red, and adds a `+` or `-` indicator at the far left edge. The marker is also safely excluded when users copy the code.
+
+It natively supports the following comment styles across any language:
+- `// [!code ++]` (Kotlin, Java, C++, JS, Go, Rust)
+- `# [!code ++]` (Python, Ruby, Bash, YAML)
+- `-- [!code ++]` (SQL, Lua, Haskell)
+- `/* [!code ++] */` (CSS, C)
+- `<!-- [!code ++] -->` (HTML, XML)
+
+### 🧜‍♀️ Mermaid Diagrams
+
+You can easily embed rich diagrams and flowcharts directly into your articles using Mermaid syntax.
+
+Simply create a code block with `mermaid` as the language:
+
+````markdown
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+````
+
+The site will automatically detect these blocks, load the necessary local scripts, and render them as interactive vector graphics on the page.

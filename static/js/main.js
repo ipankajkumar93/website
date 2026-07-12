@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ── Focus Trap Helper ───────────────────────────────────────────────────
     function createFocusTrap(element) {
-        element.addEventListener('keydown', function(e) {
+        element.addEventListener('keydown', function (e) {
             if (e.key === 'Tab') {
                 const focusable = Array.from(
                     element.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])')
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
     lightboxModal.setAttribute('aria-modal', 'true');
     lightboxModal.innerHTML = '<button class="lightbox-close" aria-label="Close lightbox">&times;</button><img src="" alt="">';
     document.body.appendChild(lightboxModal);
-    
+
     createFocusTrap(lightboxModal);
 
     const lightboxImg = lightboxModal.querySelector('img');
@@ -133,10 +133,10 @@ document.addEventListener('DOMContentLoaded', function () {
         mobileMenuBtn.addEventListener('click', openMobileMenu);
         mobileCloseBtn.addEventListener('click', closeMobileMenu);
         mobileBackdrop.addEventListener('click', closeMobileMenu);
-        
+
         createFocusTrap(navItems);
-        
-        document.addEventListener('keydown', function(e) {
+
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && navItems.classList.contains('active')) {
                 closeMobileMenu();
                 mobileMenuBtn.focus();
@@ -168,7 +168,13 @@ document.addEventListener('DOMContentLoaded', function () {
         window.addEventListener('scroll', function () {
             if (!scrollTicking) {
                 requestAnimationFrame(function () {
-                    backToTop.classList.toggle('visible', window.scrollY > 100);
+                    const scrollY = window.scrollY;
+                    backToTop.classList.toggle('visible', scrollY > 100);
+                    
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const scrollProgress = docHeight > 0 ? Math.min((scrollY / docHeight) * 100, 100) : 0;
+                    backToTop.style.setProperty('--scroll-progress', scrollProgress + '%');
+                    
                     scrollTicking = false;
                 });
                 scrollTicking = true;
@@ -246,6 +252,58 @@ document.addEventListener('DOMContentLoaded', function () {
     // Replace all copy icons (feather and lucide) in one pass after every button is in the DOM
     replaceFeather();
 
+    // ── Code Block Line Diffs Highlighter(// [!code ++], // [!code --]) ───────────────
+    
+    // Regex to match the comment markers even if Syntect splits them into multiple HTML spans
+    // Supports //, #, --, /* */, and <!-- -->
+    const commentStart = '(?:\\/\\/|#|--|<!--|\\/\\*)';
+    const commentEnd = '(?:-->|\\*\\/)?';
+    const addRegex = new RegExp(`(?:<[^>]+>|\\s)*${commentStart}(?:<[^>]+>|\\s)*\\[!code(?:<[^>]+>|\\s)*\\+\\+(?:<[^>]+>|\\s)*\\](?:<[^>]+>|\\s)*${commentEnd}(?:<[^>]+>|\\s)*`, 'g');
+    const removeRegex = new RegExp(`(?:<[^>]+>|\\s)*${commentStart}(?:<[^>]+>|\\s)*\\[!code(?:<[^>]+>|\\s)*--(?:<[^>]+>|\\s)*\\](?:<[^>]+>|\\s)*${commentEnd}(?:<[^>]+>|\\s)*`, 'g');
+
+    document.querySelectorAll('pre code').forEach(codeBlock => {
+        let html = codeBlock.innerHTML;
+        if (!html.includes('[!code ++]') && !html.includes('[!code --]')) return;
+
+        let lines = html.split('\n');
+        let modified = false;
+
+        // Remove trailing empty line often created by split
+        if (lines.length > 0 && lines[lines.length - 1] === '') {
+            lines.pop();
+        }
+
+        let newHtml = lines.map(line => {
+            let className = 'line';
+            let cleaned = line;
+
+
+            if (line.includes('[!code ++]')) {
+                modified = true;
+                // Replace the match with ONLY the HTML tags it contained, preserving DOM structure
+                cleaned = line.replace(addRegex, match => match.match(/<[^>]+>/g)?.join('') || '');
+                className = 'line diff-add';
+            } else if (line.includes('[!code --]')) {
+                modified = true;
+                cleaned = line.replace(removeRegex, match => match.match(/<[^>]+>/g)?.join('') || '');
+                className = 'line diff-remove';
+            }
+            
+            // To ensure empty lines still take up space vertically
+            if (!cleaned.trim()) {
+                cleaned = ' ';
+            }
+            // Add a display: none newline so that textContent (and copying) preserves line breaks
+            // but the browser layout doesn't create extra gaps
+            return `<span class="${className}">${cleaned}</span><span style="display: none;">\n</span>`;
+        }).join('');
+
+        if (modified) {
+            codeBlock.innerHTML = newHtml;
+            codeBlock.classList.add('has-diff');
+        }
+    });
+
     // ── Code Block Copy-Event Interceptor ───────────────────────────────────
     // CSS `white-space: pre-wrap` makes long lines wrap visually, but the
     // browser would normally insert \n at each visual break when the user
@@ -265,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const fragment = range.cloneContents();
         const tmp = document.createElement('div');
         tmp.appendChild(fragment);
-        
+
         e.clipboardData.setData('text/plain', tmp.textContent);
         e.preventDefault();
     });
@@ -291,10 +349,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 isTimeout = true;
                 if (currentPageController) currentPageController.abort();
             }, 15000);
-            
+
             const response = await fetch(url, { signal: currentPageController.signal });
             clearTimeout(timeoutId);
-            
+
             if (!response.ok) throw new Error('Network response was not ok');
 
             const text = await response.text();
@@ -382,7 +440,7 @@ document.addEventListener('DOMContentLoaded', function () {
             tocTitle.addEventListener('click', (e) => {
                 e.stopPropagation();
                 toc.classList.toggle('is-open');
-                
+
                 if (tocInner) {
                     if (toc.classList.contains('is-open')) {
                         setTimeout(() => {
