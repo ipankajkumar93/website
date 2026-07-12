@@ -1,1 +1,15 @@
-<img src="{{ get_url(path=path, trailing_slash=false, cachebust=true) | safe }}" alt="{{ alt | default(value='') }}" {% if class %}class="{{ class }}"{% endif %} />
+{% if avif or webp %}
+<picture>
+  {% if avif %}
+  {% set avif_path = path | replace(from=".jpg", to=".avif") | replace(from=".png", to=".avif") %}
+  <source srcset="{{ get_url(path=avif_path, trailing_slash=false, cachebust=true) | safe }}" type="image/avif">
+  {% endif %}
+  {% if webp %}
+  {% set webp_path = path | replace(from=".jpg", to=".webp") | replace(from=".png", to=".webp") %}
+  <source srcset="{{ get_url(path=webp_path, trailing_slash=false, cachebust=true) | safe }}" type="image/webp">
+  {% endif %}
+  <img src="{{ get_url(path=path, trailing_slash=false, cachebust=true) | safe }}" alt="{{ alt | default(value='') }}" {% if class %}class="{{ class }}"{% endif %} {% if loading %}loading="{{ loading }}"{% endif %} />
+</picture>
+{% else %}
+<img src="{{ get_url(path=path, trailing_slash=false, cachebust=true) | safe }}" alt="{{ alt | default(value='') }}" {% if class %}class="{{ class }}"{% endif %} {% if loading %}loading="{{ loading }}"{% endif %} />
+{% endif %}

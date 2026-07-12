@@ -2086,7 +2086,7 @@ footer {
     padding-top: var(--space-xl);
     padding-bottom: var(--space-xl);
     border-top: 1px solid var(--color-border-subtle);
-    color: var(--color-text-muted);
+    color: var(--color-text-secondary);
     font-size: var(--step-0);
     font-weight: 500;
 }
@@ -2131,7 +2131,7 @@ footer {
     justify-content: center;
     width: 36px;
     height: 36px;
-    color: var(--color-text-muted);
+    color: var(--color-text-secondary);
     border: 1px solid transparent;
     border-radius: var(--radius-md);
     transition: all var(--transition-fast);
@@ -2225,13 +2225,25 @@ hr {
    Animations
    -------------------------------------------------------------------------- */
 @keyframes fade-out {
-    from { opacity: 1; }
-    to { opacity: 0; }
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
 }
 
 @keyframes slide-fade-in {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* --------------------------------------------------------------------------
