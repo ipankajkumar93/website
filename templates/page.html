@@ -3,146 +3,160 @@
 {% block title %}{% if page.title %}{{ page.title }} | {% endif %}{{ super() }}{% endblock %}
 
 {% block main %}
-  {% set is_restricted = false %}
-  {% if page.components %}
-    {% for section in config.extra.restricted_sections %}
-      {% if section in page.components %}
-        {% set_global is_restricted = true %}
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-  <article>
-    {%- if page.draft %}
-    <div class="draft-banner">
-      <span class="draft-icon">✎</span>
-      <span class="draft-text">DRAFT</span>
-      <span class="draft-note">This post is unpublished and only visible in local preview</span>
-    </div>
-    {%- endif %}
-    {%- if not page.extra.menu %}
-      {%- if page.title %}
-      <h1>{{ page.title }}</h1>
-      {%- endif %}
-      <div class="meta">
-        {%- if page.date %}
-        <div class="post-date">
-                <i>
-                    <time datetime='{{ page.date | date(format='%+') }}'>
-                        {{- page.date | date(format=config.extra.date_format) -}}
-                    </time>
-                    {%- if page.updated %}
-                    &nbsp;(Updated: <time datetime='{{ page.updated | date(format='%+') }}'>
-                        {{- page.updated | date(format=config.extra.date_format) -}}
-                    </time>)
-                    {%- endif %}
-                </i>
-        </div>
-        <div class="reading-time">
-            <i>{{ page.reading_time }} minutes ({{ page.word_count }} words)</i>
-        </div>
+{% set is_restricted = false %}
+{% if page.components %}
+{% for section in config.extra.restricted_sections %}
+{% if section in page.components %}
+{% set_global is_restricted = true %}
+{% endif %}
+{% endfor %}
+{% endif %}
+<article>
+  {%- if page.draft %}
+  <div class="draft-banner">
+    <span class="draft-icon">✎</span>
+    <span class="draft-text">DRAFT</span>
+    <span class="draft-note">This post is unpublished and only visible in local preview</span>
+  </div>
+  {%- endif %}
+  {%- if not page.extra.menu %}
+  {%- if page.title %}
+  <h1>{{ page.title }}</h1>
+  {%- endif %}
+  <div class="meta">
+    {%- if page.date %}
+    <div class="post-date">
+      <i>
+        <time datetime='{{ page.date | date(format=' %+') }}'>
+          {{- page.date | date(format=config.extra.date_format) -}}
+        </time>
+        {%- if page.updated %}
+        &nbsp;(Updated: <time datetime='{{ page.updated | date(format=' %+') }}'>
+          {{- page.updated | date(format=config.extra.date_format) -}}
+        </time>)
         {%- endif %}
-      </div>  
-    {%- endif %}
-
-    {%- if page.extra.cover_image %}
-    <div class="article-cover{% if is_restricted %} restricted-width{% endif %}">
-      <img src="{{ page.extra.cover_image | safe }}" alt="Cover image for {{ page.title }}" loading="lazy" />
+      </i>
+    </div>
+    <div class="reading-time">
+      <i>{{ page.reading_time }} minutes ({{ page.word_count }} words)</i>
     </div>
     {%- endif %}
+  </div>
+  {%- endif %}
 
-    {%- if page.extra.toc and page.toc %}
-    <div id="toc-sentinel"></div>
-    <div class="toc{% if is_restricted %} restricted-width{% endif %}">
-      <div class="toc-title">
-        <span>Table of Contents</span>
-        <i data-feather="chevrons-down" class="toc-icon"></i>
-      </div>
-      <div class="toc-content">
-        <div class="toc-inner">
-          <ul>
+  {%- if page.extra.cover_image %}
+  <div class="article-cover{% if is_restricted %} restricted-width{% endif %}">
+    <img src="{{ page.extra.cover_image | safe }}" alt="Cover image for {{ page.title }}" loading="lazy" />
+  </div>
+  {%- endif %}
+
+  {%- if page.extra.toc and page.toc %}
+  <div id="toc-sentinel"></div>
+  <div class="toc{% if is_restricted %} restricted-width{% endif %}">
+    <div class="toc-title">
+      <span>Table of Contents</span>
+      <i data-feather="chevrons-down" class="toc-icon"></i>
+    </div>
+    <div class="toc-content">
+      <div class="toc-inner">
+        <ul>
           {%- for h1 in page.toc %}
-            <li>
-              <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
-              {%- if h1.children %}
-                <ul>
-                  {%- for h2 in h1.children %}
-                    <li><a href="{{ h2.permalink | safe }}">{{ h2.title }}</a></li>
-                  {%- endfor %}
-                </ul>
-              {%- endif %}
-            </li>
+          <li>
+            <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
+            {%- if h1.children %}
+            <ul>
+              {%- for h2 in h1.children %}
+              <li><a href="{{ h2.permalink | safe }}">{{ h2.title }}</a></li>
+              {%- endfor %}
+            </ul>
+            {%- endif %}
+          </li>
           {%- endfor %}
-          </ul>
-        </div>
+        </ul>
       </div>
     </div>
-    {%- endif %}
-    <div class="post-content{% if is_restricted %} restricted-width{% endif %}">
-      {{ page.content | safe }}
-    </div>
+  </div>
+  {%- endif %}
+  <div class="post-content{% if is_restricted %} restricted-width{% endif %}">
+    {{ page.content | safe }}
+  </div>
 
-    <div class="share-block{% if is_restricted %} restricted-width{% endif %}">
-      <span class="share-label">Share via:</span>
-      <div class="share-icons">
-        <a href="https://api.whatsapp.com/send?text={{ page.title | urlencode }}%20{{ current_url | urlencode }}" target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on WhatsApp">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"></path>
-            <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
-          </svg>
-        </a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ current_url | urlencode }}" target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on Facebook">
-          <i data-feather="facebook"></i>
-        </a>
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ current_url | urlencode }}&title={{ page.title | urlencode }}" target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on LinkedIn">
-          <i data-feather="linkedin"></i>
-        </a>
-        <a href="https://twitter.com/intent/tweet?url={{ current_url | urlencode }}&text={{ page.title | urlencode }}" target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on Twitter">
-          <i data-feather="twitter"></i>
-        </a>
-        <a href="https://t.me/share/url?url={{ current_url | urlencode }}&text={{ page.title | urlencode }}" target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on Telegram">
-          <i data-feather="send"></i>
-        </a>
-        <a href="mailto:?subject={{ page.title | urlencode }}&body={{ current_url | urlencode }}" target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share via Email">
-          <i data-feather="mail"></i>
-        </a>
+  <div class="share-block{% if is_restricted %} restricted-width{% endif %}">
+    <span class="share-label">Share via:</span>
+    <div class="share-icons">
+      <a href="https://api.whatsapp.com/send?text={{ page.title | urlencode }}%20{{ current_url | urlencode }}"
+        target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"></path>
+          <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1">
+          </path>
+        </svg>
+      </a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{ current_url | urlencode }}" target="_blank"
+        rel="noopener noreferrer" class="share-icon" aria-label="Share on Facebook">
+        <i data-feather="facebook"></i>
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ current_url | urlencode }}&title={{ page.title | urlencode }}"
+        target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on LinkedIn">
+        <i data-feather="linkedin"></i>
+      </a>
+      <a href="https://twitter.com/intent/tweet?url={{ current_url | urlencode }}&text={{ page.title | urlencode }}"
+        target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on Twitter">
+        <i data-feather="twitter"></i>
+      </a>
+      <a href="https://t.me/share/url?url={{ current_url | urlencode }}&text={{ page.title | urlencode }}"
+        target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on Telegram">
+        <i data-feather="send"></i>
+      </a>
+      <a href="mailto:?subject={{ page.title | urlencode }}&body={{ current_url | urlencode }}" target="_blank"
+        rel="noopener noreferrer" class="share-icon" aria-label="Share via Email">
+        <i data-feather="mail"></i>
+      </a>
+    </div>
+  </div>
+
+  {% if page.lower or page.higher %}
+  <div class="post-navigation{% if is_restricted %} restricted-width{% endif %}">
+    {% if page.lower %}
+    <a href="{{ page.lower.permalink }}" class="nav-prev" aria-label="Previous post">
+      <div class="nav-label">
+        <i data-feather="chevron-left"></i>
+        <span>Previous</span>
       </div>
-    </div>
-
-    {%- if page.taxonomies %}
-    <div class="tags{% if is_restricted %} restricted-width{% endif %}" aria-label="Tags">
-      {%- for name, taxon in page.taxonomies %}
-        {%- for item in taxon %}
-          <a href="{{ get_taxonomy_url(kind=name, name=item) }}" class="tag">#{{ item }}</a>
-        {%- endfor %}
-      {%- endfor %}
-    </div>
-    {%- endif %}
-
-    {% if page.lower or page.higher %}
-    <div class="post-navigation{% if is_restricted %} restricted-width{% endif %}">
-      {% if page.lower %}
-        <a href="{{ page.lower.permalink }}" class="nav-prev" aria-label="Previous post">
-          <i data-feather="arrow-left"></i>
-          <span class="nav-title">{{ page.lower.title }}</span>
-        </a>
-      {% else %}
-        <span class="nav-prev empty"></span>
-      {% endif %}
-      
-      {% if page.higher %}
-        <a href="{{ page.higher.permalink }}" class="nav-next" aria-label="Next post">
-          <span class="nav-title">{{ page.higher.title }}</span>
-          <i data-feather="arrow-right"></i>
-        </a>
-      {% else %}
-        <span class="nav-next empty"></span>
-      {% endif %}
-    </div>
+      <span class="nav-title">{{ page.lower.title }}</span>
+    </a>
+    {% else %}
+    <span class="nav-prev empty"></span>
     {% endif %}
-  </article>
 
-  {% if is_restricted %}
-  <script type="application/ld+json">
+    {% if page.higher %}
+    <a href="{{ page.higher.permalink }}" class="nav-next" aria-label="Next post">
+      <div class="nav-label">
+        <span>Next</span>
+        <i data-feather="chevron-right"></i>
+      </div>
+      <span class="nav-title">{{ page.higher.title }}</span>
+    </a>
+    {% else %}
+    <span class="nav-next empty"></span>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {%- if page.taxonomies %}
+  <div class="tags{% if is_restricted %} restricted-width{% endif %}" aria-label="Tags">
+    {%- for name, taxon in page.taxonomies %}
+    {%- for item in taxon %}
+    <a href="{{ get_taxonomy_url(kind=name, name=item) }}" class="tag">#{{ item }}</a>
+    {%- endfor %}
+    {%- endfor %}
+  </div>
+  {%- endif %}
+</article>
+
+{% if is_restricted %}
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -155,10 +169,10 @@
     "dateModified": "{% if page.updated %}{{ page.updated }}{% else %}{{ page.date }}{% endif %}"
   }
   </script>
-  {% endif %}
+{% endif %}
 
-  {% if "mermaid" in page.content %}
-  <script src="{{ get_url(path='js/mermaid.min.js', cachebust=true) | safe }}"></script>
-  <script src="{{ get_url(path='js/mermaid-init.js', cachebust=true) | safe }}"></script>
-  {% endif %}
+{% if "mermaid" in page.content %}
+<script src="{{ get_url(path='js/mermaid.min.js', cachebust=true) | safe }}"></script>
+<script src="{{ get_url(path='js/mermaid-init.js', cachebust=true) | safe }}"></script>
+{% endif %}
 {% endblock %}
