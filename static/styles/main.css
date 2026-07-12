@@ -1510,6 +1510,46 @@ code {
     -webkit-font-smoothing: antialiased;
 }
 
+kbd {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    font-weight: 500;
+    color: var(--color-text);
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-bottom-width: 2px;
+    border-radius: var(--radius-sm);
+    padding: 0.1em 0.4em;
+}
+
+mark {
+    background-color: var(--color-accent-subtle);
+    color: var(--color-text);
+    padding: 0 0.2em;
+    border-radius: var(--radius-sm);
+}
+
+abbr[title] {
+    text-decoration: underline dotted var(--color-text-muted);
+    cursor: help;
+}
+
+sub, sup {
+    font-size: 0.75em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+
 /* Code block container */
 pre {
     position: relative;
