@@ -100,4 +100,9 @@
   }
   </script>
   {% endif %}
+
+  {% if "mermaid" in page.content %}
+  <script src="{{ get_url(path='js/mermaid.min.js', cachebust=true) | safe }}"></script>
+  <script src="{{ get_url(path='js/mermaid-init.js', cachebust=true) | safe }}"></script>
+  {% endif %}
 {% endblock %}
