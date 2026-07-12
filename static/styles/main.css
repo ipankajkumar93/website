@@ -988,7 +988,7 @@ article {
     margin-top: 0;
 }
 
-.post-content > hr:last-child {
+.post-content>hr:last-child {
     margin-bottom: 0;
 }
 
@@ -2857,4 +2857,29 @@ table.in-wrapper {
     height: auto;
     font-size: 15px;
     font-weight: 500;
+}
+
+/*Code Block Line Diffs Highlighter(// [!code ++], // [!code --])*/
+pre code.has-diff {
+    display: block;
+}
+pre code.has-diff .line {
+    display: inline-block;
+    min-width: 100%;
+}
+pre code.has-diff .diff-add {
+    background-color: rgba(46, 160, 67, 0.15);
+}
+pre code.has-diff .diff-add::before {
+    content: "+ ";
+    color: #3fb950;
+    font-weight: bold;
+}
+pre code.has-diff .diff-remove {
+    background-color: rgba(248, 81, 73, 0.15);
+}
+pre code.has-diff .diff-remove::before {
+    content: "- ";
+    color: #f85149;
+    font-weight: bold;
 }
