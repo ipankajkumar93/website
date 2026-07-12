@@ -26,7 +26,6 @@
   <div class="meta">
     {%- if page.date %}
     <div class="post-date">
-      <i>
         <time datetime='{{ page.date | date(format=' %+') }}'>
           {{- page.date | date(format=config.extra.date_format) -}}
         </time>
@@ -35,10 +34,9 @@
           {{- page.updated | date(format=config.extra.date_format) -}}
         </time>)
         {%- endif %}
-      </i>
     </div>
     <div class="reading-time">
-      <i>{{ page.reading_time }} minutes ({{ page.word_count }} words)</i>
+      {{ page.reading_time }} minutes ({{ page.word_count }} words)
     </div>
     {%- endif %}
   </div>
