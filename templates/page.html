@@ -118,6 +118,7 @@
     </div>
     {%- endif %}
 
+    {% if page.lower or page.higher %}
     <div class="post-navigation{% if is_restricted %} restricted-width{% endif %}">
       {% if page.lower %}
         <a href="{{ page.lower.permalink }}" class="nav-prev" aria-label="Previous post">
@@ -137,6 +138,7 @@
         <span class="nav-next empty"></span>
       {% endif %}
     </div>
+    {% endif %}
   </article>
 
   {% if is_restricted %}
