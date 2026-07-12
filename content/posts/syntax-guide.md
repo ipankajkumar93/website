@@ -175,7 +175,30 @@ This is a warning admonition.
 This is a caution admonition.
 {% end %}
 
+## 11. Code Line Differences
 
+You can highlight code line additions and deletions using specific comments:
+
+```kotlin
+// Example of the new Shiki highlighting + diffs
+fun main() {
+    println("Hello Old World") // [!code --]
+    println("Hello New Astro World! 👋") // [!code ++]
+}
+```
+
+## 12. Mermaid Diagrams
+
+You can write technical flowcharts directly in Markdown using Mermaid.js syntax:
+
+```mermaid
+flowchart TD
+    A([📝 Hashnode]) -->|Export Posts| B[60 Markdown Files]
+    B -->|AI Asset Rescue| C[(Local Images)]
+    B --> D[[Astro Build]]
+    C --> D
+    D -->|Wrangler Deploy| E([☁️ Cloudflare Edge])
+```
 
 ---
 
