@@ -128,9 +128,8 @@ The site will automatically detect these blocks, load the necessary local script
 
 ## 📄 Licenses
 
-This repository contains two primary licenses:
+This website contains three primary licenses:
 
-- **Source Code**: All source code, templates, and scripts in this repository are licensed under the [GNU General Public License v3.0 (GPLv3)](LICENSE).
-- **Content**: All original content, articles, images, and text are licensed under the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](LICENSE-CONTENT).
-
-Additionally, this project builds upon open-source software and themes. Please see [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md) for licensing information regarding Zola, Bearblog, and other third-party components.
+- **Source Code License**: All source code, templates, and scripts in this repository are licensed under the [GNU General Public License v3.0 (GPLv3)](LICENSE).
+- **Content License**: All original content, articles, images, and text are licensed under the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](LICENSE-CONTENT).
+- **3rd Party License**: This project builds upon open-source software and themes. Please see [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md) for licensing information regarding Zola, Bearblog, and other third-party components.
