@@ -806,6 +806,7 @@ nav {
     border: 1px solid var(--color-border-subtle);
     background-color: var(--color-bg-subtle);
 }
+
 .article-cover img {
     display: block;
     width: 100%;
@@ -823,6 +824,7 @@ nav {
     margin-top: var(--space-2xl);
     margin-bottom: var(--space-2xl);
 }
+
 .share-icons {
     display: flex;
     align-items: center;
@@ -830,17 +832,20 @@ nav {
     flex-wrap: wrap;
     justify-content: center;
 }
+
 @media (max-width: 600px) {
     .share-block {
         flex-direction: column;
         gap: var(--space-sm);
     }
 }
+
 .share-label {
     font-weight: 600;
     color: var(--color-text-secondary);
     font-size: var(--step-0);
 }
+
 .share-icon {
     display: flex;
     align-items: center;
@@ -852,11 +857,13 @@ nav {
     color: var(--color-text-secondary);
     transition: all var(--transition-fast);
 }
+
 .share-icon:hover {
     background-color: var(--color-accent-subtle);
     color: var(--color-accent);
     transform: translateY(-2px);
 }
+
 .share-icon svg {
     width: 18px;
     height: 18px;
@@ -870,7 +877,9 @@ nav {
     margin-top: var(--space-lg);
     padding-bottom: var(--space-xl);
 }
-.nav-prev, .nav-next {
+
+.nav-prev,
+.nav-next {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
@@ -879,25 +888,35 @@ nav {
     transition: color var(--transition-fast);
     flex: 1;
 }
+
 .nav-next {
     text-align: right;
     justify-content: flex-end;
 }
-.nav-prev:hover, .nav-next:hover {
+
+.nav-prev:hover,
+.nav-next:hover {
     color: var(--color-link);
     text-decoration: none !important;
 }
-.nav-prev i, .nav-next i, .nav-prev svg, .nav-next svg {
+
+.nav-prev i,
+.nav-next i,
+.nav-prev svg,
+.nav-next svg {
     width: 16px;
     height: 16px;
     flex-shrink: 0;
 }
+
 .nav-title {
     font-weight: 500;
     font-size: var(--step-0);
     line-height: 1.4;
 }
-.nav-prev.empty, .nav-next.empty {
+
+.nav-prev.empty,
+.nav-next.empty {
     pointer-events: none;
 }
 
@@ -2242,11 +2261,11 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
-    border: 2px solid var(--color-accent-muted);
-    border-radius: var(--radius-md);
-    background-color: var(--color-bg-elevated);
+    width: 48px;
+    height: 48px;
+    border-radius: calc(var(--radius-md) + 2px);
+    border: none;
+    background: conic-gradient(var(--color-accent) var(--scroll-progress, 0%), transparent 0);
     color: var(--color-text-muted);
     cursor: pointer;
     opacity: 0;
@@ -2254,10 +2273,19 @@ main {
     transform: translateY(8px);
     transition: opacity var(--transition-base),
         transform var(--transition-base),
-        border-color var(--transition-fast),
-        color var(--transition-fast),
-        background-color var(--transition-fast);
+        color var(--transition-fast);
     box-shadow: var(--shadow-md);
+}
+
+.back-to-top::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background-color: var(--color-bg-elevated);
+    border: 2px solid var(--color-accent-muted);
+    border-radius: var(--radius-md);
+    z-index: 0;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
 }
 
 .back-to-top.visible {
@@ -2267,14 +2295,19 @@ main {
 }
 
 .back-to-top:hover {
-    border-color: var(--color-accent);
     color: var(--color-text);
-    background-color: var(--color-accent-subtle);
     transform: translateY(-1.5px);
+}
+
+.back-to-top:hover::before {
+    background-color: var(--color-accent-subtle);
+    border-color: var(--color-accent);
 }
 
 .back-to-top i,
 .back-to-top svg {
+    position: relative;
+    z-index: 1;
     width: 18px;
     height: 18px;
 }
@@ -2300,8 +2333,8 @@ main {
     .back-to-top {
         bottom: var(--space-lg);
         right: var(--space-md);
-        width: 38px;
-        height: 38px;
+        width: 44px;
+        height: 44px;
     }
 }
 
@@ -2968,21 +3001,26 @@ table.in-wrapper {
 pre code.has-diff {
     display: block;
 }
+
 pre code.has-diff .line {
     display: inline-block;
     min-width: 100%;
 }
+
 pre code.has-diff .diff-add {
     background-color: rgba(46, 160, 67, 0.15);
 }
+
 pre code.has-diff .diff-add::before {
     content: "+ ";
     color: #3fb950;
     font-weight: bold;
 }
+
 pre code.has-diff .diff-remove {
     background-color: rgba(248, 81, 73, 0.15);
 }
+
 pre code.has-diff .diff-remove::before {
     content: "- ";
     color: #f85149;

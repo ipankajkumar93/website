@@ -168,7 +168,13 @@ document.addEventListener('DOMContentLoaded', function () {
         window.addEventListener('scroll', function () {
             if (!scrollTicking) {
                 requestAnimationFrame(function () {
-                    backToTop.classList.toggle('visible', window.scrollY > 100);
+                    const scrollY = window.scrollY;
+                    backToTop.classList.toggle('visible', scrollY > 100);
+                    
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const scrollProgress = docHeight > 0 ? Math.min((scrollY / docHeight) * 100, 100) : 0;
+                    backToTop.style.setProperty('--scroll-progress', scrollProgress + '%');
+                    
                     scrollTicking = false;
                 });
                 scrollTicking = true;
