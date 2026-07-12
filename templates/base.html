@@ -14,6 +14,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>{%- block title %}{{ config.title }}{%- endblock %}</title>
+    {% if page and page.extra.license %}
+    <meta name="license" content="{{ page.extra.license }}">
+    {% endif %}
 
     {% include "og.html" %}
     {%- if config.generate_feeds %}

@@ -14,6 +14,7 @@ post_tags = ["post", "sample", "markdown"]
 [extra]
 toc = true # Generates Table of Contents for the page if true
 featured = true
+license = "CC-BY-SA-4.0"
 # og_preview_img = "/images/sample-image.jpeg"    #Uncomment this to add your own OG preview image or let the python script generate one for you for OG images.
 +++
 

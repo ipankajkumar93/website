@@ -2224,6 +2224,25 @@ hr {
 /* --------------------------------------------------------------------------
    Animations
    -------------------------------------------------------------------------- */
+@keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes slide-fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   Post License
+   -------------------------------------------------------------------------- */
+.post-license {
+    margin-top: 2rem;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
