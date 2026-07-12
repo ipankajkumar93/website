@@ -17,7 +17,7 @@ When I'm not in the tech zone, I'm probably reading about space, aircrafts and r
   </div>
 
   <div class="home-image">
-    {{ img(path="images/website/profile.jpg", alt="Profile Image", class="img-rounded") }}
+    {{ img(path="images/website/profile.jpg", alt="PankajProfile Image", loading="lazy", class="img-rounded", avif=true, webp=true) }}
   </div>
 
 </div>
