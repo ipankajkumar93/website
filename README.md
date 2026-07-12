@@ -104,3 +104,21 @@ It natively supports the following comment styles across any language:
 - `-- [!code ++]` (SQL, Lua, Haskell)
 - `/* [!code ++] */` (CSS, C)
 - `<!-- [!code ++] -->` (HTML, XML)
+
+### 🧜‍♀️ Mermaid Diagrams
+
+You can easily embed rich diagrams and flowcharts directly into your articles using Mermaid syntax.
+
+Simply create a code block with `mermaid` as the language:
+
+````markdown
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+````
+
+The site will automatically detect these blocks, load the necessary local scripts, and render them as interactive vector graphics on the page.
