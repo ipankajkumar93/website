@@ -452,7 +452,7 @@ header {
 
 .name {
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: var(--step-4);
     /* Instrument Serif only ships weight 400; browser synthesises bold — intentional design choice */
     font-weight: 600;
     margin: 0 0 var(--space-lg) 0;
@@ -883,17 +883,22 @@ nav {
 .nav-prev,
 .nav-next {
     display: flex;
-    align-items: center;
-    gap: var(--space-sm);
+    flex-direction: column;
+    gap: var(--space-xs);
     text-decoration: none;
     color: var(--color-text-secondary);
     transition: color var(--transition-fast);
     flex: 1;
 }
 
+.nav-prev {
+    align-items: flex-start;
+    text-align: left;
+}
+
 .nav-next {
+    align-items: flex-end;
     text-align: right;
-    justify-content: flex-end;
 }
 
 .nav-prev:hover,
@@ -902,19 +907,37 @@ nav {
     text-decoration: none !important;
 }
 
+.nav-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: var(--step-2);
+    font-family: var(--font-display);
+    color: var(--color-text);
+}
+
 .nav-prev i,
 .nav-next i,
 .nav-prev svg,
 .nav-next svg {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
 }
 
 .nav-title {
-    font-weight: 500;
-    font-size: var(--step-0);
+    font-weight: 400;
+    font-size: var(--step--1);
+    color: var(--color-text-secondary);
     line-height: 1.4;
+}
+
+.nav-prev .nav-title {
+    padding-left: 24px;
+}
+
+.nav-next .nav-title {
+    padding-right: 24px;
 }
 
 .nav-prev.empty,
@@ -1072,7 +1095,7 @@ ul.blog-posts li:hover {
 
 ul.blog-posts li span:not(.draft-tag):not(.category-badge) {
     flex: 0 0 110px;
-    font-size: 0.875rem;
+    font-size: var(--step-0);
     color: var(--color-text-muted);
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
@@ -1160,7 +1183,7 @@ article h1 {
 
 .post-date,
 .reading-time {
-    font-size: 0.875rem;
+    font-size: var(--step-0);
     color: var(--color-text-secondary);
     font-family: var(--font-mono);
 }
@@ -1505,7 +1528,7 @@ pre code {
     grid-area: 1 / 1;
     display: block;
     padding: var(--space-lg) var(--space-xl);
-    font-size: 0.875rem;
+    font-size: var(--step-0);
     line-height: var(--line-height-code);
     /* pre-wrap gives visual soft-wrap; JS copy handler restores original lines */
     white-space: pre-wrap;
@@ -1756,7 +1779,7 @@ figure img:hover {
 figcaption {
     text-align: center;
     margin-top: var(--space-sm);
-    font-size: 0.875rem;
+    font-size: var(--step-0);
     color: var(--color-text-muted);
     font-style: italic;
 }
@@ -1831,7 +1854,7 @@ figcaption {
     top: var(--space-lg);
     right: var(--space-xl);
     color: var(--color-text);
-    font-size: 2rem;
+    font-size: var(--step-4);
     font-weight: 300;
     cursor: pointer;
     transition: opacity var(--transition-fast);
@@ -1879,7 +1902,7 @@ figcaption {
 }
 
 .projects-section h2 {
-    font-size: 1.5rem;
+    font-size: var(--step-3);
     margin-top: var(--space-2xl);
     margin-bottom: var(--space-lg);
     padding-bottom: var(--space-sm);
@@ -2010,7 +2033,7 @@ figcaption {
 }
 
 .project-links a {
-    font-size: 0.875rem;
+    font-size: var(--step-0);
     color: var(--color-link);
     text-decoration: none;
 }
@@ -2060,7 +2083,7 @@ footer {
     padding-bottom: var(--space-xl);
     border-top: 1px solid var(--color-border-subtle);
     color: var(--color-text-muted);
-    font-size: 0.875rem;
+    font-size: var(--step-0);
     font-weight: 500;
 }
 
@@ -2337,6 +2360,11 @@ main {
         right: var(--space-md);
         width: 44px;
         height: 44px;
+    }
+
+    .post-navigation {
+        flex-direction: column;
+        gap: var(--space-xl);
     }
 }
 
@@ -2624,7 +2652,7 @@ main {
     border: 2px dashed var(--color-accent);
     border-radius: var(--radius-md);
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: var(--step-0);
 }
 
 :root[data-theme="dark"] .draft-banner {
@@ -2633,7 +2661,7 @@ main {
 }
 
 .draft-icon {
-    font-size: 1.25rem;
+    font-size: var(--step-2);
 }
 
 .draft-text {
