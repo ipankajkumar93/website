@@ -203,4 +203,16 @@ flowchart TD
 
 ---
 
+## 13. Inline HTML Elements
+
+Because Markdown fully supports raw HTML, you can use semantic tags to enhance your text:
+
+- **Abbreviations:** <abbr title="HyperText Markup Language">HTML</abbr> is awesome.
+- **Superscript:** E = mc<sup>2</sup>
+- **Subscript:** H<sub>2</sub>O is water.
+- **Keyboard inputs:** Press <kbd>Ctrl</kbd> + <kbd>C</kbd> to copy.
+- **Highlighted text:** You can <mark>highlight important information</mark> using the mark tag.
+
+---
+
 *This concludes the syntax reference guide. Happy writing!*
