@@ -902,7 +902,11 @@ nav {
 }
 
 .nav-prev:hover,
-.nav-next:hover {
+.nav-next:hover,
+.nav-prev:hover .nav-label,
+.nav-next:hover .nav-label,
+.nav-prev:hover .nav-title,
+.nav-next:hover .nav-title {
     color: var(--color-link);
     text-decoration: none !important;
 }

@@ -116,16 +116,6 @@
     </div>
   </div>
 
-  {%- if page.taxonomies %}
-  <div class="tags{% if is_restricted %} restricted-width{% endif %}" aria-label="Tags">
-    {%- for name, taxon in page.taxonomies %}
-    {%- for item in taxon %}
-    <a href="{{ get_taxonomy_url(kind=name, name=item) }}" class="tag">#{{ item }}</a>
-    {%- endfor %}
-    {%- endfor %}
-  </div>
-  {%- endif %}
-
   {% if page.lower or page.higher %}
   <div class="post-navigation{% if is_restricted %} restricted-width{% endif %}">
     {% if page.lower %}
@@ -153,6 +143,16 @@
     {% endif %}
   </div>
   {% endif %}
+
+  {%- if page.taxonomies %}
+  <div class="tags{% if is_restricted %} restricted-width{% endif %}" aria-label="Tags">
+    {%- for name, taxon in page.taxonomies %}
+    {%- for item in taxon %}
+    <a href="{{ get_taxonomy_url(kind=name, name=item) }}" class="tag">#{{ item }}</a>
+    {%- endfor %}
+    {%- endfor %}
+  </div>
+  {%- endif %}
 </article>
 
 {% if is_restricted %}
