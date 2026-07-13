@@ -885,10 +885,7 @@ nav {
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
-    text-decoration: none;
-    color: var(--color-text-secondary);
-    transition: color var(--transition-fast);
-    flex: 1;
+    max-width: 48%;
 }
 
 .nav-prev {
@@ -901,12 +898,10 @@ nav {
     text-align: right;
 }
 
-.nav-prev:hover,
-.nav-next:hover,
-.nav-prev:hover .nav-label,
-.nav-next:hover .nav-label,
-.nav-prev:hover .nav-title,
-.nav-next:hover .nav-title {
+.nav-prev:has(a:hover) .nav-label,
+.nav-prev:has(a:hover) .nav-title,
+.nav-next:has(a:hover) .nav-label,
+.nav-next:has(a:hover) .nav-title {
     color: var(--color-link);
     text-decoration: none !important;
 }
@@ -918,6 +913,8 @@ nav {
     font-size: var(--step-2);
     font-family: var(--font-display);
     color: var(--color-text);
+    text-decoration: none;
+    transition: color var(--transition-fast);
 }
 
 .nav-prev i,
@@ -934,13 +931,15 @@ nav {
     font-size: var(--step--1);
     color: var(--color-text-secondary);
     line-height: 1.4;
+    text-decoration: none;
+    transition: color var(--transition-fast);
 }
 
-.nav-prev .nav-title {
+.nav-prev .nav-title-wrapper {
     padding-left: 24px;
 }
 
-.nav-next .nav-title {
+.nav-next .nav-title-wrapper {
     padding-right: 24px;
 }
 
@@ -2440,6 +2439,11 @@ main {
     .post-navigation {
         flex-direction: column;
         gap: var(--space-xl);
+    }
+
+    .nav-prev,
+    .nav-next {
+        max-width: 100%;
     }
 }
 
