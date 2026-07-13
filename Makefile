@@ -28,8 +28,8 @@ build:
 # Update project metadata from GitHub (Currently disabled)
 # projects:
 # 	@echo "Fetching latest project metadata from GitHub..."
-# 	@uv run scripts/fetch_all_github_projects.py ipankajkumar93 > content/projects/data.toml
-# 	@echo "Successfully updated content/projects/data.toml"
+# 	@uv run scripts/fetch_all_github_projects.py ipankajkumar93 > content/projects/projects.toml
+# 	@echo "Successfully updated content/projects/projects.toml"
 
 # Content creation targets
 ifeq ($(firstword $(MAKECMDGOALS)),$(filter $(firstword $(MAKECMDGOALS)),rtd post travel))

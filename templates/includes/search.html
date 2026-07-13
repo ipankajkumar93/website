@@ -1,7 +1,7 @@
 <script id="search-data" type="application/json">
 {
     "projects": [
-        {%- set data = load_data(path="content/projects/data.toml", format="toml") %}
+        {%- set data = load_data(path="content/projects/projects.toml", format="toml") %}
         {%- for proj in data.project %}
         {
             "name": {{ proj.name | json_encode() | safe }},
