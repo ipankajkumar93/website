@@ -216,7 +216,7 @@ This project uses separate licenses for code and content.
 |---|---|
 | Source code, templates, scripts | [GNU General Public License v3.0 (GPLv3)](LICENSE) |
 | Articles, writing, images | [Creative Commons BY-SA 4.0](LICENSE-CONTENT) |
-| Third-party components | See [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md) |
+| Third-party components | [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES) |
 
 Third-party components and their licenses are fully documented in [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md). They include:
 
