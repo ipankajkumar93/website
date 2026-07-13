@@ -16,6 +16,12 @@
     --step-5: 2.75rem;
     --step-6: 3.5rem;
 
+    /* Font sizes (non-modular-scale, UI text) */
+    --font-size-lg: 1.125rem;
+    --font-size-sm: 0.9375rem;
+    --font-size-xs: 0.8125rem;
+    --font-size-2xs: 0.75rem;
+
     --line-height-body: 1.7;
     --line-height-heading: 1.2;
     --line-height-code: 1.5;
@@ -335,8 +341,8 @@ h3 {
 .filter-clear {
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
-    font-size: 0.8125rem;
+    gap: var(--space-xs);
+    font-size: var(--font-size-xs);
     font-weight: 500;
     color: var(--color-text-secondary);
     background-color: var(--color-bg-elevated);
@@ -483,7 +489,7 @@ nav {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     font-weight: 500;
     color: var(--color-text-secondary);
     padding: var(--space-xs) var(--space-sm);
@@ -542,7 +548,7 @@ nav {
 }
 
 .search-btn-shortcut {
-    font-size: 0.75rem;
+    font-size: var(--font-size-2xs);
     font-family: var(--font-mono);
     padding: 2px var(--space-xs);
     background: var(--color-border-subtle);
@@ -674,7 +680,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     min-width: 0;
     border: none;
     background: transparent;
-    font-size: 1.125rem;
+    font-size: var(--font-size-lg);
     font-family: var(--font-body);
     color: var(--color-text);
     outline: none;
@@ -730,7 +736,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     padding: var(--space-md);
     text-align: center;
     color: var(--color-text-muted);
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
 }
 
 .search-group {
@@ -742,7 +748,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 }
 
 .search-group-title {
-    font-size: 0.75rem;
+    font-size: var(--font-size-2xs);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -778,7 +784,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 
 .search-result-title {
     font-weight: 500;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     color: var(--color-text);
 }
 
@@ -788,7 +794,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 }
 
 .search-result-desc {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-xs);
     color: var(--color-text-muted);
     line-height: 1.4;
     overflow: hidden;
@@ -989,7 +995,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 
 
 .home-content p:first-of-type {
-    font-size: 1.125rem;
+    font-size: var(--font-size-lg);
     color: var(--color-text-secondary);
     line-height: 1.8;
 }
@@ -1381,7 +1387,7 @@ article h1 {
 .toc a {
     color: var(--color-text-secondary);
     text-decoration: none;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     transition: color var(--transition-fast), font-weight var(--transition-fast);
 }
 
@@ -1463,7 +1469,7 @@ h6:hover .zola-anchor {
 a.tag {
     display: inline-flex;
     align-items: center;
-    font-size: 0.8125rem;
+    font-size: var(--font-size-xs);
     font-weight: 500;
     color: var(--color-tag-text);
     background-color: var(--color-tag-bg);
@@ -1697,7 +1703,7 @@ blockquote p:last-child {
     align-items: center;
     gap: 0.5em;
     font-weight: 600;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     margin-bottom: var(--space-xs);
     text-transform: none;
     letter-spacing: normal;
@@ -1771,7 +1777,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: var(--space-lg) 0;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
 }
 
 th,
@@ -2022,19 +2028,19 @@ figcaption {
 .project-name {
     font-family: var(--font-body);
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: var(--font-size-lg);
     margin: 0;
     color: var(--color-text);
 }
 
 .project-stars,
 .project-forks {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-xs);
     color: var(--color-text-muted);
     font-family: var(--font-mono);
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: var(--space-xs);
     line-height: 1;
 }
 
@@ -2055,7 +2061,7 @@ figcaption {
 }
 
 .project-desc {
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
     margin: 0 0 var(--space-md) 0;
     line-height: 1.6;
@@ -2071,7 +2077,7 @@ figcaption {
 }
 
 .project-lang {
-    font-size: 0.75rem;
+    font-size: var(--font-size-2xs);
     font-family: var(--font-mono);
     color: var(--color-text-muted);
     padding: var(--space-xs) var(--space-sm);
@@ -2302,7 +2308,7 @@ hr {
    Post License
    -------------------------------------------------------------------------- */
 .post-license {
-    margin-top: 2rem;
+    margin-top: var(--space-xl);
     color: var(--color-text-muted);
     font-size: 0.95rem;
 }
@@ -2793,7 +2799,7 @@ main {
     color: var(--color-text-secondary);
     background-color: var(--color-bg);
     border: 1px solid var(--color-border);
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     vertical-align: middle;
 }
 
@@ -2838,7 +2844,7 @@ main {
     color: var(--color-accent);
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     transition: all var(--transition-fast);
 }
 
@@ -2937,7 +2943,7 @@ main {
 
 .empty-state {
     color: var(--color-text-muted);
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     font-style: italic;
 }
 
@@ -2968,7 +2974,7 @@ main:has(.page-404-content) {
 
 .page-404-subtitle {
     color: var(--color-text-secondary);
-    font-size: 1.125rem;
+    font-size: var(--font-size-lg);
     margin-bottom: var(--space-lg);
 }
 
@@ -3062,9 +3068,15 @@ table.in-wrapper {
 }
 
 .sitemap-item-title {
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     font-weight: 500;
     line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sitemap-text-wrapper {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
@@ -3089,25 +3101,28 @@ table.in-wrapper {
     color: white;
     background-color: var(--color-accent-brand);
     padding: 2px var(--space-sm);
-    border-radius: 9999px;
+    border-radius: var(--radius-full);
     box-shadow: var(--shadow-sm);
     white-space: nowrap;
 }
 
-.sitemap-item-title svg,
-.sitemap-item-title i {
+.sitemap-icon-wrapper {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.sitemap-icon-wrapper svg,
+.sitemap-icon-wrapper i {
     width: 14px;
     height: 14px;
     stroke-width: var(--icon-stroke-bold);
     display: inline-block;
-    vertical-align: middle;
-    margin-right: 6px;
-    margin-bottom: 2px;
 }
 
 /* Mermaid diagrams */
 .mermaid {
-    margin: 2rem 0;
+    margin: var(--space-xl) 0;
     display: flex;
     justify-content: center;
 }
@@ -3172,7 +3187,7 @@ pre code.has-diff .diff-remove::before {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.8125rem;
+    font-size: var(--font-size-xs);
     color: var(--color-text-muted);
     font-family: var(--font-mono);
     text-decoration: none;
