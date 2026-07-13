@@ -1533,7 +1533,8 @@ abbr[title] {
     cursor: help;
 }
 
-sub, sup {
+sub,
+sup {
     font-size: 0.75em;
     line-height: 0;
     position: relative;
@@ -2054,10 +2055,9 @@ figcaption {
 
 .project-footer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
 }
 
 .project-lang {
@@ -2076,19 +2076,10 @@ figcaption {
 .project-links {
     display: flex;
     gap: var(--space-sm);
-    margin-left: auto;
+    align-self: center;
 }
 
-.project-links a {
-    font-size: var(--step-0);
-    color: var(--color-link);
-    text-decoration: none;
-}
 
-.project-links a:hover {
-    color: var(--color-link-hover);
-    text-decoration: underline;
-}
 
 
 
@@ -3143,89 +3134,84 @@ pre code.has-diff .diff-remove::before {
 /* --------------------------------------------------------------------------
    Services
    -------------------------------------------------------------------------- */
-.services-header {
-    margin-bottom: var(--space-sm);
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-lg);
 }
 
-.services-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-    text-align: left;
-}
-
-.services-table th,
-.services-table td {
-    padding: var(--space-sm) var(--space-md);
-    border-bottom: 1px solid var(--color-border);
-    vertical-align: middle;
-}
-
-.services-table td:first-child {
-    white-space: nowrap;
-}
-
-.services-table th {
+.service-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-lg);
     background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    height: 100%;
+}
+
+.service-card:hover {
+    border-color: var(--color-accent-brand);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+}
+
+.service-header {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin-bottom: var(--space-xs);
+}
+
+.service-name {
+    font-family: var(--font-body);
     font-weight: 600;
+    font-size: 1.125rem;
+    margin: 0;
     color: var(--color-text);
 }
 
-.services-table tr {
-    transition: background-color var(--transition-fast);
-}
-
-.services-table tbody tr:hover {
-    background-color: var(--color-bg-subtle);
-}
-
-.services-table .td-desc {
+.service-desc {
+    font-size: 0.9375rem;
     color: var(--color-text-secondary);
+    margin: 0 0 var(--space-md) 0;
+    line-height: 1.6;
+    flex: 1;
 }
 
-/* Services – mobile: each row becomes a labelled card */
-@media screen and (max-width: 600px) {
-    .services-table thead {
-        display: none;
-    }
+.service-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: auto;
+}
 
-    .services-table tr {
-        display: block;
-        margin-bottom: var(--space-lg);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-md);
-        overflow: hidden;
-    }
+.service-links {
+    display: flex;
+    gap: var(--space-md);
+}
 
-    .services-table tbody tr:hover {
-        background-color: transparent;
-    }
+.card-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
 
-    .services-table td {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        align-items: baseline;
-        gap: var(--space-md);
-        border-bottom: 1px solid var(--color-border-subtle);
-        white-space: normal;
-    }
+.card-link:hover {
+    color: var(--color-link-hover);
+}
 
-    .services-table td:last-child {
-        border-bottom: none;
-    }
-
-    .services-table td::before {
-        content: attr(data-label);
-        font-weight: 600;
-        color: var(--color-text-secondary);
-        white-space: nowrap;
-    }
-
-    .services-table td > div,
-    .services-table td > a,
-    .services-table td > span {
-        text-align: right;
-        word-break: break-word;
-        overflow-wrap: break-word;
-    }
+.card-link svg {
+    color: var(--color-accent);
 }
