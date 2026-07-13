@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros/icons.html" as icons %}
 
 {% block title %}{% if page.title %}{{ page.title }} | {% endif %}{{ super() }}{% endblock %}
 
@@ -53,7 +54,7 @@
   <div class="toc{% if is_restricted %} restricted-width{% endif %}">
     <div class="toc-title">
       <span>Table of Contents</span>
-      <i data-feather="chevrons-down" class="toc-icon"></i>
+      {{ icons::render(name="chevrons-down", class="toc-icon") }}
     </div>
     <div class="toc-content">
       <div class="toc-inner">
@@ -92,32 +93,27 @@
     <div class="share-icons">
       <a href="https://api.whatsapp.com/send?text={{ page.title | urlencode }}%20{{ current_url | urlencode }}"
         target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on WhatsApp">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"></path>
-          <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1">
-          </path>
-        </svg>
+        {{ icons::render(name="whatsapp") }}
       </a>
       <a href="https://www.facebook.com/sharer/sharer.php?u={{ current_url | urlencode }}" target="_blank"
         rel="noopener noreferrer" class="share-icon" aria-label="Share on Facebook">
-        <i data-feather="facebook"></i>
+        {{ icons::render(name="facebook") }}
       </a>
       <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ current_url | urlencode }}&title={{ page.title | urlencode }}"
         target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on LinkedIn">
-        <i data-feather="linkedin"></i>
+        {{ icons::render(name="linkedin") }}
       </a>
       <a href="https://twitter.com/intent/tweet?url={{ current_url | urlencode }}&text={{ page.title | urlencode }}"
         target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on Twitter">
-        <i data-feather="twitter"></i>
+        {{ icons::render(name="twitter") }}
       </a>
       <a href="https://t.me/share/url?url={{ current_url | urlencode }}&text={{ page.title | urlencode }}"
         target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on Telegram">
-        <i data-feather="send"></i>
+        {{ icons::render(name="send") }}
       </a>
       <a href="mailto:?subject={{ page.title | urlencode }}&body={{ current_url | urlencode }}" target="_blank"
         rel="noopener noreferrer" class="share-icon" aria-label="Share via Email">
-        <i data-feather="mail"></i>
+        {{ icons::render(name="mail") }}
       </a>
     </div>
   </div>
@@ -127,7 +123,7 @@
     {% if page.lower %}
     <div class="nav-prev">
       <a href="{{ page.lower.permalink }}" class="nav-label" aria-label="Previous post">
-        <i data-feather="chevron-left"></i>
+        {{ icons::render(name="chevron-left") }}
         <span>Previous</span>
       </a>
       <div class="nav-title-wrapper">
@@ -142,7 +138,7 @@
     <div class="nav-next">
       <a href="{{ page.higher.permalink }}" class="nav-label" aria-label="Next post">
         <span>Next</span>
-        <i data-feather="chevron-right"></i>
+        {{ icons::render(name="chevron-right") }}
       </a>
       <div class="nav-title-wrapper">
         <a href="{{ page.higher.permalink }}" class="nav-title" aria-hidden="true">{{ page.higher.title }}</a>

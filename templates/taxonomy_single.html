@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros/icons.html" as icons %}
 
 {% block title %}{{ term.name }} · {{ taxonomy.name | replace(from="_tags", to="") | title }} | {{ super() }}{% endblock %}
 
@@ -18,7 +19,7 @@
       <div class="filter-header">
         <h1 class="filter-heading">Filtering for "<span class="text-accent">{{ term.name }}</span>"</h1>
         <a href="{{ back_url }}" class="filter-clear" id="filter-clear" data-topics-url="{{ get_url(path='@/topics.md') }}" aria-label="Clear filter">
-          Clear <i data-feather="x"></i>
+          Clear {{ icons::render(name="x") }}
         </a>
       </div>
     {%- endif %}

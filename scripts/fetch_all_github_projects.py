@@ -232,10 +232,10 @@ def main():
         repo["_languages"] = fetch_languages(repo)
         time.sleep(0.3)  # Rate limiting
     
-    # Generate TOML output to new_data.toml
+    # Generate TOML output to new_projects.toml
     script_dir = Path(__file__).resolve().parent
     project_root = script_dir.parent
-    output_path = project_root / "content" / "projects" / "new_data.toml"
+    output_path = project_root / "content" / "projects" / "new_projects.toml"
 
     with open(output_path, "w") as f:
         f.write("# GitHub Projects\n")

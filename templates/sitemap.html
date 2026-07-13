@@ -1,4 +1,5 @@
 {% extends "page-header.html" %}
+{% import "macros/icons.html" as icons %}
 
 {% block title %}Sitemap - {{ config.title }}{% endblock %}
 
@@ -9,7 +10,7 @@
     <!-- Home Page -->
     <a href="{{ config.base_url }}" class="sitemap-item-card">
         <span class="sitemap-item-title">
-            <i data-feather="home"></i> Home
+            {{ icons::render(name="home") }} Home
         </span>
     </a>
 
@@ -17,7 +18,6 @@
     {% for page in root.pages %}
         {% set_global badge_name = "" %}
         {% set_global badge_icon = "" %}
-        {% set_global badge_icon_pack = "feather" %}
         {% set page_path = page.relative_path %}
         
         {% if config.extra.main_menu %}
@@ -25,26 +25,18 @@
                 {% set cleaned_url = menu_item.url | replace(from="@/", to="") %}
                 {% if cleaned_url == page_path %}
                     {% set_global badge_icon = menu_item.icon %}
-                    {% if menu_item.icon_pack is defined %}
-                        {% set_global badge_icon_pack = menu_item.icon_pack %}
-                    {% endif %}
                 {% endif %}
             {% endfor %}
         {% endif %}
 
         {% if page_path == "sitemap.md" %}
             {% set_global badge_icon = "network" %}
-            {% set_global badge_icon_pack = "lucide" %}
         {% endif %}
 
         <a href="{{ page.permalink }}" class="sitemap-item-card">
             <span class="sitemap-item-title">
                 {% if badge_icon %}
-                    {% if badge_icon_pack == "lucide" %}
-                        <i data-lucide="{{ badge_icon }}"></i>
-                    {% else %}
-                        <i data-feather="{{ badge_icon }}"></i>
-                    {% endif %}
+                    {{ icons::render(name=badge_icon) }}
                 {% endif %}
                 {{ page.title }}
             </span>
@@ -60,7 +52,6 @@
         
         {% set_global badge_name = section.title %}
         {% set_global badge_icon = "" %}
-        {% set_global badge_icon_pack = "feather" %}
         
         {% if config.extra.main_menu %}
             {% for menu_item in config.extra.main_menu %}
@@ -68,9 +59,6 @@
                 {% if cleaned_url == subsection_path %}
                     {% set_global badge_name = menu_item.name %}
                     {% set_global badge_icon = menu_item.icon %}
-                    {% if menu_item.icon_pack is defined %}
-                        {% set_global badge_icon_pack = menu_item.icon_pack %}
-                    {% endif %}
                 {% endif %}
             {% endfor %}
         {% endif %}
@@ -79,11 +67,7 @@
         <a href="{{ section.permalink }}" class="sitemap-item-card">
             <span class="sitemap-item-title">
                 {% if badge_icon %}
-                    {% if badge_icon_pack == "lucide" %}
-                        <i data-lucide="{{ badge_icon }}"></i>
-                    {% else %}
-                        <i data-feather="{{ badge_icon }}"></i>
-                    {% endif %}
+                    {{ icons::render(name=badge_icon) }}
                 {% endif %}
                 {{ badge_name }}
             </span>
@@ -94,11 +78,7 @@
         <a href="{{ page.permalink }}" class="sitemap-item-card">
             <span class="sitemap-item-title">
                 {% if badge_icon %}
-                    {% if badge_icon_pack == "lucide" %}
-                        <i data-lucide="{{ badge_icon }}"></i>
-                    {% else %}
-                        <i data-feather="{{ badge_icon }}"></i>
-                    {% endif %}
+                    {{ icons::render(name=badge_icon) }}
                 {% endif %}
                 {{ page.title }}
             </span>

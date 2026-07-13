@@ -55,11 +55,6 @@ The underlying layout and styling are heavily inspired by [bearblog.dev](https:/
 ### Mermaid.js
 [Mermaid.js](https://mermaid.js.org/) is used for rendering interactive flowcharts and diagrams natively in Markdown code blocks. It is licensed under the MIT License.
 
-### Feather Icons
-[Feather Icons](https://feathericons.com/) is a lightweight icon library. It is licensed under the MIT License.
-
-### Lucide Icons
-[Lucide](https://lucide.dev/) is an open-source icon set utilized throughout the frontend. It is licensed under the ISC License.
 
 ## Fonts
 

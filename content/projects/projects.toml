@@ -31,7 +31,7 @@ links = [
   { name = "URL", url = "https://www.trackcovid19.info/" },
   { name = "GitHub", url = "https://github.com/ipankajkumar93/covidtracker" },
 ]
-highlight = false
+highlight = true
 
 [[project]]
 name = "website"

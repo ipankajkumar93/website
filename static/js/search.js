@@ -76,11 +76,9 @@
 
         if (window.__searchLoaded && window.__searchLoaded()) {
             initSearchIndex();
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    searchInput.focus();
-                });
-            });
+            setTimeout(() => {
+                searchInput.focus();
+            }, 100);
         } else {
             searchResults.innerHTML = '<div class="search-empty-state">Indexing…</div>';
             searchInput.disabled = true;
@@ -89,7 +87,9 @@
                     initSearchIndex();
                     searchInput.disabled = false;
                     searchResults.innerHTML = '<div class="search-empty-state">What are you looking for?</div>';
-                    searchInput.focus();
+                    setTimeout(() => {
+                        searchInput.focus();
+                    }, 100);
                 });
             }
         }

@@ -65,17 +65,15 @@ icon = "hash"
 name = "RTD"
 url = "@/rtd/_index.md"
 icon = "book-text"
-icon_pack = "lucide"
 
 [[extra.main_menu]]
 name = "Projects"
 url = "@/projects/_index.md"
 icon = "code"
-icon_pack = "lucide"
 
 [[extra.main_menu]]
 name = "Services"
-url = "@/services.md"
+url = "@/services/_index.md"
 icon = "server"
 
 # [[extra.main_menu]]
@@ -92,5 +90,4 @@ icon = "map"
 name = "Contact"
 url = "@/contact.md"
 icon = "at-sign"
-icon_pack = "lucide"
 

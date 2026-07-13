@@ -56,4 +56,4 @@ npm-debug.log*
 static/images/og/
 
 # Temporary generated project data
-content/projects/new_data.toml
+content/projects/new_projects.toml

@@ -173,8 +173,7 @@
 /* --------------------------------------------------------------------------
    Reset & Base
    -------------------------------------------------------------------------- */
-[data-feather],
-[data-lucide] {
+.svg-icon {
     display: inline-block;
 }
 
@@ -584,6 +583,15 @@ nav {
 .theme-toggle svg {
     width: 18px;
     height: 18px;
+}
+
+html[data-theme="dark"] .theme-toggle .theme-icon-light,
+html[data-theme="light"] .theme-toggle .theme-icon-dark {
+    display: none;
+}
+html[data-theme="dark"] .theme-toggle .theme-icon-dark,
+html[data-theme="light"] .theme-toggle .theme-icon-light {
+    display: inline-flex;
 }
 
 /* Search Modal */
@@ -1533,7 +1541,8 @@ abbr[title] {
     cursor: help;
 }
 
-sub, sup {
+sub,
+sup {
     font-size: 0.75em;
     line-height: 0;
     position: relative;
@@ -1783,6 +1792,10 @@ td {
 
 tr:hover td {
     background-color: var(--color-accent-subtle);
+}
+
+tr:hover td a:hover {
+    color: var(--color-text);
 }
 
 /* --------------------------------------------------------------------------
@@ -2045,15 +2058,15 @@ figcaption {
     color: var(--color-text-secondary);
     margin: 0 0 var(--space-md) 0;
     line-height: 1.6;
+
     flex: 1;
 }
 
 .project-footer {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
+    gap: var(--space-md);
 }
 
 .project-lang {
@@ -2072,19 +2085,9 @@ figcaption {
 .project-links {
     display: flex;
     gap: var(--space-sm);
-    margin-left: auto;
 }
 
-.project-links a {
-    font-size: var(--step-0);
-    color: var(--color-link);
-    text-decoration: none;
-}
 
-.project-links a:hover {
-    color: var(--color-link-hover);
-    text-decoration: underline;
-}
 
 
 
@@ -2150,6 +2153,15 @@ footer {
     flex: 1;
     text-align: center;
     white-space: nowrap;
+}
+
+.heart-icon {
+    width: 14px;
+    height: 14px;
+    fill: #e11d48; /* Red heart */
+    stroke: none;
+    vertical-align: middle;
+    margin: 0 2px;
 }
 
 .footer-right {
@@ -3134,4 +3146,42 @@ pre code.has-diff .diff-remove::before {
     content: "- ";
     color: #f85149;
     font-weight: bold;
+}
+
+/* --------------------------------------------------------------------------
+   Services
+   -------------------------------------------------------------------------- */
+
+.services-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.service-card {
+    align-items: center;
+    text-align: center;
+    height: 100%;
+}
+
+.service-header {
+    justify-content: center;
+    margin-bottom: var(--space-xs);
+}
+
+.card-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.card-link:hover {
+    color: var(--color-link-hover);
+}
+
+.card-link svg {
+    color: var(--color-accent);
 }
