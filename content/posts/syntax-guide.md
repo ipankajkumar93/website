@@ -17,7 +17,6 @@ featured = false
 license = "CC-BY-SA-4.0"
 # og_preview_img = "/images/sample-image.jpeg"    #Uncomment this to add your own OG preview image or let the python script generate one for you for OG images.
 +++
-Open!
 
 This post serves as a reference guide to showcase all the various syntax and formatting options available when writing content for this blog.
 

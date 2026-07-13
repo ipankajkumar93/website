@@ -143,7 +143,7 @@ make <type> <Title>[, <Description>]
 
 These are intentional style choices baked into the site's voice:
 
-- **Article signatures:** `Open!` / `Flush!`
+- **Article signatures:** `Flush!`
 - **Footer:** _Crafted with ❤️ by Pankaj Kumar_
 - **Nav prefixes:** `>` and `./` (shell-language aesthetic)
 
