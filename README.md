@@ -24,9 +24,9 @@ My personal website, blog, and digital home on the internet.
 
 ## 🌐 Overview
 
-This repository contains the complete source for my personal site — a fast, minimal static site built with [Zola](https://www.getzola.org/) and served via Cloudflare Pages. The theme is heavily customized from its [bearblog](https://codeberg.org/alanpearce/zola-bearblog) roots, with significant UX improvements, a Geist + Instrument Serif + JetBrains Mono font stack, a stone-palette WCAG-compliant color system, and a range of interactive features built in vanilla JavaScript.
+This repository contains the complete source for my personal site - a fast, minimal static site built with [Zola](https://www.getzola.org/) and served via Cloudflare Pages. The theme is heavily customized from its [bearblog](https://codeberg.org/alanpearce/zola-bearblog) roots, with significant UX improvements, a Geist + Instrument Serif + JetBrains Mono font stack, a stone-palette WCAG-compliant color system, and a range of interactive features built in vanilla JavaScript.
 
-The site covers writing, homelab notes, read-the-docs references, project logs, and travel — all accessible under a unified search and tag taxonomy.
+The site covers writing, homelab notes, read-the-docs references, project logs, and travel - all accessible under a unified search and tag taxonomy.
 
 ---
 
@@ -56,8 +56,8 @@ The site covers writing, homelab notes, read-the-docs references, project logs, 
 
 **🔍 Content & Discovery**
 - Full-text site search via elasticlunr modal
-- Topics taxonomy — unified tag browsing across posts and notes
-- AJAX pagination — seamless page turns without full reloads
+- Topics taxonomy - unified tag browsing across posts and notes
+- AJAX pagination - seamless page turns without full reloads
 - Next / Previous post navigation
 - Social sharing buttons ("Share via")
 
@@ -200,7 +200,7 @@ graph TD;
 |---|---|---|
 | Posts | `/posts/` | Long-form articles and technical write-ups |
 | Topics | `/topics/` | Global tag taxonomy across all content |
-| RTD | `/rtd/` | Read the Docs — quick-reference notes |
+| RTD | `/rtd/` | Read the Docs - quick-reference notes |
 | Projects | `/projects/` | Side projects and builds |
 | Services | `/services/` | Tools and services I run |
 | Travel | `/travel/` | Travel logs |

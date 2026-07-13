@@ -92,7 +92,7 @@ Use numbers followed by a period:
 To quote text from another source or highlight an excerpt, use the `>` symbol:
 
 > "Simplicity is the ultimate sophistication." 
-> — Leonardo da Vinci
+> - Leonardo da Vinci
 
 ## 7. Tables
 
