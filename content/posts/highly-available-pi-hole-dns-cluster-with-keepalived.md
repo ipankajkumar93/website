@@ -17,6 +17,7 @@ license = "CC-BY-SA-4.0"
 [taxonomies]
 post_tags = ["post", "pi-hole", "keepalived", "dns", "home-lab"]
 +++
+Open!
 
 ## Background
 

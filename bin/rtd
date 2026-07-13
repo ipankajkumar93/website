@@ -51,7 +51,9 @@ license = "CC-BY-SA-4.0"
 [taxonomies]
 rtd_tags = ["rtd"]
 +++
+Open!
 
+Flush!
 EOL
 
 echo "File created at $FILE_PATH"
