@@ -1785,6 +1785,10 @@ tr:hover td {
     background-color: var(--color-accent-subtle);
 }
 
+tr:hover td a:hover {
+    color: var(--color-text);
+}
+
 /* --------------------------------------------------------------------------
    Images & Figures
    -------------------------------------------------------------------------- */
