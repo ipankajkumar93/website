@@ -218,7 +218,7 @@ This project uses separate licenses for code and content.
 | Articles, writing, images | [Creative Commons BY-SA 4.0](LICENSE-CONTENT) |
 | Third-party components | [THIRD-PARTY-LICENSES](THIRD-PARTY-LICENSES.md) |
 
-Third-party components and their licenses are fully documented in [`THIRD-PARTY-LICENSES`](THIRD-PARTY-LICENSES.md). They include:
+Third-party components and their licenses are fully documented in [THIRD-PARTY-LICENSES](THIRD-PARTY-LICENSES.md). They include:
 
 | Component | Purpose | License |
 |---|---|---|
