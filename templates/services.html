@@ -12,17 +12,17 @@
 
 {% set data = load_data(path="content/services/services.toml", format="toml") %}
 
-<div class="services-grid">
+<div class="projects-grid services-grid">
   {% for svc in data.service %}
-  <div class="service-card">
-    <div class="service-header">
-      <h3 class="service-name">{{ svc.name }}</h3>
+  <article class="project-card service-card">
+    <div class="project-header service-header">
+      <h3 class="project-name">{{ svc.name }}</h3>
     </div>
     {% if svc.description %}
-    <p class="service-desc">{{ svc.description }}</p>
+    <p class="project-desc">{{ svc.description }}</p>
     {% endif %}
-    <div class="service-footer">
-      <div class="service-links">
+    <div class="project-footer service-footer">
+      <div class="project-links">
         {% if svc.url %}
         <a href="{{ svc.url }}" target="_blank" rel="noreferrer noopener" class="card-link">
           <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
@@ -37,7 +37,7 @@
         {% endif %}
       </div>
     </div>
-  </div>
+  </article>
   {% endfor %}
 </div>
 {% endblock %}

@@ -2050,13 +2050,14 @@ figcaption {
     color: var(--color-text-secondary);
     margin: 0 0 var(--space-md) 0;
     line-height: 1.6;
+
     flex: 1;
 }
 
 .project-footer {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--space-md);
 }
 
@@ -2076,7 +2077,6 @@ figcaption {
 .project-links {
     display: flex;
     gap: var(--space-sm);
-    align-self: center;
 }
 
 
@@ -3136,65 +3136,18 @@ pre code.has-diff .diff-remove::before {
    -------------------------------------------------------------------------- */
 
 .services-grid {
-    display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--space-lg);
 }
 
 .service-card {
-    display: flex;
-    flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: var(--space-lg);
-    background-color: var(--color-bg-subtle);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    transition: all var(--transition-fast);
     height: 100%;
 }
 
-.service-card:hover {
-    border-color: var(--color-accent-brand);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-4px);
-}
-
 .service-header {
-    display: flex;
     justify-content: center;
-    align-items: baseline;
     margin-bottom: var(--space-xs);
-}
-
-.service-name {
-    font-family: var(--font-body);
-    font-weight: 600;
-    font-size: 1.125rem;
-    margin: 0;
-    color: var(--color-text);
-}
-
-.service-desc {
-    font-size: 0.9375rem;
-    color: var(--color-text-secondary);
-    margin: 0 0 var(--space-md) 0;
-    line-height: 1.6;
-    flex: 1;
-}
-
-.service-footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-top: auto;
-}
-
-.service-links {
-    display: flex;
-    gap: var(--space-md);
 }
 
 .card-link {
