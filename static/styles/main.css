@@ -589,6 +589,7 @@ html[data-theme="dark"] .theme-toggle .theme-icon-light,
 html[data-theme="light"] .theme-toggle .theme-icon-dark {
     display: none;
 }
+
 html[data-theme="dark"] .theme-toggle .theme-icon-dark,
 html[data-theme="light"] .theme-toggle .theme-icon-light {
     display: inline-flex;
@@ -2156,12 +2157,12 @@ footer {
 }
 
 .heart-icon {
-    width: 14px;
-    height: 14px;
-    fill: #e11d48; /* Red heart */
+    width: 18px;
+    height: 18px;
     stroke: none;
     vertical-align: middle;
     margin: 0 2px;
+    filter: drop-shadow(0 2px 2px rgba(225, 29, 72, 0.4));
 }
 
 .footer-right {
