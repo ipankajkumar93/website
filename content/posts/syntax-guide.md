@@ -1,12 +1,12 @@
 +++
-draft = true
+draft = false
 slug = "post-syntax-guide" # Overrides the URL path for this page (e.g. /posts/syntax-guide/)
 type = "post" # Other types are also possible like "rtd", "travel", etc.
 in_search_index = true
 title = "Markdown Syntax & Shortcodes Guide."
 description = "A comprehensive sample post demonstrating every unique type of markdown syntax, HTML element, and Zola shortcode supported on this website."
-date = 2026-06-13
-updated = 2026-06-26
+date = 2026-06-23
+updated = 2026-07-12
 
 [taxonomies]
 post_tags = ["post", "sample", "markdown"]
@@ -185,7 +185,7 @@ You can highlight code line additions and deletions using specific comments:
 // Example of the new Shiki highlighting + diffs
 fun main() {
     println("Hello Old World") // [!code --]
-    println("Hello New Astro World! 👋") // [!code ++]
+    println("Hello New World! 👋") // [!code ++]
 }
 ```
 
@@ -197,7 +197,7 @@ You can write technical flowcharts directly in Markdown using Mermaid.js syntax:
 flowchart TD
     A([📝 Hashnode]) -->|Export Posts| B[60 Markdown Files]
     B -->|AI Asset Rescue| C[(Local Images)]
-    B --> D[[Astro Build]]
+    B --> D[[Zola Build]]
     C --> D
     D -->|Wrangler Deploy| E([☁️ Cloudflare Edge])
 ```
