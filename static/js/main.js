@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const backToTop = document.getElementById('back-to-top');
 
     if (backToTop) {
-        // RAF-throttled scroll listener — avoids layout thrashing
+        // RAF-throttled scroll listener - avoids layout thrashing
         let scrollTicking = false;
         window.addEventListener('scroll', function () {
             if (!scrollTicking) {
@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (!isPopState) {
                     window.history.pushState({ path: url }, '', url);
-                    // Umami intercepts history.pushState natively — no manual track() needed
+                    // Umami intercepts history.pushState natively - no manual track() needed
                 }
 
 
@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             }
         } catch (error) {
-            if (error.name === 'AbortError' && !isTimeout) return; // Intentional cancellation — do nothing
+            if (error.name === 'AbortError' && !isTimeout) return; // Intentional cancellation - do nothing
             console.error('Pagination fetch error:', error);
             window.location.href = url; // Fallback to full navigation
         } finally {

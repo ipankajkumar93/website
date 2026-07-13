@@ -10,7 +10,8 @@
     <!-- Home Page -->
     <a href="{{ config.base_url }}" class="sitemap-item-card">
         <span class="sitemap-item-title">
-            {{ icons::render(name="home") }} Home
+            <span class="sitemap-icon-wrapper">{{ icons::render(name="home") }}</span>
+            <span class="sitemap-text-wrapper">Home</span>
         </span>
     </a>
 
@@ -36,9 +37,9 @@
         <a href="{{ page.permalink }}" class="sitemap-item-card">
             <span class="sitemap-item-title">
                 {% if badge_icon %}
-                    {{ icons::render(name=badge_icon) }}
+                    <span class="sitemap-icon-wrapper">{{ icons::render(name=badge_icon) }}</span>
                 {% endif %}
-                {{ page.title }}
+                <span class="sitemap-text-wrapper">{{ page.title }}</span>
             </span>
             {% if badge_name %}
             <span class="sitemap-item-badge">{{ badge_name }}</span>
@@ -67,9 +68,9 @@
         <a href="{{ section.permalink }}" class="sitemap-item-card">
             <span class="sitemap-item-title">
                 {% if badge_icon %}
-                    {{ icons::render(name=badge_icon) }}
+                    <span class="sitemap-icon-wrapper">{{ icons::render(name=badge_icon) }}</span>
                 {% endif %}
-                {{ badge_name }}
+                <span class="sitemap-text-wrapper">{{ badge_name }}</span>
             </span>
         </a>
 
@@ -78,9 +79,9 @@
         <a href="{{ page.permalink }}" class="sitemap-item-card">
             <span class="sitemap-item-title">
                 {% if badge_icon %}
-                    {{ icons::render(name=badge_icon) }}
+                    <span class="sitemap-icon-wrapper">{{ icons::render(name=badge_icon) }}</span>
                 {% endif %}
-                {{ page.title }}
+                <span class="sitemap-text-wrapper">{{ page.title }}</span>
             </span>
             <span class="sitemap-item-badge">{{ badge_name }}</span>
         </a>

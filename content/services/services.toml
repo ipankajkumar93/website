@@ -1,5 +1,5 @@
 [[service]]
 name = "Markview"
-description = "Markdown Reader"
+description = "Markdown reader with syntax highlighting and instant rendering."
 url = "https://markview.pankajkumar.xyz/"
 github = "https://github.com/ipankajkumar93/markview"

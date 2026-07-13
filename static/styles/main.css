@@ -16,6 +16,12 @@
     --step-5: 2.75rem;
     --step-6: 3.5rem;
 
+    /* Font sizes (non-modular-scale, UI text) */
+    --font-size-lg: 1.125rem;
+    --font-size-sm: 0.9375rem;
+    --font-size-xs: 0.8125rem;
+    --font-size-2xs: 0.75rem;
+
     --line-height-body: 1.7;
     --line-height-heading: 1.2;
     --line-height-code: 1.5;
@@ -30,7 +36,7 @@
     --color-border: #E7E5E4;
     --color-border-subtle: #F0EEEC;
 
-    /* Admonition Colors — GitHub Alerts */
+    /* Admonition Colors - GitHub Alerts */
     --color-note-border: #0969da;
     --color-note-bg: #cceaff;
     --color-note-text: #0550ae;
@@ -47,12 +53,12 @@
     --color-caution-bg: #fad6d4;
     --color-caution-text: #a40e26;
 
-    /* Accent — Cobalt Blue */
+    /* Accent - Cobalt Blue */
     --color-accent: #2870C2;
     --color-accent-hover: #1A5AA8;
     --color-accent-subtle: #EBF3FF;
     --color-accent-muted: #7AB8E8;
-    /* Brand accent — fixed cobalt, same in both themes (used where color must not shift) */
+    /* Brand accent - fixed cobalt, same in both themes (used where color must not shift) */
     --color-accent-brand: #2870C2;
 
     /* Links */
@@ -209,11 +215,11 @@ body {
     /* overflow-x handled by html rule above */
     display: flex;
     flex-direction: column;
-    /* No baseline transition on body — color transitions are opt-in via .theme-transition
+    /* No baseline transition on body - color transitions are opt-in via .theme-transition
        to avoid sluggish hover states and inadvertent color animations site-wide. */
 }
 
-/* Noise texture overlay — promoted to its own compositor layer for performance */
+/* Noise texture overlay - promoted to its own compositor layer for performance */
 body::before {
     content: '';
     position: fixed;
@@ -235,7 +241,7 @@ body::before {
     color: var(--color-selection-text);
 }
 
-/* Screen-reader-only utility — visually hidden but announced by AT */
+/* Screen-reader-only utility - visually hidden but announced by AT */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -300,7 +306,7 @@ h6 {
     line-height: var(--line-height-heading);
     margin-top: var(--space-2xl);
     margin-bottom: var(--space-md);
-    /* body-weight headings — use normal tracking, not display negative */
+    /* body-weight headings - use normal tracking, not display negative */
     letter-spacing: normal;
     scroll-margin-top: 70px;
 }
@@ -335,8 +341,8 @@ h3 {
 .filter-clear {
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
-    font-size: 0.8125rem;
+    gap: var(--space-xs);
+    font-size: var(--font-size-xs);
     font-weight: 500;
     color: var(--color-text-secondary);
     background-color: var(--color-bg-elevated);
@@ -452,7 +458,7 @@ header {
 .name {
     font-family: var(--font-display);
     font-size: var(--step-4);
-    /* Instrument Serif only ships weight 400; browser synthesises bold — intentional design choice */
+    /* Instrument Serif only ships weight 400; browser synthesises bold - intentional design choice */
     font-weight: 600;
     margin: 0 0 var(--space-lg) 0;
     letter-spacing: 0.05em;
@@ -483,7 +489,7 @@ nav {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     font-weight: 500;
     color: var(--color-text-secondary);
     padding: var(--space-xs) var(--space-sm);
@@ -542,7 +548,7 @@ nav {
 }
 
 .search-btn-shortcut {
-    font-size: 0.75rem;
+    font-size: var(--font-size-2xs);
     font-family: var(--font-mono);
     padding: 2px var(--space-xs);
     background: var(--color-border-subtle);
@@ -674,7 +680,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     min-width: 0;
     border: none;
     background: transparent;
-    font-size: 1.125rem;
+    font-size: var(--font-size-lg);
     font-family: var(--font-body);
     color: var(--color-text);
     outline: none;
@@ -730,7 +736,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     padding: var(--space-md);
     text-align: center;
     color: var(--color-text-muted);
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
 }
 
 .search-group {
@@ -742,7 +748,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 }
 
 .search-group-title {
-    font-size: 0.75rem;
+    font-size: var(--font-size-2xs);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -774,11 +780,11 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     outline: none;
 }
 
-/* Note: dark-mode hover resolves to the same token — no override needed */
+/* Note: dark-mode hover resolves to the same token - no override needed */
 
 .search-result-title {
     font-weight: 500;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     color: var(--color-text);
 }
 
@@ -788,7 +794,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 }
 
 .search-result-desc {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-xs);
     color: var(--color-text-muted);
     line-height: 1.4;
     overflow: hidden;
@@ -989,7 +995,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 
 
 .home-content p:first-of-type {
-    font-size: 1.125rem;
+    font-size: var(--font-size-lg);
     color: var(--color-text-secondary);
     line-height: 1.8;
 }
@@ -1170,7 +1176,7 @@ article {
     }
 }
 
-/* Base rule (all screen sizes) — critical for mobile horizontal scroll */
+/* Base rule (all screen sizes) - critical for mobile horizontal scroll */
 .table-responsive-wrapper {
     overflow-x: auto;
     margin: var(--space-lg) 0;
@@ -1381,7 +1387,7 @@ article h1 {
 .toc a {
     color: var(--color-text-secondary);
     text-decoration: none;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     transition: color var(--transition-fast), font-weight var(--transition-fast);
 }
 
@@ -1463,7 +1469,7 @@ h6:hover .zola-anchor {
 a.tag {
     display: inline-flex;
     align-items: center;
-    font-size: 0.8125rem;
+    font-size: var(--font-size-xs);
     font-weight: 500;
     color: var(--color-tag-text);
     background-color: var(--color-tag-bg);
@@ -1590,7 +1596,7 @@ pre code {
     background: transparent;
     border: none;
     border-radius: 0;
-    /* No horizontal scroll — content wraps instead */
+    /* No horizontal scroll - content wraps instead */
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -1681,7 +1687,7 @@ blockquote p:last-child {
 }
 
 /* --------------------------------------------------------------------------
-   Admonitions — GitHub-style Alerts
+   Admonitions - GitHub-style Alerts
    -------------------------------------------------------------------------- */
 .admonition {
     margin: var(--space-xl) 0;
@@ -1697,7 +1703,7 @@ blockquote p:last-child {
     align-items: center;
     gap: 0.5em;
     font-weight: 600;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     margin-bottom: var(--space-xs);
     text-transform: none;
     letter-spacing: normal;
@@ -1714,7 +1720,7 @@ blockquote p:last-child {
     margin-bottom: 0;
 }
 
-/* Note — Blue */
+/* Note - Blue */
 .admonition.note {
     background-color: var(--color-note-bg);
     border-color: var(--color-note-border);
@@ -1724,7 +1730,7 @@ blockquote p:last-child {
     color: var(--color-note-text);
 }
 
-/* Tip — Green */
+/* Tip - Green */
 .admonition.tip {
     background-color: var(--color-tip-bg);
     border-color: var(--color-tip-border);
@@ -1734,7 +1740,7 @@ blockquote p:last-child {
     color: var(--color-tip-text);
 }
 
-/* Important — Purple */
+/* Important - Purple */
 .admonition.important {
     background-color: var(--color-important-bg);
     border-color: var(--color-important-border);
@@ -1744,7 +1750,7 @@ blockquote p:last-child {
     color: var(--color-important-text);
 }
 
-/* Warning — Amber */
+/* Warning - Amber */
 .admonition.warning {
     background-color: var(--color-warning-bg);
     border-color: var(--color-warning-border);
@@ -1754,7 +1760,7 @@ blockquote p:last-child {
     color: var(--color-warning-text);
 }
 
-/* Caution — Red */
+/* Caution - Red */
 .admonition.caution {
     background-color: var(--color-caution-bg);
     border-color: var(--color-caution-border);
@@ -1771,7 +1777,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: var(--space-lg) 0;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
 }
 
 th,
@@ -2022,19 +2028,19 @@ figcaption {
 .project-name {
     font-family: var(--font-body);
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: var(--font-size-lg);
     margin: 0;
     color: var(--color-text);
 }
 
 .project-stars,
 .project-forks {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-xs);
     color: var(--color-text-muted);
     font-family: var(--font-mono);
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: var(--space-xs);
     line-height: 1;
 }
 
@@ -2055,7 +2061,7 @@ figcaption {
 }
 
 .project-desc {
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
     margin: 0 0 var(--space-md) 0;
     line-height: 1.6;
@@ -2071,7 +2077,7 @@ figcaption {
 }
 
 .project-lang {
-    font-size: 0.75rem;
+    font-size: var(--font-size-2xs);
     font-family: var(--font-mono);
     color: var(--color-text-muted);
     padding: var(--space-xs) var(--space-sm);
@@ -2085,7 +2091,7 @@ figcaption {
 
 .project-links {
     display: flex;
-    gap: var(--space-sm);
+    gap: var(--space-2xl);
 }
 
 
@@ -2302,7 +2308,7 @@ hr {
    Post License
    -------------------------------------------------------------------------- */
 .post-license {
-    margin-top: 2rem;
+    margin-top: var(--space-xl);
     color: var(--color-text-muted);
     font-size: 0.95rem;
 }
@@ -2324,7 +2330,7 @@ main {
 }
 
 /* Respect OS-level reduced-motion preference.
-   Targets only named animations defined on this site — NOT a wildcard rule,
+   Targets only named animations defined on this site - NOT a wildcard rule,
    which would clobber the browser's built-in cursor-blink animation. */
 @media (prefers-reduced-motion: reduce) {
     main {
@@ -2357,7 +2363,7 @@ main {
     }
 }
 
-/* Theme transition — opt-in, applied only during toggle */
+/* Theme transition - opt-in, applied only during toggle */
 .theme-transition {
     transition: background-color var(--transition-slow), color var(--transition-slow);
 }
@@ -2793,7 +2799,7 @@ main {
     color: var(--color-text-secondary);
     background-color: var(--color-bg);
     border: 1px solid var(--color-border);
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     vertical-align: middle;
 }
 
@@ -2838,7 +2844,7 @@ main {
     color: var(--color-accent);
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     transition: all var(--transition-fast);
 }
 
@@ -2937,7 +2943,7 @@ main {
 
 .empty-state {
     color: var(--color-text-muted);
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     font-style: italic;
 }
 
@@ -2968,7 +2974,7 @@ main:has(.page-404-content) {
 
 .page-404-subtitle {
     color: var(--color-text-secondary);
-    font-size: 1.125rem;
+    font-size: var(--font-size-lg);
     margin-bottom: var(--space-lg);
 }
 
@@ -3062,9 +3068,15 @@ table.in-wrapper {
 }
 
 .sitemap-item-title {
-    font-size: 0.9375rem;
+    font-size: var(--font-size-sm);
     font-weight: 500;
     line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sitemap-text-wrapper {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
@@ -3089,25 +3101,28 @@ table.in-wrapper {
     color: white;
     background-color: var(--color-accent-brand);
     padding: 2px var(--space-sm);
-    border-radius: 9999px;
+    border-radius: var(--radius-full);
     box-shadow: var(--shadow-sm);
     white-space: nowrap;
 }
 
-.sitemap-item-title svg,
-.sitemap-item-title i {
+.sitemap-icon-wrapper {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.sitemap-icon-wrapper svg,
+.sitemap-icon-wrapper i {
     width: 14px;
     height: 14px;
     stroke-width: var(--icon-stroke-bold);
     display: inline-block;
-    vertical-align: middle;
-    margin-right: 6px;
-    margin-bottom: 2px;
 }
 
 /* Mermaid diagrams */
 .mermaid {
-    margin: 2rem 0;
+    margin: var(--space-xl) 0;
     display: flex;
     justify-content: center;
 }
@@ -3172,7 +3187,7 @@ pre code.has-diff .diff-remove::before {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.8125rem;
+    font-size: var(--font-size-xs);
     color: var(--color-text-muted);
     font-family: var(--font-mono);
     text-decoration: none;
