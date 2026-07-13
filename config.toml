@@ -75,7 +75,7 @@ icon_pack = "lucide"
 
 [[extra.main_menu]]
 name = "Services"
-url = "@/services.md"
+url = "@/services/_index.md"
 icon = "server"
 
 # [[extra.main_menu]]

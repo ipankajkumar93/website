@@ -3135,3 +3135,96 @@ pre code.has-diff .diff-remove::before {
     color: #f85149;
     font-weight: bold;
 }
+
+/* --------------------------------------------------------------------------
+   Services
+   -------------------------------------------------------------------------- */
+.services-header {
+    margin-bottom: var(--space-sm);
+}
+
+.services-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: left;
+}
+
+.services-table th,
+.services-table td {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+}
+
+.services-table td:first-child {
+    white-space: nowrap;
+}
+
+.services-table th {
+    background-color: var(--color-bg-subtle);
+    font-weight: 600;
+    color: var(--color-text-secondary);
+}
+
+.services-table tr {
+    transition: background-color var(--transition-fast);
+}
+
+.services-table tbody tr:hover {
+    background-color: var(--color-bg-subtle);
+}
+
+.services-table .td-desc {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-top: 2px;
+    white-space: normal;
+}
+
+/* Services – mobile: each row becomes a labelled card */
+@media screen and (max-width: 600px) {
+    .services-table thead {
+        display: none;
+    }
+
+    .services-table tr {
+        display: block;
+        margin-bottom: var(--space-lg);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+    }
+
+    .services-table tbody tr:hover {
+        background-color: transparent;
+    }
+
+    .services-table td {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: baseline;
+        gap: var(--space-md);
+        border-bottom: 1px solid var(--color-border-subtle);
+        white-space: normal;
+    }
+
+    .services-table td:last-child {
+        border-bottom: none;
+    }
+
+    .services-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--color-text-secondary);
+        white-space: nowrap;
+    }
+
+    .services-table td > div,
+    .services-table td > a,
+    .services-table td > span {
+        text-align: right;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+}

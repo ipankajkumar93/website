@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} | {{ super() }}{% endblock %}
+
+{% block main %}
+<div class="section-header services-header">
+  <h1>{{ section.title }}</h1>
+  {% if section.description %}
+  <p class="section-description">{{ section.description | markdown(inline=true) | safe }}</p>
+  {% endif %}
+</div>
+
+{% set data = load_data(path="content/services/services.toml", format="toml") %}
+
+<table class="services-table">
+  <thead>
+    <tr>
+      <th>Service Name</th>
+      <th>URL</th>
+      <th>GitHub</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for svc in data.service %}
+    <tr>
+      <td data-label="Name">
+        <div>
+          <strong>{{ svc.name }}</strong>
+          {% if svc.description %}
+          <div class="td-desc">{{ svc.description }}</div>
+          {% endif %}
+        </div>
+      </td>
+      <td data-label="URL">
+        <div>
+          {% if svc.url %}
+          <a href="{{ svc.url }}" target="_blank" rel="noreferrer noopener">{{ svc.url | replace(from="https://", to="") | replace(from="http://", to="") | trim_end_matches(pat="/") }}</a>
+          {% else %}
+          -
+          {% endif %}
+        </div>
+      </td>
+      <td data-label="GitHub">
+        <div>
+          {% if svc.github %}
+          <a href="{{ svc.github }}" target="_blank" rel="noreferrer noopener">{{ svc.github | replace(from="https://github.com/", to="") }}</a>
+          {% else %}
+          -
+          {% endif %}
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
