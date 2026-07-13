@@ -4,7 +4,7 @@ slug = "hello-world"
 type = "post"
 in_search_index = true
 title = "Hello World"
-description = "My first post on my new blog"
+description = "My first post on my new blog."
 date = 2026-06-14
 # updated = 2026-06-14
 
