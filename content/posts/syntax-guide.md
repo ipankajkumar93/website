@@ -9,11 +9,11 @@ date = 2026-06-23
 updated = 2026-07-12
 
 [taxonomies]
-post_tags = ["post", "sample", "markdown"]
+post_tags = ["post", "markdown", "syntax"]
 
 [extra]
 toc = true # Generates Table of Contents for the page if true
-featured = true
+featured = false
 license = "CC-BY-SA-4.0"
 # og_preview_img = "/images/sample-image.jpeg"    #Uncomment this to add your own OG preview image or let the python script generate one for you for OG images.
 +++
