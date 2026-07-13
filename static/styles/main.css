@@ -3164,7 +3164,7 @@ pre code.has-diff .diff-remove::before {
 .services-table th {
     background-color: var(--color-bg-subtle);
     font-weight: 600;
-    color: var(--color-text-secondary);
+    color: var(--color-text);
 }
 
 .services-table tr {
@@ -3176,10 +3176,7 @@ pre code.has-diff .diff-remove::before {
 }
 
 .services-table .td-desc {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    margin-top: 2px;
-    white-space: normal;
+    color: var(--color-text-secondary);
 }
 
 /* Services – mobile: each row becomes a labelled card */
