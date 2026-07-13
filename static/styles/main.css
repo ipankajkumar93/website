@@ -1345,7 +1345,7 @@ article h1 {
 }
 
 .toc.is-open .toc-inner {
-    max-height: 70vh;
+    max-height: 50vh;
     padding: 0 var(--space-lg) var(--space-sm) var(--space-lg);
     opacity: 1;
 }
