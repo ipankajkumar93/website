@@ -123,25 +123,29 @@
   {% if page.lower or page.higher %}
   <div class="post-navigation{% if is_restricted %} restricted-width{% endif %}">
     {% if page.lower %}
-    <a href="{{ page.lower.permalink }}" class="nav-prev" aria-label="Previous post">
-      <div class="nav-label">
+    <div class="nav-prev">
+      <a href="{{ page.lower.permalink }}" class="nav-label" aria-label="Previous post">
         <i data-feather="chevron-left"></i>
         <span>Previous</span>
+      </a>
+      <div class="nav-title-wrapper">
+        <a href="{{ page.lower.permalink }}" class="nav-title" aria-hidden="true">{{ page.lower.title }}</a>
       </div>
-      <span class="nav-title">{{ page.lower.title }}</span>
-    </a>
+    </div>
     {% else %}
     <span class="nav-prev empty"></span>
     {% endif %}
 
     {% if page.higher %}
-    <a href="{{ page.higher.permalink }}" class="nav-next" aria-label="Next post">
-      <div class="nav-label">
+    <div class="nav-next">
+      <a href="{{ page.higher.permalink }}" class="nav-label" aria-label="Next post">
         <span>Next</span>
         <i data-feather="chevron-right"></i>
+      </a>
+      <div class="nav-title-wrapper">
+        <a href="{{ page.higher.permalink }}" class="nav-title" aria-hidden="true">{{ page.higher.title }}</a>
       </div>
-      <span class="nav-title">{{ page.higher.title }}</span>
-    </a>
+    </div>
     {% else %}
     <span class="nav-next empty"></span>
     {% endif %}
