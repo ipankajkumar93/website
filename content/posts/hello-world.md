@@ -18,7 +18,6 @@ license = "CC-BY-SA-4.0"
 [taxonomies]
 post_tags = ["post", "hello-world"]
 +++
-Open!
 
 Hello World! 
 

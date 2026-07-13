@@ -14,7 +14,10 @@ import hashlib
 import json
 import re
 import sys
-import tomllib
+try:
+    import tomllib
+except ModuleNotFoundError:
+    import tomli as tomllib
 from datetime import datetime
 from pathlib import Path
 
@@ -399,12 +402,9 @@ class OGImageGenerator:
         title_lines = self._wrap_text(title, title_font, self.width - (2 * pad) - 128)
 
         for line in title_lines[:3]:
-            if is_centered:
-                bbox = draw.textbbox((0, 0), line, font=title_font)
-                line_x = (self.width - (bbox[2] - bbox[0])) / 2
-                draw.text((line_x, y), line, fill=CONFIG["title_color"], font=title_font)
-            else:
-                draw.text((x, y), line, fill=CONFIG["title_color"], font=title_font)
+            bbox = draw.textbbox((0, 0), line, font=title_font)
+            line_x = (self.width - (bbox[2] - bbox[0])) / 2
+            draw.text((line_x, y), line, fill=CONFIG["title_color"], font=title_font)
             y += self._text_height(line, title_font) + 12
 
         y += 48
@@ -415,12 +415,9 @@ class OGImageGenerator:
             desc_lines = self._wrap_text(description, desc_font, self.width - (2 * pad) - 128)
 
             for line in desc_lines[:3]:  # Limit description to 3 lines
-                if is_centered:
-                    bbox = draw.textbbox((0, 0), line, font=desc_font)
-                    line_x = (self.width - (bbox[2] - bbox[0])) / 2
-                    draw.text((line_x, y), line, fill=CONFIG["desc_color"], font=desc_font)
-                else:
-                    draw.text((x, y), line, fill=CONFIG["desc_color"], font=desc_font)
+                bbox = draw.textbbox((0, 0), line, font=desc_font)
+                line_x = (self.width - (bbox[2] - bbox[0])) / 2
+                draw.text((line_x, y), line, fill=CONFIG["desc_color"], font=desc_font)
                 y += self._text_height(line, desc_font) + 10
 
         # Bottom Right: Category and Pill
@@ -467,7 +464,7 @@ class OGImageGenerator:
                 if md_file.name == "_index.md":
                     continue
 
-                content = md_file.read_text()
+                content = md_file.read_text(encoding='utf-8')
                 fm = self._parse_frontmatter(content)
 
                 if not fm or not fm.get("title"):
@@ -500,7 +497,7 @@ class OGImageGenerator:
                 public_html = self.project_root / "public" / rel_path.parent / slug / "index.html"
                 if public_html.exists():
                     try:
-                        html_content = public_html.read_text(errors='ignore')
+                        html_content = public_html.read_text(encoding='utf-8', errors='ignore')
                         match = re.search(r'<div class="reading-time">\s*<i>(\d+)\s+minute', html_content)
                         if match:
                             read_time = int(match.group(1))
@@ -583,7 +580,7 @@ class OGImageGenerator:
             if not md_file.exists():
                 continue
 
-            content = md_file.read_text()
+            content = md_file.read_text(encoding='utf-8')
             fm = self._parse_frontmatter(content)
             if not fm or fm.get("draft"):
                 continue
