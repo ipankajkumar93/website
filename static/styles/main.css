@@ -850,8 +850,8 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: var(--radius-full);
     background-color: var(--color-bg-subtle);
     border: 1px solid var(--color-border);
@@ -862,13 +862,13 @@ nav {
 .share-icon:hover {
     background-color: var(--color-accent-subtle);
     border-color: var(--color-accent);
-    color: var(--color-accent);
+    color: var(--color-text);
     transform: translateY(-2px);
 }
 
 .share-icon svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
 }
 
 /* Post Navigation */
