@@ -173,8 +173,7 @@
 /* --------------------------------------------------------------------------
    Reset & Base
    -------------------------------------------------------------------------- */
-[data-feather],
-[data-lucide] {
+.svg-icon {
     display: inline-block;
 }
 
@@ -584,6 +583,15 @@ nav {
 .theme-toggle svg {
     width: 18px;
     height: 18px;
+}
+
+html[data-theme="dark"] .theme-toggle .theme-icon-light,
+html[data-theme="light"] .theme-toggle .theme-icon-dark {
+    display: none;
+}
+html[data-theme="dark"] .theme-toggle .theme-icon-dark,
+html[data-theme="light"] .theme-toggle .theme-icon-light {
+    display: inline-flex;
 }
 
 /* Search Modal */
@@ -2145,6 +2153,15 @@ footer {
     flex: 1;
     text-align: center;
     white-space: nowrap;
+}
+
+.heart-icon {
+    width: 14px;
+    height: 14px;
+    fill: #e11d48; /* Red heart */
+    stroke: none;
+    vertical-align: middle;
+    margin: 0 2px;
 }
 
 .footer-right {

@@ -1,16 +1,17 @@
+{% import "macros/icons.html" as icons %}
 {% set type = kind | lower %}
 <aside class="admonition {{ type }}" {% if type == "warning" or type == "caution" %}role="alert"{% else %}role="note"{% endif %}>
     <p class="admonition-header">
         {% if type == "note" %}
-            <i data-feather="info"></i>
+            {{ icons::render(name="info") }}
         {% elif type == "tip" %}
-            <i data-feather="zap"></i>
+            {{ icons::render(name="zap") }}
         {% elif type == "important" %}
-            <i data-feather="alert-circle"></i>
+            {{ icons::render(name="alert-circle") }}
         {% elif type == "warning" %}
-            <i data-feather="alert-triangle"></i>
+            {{ icons::render(name="alert-triangle") }}
         {% elif type == "caution" %}
-            <i data-feather="x-octagon"></i>
+            {{ icons::render(name="x-octagon") }}
         {% endif %}
         {{ kind | title }}
     </p>

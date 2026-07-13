@@ -72,7 +72,7 @@ The site covers writing, homelab notes, read-the-docs references, project logs, 
 - Light/dark theme toggle with View Transitions API clip-path reveal
 - Dynamic Open Graph image generation for social sharing
 - PWA manifest
-- Inline SVG icon system (migrated from Feather Icons)
+- Custom inline SVG icon system using macro
 
 **☁️ Deployment**
 - Cloudflare Pages with custom `_headers` for correct CSP and MIME types
@@ -225,8 +225,6 @@ Third-party components and their licenses are fully documented in [`THIRD-PARTY-
 | [Zola](https://www.getzola.org/) | Static site generator | MIT |
 | [zola-bearblog](https://codeberg.org/alanpearce/zola-bearblog) | Base theme (via mr-karan.dev) | MIT |
 | [Mermaid.js](https://mermaid.js.org/) | Diagram rendering | MIT |
-| [Lucide Icons](https://lucide.dev/) | Icon set | ISC |
-| [Feather Icons](https://feathericons.com/) | Icon set (legacy) | MIT |
 | [Geist](https://vercel.com/font) | Primary sans-serif font | OFL 1.1 |
 | [Instrument Serif](https://github.com/Instrument/instrument-sans) | Typography accent font | OFL 1.1 |
 | [JetBrains Mono](https://www.jetbrains.com/lp/mono/) | Monospace / code font | OFL 1.1 |

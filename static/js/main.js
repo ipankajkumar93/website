@@ -1,8 +1,4 @@
 // ── Helpers ────────────────────────────────────────────────────────────────
-function replaceFeather() {
-    if (typeof feather !== 'undefined') feather.replace();
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-}
 
 // ── Theme Toggle ────────────────────────────────────────────────────────────
 // main.js loads synchronously at the end of <body> so the DOM is fully
@@ -14,7 +10,7 @@ if (themeToggle) {
     const activeTheme = document.documentElement.getAttribute('data-theme') || 'dark';
 
     if (activeTheme === 'dark') {
-        themeToggle.innerHTML = '<i data-feather="sun"></i>';
+        // SVG is now managed by CSS and base.html template
     }
     // Sync aria-pressed to the actual theme on load (not hardcoded in HTML)
     themeToggle.setAttribute('aria-pressed', activeTheme === 'dark' ? 'true' : 'false');
@@ -24,12 +20,8 @@ if (themeToggle) {
         const theme = isDark ? 'light' : 'dark';
 
         document.body.classList.add('theme-transition');
-        themeToggle.innerHTML = isDark
-            ? '<i data-feather="moon"></i>'
-            : '<i data-feather="sun"></i>';
         themeToggle.setAttribute('aria-pressed', isDark ? 'false' : 'true');
 
-        replaceFeather();
         document.documentElement.setAttribute('data-theme', theme);
         document.documentElement.style.colorScheme = theme;
         localStorage.setItem('theme', theme);
@@ -49,9 +41,6 @@ if (themeToggle) {
 
 // ── DOM-dependent functionality ─────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function () {
-
-    // Replace feather and lucide icons once after the full DOM is ready
-    replaceFeather();
 
     // ── Focus Trap Helper ───────────────────────────────────────────────────
     function createFocusTrap(element) {
@@ -170,11 +159,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 requestAnimationFrame(function () {
                     const scrollY = window.scrollY;
                     backToTop.classList.toggle('visible', scrollY > 100);
-                    
+
                     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
                     const scrollProgress = docHeight > 0 ? Math.min((scrollY / docHeight) * 100, 100) : 0;
                     backToTop.style.setProperty('--scroll-progress', scrollProgress + '%');
-                    
+
                     scrollTicking = false;
                 });
                 scrollTicking = true;
@@ -197,6 +186,9 @@ document.addEventListener('DOMContentLoaded', function () {
         wrapper.appendChild(table);
     });
 
+    const copyTemplate = document.getElementById('icon-copy');
+    const checkTemplate = document.getElementById('icon-check');
+
     // ── Code Block Copy Button ──────────────────────────────────────────────
     document.querySelectorAll('pre').forEach(block => {
         if (block.querySelector('.copy-code-btn') || !block.querySelector('code')) return;
@@ -205,7 +197,9 @@ document.addEventListener('DOMContentLoaded', function () {
         button.className = 'copy-code-btn';
         button.setAttribute('aria-label', 'Copy code');
         button.setAttribute('title', 'Copy to clipboard');
-        button.innerHTML = '<i data-feather="copy"></i>';
+        if (copyTemplate) {
+            button.appendChild(copyTemplate.content.cloneNode(true));
+        }
 
         button.addEventListener('click', () => {
             const code = block.querySelector('code');
@@ -214,14 +208,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const textToCopy = code.textContent.trimEnd();
 
             const showSuccess = () => {
-                button.innerHTML = '<i data-feather="check"></i>';
+                button.innerHTML = '';
+                if (checkTemplate) button.appendChild(checkTemplate.content.cloneNode(true));
                 button.classList.add('copied');
-                replaceFeather();
 
                 setTimeout(() => {
-                    button.innerHTML = '<i data-feather="copy"></i>';
+                    button.innerHTML = '';
+                    if (copyTemplate) button.appendChild(copyTemplate.content.cloneNode(true));
                     button.classList.remove('copied');
-                    replaceFeather();
                 }, 2000);
             };
 
@@ -249,11 +243,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         block.appendChild(button);
     });
-    // Replace all copy icons (feather and lucide) in one pass after every button is in the DOM
-    replaceFeather();
 
     // ── Code Block Line Diffs Highlighter(// [!code ++], // [!code --]) ───────────────
-    
+
     // Regex to match the comment markers even if Syntect splits them into multiple HTML spans
     // Supports //, #, --, /* */, and <!-- -->
     const commentStart = '(?:\\/\\/|#|--|<!--|\\/\\*)';
@@ -288,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 cleaned = line.replace(removeRegex, match => match.match(/<[^>]+>/g)?.join('') || '');
                 className = 'line diff-remove';
             }
-            
+
             // To ensure empty lines still take up space vertically
             if (!cleaned.trim()) {
                 cleaned = ' ';
@@ -372,7 +364,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Umami intercepts history.pushState natively — no manual track() needed
                 }
 
-                replaceFeather();
 
                 // Scroll to absolute top of the page
                 window.scrollTo({ top: 0, behavior: 'smooth' });
