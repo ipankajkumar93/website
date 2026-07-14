@@ -1262,6 +1262,14 @@ article h1 {
     border-right-width: 0;
 }
 
+@media screen and (max-width: 768px) {
+    .toc.restricted-width:not(.is-stuck) {
+        width: auto;
+        margin-left: -4px;
+        margin-right: -4px;
+    }
+}
+
 @media screen and (min-width: 769px) {
     .toc.restricted-width {
         width: 90%;
@@ -1320,15 +1328,14 @@ article h1 {
 
     position: absolute;
     top: 100%;
-    left: 0;
-    width: 100%;
+    left: -2px;
+    right: -2px;
+    width: auto;
     background-color: var(--color-bg-subtle);
     border: 2px solid var(--color-border);
     border-top: none;
-    border-left: none;
-    border-right: none;
     border-radius: 0 0 var(--radius-md) var(--radius-md);
-    box-shadow: -1px 0 0 var(--color-border), 1px 0 0 var(--color-border), var(--shadow-md);
+    box-shadow: var(--shadow-md);
     clip-path: inset(0 -20px -20px -20px);
     z-index: 20;
 }
@@ -1336,9 +1343,11 @@ article h1 {
 .toc.is-stuck .toc-content {
     border-radius: 0 0 var(--radius-md) var(--radius-md);
     left: 0;
-    width: 100%;
+    right: 0;
+    width: auto;
     box-shadow: var(--shadow-md);
-    /* Remove the side border shadows */
+    border-left: none;
+    border-right: none;
 }
 
 .toc.is-open .toc-content {
