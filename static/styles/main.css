@@ -330,7 +330,7 @@ h3 {
     justify-content: flex-start;
     gap: var(--space-md);
     margin-bottom: var(--space-2xl);
-    border-bottom: 2px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
     padding-bottom: var(--space-md);
 }
 
@@ -443,7 +443,7 @@ main li a:not(.tag):hover {
 header {
     padding-top: var(--space-xl);
     padding-bottom: var(--space-xl);
-    border-bottom: 2px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .title {
@@ -658,7 +658,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     align-items: center;
     gap: var(--space-md);
     padding: var(--space-md);
-    border-bottom: 2px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .search-input-wrapper {
@@ -1049,7 +1049,7 @@ ul.blog-posts li {
     transition: background-color var(--transition-fast),
         border-color var(--transition-fast);
     position: relative;
-    border-bottom: 2px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
 }
 
 ul.blog-posts li:last-child {
@@ -1196,7 +1196,7 @@ article h1 {
     align-items: center;
     padding-bottom: var(--space-lg);
     margin-bottom: var(--space-xl);
-    border-bottom: 2px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .post-date,
@@ -1413,7 +1413,7 @@ article h1 {
 .section-header {
     margin-bottom: var(--space-xl);
     padding-bottom: var(--space-lg);
-    border-bottom: 2px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .section-header h1 {
@@ -1470,7 +1470,7 @@ h6:hover .zola-anchor {
     gap: var(--space-sm);
     margin-top: auto;
     padding-top: var(--space-lg);
-    border-top: 2px solid var(--color-border);
+    border-top: 1px solid var(--color-border);
     margin-bottom: 0;
 }
 
@@ -1511,7 +1511,7 @@ a.tag:hover {
     gap: var(--space-sm);
     margin-top: var(--space-lg);
     padding-top: var(--space-lg);
-    border-top: 2px solid var(--color-border-subtle);
+    border-top: 1px solid var(--color-border-subtle);
 }
 
 .section-tags a {
@@ -2143,7 +2143,7 @@ footer {
     /* padding-left/right are handled by the shared header,main,footer rule */
     padding-top: var(--space-xl);
     padding-bottom: var(--space-xl);
-    border-top: 2px solid var(--color-border-subtle);
+    border-top: 1px solid var(--color-border-subtle);
     color: var(--color-text-secondary);
     font-size: var(--step-0);
     font-weight: 500;
@@ -2835,7 +2835,7 @@ main {
     gap: 12px;
     margin-top: var(--space-2xl);
     padding-top: var(--space-lg);
-    border-top: 2px solid var(--color-border);
+    border-top: 1px solid var(--color-border);
     font-family: var(--font-body);
 }
 
