@@ -1,6 +1,6 @@
 +++
 title = "Contact Me"
-description = "Find me on the internet — drop me an email or pick any of these platforms."
+description = "Find me on the internet - drop me an email or pick any of these platforms."
 template = "contact.html"
 
 [extra.email]
