@@ -91,13 +91,15 @@
 {% endif -%}
 
 {# ── Twitter / X Cards ──────────────────────────────────── #}
+{% set contact_page = get_page(path="contact.md") %}
 <meta name="twitter:card" content="{{ twitter_card }}">
 <meta name="twitter:title" content="{{ og_title }}">
 <meta name="twitter:description" content="{{ og_description }}">
 <meta name="twitter:url" content="{{ og_url | safe }}">
-<meta name="twitter:site" content="@{{ config.extra.twitter | split(pat='/') | last }}">
-<meta name="twitter:creator" content="@{{ config.extra.twitter | split(pat='/') | last }}">
-
+{% if contact_page.extra.twitter %}
+<meta name="twitter:site" content="@{{ contact_page.extra.twitter.url | split(pat='/') | last }}">
+<meta name="twitter:creator" content="@{{ contact_page.extra.twitter.url | split(pat='/') | last }}">
+{% endif %}
 {% if og_image -%}
     <meta name="twitter:image" content="{{ config.base_url ~ og_image | safe }}">
     <meta name="twitter:image:alt" content="{{ og_title }}">
