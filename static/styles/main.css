@@ -542,8 +542,8 @@ nav {
 
 .search-btn i,
 .search-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     opacity: 0.8;
 }
 
@@ -587,8 +587,8 @@ nav {
 
 .theme-toggle i,
 .theme-toggle svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
 }
 
 html[data-theme="dark"] .theme-toggle .theme-icon-light,
@@ -2436,8 +2436,8 @@ main {
 .back-to-top svg {
     position: relative;
     z-index: 1;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
 }
 
 /* --------------------------------------------------------------------------
@@ -2538,8 +2538,8 @@ main {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
         background: var(--color-bg-subtle);
         border: 2px solid var(--color-border);
         border-radius: var(--radius-md);
@@ -2558,6 +2558,18 @@ main {
         color: var(--color-text);
         background-color: var(--color-accent-subtle);
         transform: translateY(-1.5px);
+    }
+
+    .mobile-close-btn svg,
+    .mobile-close-btn i {
+        width: 20px;
+        height: 20px;
+    }
+
+    .mobile-menu-btn svg,
+    .mobile-menu-btn i {
+        width: 20px;
+        height: 20px;
     }
 
     .mobile-menu-backdrop {
