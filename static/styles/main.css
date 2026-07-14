@@ -95,7 +95,7 @@
 
     /* Layout */
     --max-width: 1100px;
-    --content-width: 860px;
+    --content-width: 850px;
     --header-height: 80px;
 
     /* Icons */
@@ -1232,11 +1232,11 @@ article h1 {
 
 .toc.restricted-width {
     width: 100%;
-    max-width: var(--content-width);
+    max-width: 860px;
     /* Matches the article width initially */
     margin-left: auto;
     margin-right: auto;
-    transition: max-width 0.3s ease, border-radius 0.3s ease, border-color 0.3s ease, margin 0.3s ease;
+    transition: max-width 0.3s ease, border-radius 0.3s ease, border-color 0.3s ease;
 }
 
 .toc.is-stuck:not(.restricted-width) {
@@ -1260,6 +1260,14 @@ article h1 {
     max-width: 870px;
     border-left-width: 0;
     border-right-width: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .toc.restricted-width:not(.is-stuck) {
+        width: auto;
+        margin-left: -4px;
+        margin-right: -4px;
+    }
 }
 
 @media screen and (min-width: 769px) {
@@ -1328,7 +1336,7 @@ article h1 {
     border-left: none;
     border-right: none;
     border-radius: 0 0 var(--radius-md) var(--radius-md);
-    box-shadow: -1px 0 0 var(--color-border), 1px 0 0 var(--color-border), var(--shadow-md);
+    box-shadow: -2px 0 0 var(--color-border), 2px 0 0 var(--color-border), var(--shadow-md);
     clip-path: inset(0 -20px -20px -20px);
     z-index: 20;
 }
@@ -1338,7 +1346,8 @@ article h1 {
     left: 0;
     width: 100%;
     box-shadow: var(--shadow-md);
-    /* Remove the side border shadows */
+    border-left: none;
+    border-right: none;
 }
 
 .toc.is-open .toc-content {
