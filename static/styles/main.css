@@ -494,7 +494,7 @@ nav {
     color: var(--color-text-secondary);
     padding: var(--space-xs) var(--space-sm);
     border: 2px solid transparent;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     transition: all var(--transition-fast);
     text-decoration: none;
 }
