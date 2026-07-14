@@ -2608,7 +2608,7 @@ main {
     .nav-items a {
         width: 100%;
         padding: var(--space-sm);
-        border-radius: var(--radius-sm);
+        border-radius: var(--radius-md);
         font-size: 1.1rem;
         gap: 12px;
     }
@@ -2741,8 +2741,8 @@ main {
     }
 
     .theme-toggle {
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
     }
 }
 
