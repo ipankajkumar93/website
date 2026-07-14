@@ -2087,7 +2087,7 @@ figcaption {
 }
 
 .project-lang {
-    font-size: var(--font-size-2xs);
+    font-size: var(--font-size-xs);
     font-family: var(--font-mono);
     color: var(--color-text-muted);
     padding: var(--space-xs) var(--space-sm);
@@ -3293,7 +3293,7 @@ pre code.has-diff .diff-remove::before {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     font-weight: 500;
     color: var(--color-text-muted);
     font-family: var(--font-mono);
