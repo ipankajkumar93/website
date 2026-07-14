@@ -5,7 +5,7 @@ template = "contact.html"
 
 [extra.email]
 platform = "Email"
-handle = "ipankaj.singh10@gmail.com"
+handle = "Pankaj Kumar"
 url = "mailto:ipankaj.singh10+website@gmail.com"
 icon = "mail"
 
