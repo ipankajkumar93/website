@@ -3085,35 +3085,6 @@ table.in-wrapper {
     text-overflow: ellipsis;
 }
 
-.contact-note {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-md);
-    background-color: var(--color-bg-subtle);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    border-left: 4px solid var(--color-accent);
-}
-
-.contact-note-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-accent);
-    flex-shrink: 0;
-}
-
-.contact-note-icon svg {
-    width: 20px;
-    height: 20px;
-}
-
-.contact-note-content p {
-    margin-bottom: 0;
-    font-size: var(--font-size-sm);
-    line-height: 1.6;
-}
 
 @media screen and (max-width: 600px) {
     .contact-grid {
