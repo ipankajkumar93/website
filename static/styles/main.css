@@ -95,7 +95,7 @@
 
     /* Layout */
     --max-width: 1100px;
-    --content-width: 860px;
+    --content-width: 850px;
     --header-height: 80px;
 
     /* Icons */
@@ -1232,7 +1232,7 @@ article h1 {
 
 .toc.restricted-width {
     width: 100%;
-    max-width: var(--content-width);
+    max-width: 860px;
     /* Matches the article width initially */
     margin-left: auto;
     margin-right: auto;
