@@ -501,8 +501,8 @@ nav {
 
 .nav-items a i,
 .nav-items a svg {
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
 }
 
 .nav-items a:hover {
@@ -542,8 +542,8 @@ nav {
 
 .search-btn i,
 .search-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     opacity: 0.8;
 }
 
@@ -587,8 +587,8 @@ nav {
 
 .theme-toggle i,
 .theme-toggle svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
 }
 
 html[data-theme="dark"] .theme-toggle .theme-icon-light,
@@ -1641,8 +1641,8 @@ pre .line-number {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     padding: 0;
     background-color: var(--color-bg-subtle);
     border: 2px solid var(--color-border);
@@ -1675,8 +1675,8 @@ pre:hover .copy-code-btn,
 
 .copy-code-btn svg,
 .copy-code-btn i {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
 }
 
 /* --------------------------------------------------------------------------
@@ -2087,7 +2087,7 @@ figcaption {
 }
 
 .project-lang {
-    font-size: var(--font-size-2xs);
+    font-size: var(--font-size-xs);
     font-family: var(--font-mono);
     color: var(--color-text-muted);
     padding: var(--space-xs) var(--space-sm);
@@ -2436,8 +2436,8 @@ main {
 .back-to-top svg {
     position: relative;
     z-index: 1;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
 }
 
 /* --------------------------------------------------------------------------
@@ -2538,8 +2538,8 @@ main {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
         background: var(--color-bg-subtle);
         border: 2px solid var(--color-border);
         border-radius: var(--radius-md);
@@ -2558,6 +2558,18 @@ main {
         color: var(--color-text);
         background-color: var(--color-accent-subtle);
         transform: translateY(-1.5px);
+    }
+
+    .mobile-close-btn svg,
+    .mobile-close-btn i {
+        width: 20px;
+        height: 20px;
+    }
+
+    .mobile-menu-btn svg,
+    .mobile-menu-btn i {
+        width: 20px;
+        height: 20px;
     }
 
     .mobile-menu-backdrop {
@@ -3281,7 +3293,7 @@ pre code.has-diff .diff-remove::before {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     font-weight: 500;
     color: var(--color-text-muted);
     font-family: var(--font-mono);
