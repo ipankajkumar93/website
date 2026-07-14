@@ -1236,7 +1236,7 @@ article h1 {
     /* Matches the article width initially */
     margin-left: auto;
     margin-right: auto;
-    transition: max-width 0.3s ease, border-radius 0.3s ease, border-color 0.3s ease, margin 0.3s ease;
+    transition: max-width 0.3s ease, border-radius 0.3s ease, border-color 0.3s ease;
 }
 
 .toc.is-stuck:not(.restricted-width) {
@@ -1328,14 +1328,15 @@ article h1 {
 
     position: absolute;
     top: 100%;
-    left: -2px;
-    right: -2px;
-    width: auto;
+    left: 0;
+    width: 100%;
     background-color: var(--color-bg-subtle);
     border: 2px solid var(--color-border);
     border-top: none;
+    border-left: none;
+    border-right: none;
     border-radius: 0 0 var(--radius-md) var(--radius-md);
-    box-shadow: var(--shadow-md);
+    box-shadow: -2px 0 0 var(--color-border), 2px 0 0 var(--color-border), var(--shadow-md);
     clip-path: inset(0 -20px -20px -20px);
     z-index: 20;
 }
@@ -1343,8 +1344,7 @@ article h1 {
 .toc.is-stuck .toc-content {
     border-radius: 0 0 var(--radius-md) var(--radius-md);
     left: 0;
-    right: 0;
-    width: auto;
+    width: 100%;
     box-shadow: var(--shadow-md);
     border-left: none;
     border-right: none;
