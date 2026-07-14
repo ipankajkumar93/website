@@ -553,7 +553,7 @@ nav {
     padding: 2px var(--space-xs);
     background: var(--color-border-subtle);
     border: 2px solid var(--color-border);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     color: var(--color-text-secondary);
     opacity: 0.8;
 }
@@ -678,7 +678,9 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 .search-input {
     flex: 1;
     min-width: 0;
-    border: none;
+    height: 40px;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
     background: transparent;
     font-size: var(--font-size-lg);
     font-family: var(--font-body);
@@ -688,9 +690,8 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 }
 
 .search-input:focus {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-    border-radius: var(--radius-sm);
+    border-color: var(--color-accent);
+    outline: none;
 }
 
 .search-input::placeholder {
@@ -701,10 +702,10 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     border: 2px solid var(--color-border);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     background: var(--color-bg-subtle);
     color: var(--color-text-secondary);
     cursor: pointer;
@@ -720,8 +721,8 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 }
 
 .search-close svg {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
 }
 
 .search-results {
@@ -767,7 +768,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     flex-direction: column;
     gap: 2px;
     padding: var(--space-sm);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     text-decoration: none;
     color: var(--color-text);
     transition: background-color var(--transition-fast);
@@ -1071,7 +1072,7 @@ ul.blog-posts li:hover {
     margin-right: calc(-1 * var(--space-md));
     padding-left: var(--space-md);
     padding-right: var(--space-md);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
 }
 
 /* --------------------------------------------------------------------------
@@ -1529,7 +1530,7 @@ code {
     color: var(--color-code-text);
     border: 2px solid var(--color-border);
     padding: 0.2em 0.45em;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     -webkit-font-smoothing: antialiased;
 }
 
@@ -1541,7 +1542,7 @@ kbd {
     background-color: var(--color-bg-subtle);
     border: 2px solid var(--color-border);
     border-bottom-width: 2px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     padding: 0.1em 0.4em;
 }
 
@@ -1549,7 +1550,7 @@ mark {
     background-color: var(--color-accent-subtle);
     color: var(--color-text);
     padding: 0 0.2em;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
 }
 
 abbr[title] {
@@ -2091,7 +2092,7 @@ figcaption {
     color: var(--color-text-muted);
     padding: var(--space-xs) var(--space-sm);
     background-color: var(--color-bg-elevated);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
 }
 
 :root[data-theme="dark"] .project-lang {
@@ -2541,7 +2542,7 @@ main {
         height: 32px;
         background: var(--color-bg-subtle);
         border: 2px solid var(--color-border);
-        border-radius: var(--radius-sm);
+        border-radius: var(--radius-md);
         cursor: pointer;
         color: var(--color-text-secondary);
         position: absolute;
@@ -2793,7 +2794,7 @@ main {
     color: var(--color-text);
     background-color: var(--color-tag-bg);
     border: 2px dashed var(--color-accent);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     vertical-align: middle;
 }
 
@@ -2808,7 +2809,7 @@ main {
     color: var(--color-text-secondary);
     background-color: var(--color-bg);
     border: 2px solid var(--color-border);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     vertical-align: middle;
 }
 
