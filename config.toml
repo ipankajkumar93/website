@@ -42,9 +42,6 @@ og_sections = ["posts", "rtd", "travel"]
 restricted_sections = ["posts", "rtd", "travel"]
 date_format="%d %b, %Y"
 favicon = "/favicon.svg"
-github = "https://github.com/ipankajkumar93"
-linkedin = "https://linkedin.com/in/ipankajkumar93"
-twitter = "https://x.com/ipankajkumar93"
 
 [[extra.main_menu]]
 name = "Home"
