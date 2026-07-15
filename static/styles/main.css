@@ -195,8 +195,6 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
-    overflow-y: scroll;
-    overflow-x: clip;
 }
 
 body {
@@ -207,12 +205,9 @@ body {
     background-color: var(--color-bg);
     margin: 0;
     padding: 0;
-    /* lvh (large viewport height) locks the body to the maximum screen size. 
-       This prevents jumping on scroll and forces the footer to the true bottom. */
     min-height: 100vh;
-    min-height: 100lvh;
     width: 100%;
-    /* overflow-x handled by html rule above */
+    overflow-x: hidden; /* clip horizontal overflow here instead of html */
     display: flex;
     flex-direction: column;
     /* No baseline transition on body - color transitions are opt-in via .theme-transition
@@ -665,6 +660,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     display: flex;
     align-items: center;
     flex: 1;
+    min-width: 0;
     gap: var(--space-md);
 }
 
@@ -1160,7 +1156,7 @@ article {
     margin-bottom: 0;
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 901px) {
     .post-content.restricted-width {
         width: 90%;
         max-width: var(--content-width);
@@ -1263,7 +1259,7 @@ article h1 {
     border-right-width: 0;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
     .toc.restricted-width:not(.is-stuck) {
         width: auto;
         margin-left: -4px;
@@ -1271,7 +1267,7 @@ article h1 {
     }
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 901px) {
     .toc.restricted-width {
         width: 90%;
         align-self: center;
@@ -2457,7 +2453,7 @@ main {
     outline-offset: 2px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
     .back-to-top {
         bottom: var(--space-lg);
         right: var(--space-md);
@@ -2479,7 +2475,7 @@ main {
 /* --------------------------------------------------------------------------
    Responsive Design
    -------------------------------------------------------------------------- */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
     :root {
         --max-width: 100%;
     }
@@ -2545,11 +2541,12 @@ main {
         border-radius: var(--radius-md);
         cursor: pointer;
         color: var(--color-text-secondary);
-        position: absolute;
-        top: var(--space-xl);
-        right: var(--space-lg);
+        align-self: flex-end;
+        order: -2;
+        margin-bottom: var(--space-md);
         z-index: 2;
         transition: all var(--transition-fast);
+        flex-shrink: 0;
     }
 
     .mobile-close-btn:hover,
@@ -3307,4 +3304,32 @@ pre code.has-diff .diff-remove::before {
 
 .card-link svg {
     color: var(--color-accent);
+}
+
+/* Squeeze header items between 901px and 1100px */
+@media screen and (min-width: 901px) and (max-width: 1100px) {
+    nav {
+        gap: var(--space-xs);
+    }
+    .nav-items {
+        gap: 0;
+    }
+    .nav-items a {
+        padding: var(--space-xs) 8px;
+    }
+}
+
+/* Squeeze search modal on small mobile screens */
+@media screen and (max-width: 480px) {
+    .search-modal-header {
+        padding: var(--space-sm);
+        gap: var(--space-xs);
+    }
+    .search-input-wrapper {
+        gap: var(--space-xs);
+    }
+    .search-input {
+        font-size: var(--step-0);
+        padding: 6px 8px;
+    }
 }
