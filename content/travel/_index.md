@@ -1,6 +1,6 @@
 +++
 title = "Travel"
-description = "Stories from the road - routes taken, unplanned stops, and everything in between. Subscribe to [Atom feed](/travel/atom.xml)."
+description = "Stories from the road - routes taken, unplanned stops, and everything in between. Subscribe to <a href='/travel/atom.xml' target='_blank'>Atom feed</a>."
 sort_by = "date"
 
 generate_feeds = true
