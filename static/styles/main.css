@@ -3318,18 +3318,3 @@ pre code.has-diff .diff-remove::before {
         padding: var(--space-xs) 8px;
     }
 }
-
-/* Squeeze search modal on small mobile screens */
-@media screen and (max-width: 480px) {
-    .search-modal-header {
-        padding: var(--space-sm);
-        gap: var(--space-xs);
-    }
-    .search-input-wrapper {
-        gap: var(--space-xs);
-    }
-    .search-input {
-        font-size: var(--step-0);
-        padding: 6px 8px;
-    }
-}
