@@ -70,6 +70,8 @@
         searchResults.innerHTML = '<div class="search-empty-state">What are you looking for?</div>';
         searchInput.value = '';
         searchModal.classList.add('active');
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.paddingRight = scrollbarWidth + 'px';
         document.body.style.overflow = 'hidden';
         
         typePlaceHolder();
@@ -97,6 +99,7 @@
 
     function closeSearch() {
         searchModal.classList.remove('active');
+        document.body.style.paddingRight = '';
         document.body.style.overflow = '';
     }
 
