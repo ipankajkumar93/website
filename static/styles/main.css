@@ -2605,7 +2605,7 @@ main {
         flex-direction: column;
         align-items: flex-start;
         padding: var(--space-xl) var(--space-lg);
-        transform: translateX(-100%);
+        transform: translateX(calc(-100% - 40px));
         transition: transform 0.3s ease;
         box-shadow: var(--shadow-lg);
         border-right: 2px solid var(--color-border);
