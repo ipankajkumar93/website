@@ -1156,7 +1156,7 @@ article {
     margin-bottom: 0;
 }
 
-@media screen and (min-width: 901px) {
+@media screen and (min-width: 881px) {
     .post-content.restricted-width {
         width: 90%;
         max-width: var(--content-width);
@@ -1259,7 +1259,7 @@ article h1 {
     border-right-width: 0;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 880px) {
     .toc.restricted-width:not(.is-stuck) {
         width: auto;
         margin-left: -4px;
@@ -1267,7 +1267,7 @@ article h1 {
     }
 }
 
-@media screen and (min-width: 901px) {
+@media screen and (min-width: 881px) {
     .toc.restricted-width {
         width: 90%;
         align-self: center;
@@ -2453,7 +2453,7 @@ main {
     outline-offset: 2px;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 880px) {
     .back-to-top {
         bottom: var(--space-lg);
         right: var(--space-md);
@@ -2475,7 +2475,7 @@ main {
 /* --------------------------------------------------------------------------
    Responsive Design
    -------------------------------------------------------------------------- */
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 880px) {
     :root {
         --max-width: 100%;
     }
@@ -3306,8 +3306,8 @@ pre code.has-diff .diff-remove::before {
     color: var(--color-accent);
 }
 
-/* Squeeze header items between 901px and 1100px */
-@media screen and (min-width: 901px) and (max-width: 1100px) {
+/* Squeeze header items between 881px and 1100px */
+@media screen and (min-width: 881px) and (max-width: 1100px) {
     nav {
         gap: var(--space-xs);
     }
