@@ -2712,7 +2712,9 @@ main {
     }
 
 
-    .projects-grid {
+    .projects-grid,
+    .services-grid,
+    .sitemap-items-grid {
         grid-template-columns: 1fr;
     }
 
@@ -3145,7 +3147,7 @@ table.in-wrapper {
 
 .sitemap-items-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
     gap: var(--space-md);
     margin-top: var(--space-xl);
 }
@@ -3154,6 +3156,7 @@ table.in-wrapper {
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     background: var(--color-bg-subtle);
     border: 2px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -3274,7 +3277,7 @@ pre code.has-diff .diff-remove::before {
    -------------------------------------------------------------------------- */
 
 .services-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
 }
 
 .service-card {

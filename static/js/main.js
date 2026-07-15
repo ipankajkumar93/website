@@ -89,8 +89,6 @@ document.addEventListener('DOMContentLoaded', function () {
             lightboxImg.src = this.getAttribute('href');
             lightboxImg.alt = this.querySelector('img')?.getAttribute('alt') || '';
             lightboxModal.classList.add('active');
-            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-            document.body.style.paddingRight = scrollbarWidth + 'px';
             document.body.style.overflow = 'hidden';
             lightboxCloseBtn.focus();
         });
@@ -110,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function closeLightbox() {
         lightboxModal.classList.remove('active');
-        document.body.style.paddingRight = '';
         document.body.style.overflow = '';
     }
 
@@ -139,8 +136,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function openMobileMenu() {
         navItems.classList.add('active');
         mobileBackdrop.classList.add('active');
-        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-        document.body.style.paddingRight = scrollbarWidth + 'px';
         document.body.style.overflow = 'hidden';
         mobileMenuBtn.setAttribute('aria-expanded', 'true');
         mobileCloseBtn.focus();
@@ -149,7 +144,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function closeMobileMenu() {
         navItems.classList.remove('active');
         mobileBackdrop.classList.remove('active');
-        document.body.style.paddingRight = '';
         document.body.style.overflow = '';
         mobileMenuBtn.setAttribute('aria-expanded', 'false');
     }
