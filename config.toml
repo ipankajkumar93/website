@@ -22,11 +22,13 @@ taxonomies = [
 index_format = "elasticlunr_javascript"
 
 [markdown]
+bottom_footnotes = true
 render_emoji = true
 smart_punctuation = true
 insert_anchor_links = "right"
 external_links_target_blank = true
 external_links_no_referrer = false  # Handled by Referrer-Policy header in _headers
+external_links_no_follow = true
 
 [markdown.highlighting]
 enabled = true

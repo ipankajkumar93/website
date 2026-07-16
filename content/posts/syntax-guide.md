@@ -210,6 +210,12 @@ Because Markdown fully supports raw HTML, you can use semantic tags to enhance y
 - **Keyboard inputs:** Press <kbd>Ctrl</kbd> + <kbd>C</kbd> to copy.
 - **Highlighted text:** You can <mark>highlight important information</mark> using the mark tag.
 
+## 14. Footnotes
+
+You can add footnotes to your text by using standard markdown footnote syntax. Here is a sentence with a footnote.[^1] You can also add multiple footnotes in the same document.[^2]
+
+[^1]: This is the text of the footnote that appears when the superscript number is clicked.
+[^2]: This is the second footnote. Zola will automatically number and link them in order!
 ---
 
 *This concludes the syntax reference guide. Happy writing!*
