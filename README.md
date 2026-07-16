@@ -62,7 +62,7 @@ The site covers writing, homelab notes, read-the-docs references, project logs, 
 - Social sharing buttons ("Share via")
 
 **💻 Code & Writing**
-- Inline diff highlighting (`[!code ++]` / `[!code --]`) across all major comment styles
+- Native diff highlighting support
 - Mermaid diagram rendering (auto-detected fenced code blocks)
 - Code copy button with correct handling of soft-wrapped lines
 - JetBrains Mono monospace stack for all code surfaces
@@ -155,28 +155,14 @@ These are intentional style choices baked into the site's voice:
 
 ### ➕ Diff Highlighting
 
-Highlight additions and deletions in any language using its native comment syntax:
+Zola natively supports diff highlighting in code blocks:
 
 ````markdown
-```kotlin
-fun main() {
-    println("Hello Old World") // [!code --]
-    println("Hello New World") // [!code ++]
-}
+```diff
+- println("Hello Old World")
++ println("Hello New World")
 ```
 ````
-
-Supported comment styles:
-
-| Style | Languages |
-|---|---|
-| `// [!code ++]` | Kotlin, Java, JavaScript, Go, Rust, C++ |
-| `# [!code ++]` | Python, Ruby, Bash, YAML |
-| `-- [!code ++]` | SQL, Lua, Haskell |
-| `/* [!code ++] */` | CSS, C |
-| `<!-- [!code ++] -->` | HTML, XML |
-
-The marker is stripped from the rendered output and excluded when copying.
 
 ### 🧜‍♀️ Mermaid Diagrams
 
