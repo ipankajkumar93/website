@@ -1,15 +1,17 @@
 {% import "macros/icons.html" as icons %}
 <!DOCTYPE html>
-<html lang="{{ lang | default(value="en-US") }}">
+<html lang="{{ lang | default(value=" en-US") }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% if config.extra.favicon %}
-    <link rel="icon" type="image/svg+xml" href="{{ get_url(path=config.extra.favicon, trailing_slash=false, cachebust=true) | safe }}">
+    <link rel="icon" type="image/svg+xml"
+        href="{{ get_url(path=config.extra.favicon, trailing_slash=false, cachebust=true) | safe }}">
     {%- endif -%}
     <link rel="manifest" href="{{ get_url(path='site.webmanifest', trailing_slash=false, cachebust=true) | safe }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ get_url(path='icons/icon-180x180.png', trailing_slash=false, cachebust=true) | safe }}">
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="{{ get_url(path='icons/icon-180x180.png', trailing_slash=false, cachebust=true) | safe }}">
     <meta name="theme-color" content="#0C0A09" media="(prefers-color-scheme: dark)">
     <meta name="theme-color" content="#FAF9F7" media="(prefers-color-scheme: light)">
     <meta name="mobile-web-app-capable" content="yes">
@@ -27,15 +29,27 @@
         href="{{ get_url(path=config.feed_filenames[0]) | safe }}">
     {%- endblock -%}
     {%- endif %}
-    <link rel="preload" href="{{ get_url(path="fonts/geist_5.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="{{ get_url(path="fonts/geist_10.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="{{ get_url(path="fonts/instrument_4.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="{{ get_url(path="fonts/jetbrains_6.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="{{ get_url(path="fonts/jetbrains_18.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ get_url(path="fonts/geist_5.woff2", trailing_slash=false) | safe }}" as="font"
+        type="font/woff2" fetchpriority="high" crossorigin>
+    <link rel="preload" href="{{ get_url(path="fonts/geist_10.woff2", trailing_slash=false) | safe }}" as="font"
+        type="font/woff2" fetchpriority="high" crossorigin>
+    <link rel="preload" href="{{ get_url(path="fonts/geist_15.woff2", trailing_slash=false) | safe }}" as="font"
+        type="font/woff2" fetchpriority="high" crossorigin>
+    <link rel="preload" href="{{ get_url(path="fonts/instrument_4.woff2", trailing_slash=false) | safe }}" as="font"
+        type="font/woff2" fetchpriority="high" crossorigin>
+    <link rel="preload" href="{{ get_url(path="fonts/jetbrains_6.woff2", trailing_slash=false) | safe }}" as="font"
+        type="font/woff2" fetchpriority="high" crossorigin>
+    <link rel="preload" href="{{ get_url(path="fonts/jetbrains_18.woff2", trailing_slash=false) | safe }}" as="font"
+        type="font/woff2" fetchpriority="high" crossorigin>
     <link rel="stylesheet" href="{{ get_url(path="styles/fonts.css", trailing_slash=false, cachebust=true) | safe }}">
     <link rel="stylesheet" href="{{ get_url(path="styles/main.css", trailing_slash=false, cachebust=true) | safe }}">
     <script src="{{ get_url(path='js/theme.js', cachebust=true) | safe }}"></script>
-    <script src="{{ get_url(path='js/analytics.js', cachebust=true) | safe }}"></script>
+    <script src="{{ get_url(path='js/analytics.js', cachebust=true) | safe }}" defer></script>
+    <script src="{{ get_url(path='js/main.js', cachebust=true) | safe }}" defer></script>
+    <meta id="search-config"
+        data-elasticlunr="{{ get_url(path='elasticlunr.min.js', trailing_slash=false, cachebust=true) | safe }}"
+        data-search-index="{{ get_url(path='search_index.en.js', trailing_slash=false, cachebust=true) | safe }}">
+    <script src="{{ get_url(path='js/search-loader.js', cachebust=true) | safe }}" defer></script>
 </head>
 
 <body>
@@ -54,25 +68,25 @@
                 </button>
                 {%- if config.extra.main_menu %}
                 {%- for item in config.extra.main_menu %}
-                
+
                 {%- if item.url == "/" %}
-                    {%- set resolved_url = config.base_url %}
+                {%- set resolved_url = config.base_url %}
                 {%- elif item.url is matching("https?://") %}
-                    {%- set resolved_url = item.url %}
+                {%- set resolved_url = item.url %}
                 {%- else %}
-                    {%- set resolved_url = get_url(path=item.url) %}
+                {%- set resolved_url = get_url(path=item.url) %}
                 {%- endif %}
 
                 {%- set_global is_active = false %}
                 {%- if current_url and item.url == "/" and current_url == resolved_url %}
-                    {%- set_global is_active = true %}
+                {%- set_global is_active = true %}
                 {%- elif current_url and item.url != "/" and current_url is starting_with(resolved_url) %}
-                    {%- set_global is_active = true %}
+                {%- set_global is_active = true %}
                 {%- endif %}
 
-                <a href="{{ resolved_url | safe }}" {% if is_active %}class="active"{% endif %}>
+                <a href="{{ resolved_url | safe }}" {% if is_active %}class="active" {% endif %}>
                     {% if item.icon %}
-                        {{ icons::render(name=item.icon) }}
+                    {{ icons::render(name=item.icon) }}
                     {% endif %}
                     {{ item.name | safe }}
                 </a>
@@ -99,13 +113,16 @@
                 <div class="search-input-wrapper">
                     {{ icons::render(name="search", class="search-input-icon") }}
                     <h2 id="search-modal-title" class="sr-only">Site Search</h2>
-                    <input type="text" id="search-input" class="search-input" placeholder="Search posts, projects, travel…" autocomplete="off" aria-label="Search posts, projects, travel…" />
+                    <input type="text" id="search-input" class="search-input"
+                        placeholder="Search posts, projects, travel…" autocomplete="off"
+                        aria-label="Search posts, projects, travel…" />
                 </div>
                 <button class="search-close" aria-label="Close search">
                     {{ icons::render(name="x") }}
                 </button>
             </div>
-            <div id="search-results" class="search-results" aria-live="polite" aria-label="Search results" role="listbox">
+            <div id="search-results" class="search-results" aria-live="polite" aria-label="Search results"
+                role="listbox">
                 <div class="search-empty-state">What are you looking for?</div>
             </div>
         </div>
@@ -117,7 +134,7 @@
         {% set contact_page = get_page(path="contact.md") %}
         <div class="footer-inner">
             <div class="footer-left">
-               Copyright © 2018 - {{ now() | date(format="%Y") }} All rights reserved.
+                Copyright © 2018 - {{ now() | date(format="%Y") }} All rights reserved.
             </div>
             <div class="footer-center">
                 Crafted with {{ icons::render(name="heart", class="heart-icon") }} by {{ config.title }}
@@ -125,17 +142,24 @@
             <div class="footer-right">
                 <div class="social-links">
                     {% if contact_page.extra.github %}
-                    <a href="{{ contact_page.extra.github.url }}" target="_blank" rel="noopener noreferrer me" title="GitHub" class="social-icon" aria-label="GitHub">{{ icons::render(name="github") }}</a>
+                    <a href="{{ contact_page.extra.github.url }}" target="_blank" rel="noopener noreferrer me"
+                        title="GitHub" class="social-icon" aria-label="GitHub">{{ icons::render(name="github") }}</a>
                     {% endif %}
                     {% if contact_page.extra.linkedin %}
-                    <a href="{{ contact_page.extra.linkedin.url }}" target="_blank" rel="noopener noreferrer me" title="LinkedIn" class="social-icon" aria-label="LinkedIn">{{ icons::render(name="linkedin") }}</a>
+                    <a href="{{ contact_page.extra.linkedin.url }}" target="_blank" rel="noopener noreferrer me"
+                        title="LinkedIn" class="social-icon" aria-label="LinkedIn">{{ icons::render(name="linkedin")
+                        }}</a>
                     {% endif %}
                     {% if contact_page.extra.twitter %}
-                    <a href="{{ contact_page.extra.twitter.url }}" target="_blank" rel="noopener noreferrer me" title="Twitter/X" class="social-icon" aria-label="Twitter">{{ icons::render(name="twitter") }}</a>
+                    <a href="{{ contact_page.extra.twitter.url }}" target="_blank" rel="noopener noreferrer me"
+                        title="Twitter/X" class="social-icon" aria-label="Twitter">{{ icons::render(name="twitter")
+                        }}</a>
                     {% endif %}
-                    <a href="{{ get_url(path=config.feed_filenames[0] | default(value="atom.xml")) }}" target="_blank" rel="noopener noreferrer" title="RSS Feed" class="social-icon" aria-label="RSS Feed">
+                    <a href="{{ get_url(path=config.feed_filenames[0] | default(value=" atom.xml")) }}" target="_blank"
+                        rel="noopener noreferrer" title="RSS Feed" class="social-icon" aria-label="RSS Feed">
                         {{ icons::render(name="rss") }}</a>
-                    <a href="/sitemap/" title="Sitemap" class="social-icon" aria-label="Sitemap">{{ icons::render(name="network") }}</a>
+                    <a href="/sitemap/" title="Sitemap" class="social-icon" aria-label="Sitemap">{{
+                        icons::render(name="network") }}</a>
                 </div>
             </div>
         </div>
@@ -143,12 +167,11 @@
     <button id="back-to-top" class="back-to-top" title="Back to top" aria-label="Back to top">
         {{ icons::render(name="arrow-up") }}
     </button>
-    <script src="{{ get_url(path='js/main.js', cachebust=true) | safe }}"></script>
-    <meta id="search-config" data-elasticlunr="{{ get_url(path='elasticlunr.min.js', trailing_slash=false, cachebust=true) | safe }}" data-search-index="{{ get_url(path='search_index.en.js', trailing_slash=false, cachebust=true) | safe }}">
-    <script src="{{ get_url(path='js/search-loader.js', cachebust=true) | safe }}"></script>
+
     {% include "includes/search.html" %}
 
     <template id="icon-copy">{{ icons::render(name="copy") }}</template>
     <template id="icon-check">{{ icons::render(name="check") }}</template>
 </body>
+
 </html>
