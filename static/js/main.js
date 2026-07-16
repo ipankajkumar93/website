@@ -244,58 +244,6 @@ document.addEventListener('DOMContentLoaded', function () {
         block.appendChild(button);
     });
 
-    // ── Code Block Line Diffs Highlighter(// [!code ++], // [!code --]) ───────────────
-
-    // Regex to match the comment markers even if Syntect splits them into multiple HTML spans
-    // Supports //, #, --, /* */, and <!-- -->
-    const commentStart = '(?:\\/\\/|#|--|<!--|\\/\\*)';
-    const commentEnd = '(?:-->|\\*\\/)?';
-    const addRegex = new RegExp(`(?:<[^>]+>|\\s)*${commentStart}(?:<[^>]+>|\\s)*\\[!code(?:<[^>]+>|\\s)*\\+\\+(?:<[^>]+>|\\s)*\\](?:<[^>]+>|\\s)*${commentEnd}(?:<[^>]+>|\\s)*`, 'g');
-    const removeRegex = new RegExp(`(?:<[^>]+>|\\s)*${commentStart}(?:<[^>]+>|\\s)*\\[!code(?:<[^>]+>|\\s)*--(?:<[^>]+>|\\s)*\\](?:<[^>]+>|\\s)*${commentEnd}(?:<[^>]+>|\\s)*`, 'g');
-
-    document.querySelectorAll('pre code').forEach(codeBlock => {
-        let html = codeBlock.innerHTML;
-        if (!html.includes('[!code ++]') && !html.includes('[!code --]')) return;
-
-        let lines = html.split('\n');
-        let modified = false;
-
-        // Remove trailing empty line often created by split
-        if (lines.length > 0 && lines[lines.length - 1] === '') {
-            lines.pop();
-        }
-
-        let newHtml = lines.map(line => {
-            let className = 'line';
-            let cleaned = line;
-
-
-            if (line.includes('[!code ++]')) {
-                modified = true;
-                // Replace the match with ONLY the HTML tags it contained, preserving DOM structure
-                cleaned = line.replace(addRegex, match => match.match(/<[^>]+>/g)?.join('') || '');
-                className = 'line diff-add';
-            } else if (line.includes('[!code --]')) {
-                modified = true;
-                cleaned = line.replace(removeRegex, match => match.match(/<[^>]+>/g)?.join('') || '');
-                className = 'line diff-remove';
-            }
-
-            // To ensure empty lines still take up space vertically
-            if (!cleaned.trim()) {
-                cleaned = ' ';
-            }
-            // Add a display: none newline so that textContent (and copying) preserves line breaks
-            // but the browser layout doesn't create extra gaps
-            return `<span class="${className}">${cleaned}</span><span style="display: none;">\n</span>`;
-        }).join('');
-
-        if (modified) {
-            codeBlock.innerHTML = newHtml;
-            codeBlock.classList.add('has-diff');
-        }
-    });
-
     // ── Code Block Copy-Event Interceptor ───────────────────────────────────
     // CSS `white-space: pre-wrap` makes long lines wrap visually, but the
     // browser would normally insert \n at each visual break when the user

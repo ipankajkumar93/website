@@ -178,14 +178,11 @@ This is a caution admonition.
 
 ## 11. Code Line Differences
 
-You can highlight code line additions and deletions using specific comments:
+Zola natively supports diff highlighting in code blocks:
 
-```kotlin
-// Example of the new Shiki highlighting + diffs
-fun main() {
-    println("Hello Old World") // [!code --]
-    println("Hello New World! 👋") // [!code ++]
-}
+```diff
+- println("Hello Old World")
++ println("Hello New World! 👋")
 ```
 
 ## 12. Mermaid Diagrams
