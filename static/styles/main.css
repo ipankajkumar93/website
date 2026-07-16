@@ -105,7 +105,8 @@
     /* Transitions */
     --transition-fast: 150ms ease;
     --transition-base: 250ms ease;
-    --transition-slow: 200ms ease;
+    --transition-slow: 350ms ease;
+    --transition-theme: 100ms ease;
 
     /* Border Radius */
     --radius-sm: 4px;
@@ -2372,8 +2373,11 @@ main {
 }
 
 /* Theme transition - opt-in, applied only during toggle */
-.theme-transition {
-    transition: background-color var(--transition-slow), color var(--transition-slow);
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+    transition: all var(--transition-theme) !important;
 }
 
 /* --------------------------------------------------------------------------
