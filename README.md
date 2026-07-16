@@ -59,7 +59,7 @@ The site covers writing, homelab notes, read-the-docs references, project logs, 
 - Topics taxonomy - unified tag browsing across posts and notes
 - AJAX pagination - seamless page turns without full reloads
 - Next / Previous post navigation
-- Social sharing buttons ("Share via")
+- Social sharing buttons ("Worth sharing?")
 
 **💻 Code & Writing**
 - Native diff highlighting support
