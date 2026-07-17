@@ -8,7 +8,7 @@ title = "Home"
 
   <div class="home-content">
 
-I'm Pankaj, but you might find me scattered across the internet as `@ipankajkumar93`. I work at [Bitwise](https://bitwiseglobal.com/) where I focus mainly on backend engineering, building and scaling high-availability applications, designing resilient architectures, and handling the infrastructure and observability that keeps systems honest.
+I'm Pankaj Kumar, but you might find me scattered across the internet as `@ipankajkumar93`. I work at [Bitwise](https://bitwiseglobal.com/) where I focus mainly on backend engineering, building and scaling high-availability applications, designing resilient architectures, and handling the infrastructure and observability that keeps systems honest.
 
 I like to [craft](https://github.com/ipankajkumar93) stuff around homelab, monitoring, networking and distributed systems.
 

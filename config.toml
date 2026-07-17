@@ -1,16 +1,18 @@
-# The URL the site will be built for
+# Core Configuration
+
 base_url = "https://pankajkumar.xyz/"
 title = "Pankaj Kumar"
 description = "Code explorations, engineering thoughts, and life in between."
+
+# Build & System Settings
+
+compile_sass = false
+minify_html = false
+build_search_index = true
 generate_feeds = true
 feed_filenames = ["atom.xml"] # default template
 
-# Whether to automatically compile all Sass files in the sass directory
-compile_sass = false
-minify_html = false
-
-# Whether to build a search index to be used later on by a JavaScript library
-build_search_index = true
+# Taxonomies (Tags & Categories)
 
 taxonomies = [
   {name = "travel_tags", feed = true},
@@ -18,8 +20,12 @@ taxonomies = [
   {name = "post_tags", feed = true},
 ]
 
+# Search Configuration
+
 [search]
 index_format = "elasticlunr_javascript"
+
+# Markdown & Rendering
 
 [markdown]
 bottom_footnotes = true
@@ -32,18 +38,23 @@ external_links_no_follow = true
 
 [markdown.highlighting]
 enabled = true
-# Add "-default" suffix to theme name in case you need a darker variant
 light_theme = "github-light-default"
 dark_theme = "github-dark-default"
 
+# Custom Variables (Accessible via config.extra in templates)
 
 [extra]
+brand = "~/pnkjkmr"      # Used as the logo name in the header
+favicon = "/favicon.svg"
+date_format = "%d %b, %Y"
+
+# Section configurations
+
 featured_sections = ["posts", "rtd", "travel"]
 og_sections = ["posts", "rtd", "travel"]
-# Controls which sections apply restricted-width CSS for long-form reading and Article JSON-LD schema
-restricted_sections = ["posts", "rtd", "travel"]
-date_format="%d %b, %Y"
-favicon = "/favicon.svg"
+restricted_sections = ["posts", "rtd", "travel"] # Applies restricted-width CSS and Article JSON-LD schema
+
+# Navigation Menu
 
 [[extra.main_menu]]
 name = "Home"
@@ -89,4 +100,3 @@ icon = "map"
 name = "Contact"
 url = "@/contact.md"
 icon = "at-sign"
-

@@ -2498,21 +2498,31 @@ main {
         font-size: calc(var(--step-4) * 0.9);
     }
 
+    h1, h2, h3, h4, h5, h6 {
+        scroll-margin-top: 140px;
+    }
+
     header {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        text-align: center;
+        justify-content: space-between;
+        width: 100%;
+        padding-top: var(--space-md);
+        padding-bottom: var(--space-md);
+        position: sticky;
+        top: 0;
+        z-index: 400;
+        background-color: var(--color-bg);
     }
 
     nav {
-        width: 100%;
-        justify-content: space-between;
+        display: contents;
     }
 
     .name {
         font-size: 1.75rem;
-        margin-bottom: var(--space-md);
+        margin-bottom: 0;
     }
 
     .mobile-menu-btn {
@@ -2527,6 +2537,7 @@ main {
         cursor: pointer;
         color: var(--color-text-secondary);
         transition: all var(--transition-fast);
+        order: -1;
     }
 
     .mobile-menu-btn:hover {
@@ -2729,6 +2740,10 @@ main {
     .image-grid a:nth-child(odd):last-child {
         grid-column: auto;
         max-width: 100%;
+    }
+
+    .toc {
+        top: 73px;
     }
 
     .toc.is-stuck,
