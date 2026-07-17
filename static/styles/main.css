@@ -2338,7 +2338,7 @@ hr {
 }
 
 main {
-    animation: fadeInUp 0.3s ease-out;
+    animation: fadeInUp 0.5s ease-out;
 }
 
 /* Respect OS-level reduced-motion preference.
