@@ -279,6 +279,7 @@ main {
     flex-direction: column;
     padding-top: var(--space-xl);
     padding-bottom: var(--space-lg);
+    overflow-anchor: none;
 }
 
 /* --------------------------------------------------------------------------
