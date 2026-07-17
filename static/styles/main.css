@@ -2770,6 +2770,59 @@ main {
     }
 }
 
+@media screen and (max-width: 950px) and (max-height: 450px) {
+    .nav-items {
+        width: 450px;
+        max-width: 85vw;
+        display: grid;
+        grid-template-columns: max-content max-content;
+        justify-content: center;
+        grid-auto-rows: min-content;
+        gap: var(--space-md) var(--space-xl);
+        padding: var(--space-md) var(--space-lg);
+        overflow-y: auto;
+        align-content: center;
+        border-right: 2px solid var(--color-border);
+    }
+
+    .search-btn {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        margin: 0;
+        margin-bottom: var(--space-xs);
+        width: 100%;
+        justify-content: flex-start;
+        padding: var(--space-sm) var(--space-sm);
+        order: unset;
+    }
+
+    .mobile-close-btn {
+        position: absolute;
+        top: var(--space-md);
+        right: var(--space-lg);
+        margin: 0;
+        order: unset;
+    }
+
+
+
+    .nav-items a:first-of-type {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .nav-items a {
+        grid-column: auto;
+        width: 100%;
+        margin: 0;
+        justify-content: flex-start;
+    }
+
+    .nav-items a:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
 @media screen and (max-width: 480px) {
     h1 {
         font-size: var(--step-4);
