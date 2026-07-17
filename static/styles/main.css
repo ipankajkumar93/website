@@ -439,8 +439,8 @@ main li a:not(.tag):hover {
    Header & Navigation
    -------------------------------------------------------------------------- */
 header {
-    padding-top: var(--space-xl);
-    padding-bottom: var(--space-xl);
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
     border-bottom: 1px solid var(--color-border-subtle);
 }
 
@@ -574,6 +574,7 @@ nav {
     color: var(--color-text-secondary);
     transition: all var(--transition-fast);
     flex-shrink: 0;
+    margin-right: var(--space-md);
 }
 
 .theme-toggle:hover {
@@ -1159,7 +1160,7 @@ article {
     margin-bottom: 0;
 }
 
-@media screen and (min-width: 881px) {
+@media screen and (min-width: 951px) {
     .post-content.restricted-width {
         width: 90%;
         max-width: var(--content-width);
@@ -1262,15 +1263,16 @@ article h1 {
     border-right-width: 0;
 }
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 950px) {
     .toc.restricted-width:not(.is-stuck) {
-        width: auto;
-        margin-left: -4px;
-        margin-right: -4px;
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
-@media screen and (min-width: 881px) {
+@media screen and (min-width: 951px) {
     .toc.restricted-width {
         width: 90%;
         align-self: center;
@@ -2459,7 +2461,7 @@ main {
     outline-offset: 2px;
 }
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 950px) {
     .back-to-top {
         bottom: var(--space-lg);
         right: var(--space-md);
@@ -2481,7 +2483,7 @@ main {
 /* --------------------------------------------------------------------------
    Responsive Design
    -------------------------------------------------------------------------- */
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 950px) {
     :root {
         --max-width: 100%;
     }
@@ -2499,7 +2501,7 @@ main {
     }
 
     h1, h2, h3, h4, h5, h6 {
-        scroll-margin-top: 140px;
+        scroll-margin-top: 124px;
     }
 
     header {
@@ -2508,8 +2510,8 @@ main {
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        padding-top: var(--space-md);
-        padding-bottom: var(--space-md);
+        padding-top: var(--space-sm);
+        padding-bottom: var(--space-sm);
         position: sticky;
         top: 0;
         z-index: 400;
@@ -2518,6 +2520,10 @@ main {
 
     nav {
         display: contents;
+    }
+
+    .theme-toggle {
+        margin-right: 0;
     }
 
     .name {
@@ -2743,7 +2749,7 @@ main {
     }
 
     .toc {
-        top: 73px;
+        top: 57px;
     }
 
     .toc.is-stuck,
@@ -3301,8 +3307,8 @@ table.in-wrapper {
     color: var(--color-accent);
 }
 
-/* Squeeze header items between 881px and 1100px */
-@media screen and (min-width: 881px) and (max-width: 1100px) {
+/* Squeeze header items between 951px and 1100px */
+@media screen and (min-width: 951px) and (max-width: 1100px) {
     nav {
         gap: var(--space-xs);
     }
