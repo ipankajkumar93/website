@@ -2500,19 +2500,19 @@ main {
 
     header {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        text-align: center;
+        justify-content: space-between;
+        width: 100%;
     }
 
     nav {
-        width: 100%;
-        justify-content: space-between;
+        display: contents;
     }
 
     .name {
         font-size: 1.75rem;
-        margin-bottom: var(--space-md);
+        margin-bottom: 0;
     }
 
     .mobile-menu-btn {
@@ -2527,6 +2527,7 @@ main {
         cursor: pointer;
         color: var(--color-text-secondary);
         transition: all var(--transition-fast);
+        order: -1;
     }
 
     .mobile-menu-btn:hover {

@@ -40,8 +40,8 @@
 
 <body>
     <header>
-        <a href="{{ config.base_url | safe }}" class="title" aria-label="Go to homepage">
-            <span class="name">{{ config.title }}</span>
+        <a href="{{ config.base_url | safe }}" class="title" aria-label="{{ config.title }} - Go to homepage">
+            <span class="name" aria-hidden="true">{{ config.extra.brand | default(value=config.title) }}</span>
         </a>
         <nav>
             <button class="mobile-menu-btn" title="Menu" aria-label="Menu">
