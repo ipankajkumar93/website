@@ -2519,6 +2519,10 @@ main {
         background-color: var(--color-bg);
     }
 
+    header .title {
+        text-align: center;
+    }
+
     nav {
         display: contents;
     }
