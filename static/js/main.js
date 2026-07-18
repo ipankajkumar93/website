@@ -465,4 +465,49 @@ document.addEventListener('DOMContentLoaded', function () {
         if (unifiedView) unifiedView.style.display = 'block';
     }
 
+    // ── Logo Typing Animation ───────────────────────────────────────────────
+    const logo = document.getElementById('logo-text');
+    const titleLink = logo ? logo.closest('.title') : null;
+    if (logo && titleLink) {
+        const title = logo.dataset.title || '';
+        const brand = logo.dataset.brand || '';
+        
+        if (title !== brand) {
+            // Reserve max horizontal space by setting min-width on the parent link
+            const currentWidth = titleLink.getBoundingClientRect().width;
+            logo.textContent = brand || '\u200B';
+            const brandWidth = titleLink.getBoundingClientRect().width;
+            logo.textContent = title || '\u200B'; // Reset
+            
+            titleLink.style.minWidth = Math.max(currentWidth, brandWidth) + 'px';
+
+            setTimeout(() => {
+                let currentText = title;
+                
+                const deleteInterval = setInterval(() => {
+                    currentText = currentText.slice(0, -1);
+                    // Prevent vertical collapse when empty by using zero-width space
+                    logo.textContent = currentText.length === 0 ? '\u200B' : currentText;
+                    
+                    if (currentText.length === 0) {
+                        clearInterval(deleteInterval);
+                        
+                        if (brand.length === 0) return; // Prevent infinite loop if brand is empty
+                        
+                        let typeIndex = 0;
+                        const typeInterval = setInterval(() => {
+                            currentText += brand[typeIndex];
+                            logo.textContent = currentText;
+                            typeIndex++;
+                            
+                            if (typeIndex === brand.length) {
+                                clearInterval(typeInterval);
+                            }
+                        }, 150);
+                    }
+                }, 100);
+            }, 2500);
+        }
+    }
+
 });
