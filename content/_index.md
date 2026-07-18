@@ -8,11 +8,11 @@ title = "Home"
 
   <div class="home-content">
 
-I'm Pankaj Kumar, but you might find me scattered across the internet as `@ipankajkumar93`. I work at [Bitwise](https://bitwiseglobal.com/) where I focus mainly on backend engineering, building and scaling high-availability applications, designing resilient architectures, and handling the infrastructure and observability that keeps systems honest.
+I'm Pankaj Kumar, though online I go by `@ipankajkumar93`. I work at [Bitwise](https://bitwiseglobal.com/) as a fullstack developer, building resilient architectures, high-availability systems and the infrastructure that keeps them observable.
 
 I like to [craft](https://github.com/ipankajkumar93) stuff around homelab, monitoring, networking and distributed systems.
 
-When I'm not in the tech zone, I'm probably reading about space, aircrafts and rockets, geeking out over the latest in tech, hitting the open road on [Titan](#), or hunting down good food - yes, I'm a foodie. And when I need to slow down, old Hindi songs and ghazals do the job perfectly. I've curated some of my favorites on [Gaana playlist](https://gaana.com/playlist/fall-in-love-ewl4vppbwz), if you want to share the vibe.
+When I'm off the clock, I'm reading about space and aircraft, watching documentaries, hitting the open road on [Titan](#), or hunting down good food. And when I need to slow down, old Hindi songs and ghazals do the trick - here's my [Gaana playlist](https://gaana.com/playlist/fall-in-love-ewl4vppbwz) if you want to share the vibe.
 
   </div>
 
