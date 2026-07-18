@@ -20,6 +20,14 @@ if (themeToggle) {
         const theme = isDark ? 'light' : 'dark';
 
         document.body.classList.add('theme-transition');
+
+        // Force a reflow so the browser commits the transition styles BEFORE
+        // we flip the color variables.  Without this, the browser can batch
+        // the classList change and the data-theme change into a single style
+        // recalculation, causing some elements (e.g. TOC borders) to snap
+        // instead of transitioning.
+        void document.body.offsetHeight;
+
         themeToggle.setAttribute('aria-pressed', isDark ? 'false' : 'true');
 
         document.documentElement.setAttribute('data-theme', theme);

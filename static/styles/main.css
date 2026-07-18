@@ -2370,6 +2370,7 @@ main {
 }
 
 /* Theme transition - opt-in, applied only during toggle */
+:root:has(.theme-transition),
 .theme-transition,
 .theme-transition *,
 .theme-transition *::before,
