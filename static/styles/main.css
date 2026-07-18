@@ -2755,7 +2755,7 @@ main {
     }
 
     .toc {
-        top: 71px;
+        top: calc(40px + 2 * var(--space-md));
     }
 
     .toc.is-stuck,
