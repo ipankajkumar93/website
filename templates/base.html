@@ -46,7 +46,7 @@
                   data-brand="{{ config.extra.brand | default(value=config.title) }}">{{ config.title }}</span>
         </a>
 
-        <nav>
+        <nav aria-label="Main Navigation">
             <button class="mobile-menu-btn" title="Menu" aria-label="Menu">
                 {{ icons::render(name="menu") }}
             </button>

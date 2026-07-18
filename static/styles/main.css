@@ -835,11 +835,12 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 /* Share Block */
 .share-block {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--space-md);
-    margin-top: var(--space-2xl);
-    margin-bottom: var(--space-2xl);
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-md);
 }
 
 .share-icons {
@@ -848,13 +849,6 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     gap: var(--space-sm);
     flex-wrap: wrap;
     justify-content: center;
-}
-
-@media (max-width: 600px) {
-    .share-block {
-        flex-direction: column;
-        gap: var(--space-sm);
-    }
 }
 
 .share-label {
@@ -893,8 +887,8 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     display: flex;
     justify-content: space-between;
     gap: var(--space-lg);
-    margin-top: var(--space-lg);
-    padding-bottom: var(--space-xl);
+    margin-top: var(--space-2xl);
+    padding-bottom: var(--space-md);
 }
 
 .nav-prev,
@@ -972,7 +966,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     display: flex;
     align-items: center;
     gap: var(--space-2xl);
-    margin-bottom: calc(var(--space-2xl) + var(--space-lg));
+    margin-bottom: var(--space-lg);
 }
 
 .home-title {
@@ -1008,6 +1002,7 @@ main>h2+p {
 
 .featured-subtitle {
     margin-left: var(--space-xl);
+    margin-bottom: var(--space-xs);
 }
 
 .featured-posts-list {
@@ -1471,9 +1466,9 @@ h6:hover .zola-anchor {
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--space-sm);
-    margin-top: auto;
-    padding-top: var(--space-lg);
-    border-top: 1px solid var(--color-border);
+    margin-top: var(--space-2xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-border);
     margin-bottom: 0;
 }
 
@@ -2354,6 +2349,7 @@ main {
         animation: none;
     }
 
+
     .theme-toggle,
     .search-btn,
     .search-close,
@@ -2376,6 +2372,7 @@ main {
 }
 
 /* Theme transition - opt-in, applied only during toggle */
+:root:has(.theme-transition),
 .theme-transition,
 .theme-transition *,
 .theme-transition *::before,
