@@ -1016,14 +1016,14 @@ main>h2+p {
 
 .home-image {
     flex-shrink: 0;
-    width: 140px;
+    width: 150px;
     transform: translateY(-1rem);
 }
 
 .img-rounded {
     width: 100%;
     border-radius: var(--radius-full);
-    border: 2px solid var(--color-border);
+    border: 3px solid var(--color-border);
     box-shadow: var(--shadow-md);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
@@ -2502,7 +2502,7 @@ main {
     }
 
     h1, h2, h3, h4, h5, h6 {
-        scroll-margin-top: 124px;
+        scroll-margin-top: 145px;
     }
 
     header {
@@ -2511,8 +2511,8 @@ main {
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        padding-top: var(--space-sm);
-        padding-bottom: var(--space-sm);
+        padding-top: var(--space-md);
+        padding-bottom: var(--space-md);
         position: sticky;
         top: 0;
         z-index: 400;
@@ -2534,6 +2534,7 @@ main {
     .name {
         font-size: 1.75rem;
         margin-bottom: 0;
+        line-height: 1.2;
     }
 
     .mobile-menu-btn {
@@ -2754,7 +2755,7 @@ main {
     }
 
     .toc {
-        top: 57px;
+        top: 71px;
     }
 
     .toc.is-stuck,
