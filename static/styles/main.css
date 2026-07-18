@@ -1016,14 +1016,14 @@ main>h2+p {
 
 .home-image {
     flex-shrink: 0;
-    width: 140px;
+    width: 150px;
     transform: translateY(-1rem);
 }
 
 .img-rounded {
     width: 100%;
     border-radius: var(--radius-full);
-    border: 2px solid var(--color-border);
+    border: 3px solid var(--color-border);
     box-shadow: var(--shadow-md);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
