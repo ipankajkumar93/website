@@ -479,42 +479,68 @@ document.addEventListener('DOMContentLoaded', function () {
     if (logo && titleLink) {
         const title = logo.dataset.title || '';
         const brand = logo.dataset.brand || '';
-        
+
         if (title !== brand) {
             // Reserve max horizontal space by setting min-width on the parent link
             const currentWidth = titleLink.getBoundingClientRect().width;
             logo.textContent = brand || '\u200B';
             const brandWidth = titleLink.getBoundingClientRect().width;
             logo.textContent = title || '\u200B'; // Reset
-            
+
             titleLink.style.minWidth = Math.max(currentWidth, brandWidth) + 'px';
 
-            setTimeout(() => {
-                let currentText = title;
-                
-                const deleteInterval = setInterval(() => {
-                    currentText = currentText.slice(0, -1);
-                    // Prevent vertical collapse when empty by using zero-width space
-                    logo.textContent = currentText.length === 0 ? '\u200B' : currentText;
-                    
-                    if (currentText.length === 0) {
-                        clearInterval(deleteInterval);
-                        
-                        if (brand.length === 0) return; // Prevent infinite loop if brand is empty
-                        
-                        let typeIndex = 0;
-                        const typeInterval = setInterval(() => {
-                            currentText += brand[typeIndex];
-                            logo.textContent = currentText;
-                            typeIndex++;
-                            
-                            if (typeIndex === brand.length) {
-                                clearInterval(typeInterval);
-                            }
-                        }, 150);
+            const INITIAL_DELAY  = 2500;  // ms before animation starts
+            const DELETE_BASE    = 85;    // ms per char (base, fastest)
+            const DELETE_ACCEL   = 12;    // ms acceleration per char (gets faster)
+            const TYPE_BASE      = 60;    // ms per char (base, fastest)
+            const TYPE_DECEL     = 14;    // ms deceleration per char (slows down)
+            const PAUSE_BETWEEN  = 400;   // ms pause between delete and type
+
+            function scheduleChars(text, isDeleting, onDone) {
+                let index = isDeleting ? text.length : 0;
+                let lastTime = 0;
+
+                function step(timestamp) {
+                    if (!lastTime) { lastTime = timestamp; }
+                    const charIndex = isDeleting ? text.length - index : index;
+                    // Deletion accelerates; typing decelerates
+                    const delay = isDeleting
+                        ? Math.max(DELETE_BASE - charIndex * DELETE_ACCEL, 35)
+                        : TYPE_BASE + charIndex * TYPE_DECEL;
+
+                    if (timestamp - lastTime >= delay) {
+                        lastTime = timestamp;
+                        if (isDeleting) {
+                            index--;
+                            const slice = text.slice(0, index);
+                            logo.textContent = slice.length === 0 ? '\u200B' : slice;
+                        } else {
+                            index++;
+                            logo.textContent = text.slice(0, index);
+                        }
                     }
-                }, 100);
-            }, 2500);
+
+                    const done = isDeleting ? index <= 0 : index >= text.length;
+                    if (!done) {
+                        requestAnimationFrame(step);
+                    } else {
+                        onDone();
+                    }
+                }
+                requestAnimationFrame(step);
+            }
+
+            setTimeout(() => {
+                // Phase 1: Delete the title
+                scheduleChars(title, true, () => {
+                    if (brand.length === 0) return;
+                    // Phase 2: Pause briefly
+                    setTimeout(() => {
+                        // Phase 3: Type the brand
+                        scheduleChars(brand, false, () => {});
+                    }, PAUSE_BETWEEN);
+                });
+            }, INITIAL_DELAY);
         }
     }
 

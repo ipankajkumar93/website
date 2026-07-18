@@ -966,7 +966,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     display: flex;
     align-items: center;
     gap: var(--space-2xl);
-    margin-bottom: calc(var(--space-2xl) + var(--space-lg));
+    margin-bottom: var(--space-lg);
 }
 
 .home-title {
@@ -1002,6 +1002,7 @@ main>h2+p {
 
 .featured-subtitle {
     margin-left: var(--space-xl);
+    margin-bottom: var(--space-xs);
 }
 
 .featured-posts-list {
@@ -2347,6 +2348,7 @@ main {
     .lightbox-modal img {
         animation: none;
     }
+
 
     .theme-toggle,
     .search-btn,
