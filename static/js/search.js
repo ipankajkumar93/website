@@ -97,7 +97,13 @@
 
     function closeSearch() {
         searchModal.classList.remove('active');
-        document.body.style.overflow = '';
+        
+        const navItems = document.querySelector('.nav-items');
+        if (navItems && navItems.classList.contains('active')) {
+            // Keep overflow hidden if mobile menu is open
+        } else {
+            document.body.style.overflow = '';
+        }
     }
 
     function getCategory(url) {

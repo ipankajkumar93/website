@@ -2667,9 +2667,9 @@ main {
         justify-content: flex-start;
         font-size: 1.1rem;
         font-weight: 500;
-        padding: var(--space-sm);
+        padding: 0 var(--space-sm);
         gap: 12px;
-        height: auto;
+        height: 40px;
     }
 
     .search-btn i,
@@ -2792,7 +2792,7 @@ main {
         margin-bottom: var(--space-xs);
         width: 100%;
         justify-content: flex-start;
-        padding: var(--space-sm) var(--space-sm);
+        padding: 0 var(--space-sm);
         order: unset;
     }
 
