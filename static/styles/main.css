@@ -2502,6 +2502,10 @@ main {
         scroll-margin-top: 145px;
     }
 
+    .copy-code-btn {
+        top: calc(115px + var(--space-sm));
+    }
+
     header {
         display: flex;
         flex-direction: row;
