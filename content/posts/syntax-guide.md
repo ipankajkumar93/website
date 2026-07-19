@@ -13,7 +13,7 @@ post_tags = ["post", "markdown", "syntax", "guide"]
 
 [extra]
 toc = true # Generates Table of Contents for the page if true
-featured = true
+featured = false
 license = "CC-BY-SA-4.0"
 wrap_code = false
 
