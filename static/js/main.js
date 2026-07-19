@@ -268,6 +268,9 @@ document.addEventListener('DOMContentLoaded', function () {
             : range.commonAncestorContainer.parentElement?.closest('pre code');
         if (!codeEl || !codeEl.contains(range.commonAncestorContainer)) return;
 
+        // Only intercept if the code block is actively being soft-wrapped
+        if (!codeEl.closest('.wrap-code')) return;
+
         const fragment = range.cloneContents();
         const tmp = document.createElement('div');
         tmp.appendChild(fragment);

@@ -9,10 +9,12 @@ date = 2026-06-14
 # updated = 2026-06-14
 
 [extra]
-toc = true
-featured = false
+toc = true # Generates Table of Contents for the page if true
+featured = true
 license = "CC-BY-SA-4.0"
-# og_preview_img = "/images/sample-image.jpeg" # Uncomment to specify a custom OG preview image, otherwise the build script will auto-generate one.
+wrap_code = false
+
+# og_preview_img = "/images/sample-image.jpeg"    #Uncomment this to add your own OG preview image or let the python script generate one for you for OG images.
 # cover_image = "/images/sample-image.jpeg"
 
 [taxonomies]

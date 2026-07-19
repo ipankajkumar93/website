@@ -47,6 +47,7 @@ dark_theme = "github-dark-default"
 brand = "~/pnkjkmr"      # Used as the logo name in the header
 favicon = "/favicon.svg"
 date_format = "%d %b, %Y"
+wrap_code = false
 
 # Section configurations
 
