@@ -1016,7 +1016,7 @@ main > h2 .cli-prompt {
 .home-image {
     flex-shrink: 0;
     width: 150px;
-    transform: translateY(-1rem);
+    align-self: center;
 }
 
 .img-rounded {
