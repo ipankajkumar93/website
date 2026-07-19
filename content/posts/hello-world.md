@@ -10,7 +10,7 @@ date = 2026-06-14
 
 [extra]
 toc = true # Generates Table of Contents for the page if true
-featured = true
+featured = false
 license = "CC-BY-SA-4.0"
 wrap_code = false
 
