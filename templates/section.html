@@ -15,9 +15,15 @@
   {% for page in pages %}
     <li>
       <span>
-        <time datetime='{{ page.date | date(format='%+') }}'>
+        {% if page.updated %}
+        <time datetime='{{ page.updated | date(format="%+") }}'>
+          {{ page.updated | date(format=config.extra.date_format) }}
+        </time>
+        {% else %}
+        <time datetime='{{ page.date | date(format="%+") }}'>
           {{ page.date | date(format=config.extra.date_format) }}
         </time>
+        {% endif %}
       </span>
       <a href="{{ page.permalink }}">{{ page.title }}</a>{% if page.draft %}<span class="draft-tag">DRAFT</span>{% endif %}
     </li>

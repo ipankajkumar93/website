@@ -1000,13 +1000,17 @@ main>h2+p {
     color: var(--color-text-secondary);
 }
 
+main > h2 .cli-prompt {
+    margin-left: -0.15em;
+}
+
 .featured-subtitle {
-    margin-left: var(--space-xl);
+    margin-left: 0;
     margin-bottom: var(--space-xs);
 }
 
 .featured-posts-list {
-    padding-left: var(--space-xl);
+    padding-left: 1.25rem;
 }
 
 .home-image {
