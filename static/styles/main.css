@@ -1596,14 +1596,20 @@ pre code {
     padding: var(--space-lg) var(--space-xl);
     font-size: var(--step-0);
     line-height: var(--line-height-code);
-    /* pre-wrap gives visual soft-wrap; JS copy handler restores original lines */
-    white-space: pre-wrap;
+    /* By default, code does not wrap and scrolls horizontally */
+    white-space: pre;
     word-break: normal;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
     background: transparent;
     border: none;
     border-radius: 0;
-    /* No horizontal scroll - content wraps instead */
+    overflow-x: auto;
+}
+
+/* Optional soft-wrapping enabled via config/frontmatter */
+.wrap-code pre code {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -1651,6 +1657,11 @@ pre .line-number {
         background-color var(--transition-fast),
         color var(--transition-fast),
         border-color var(--transition-fast);
+}
+
+/* Clear the horizontal scrollbar when code doesn't wrap */
+.nowrap-code .copy-code-btn {
+    margin-bottom: var(--space-lg);
 }
 
 pre:hover .copy-code-btn,

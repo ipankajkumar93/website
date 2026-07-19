@@ -37,8 +37,11 @@
     <script src="{{ get_url(path='js/theme.js', cachebust=true) | safe }}"></script>
     <script src="{{ get_url(path='js/analytics.js', cachebust=true) | safe }}"></script>
 </head>
-
-<body>
+{% set wrap_code = config.extra.wrap_code | default(value=false) %}
+{% if page and page.extra.wrap_code is defined %}
+    {% set wrap_code = page.extra.wrap_code %}
+{% endif %}
+<body class="{% if wrap_code %}wrap-code{% else %}nowrap-code{% endif %}">
     <header>
         <a href="{{ config.base_url | safe }}" class="title" aria-label="{{ config.title }} - Go to homepage">
             <span class="name" id="logo-text" aria-hidden="true" 

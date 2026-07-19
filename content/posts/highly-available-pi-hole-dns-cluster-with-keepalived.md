@@ -12,7 +12,10 @@ updated = 2026-07-10
 toc = true # Generates Table of Contents for the page if true
 featured = true
 license = "CC-BY-SA-4.0"
+wrap_code = false
+
 # og_preview_img = "/images/sample-image.jpeg"    #Uncomment this to add your own OG preview image or let the python script generate one for you for OG images.
+# cover_image = "/images/sample-image.jpeg"
 
 [taxonomies]
 post_tags = ["post", "pi-hole", "keepalived", "dns", "home-lab"]
