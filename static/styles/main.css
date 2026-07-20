@@ -603,6 +603,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 
 /* Search Modal */
 .search-modal {
+    --color-border: #A8A29E;
     position: fixed;
     inset: 0;
     z-index: var(--z-modal);
@@ -610,14 +611,16 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     align-items: flex-start;
     justify-content: center;
     padding-top: 12vh;
-    opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
+    transition: visibility 0.2s ease;
+}
+
+:root[data-theme="dark"] .search-modal {
+    --color-border: #292524;
 }
 
 .search-modal.active {
-    opacity: 1;
     visibility: visible;
     pointer-events: auto;
 }
@@ -628,7 +631,12 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
     transition: opacity 0.2s ease;
+}
+
+.search-modal.active .search-modal-backdrop {
+    opacity: 1;
 }
 
 .search-modal-content {
@@ -1938,6 +1946,7 @@ figcaption {
     background-color: rgba(12, 10, 9, 0.95);
     cursor: pointer;
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .lightbox-modal.active {
@@ -2650,13 +2659,13 @@ main {
         transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
-    :root[data-theme="dark"] .mobile-menu-backdrop {
-        background: rgba(0, 0, 0, 0.7);
-    }
-
     .mobile-menu-backdrop.active {
         opacity: 1;
         visibility: visible;
+    }
+
+    :root[data-theme="dark"] .mobile-menu-backdrop {
+        background: rgba(0, 0, 0, 0.7);
     }
 
     .nav-items {
