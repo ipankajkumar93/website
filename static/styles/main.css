@@ -603,6 +603,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 
 /* Search Modal */
 .search-modal {
+    --color-border: #A8A29E;
     position: fixed;
     inset: 0;
     z-index: var(--z-modal);
@@ -613,6 +614,10 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     visibility: hidden;
     pointer-events: none;
     transition: visibility 0.2s ease;
+}
+
+:root[data-theme="dark"] .search-modal {
+    --color-border: #292524;
 }
 
 .search-modal.active {
