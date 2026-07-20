@@ -1013,6 +1013,10 @@ main > h2 .cli-prompt {
     padding-left: 1.25rem;
 }
 
+.featured-posts-list li::marker {
+    font-size: 1.15em;
+}
+
 .home-image {
     flex-shrink: 0;
     width: 150px;
