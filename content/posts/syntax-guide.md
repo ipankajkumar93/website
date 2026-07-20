@@ -6,7 +6,7 @@ in_search_index = true
 title = "Markdown Syntax & Shortcodes Guide"
 description = "A comprehensive sample post demonstrating every unique type of markdown syntax, HTML element, and Zola shortcode supported on this website."
 date = 2026-06-23
-updated = 2026-07-12
+updated = 2026-07-06
 
 [taxonomies]
 post_tags = ["post", "markdown", "syntax", "guide"]
