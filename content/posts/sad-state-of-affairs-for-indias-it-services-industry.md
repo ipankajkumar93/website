@@ -27,7 +27,7 @@ Ten years in this industry - across product companies where engineering was trea
 
 ## The Resource Economy
 
-In a resource economy, nobody asks if the work is good. They ask if the work is *fast enough* and *cheap enough*. "Deliver more in less time" has been the unofficial company motto since long before anyone in the C-suite could spell "LLM." Sprints got shorter, scope got bigger, and the gap between the two was always filled by the same thing: a developer's personal time, and eventually, their patience for the job itself.
+In a resource economy, nobody asks if the work is good. They ask if the work is *fast enough* and *cheap enough*. `Deliver more in less time` has been the unofficial company motto since long before anyone in the C-suite could spell "LLM." Sprints got shorter, scope got bigger, and the gap between the two was always filled by the same thing: a developer's personal time, and eventually, their patience for the job itself.
 
 Management, meanwhile, has rarely led - it has *followed*. Whatever term was trending at the last conference became the theme of the next townhall, regardless of whether it fit the actual problem in front of the team. Agile, then hyper-agile, then "we're basically a startup now," then digital transformation, then cloud-native everything - a parade of buzzwords, each one arriving at the direct expense of a developer's time, respect, and sanity. Client happiness was the only KPI that ever mattered. Developer wellbeing was a line item nobody wanted to own.
 
@@ -53,13 +53,15 @@ Here's where it stops being annoying and starts being damaging: under the banner
 
 > It's a closed loop that management built for itself: first devalue the skill publicly, then use that devaluation to justify tougher promotion criteria and thinner growth paths. Both moves cost the company nothing. Both moves cost the developer everything.
 
+## Elephant in the room
+
+AI is not here to turn developers into people who are simply good at writing polite English prompts, no matter how badly the AI industry wants to sell that story. And they *do* want to sell it - every AI company right now has a vested interest in convincing the market that software development as we know it is over, that agents and prompts and loops are the entire future, that SDLC is a relic. It's a good pitch if you're trying to be indispensable for the next decade. Companies chasing every sector at once, launching a new **AI for this and that** product every week, aren't doing that because the technology demands it - they're doing it so that when the hype eventually cools, they're not left irrelevant in a single market they never diversified out of.
+
 ## My Actual Take on AI
 
 Here's where I'll push back on the doom, because I don't think AI is the villain here - I think it's being *used* as one.
 
 When calculators arrived, they didn't replace accountants. They became a wingman - something that removed the tedious arithmetic so the accountant could focus on judgment, on advising, on the parts of the job that actually required a human. Nobody declared "anyone can do accounting now" just because a calculator could add numbers.
-
-AI is not here to turn developers into people who are simply good at writing polite English prompts, no matter how badly the AI industry wants to sell that story. And they *do* want to sell it - every AI company right now has a vested interest in convincing the market that software development as we know it is over, that agents and prompts and loops are the entire future, that SDLC is a relic. It's a good pitch if you're trying to be indispensable for the next decade. Companies chasing every sector at once, launching a new **AI for this and that** product every week, aren't doing that because the technology demands it - they're doing it so that when the hype eventually cools, they're not left irrelevant in a single market they never diversified out of.
 
 So no - coding isn't over, and neither is SDLC. A prompt doesn't understand your business logic. It doesn't know your users, your edge cases, your compliance constraints, or the five-year-old architectural decision that's still quietly load-bearing. Someone who wasn't a strong developer before AI won't magically become one now, and someone who genuinely couldn't code before still can't, just with better autocomplete. What AI actually demands is more human judgment, not less - a human in the loop who understands *why*, not just *what*.
 
