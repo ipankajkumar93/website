@@ -169,7 +169,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     backToTop.classList.toggle('visible', scrollY > 100);
 
                     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                    const scrollProgress = docHeight > 0 ? Math.min((scrollY / docHeight) * 100, 100) : 0;
+                    let scrollProgress = 0;
+                    if (docHeight > 0) {
+                        // Snap to 100% if we are within 2px of the bottom to fix sub-pixel gaps
+                        scrollProgress = (scrollY >= docHeight - 2) ? 100 : Math.min((scrollY / docHeight) * 100, 100);
+                    }
                     backToTop.style.setProperty('--scroll-progress', scrollProgress + '%');
 
                     scrollTicking = false;
