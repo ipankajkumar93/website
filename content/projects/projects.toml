@@ -35,7 +35,7 @@ highlight = true
 
 [[project]]
 name = "website"
-description = "Personal site, made using Zola"
+description = "Personal site, made using Zola-Slate"
 created = "Jun 2021"
 pushed = "Jun 2026"
 stars = 2
@@ -60,7 +60,7 @@ links = [
 ]
 
 [[project]]
-name = "zola-slate"
+name = "Zola-Slate"
 description = "Zola based template for Blogs"
 created = "June 2026"
 pushed = "Jul 2026"
