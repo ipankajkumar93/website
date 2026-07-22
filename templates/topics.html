@@ -1,0 +1,30 @@
+{% extends "page-header.html" %}
+
+{% block title %}{{ page.title }} | {{ super() }}{% endblock %}
+
+{% block page_content %}
+  {% set_global tag_links = [] %}
+  {% set_global seen_tags = [] %}
+
+  {% for tax in config.taxonomies %}
+    {% set taxonomy = get_taxonomy(kind=tax.name, fail_on_missing=false) %}
+    {% if taxonomy %}
+      {% for term in taxonomy.items %}
+        {% if term.name not in seen_tags %}
+          {% set_global seen_tags = seen_tags | concat(with=term.name) %}
+          {% set serialized = term.name ~ "||" ~ term.permalink %}
+          {% set_global tag_links = tag_links | concat(with=serialized) %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="topics-grid">
+    {% for tag_str in tag_links | sort %}
+      {% set parts = tag_str | split(pat="||") %}
+      <a href="{{ parts[1] }}?ref=topics" class="topic-pill">
+        #{{ parts[0] }}
+      </a>
+    {% endfor %}
+  </div>
+{% endblock page_content %}

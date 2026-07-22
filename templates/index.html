@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block main %}
+  {{ section.content | safe }}
+
+  {% set all_pages = [] %}
+  {% for section_name in config.extra.featured_sections %}
+    {% set section_obj = get_section(path=section_name ~ "/_index.md") %}
+    {% set_global all_pages = all_pages | concat(with=section_obj.pages) %}
+  {% endfor %}
+  
+  {% set has_featured = false %}
+  {% for page in all_pages %}
+    {% if page.extra.featured %}
+      {% set_global has_featured = true %}
+    {% endif %}
+  {% endfor %}
+
+  {% if has_featured %}
+  <h2><span class="cli-prompt">./</span> Featured Posts</h2>
+  <p class="featured-subtitle">Handpicked from the archive:</p>
+  <ul class="featured-posts-list">
+    {% for page in all_pages | sort(attribute="date") | reverse %}
+      {% if page.extra.featured %}
+      <li>
+        <a href="{{ page.permalink }}">{{ page.title }}</a>{% if page.draft %}<span class="draft-tag">DRAFT</span>{% endif %}
+      </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+{% endblock %}

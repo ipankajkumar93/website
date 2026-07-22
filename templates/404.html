@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% import "macros/icons.html" as icons %}
+
+{% block title %}404 - Page Not Found{% endblock %}
+
+{% block main %}
+<div class="page-404-content">
+  <h1>404 <span>🥺</span></h1>
+  <p class="page-404-subtitle">Dead end. Happens on road trips too.</p>
+  <p><a href="{{ config.base_url | safe }}">{{ icons::render(name="home", class="search-input-icon") }}Let's go Home.</a></p>
+</div>
+{% endblock %}

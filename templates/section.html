@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} | {{ super() }}{% endblock %}
+
+{% block main %}
+<div class="section-header">
+  <h1>{{ section.title }}</h1>
+  {% if section.description %}
+  <p class="section-description">{{ section.description | markdown(inline=true) | safe }}</p>
+  {% endif %}
+</div>
+<div id="pagination-container" class="pagination-container">
+<ul class="blog-posts">
+  {% set pages = paginator.pages | default(value=section.pages) %}
+  {% for page in pages %}
+    <li>
+      <span>
+        {% if page.updated %}
+        <time datetime='{{ page.updated | date(format="%+") }}'>
+          {{ page.updated | date(format=config.extra.date_format) }}
+        </time>
+        {% else %}
+        <time datetime='{{ page.date | date(format="%+") }}'>
+          {{ page.date | date(format=config.extra.date_format) }}
+        </time>
+        {% endif %}
+      </span>
+      <a href="{{ page.permalink }}">{{ page.title }}</a>{% if page.draft %}<span class="draft-tag">DRAFT</span>{% endif %}
+    </li>
+    {% else %}
+    <li class="empty-state-item">
+      <span class="empty-state">No posts yet.</span>
+    </li>
+  {% endfor %}
+</ul>
+
+{% if paginator and paginator.number_pagers > 1 %}
+<nav class="pagination" aria-label="Pagination">
+  <!-- First Page Button -->
+  {% if paginator.current_index == 1 %}
+    <span class="pagination-btn disabled">
+      First
+    </span>
+  {% else %}
+    <a href="{{ paginator.first }}" class="pagination-btn" title="First Page">
+      First
+    </a>
+  {% endif %}
+
+  <!-- Previous Page Button -->
+  {% if paginator.previous %}
+    <a href="{{ paginator.previous }}" class="pagination-btn" title="Previous Page">
+      Prev
+    </a>
+  {% else %}
+    <span class="pagination-btn disabled">
+      Prev
+    </span>
+  {% endif %}
+
+  <!-- Numbered Pages Sliding Window -->
+  <div class="pagination-numbers">
+    {% set total = paginator.number_pagers %}
+    {% set current = paginator.current_index %}
+    
+    {% set_global start_page = 1 %}
+    {% set_global end_page = total %}
+    
+    {% if total > 5 %}
+      {% if current <= 3 %}
+        {% set_global start_page = 1 %}
+        {% set_global end_page = 5 %}
+      {% elif current >= total - 2 %}
+        {% set_global start_page = total - 4 %}
+        {% set_global end_page = total %}
+      {% else %}
+        {% set_global start_page = current - 2 %}
+        {% set_global end_page = current + 2 %}
+      {% endif %}
+    {% endif %}
+
+    {% if start_page > 1 %}
+      <span class="pagination-ellipsis">&hellip;</span>
+    {% endif %}
+
+    {% for i in range(start=start_page, end=end_page+1) %}
+      {% if i == current %}
+        <span class="pagination-number active">{{ i }}</span>
+      {% else %}
+        {% set page_url = paginator.base_url ~ i ~ "/" %}
+        {% if i == 1 %}
+          {% set page_url = paginator.first %}
+        {% endif %}
+        <a href="{{ page_url }}" class="pagination-number">{{ i }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if end_page < total %}
+      <span class="pagination-ellipsis">&hellip;</span>
+    {% endif %}
+  </div>
+
+  <!-- Next Page Button -->
+  {% if paginator.next %}
+    <a href="{{ paginator.next }}" class="pagination-btn" title="Next Page">
+      Next
+    </a>
+  {% else %}
+    <span class="pagination-btn disabled">
+      Next
+    </span>
+  {% endif %}
+
+  <!-- Last Page Button -->
+  {% if paginator.current_index == paginator.number_pagers %}
+    <span class="pagination-btn disabled">
+      Last
+    </span>
+  {% else %}
+    <a href="{{ paginator.last }}" class="pagination-btn" title="Last Page">
+      Last
+    </a>
+  {% endif %}
+</nav>
+{% endif %}
+</div>
+
+  {% if section.extra.taxonomy %}
+  {% set tags = get_taxonomy(kind=section.extra.taxonomy, fail_on_missing=false) %}
+  {% else %}
+  {% set tags = false %}
+  {% endif %}
+  
+  {% if tags and tags.items | length > 0 %}
+  <div class="section-tags">
+    {% for post in tags.items %}
+    <a href="{{ post.permalink }}" class="tag">#{{ post.name }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endblock %}

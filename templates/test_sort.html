@@ -1,0 +1,3 @@
+{% for p in section.pages %}
+  edate: {{ p.updated | default(value=p.date) }} <br>
+{% endfor %}

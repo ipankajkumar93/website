@@ -1,0 +1,5 @@
+[[service]]
+name = "Example Service"
+description = "A sample service description."
+url = "https://example.com/"
+github = "https://github.com/johndoe/example-service"
