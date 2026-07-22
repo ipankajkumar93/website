@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% import "macros/icons.html" as icons %}
+
+{% block title %}{% if page.title %}{{ page.title }} | {% endif %}{{ super() }}{% endblock %}
+
+{% block main %}
+{% set is_restricted = false %}
+{% if page.components %}
+{% for section in config.extra.restricted_sections %}
+{% if section in page.components %}
+{% set_global is_restricted = true %}
+{% endif %}
+{% endfor %}
+{% endif %}
+<article>
+  {%- if page.draft %}
+  <div class="draft-banner">
+    <span class="draft-icon">✎</span>
+    <span class="draft-text">DRAFT</span>
+    <span class="draft-note">This post is unpublished and only visible in local preview</span>
+  </div>
+  {%- endif %}
+  {%- if not page.extra.menu %}
+  {%- if page.title %}
+  <h1>{{ page.title }}</h1>
+  {%- endif %}
+  <div class="meta">
+    {%- if page.date %}
+    <div class="post-date">
+        <time datetime='{{ page.date | date(format=' %+') }}'>
+          {{- page.date | date(format=config.extra.date_format) -}}
+        </time>
+        {%- if page.updated %}
+        &nbsp;(Updated: <time datetime='{{ page.updated | date(format=' %+') }}'>
+          {{- page.updated | date(format=config.extra.date_format) -}}
+        </time>)
+        {%- endif %}
+    </div>
+    <div class="reading-time">
+      {{ page.reading_time }} min read ({{ page.word_count }} words)
+    </div>
+    {%- endif %}
+  </div>
+  {%- endif %}
+
+  {%- if page.extra.cover_image %}
+  <div class="article-cover{% if is_restricted %} restricted-width{% endif %}">
+    <img src="{{ page.extra.cover_image | safe }}" alt="Cover image for {{ page.title }}" loading="lazy" />
+  </div>
+  {%- endif %}
+
+  {%- if page.extra.toc and page.toc %}
+  <div id="toc-sentinel"></div>
+  <div class="toc{% if is_restricted %} restricted-width{% endif %}">
+    <div class="toc-title">
+      <span>Table of Contents</span>
+      {{ icons::render(name="chevrons-down", class="toc-icon") }}
+    </div>
+    <div class="toc-content">
+      <div class="toc-inner">
+        <ul>
+          {%- for h1 in page.toc %}
+          <li>
+            <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
+            {%- if h1.children %}
+            <ul>
+              {%- for h2 in h1.children %}
+              <li><a href="{{ h2.permalink | safe }}">{{ h2.title }}</a></li>
+              {%- endfor %}
+            </ul>
+            {%- endif %}
+          </li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  {%- endif %}
+  <div class="post-content{% if is_restricted %} restricted-width{% endif %}">
+    {{ page.content | safe }}
+    
+    <div class="post-license">
+      - Written by human, polished by AI
+      {% if page.extra.license and page.extra.license == "CC-BY-SA-4.0" %}
+      <br>
+      - This post is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>
+      {% endif %}
+    </div>
+  </div>
+
+  {%- if page.taxonomies %}
+  <div class="tags{% if is_restricted %} restricted-width{% endif %}" aria-label="Tags">
+    {%- for name, taxon in page.taxonomies %}
+    {%- for item in taxon %}
+    <a href="{{ get_taxonomy_url(kind=name, name=item) }}" class="tag">#{{ item }}</a>
+    {%- endfor %}
+    {%- endfor %}
+  </div>
+  {%- endif %}
+
+  <div class="share-block{% if is_restricted %} restricted-width{% endif %}">
+    <span class="share-label">Worth sharing?</span>
+    <div class="share-icons">
+      <a href="https://api.whatsapp.com/send?text={{ page.title | urlencode }}%20{{ current_url | urlencode }}"
+        target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on WhatsApp">
+        {{ icons::render(name="whatsapp") }}
+      </a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{ current_url | urlencode }}" target="_blank"
+        rel="noopener noreferrer" class="share-icon" aria-label="Share on Facebook">
+        {{ icons::render(name="facebook") }}
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ current_url | urlencode }}&title={{ page.title | urlencode }}"
+        target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on LinkedIn">
+        {{ icons::render(name="linkedin") }}
+      </a>
+      <a href="https://twitter.com/intent/tweet?url={{ current_url | urlencode }}&text={{ page.title | urlencode }}"
+        target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on Twitter">
+        {{ icons::render(name="twitter") }}
+      </a>
+      <a href="https://t.me/share/url?url={{ current_url | urlencode }}&text={{ page.title | urlencode }}"
+        target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on Telegram">
+        {{ icons::render(name="send") }}
+      </a>
+      <a href="mailto:?subject={{ page.title | urlencode }}&body={{ current_url | urlencode }}" target="_blank"
+        rel="noopener noreferrer" class="share-icon" aria-label="Share via Email">
+        {{ icons::render(name="mail") }}
+      </a>
+    </div>
+  </div>
+
+  {% if page.lower or page.higher %}
+  <div class="post-navigation{% if is_restricted %} restricted-width{% endif %}">
+    {% if page.lower %}
+    <div class="nav-prev">
+      <a href="{{ page.lower.permalink }}" class="nav-label" aria-label="Previous post">
+        {{ icons::render(name="chevron-left") }}
+        <span>Previous</span>
+      </a>
+      <div class="nav-title-wrapper">
+        <a href="{{ page.lower.permalink }}" class="nav-title" aria-hidden="true">{{ page.lower.title }}</a>
+      </div>
+    </div>
+    {% else %}
+    <span class="nav-prev empty"></span>
+    {% endif %}
+
+    {% if page.higher %}
+    <div class="nav-next">
+      <a href="{{ page.higher.permalink }}" class="nav-label" aria-label="Next post">
+        <span>Next</span>
+        {{ icons::render(name="chevron-right") }}
+      </a>
+      <div class="nav-title-wrapper">
+        <a href="{{ page.higher.permalink }}" class="nav-title" aria-hidden="true">{{ page.higher.title }}</a>
+      </div>
+    </div>
+    {% else %}
+    <span class="nav-next empty"></span>
+    {% endif %}
+  </div>
+  {% endif %}
+
+
+</article>
+
+{% if is_restricted %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{ page.title }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ config.title }}"
+    },
+    "datePublished": "{{ page.date }}",
+    "dateModified": "{% if page.updated %}{{ page.updated }}{% else %}{{ page.date }}{% endif %}"
+  }
+  </script>
+{% endif %}
+
+{% if "mermaid" in page.content %}
+<script src="{{ get_url(path='js/mermaid.min.js', cachebust=true) | safe }}"></script>
+<script src="{{ get_url(path='js/mermaid-init.js', cachebust=true) | safe }}"></script>
+{% endif %}
+{% endblock %}

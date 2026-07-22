@@ -1,0 +1,103 @@
+# Core Configuration
+
+base_url = "https://example.com/"
+title = "John Doe"
+description = "A standard template for your personal website."
+
+# Build & System Settings
+
+compile_sass = false
+minify_html = false
+build_search_index = true
+generate_feeds = true
+feed_filenames = ["atom.xml"] # default template
+
+# Taxonomies (Tags & Categories)
+
+taxonomies = [
+  {name = "travel_tags", feed = true},
+  {name = "rtd_tags", feed = true},
+  {name = "post_tags", feed = true},
+]
+
+# Search Configuration
+
+[search]
+index_format = "elasticlunr_javascript"
+
+# Markdown & Rendering
+
+[markdown]
+bottom_footnotes = true
+render_emoji = true
+smart_punctuation = true
+insert_anchor_links = "right"
+external_links_target_blank = true
+external_links_no_referrer = false  # Handled by Referrer-Policy header in _headers
+external_links_no_follow = true
+
+[markdown.highlighting]
+enabled = true
+light_theme = "github-light-default"
+dark_theme = "github-dark-default"
+
+# Custom Variables (Accessible via config.extra in templates)
+
+[extra]
+brand = "~/johndoe"      # Used as the logo name in the header
+favicon = "/favicon.svg"
+date_format = "%d %b, %Y"
+wrap_code = false
+
+# Section configurations
+
+featured_sections = ["posts", "rtd", "travel"]
+og_sections = ["posts", "rtd", "travel"]
+restricted_sections = ["posts", "rtd", "travel"] # Applies restricted-width CSS and Article JSON-LD schema
+
+# Navigation Menu
+
+[[extra.main_menu]]
+name = "Home"
+url = "/"
+icon = "home"
+
+[[extra.main_menu]]
+name = "Posts"
+url = "@/posts/_index.md"
+icon = "file-text"
+
+[[extra.main_menu]]
+name = "Topics"
+url = "@/topics.md"
+icon = "hash"
+
+[[extra.main_menu]]
+name = "RTD"
+url = "@/rtd/_index.md"
+icon = "book-text"
+
+[[extra.main_menu]]
+name = "Projects"
+url = "@/projects/_index.md"
+icon = "code"
+
+[[extra.main_menu]]
+name = "Services"
+url = "@/services/_index.md"
+icon = "server"
+
+# [[extra.main_menu]]
+# name = "Talks"
+# url = "@/talks.md"
+# icon = "mic"
+
+[[extra.main_menu]]
+name = "Travel"
+url = "@/travel/_index.md"
+icon = "map"
+
+[[extra.main_menu]]
+name = "Contact"
+url = "@/contact.md"
+icon = "at-sign"

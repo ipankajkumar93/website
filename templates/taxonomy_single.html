@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% import "macros/icons.html" as icons %}
+
+{% block title %}{{ term.name }} · {{ taxonomy.name | replace(from="_tags", to="") | title }} | {{ super() }}{% endblock %}
+
+{% block main %}
+    {%- if taxonomy %}
+      {% set tax_prefix = taxonomy.name | replace(from="_tags", to="") %}
+      {% set_global current_tax_display_name = tax_prefix | title %}
+      {% set back_url = config.base_url %}
+      {% if config.extra.main_menu %}
+        {% for item in config.extra.main_menu %}
+          {% if tax_prefix in item.url %}
+            {% set_global back_url = get_url(path=item.url) %}
+            {% set_global current_tax_display_name = item.name %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      <div class="filter-header">
+        <h1 class="filter-heading">Filtering for "<span class="text-accent">{{ term.name }}</span>"</h1>
+        <a href="{{ back_url }}" class="filter-clear" id="filter-clear" data-topics-url="{{ get_url(path='@/topics.md') }}" aria-label="Clear filter">
+          Clear {{ icons::render(name="x") }}
+        </a>
+      </div>
+    {%- endif %}
+
+    <div id="default-taxonomy-view">
+      {% set_global sortable_strings = [] %}
+      {% for p in term.pages %}
+        {% set edate = p.updated | default(value=p.date) %}
+        {% set serialized = edate ~ "||" ~ p.permalink %}
+        {% set_global sortable_strings = sortable_strings | concat(with=serialized) %}
+      {% endfor %}
+      {% set sorted_strings = sortable_strings | sort | reverse %}
+
+      <ul class="blog-posts">
+        {% for s in sorted_strings %}
+          {% set parts = s | split(pat="||") %}
+          {% set p_url = parts[1] %}
+          {% for p in term.pages %}
+            {% if p.permalink == p_url %}
+              <li>
+                <span>
+                  <i>
+                    <time datetime='{{ parts[0] | date(format="%+") }}'>
+                      {{ parts[0] | date(format=config.extra.date_format) }}
+                    </time>
+                  </i>
+                </span>
+                <a href="{{ p.permalink }}">{{ p.title }}</a>{% if p.draft %}<span class="draft-tag">DRAFT</span>{% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <li>No posts yet</li>
+        {% endfor %}
+      </ul>
+
+      {%- set current_tax_name = taxonomy.name %}
+      {%- set current_term = term.name %}
+      {%- set_global also_found_unified = [] %}
+      
+      {%- for tax in config.taxonomies %}
+        {%- if tax.name != current_tax_name %}
+          {%- set other_taxonomy = get_taxonomy(kind=tax.name, fail_on_missing=false) %}
+          {%- if other_taxonomy %}
+            {%- for t in other_taxonomy.items %}
+              {%- if t.name == current_term %}
+                {%- set tax_prefix = tax.name | replace(from="_tags", to="") %}
+                {%- set tax_display_name = tax_prefix | title %}
+                {%- if config.extra.main_menu %}
+                  {%- for item in config.extra.main_menu %}
+                    {%- if tax_prefix in item.url %}
+                      {%- set_global tax_display_name = item.name %}
+                    {%- endif %}
+                  {%- endfor %}
+                {%- endif %}
+                
+                {% for p in t.pages %}
+                  {% set edate = p.updated | default(value=p.date) %}
+                  {% if p.draft %}
+                    {% set draft_str = "true" %}
+                  {% else %}
+                    {% set draft_str = "false" %}
+                  {% endif %}
+                  {% set serialized = edate ~ "||" ~ p.permalink ~ "||" ~ tax_display_name ~ "||" ~ p.title ~ "||" ~ draft_str %}
+                  {% set_global also_found_unified = also_found_unified | concat(with=serialized) %}
+                {% endfor %}
+              {%- endif %}
+            {%- endfor %}
+          {%- endif %}
+        {%- endif %}
+      {%- endfor %}
+
+      {% if also_found_unified | length > 0 %}
+        <div class="also-found-header">Also found in</div>
+        {% set sorted_also_found = also_found_unified | sort | reverse %}
+        <ul class="blog-posts">
+          {% for s in sorted_also_found %}
+            {% set parts = s | split(pat="||") %}
+            <li>
+              <span>
+                <i>
+                  <time datetime='{{ parts[0] | date(format="%+") }}'>
+                    {{ parts[0] | date(format=config.extra.date_format) }}
+                  </time>
+                </i>
+              </span>
+              <a href="{{ parts[1] }}">{{ parts[3] }}</a>
+              <span class="category-badge">{{ parts[2] }}</span>
+              {% if parts[4] == "true" %}<span class="draft-tag">DRAFT</span>{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <div id="unified-topics-view" style="display: none;">
+      {% set_global unified_pages = [] %}
+
+      {# 1. Add current taxonomy pages #}
+      {% for p in term.pages %}
+        {% set edate = p.updated | default(value=p.date) %}
+        {% if p.draft %}
+          {% set draft_str = "true" %}
+        {% else %}
+          {% set draft_str = "false" %}
+        {% endif %}
+        {% set serialized = edate ~ "||" ~ p.permalink ~ "||" ~ current_tax_display_name ~ "||" ~ p.title ~ "||" ~ draft_str %}
+        {% set_global unified_pages = unified_pages | concat(with=serialized) %}
+      {% endfor %}
+
+      {# 2. Add other taxonomy pages #}
+      {% for tax in config.taxonomies %}
+        {% if tax.name != current_tax_name %}
+          {% set other_taxonomy = get_taxonomy(kind=tax.name, fail_on_missing=false) %}
+          {% if other_taxonomy %}
+            {% for t in other_taxonomy.items %}
+              {% if t.name == current_term %}
+                {% set tax_prefix = tax.name | replace(from="_tags", to="") %}
+                {% set display_name = tax_prefix | title %}
+                {% if config.extra.main_menu %}
+                  {% for item in config.extra.main_menu %}
+                    {% if tax_prefix in item.url %}
+                      {% set display_name = item.name %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+                
+                {% for p in t.pages %}
+                  {% set edate = p.updated | default(value=p.date) %}
+                  {% if p.draft %}
+                    {% set draft_str = "true" %}
+                  {% else %}
+                    {% set draft_str = "false" %}
+                  {% endif %}
+                  {% set serialized = edate ~ "||" ~ p.permalink ~ "||" ~ display_name ~ "||" ~ p.title ~ "||" ~ draft_str %}
+                  {% set_global unified_pages = unified_pages | concat(with=serialized) %}
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      {% set sorted_unified = unified_pages | sort | reverse %}
+
+      <ul class="blog-posts">
+        {% for s in sorted_unified %}
+          {% set parts = s | split(pat="||") %}
+          <li>
+            <span>
+              <i>
+                <time datetime='{{ parts[0] | date(format="%+") }}'>
+                  {{ parts[0] | date(format=config.extra.date_format) }}
+                </time>
+              </i>
+            </span>
+            <a href="{{ parts[1] }}">{{ parts[3] }}</a>
+            <span class="category-badge">{{ parts[2] }}</span>
+            {% if parts[4] == "true" %}<span class="draft-tag">DRAFT</span>{% endif %}
+          </li>
+        {% else %}
+          <li>No posts yet</li>
+        {% endfor %}
+      </ul>
+    </div>
+{% endblock %}

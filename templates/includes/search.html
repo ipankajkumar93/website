@@ -1,0 +1,28 @@
+<script id="search-data" type="application/json">
+{
+    "projects": [
+        {%- set data = load_data(path="content/projects/projects.toml", format="toml") %}
+        {%- for proj in data.project %}
+        {
+            "name": {{ proj.name | json_encode() | safe }},
+            "description": {{ proj.description | json_encode() | safe }},
+            "url": {% if proj.links %}{{ proj.links[0].url | json_encode() | safe }}{% else %}""{% endif %},
+            "language": {{ proj.language | default(value="") | json_encode() | safe }},
+            "stars": {{ proj.stars | default(value=0) }}
+        }{% if not loop.last %},{% endif %}
+        {%- endfor %}
+    ],
+    "menu": [
+        {%- if config.extra.main_menu %}
+        {%- for item in config.extra.main_menu %}
+        {
+            "name": {{ item.name | json_encode() | safe }},
+            "url": {{ item.url | json_encode() | safe }},
+            "clean_url": {{ item.url | replace(from="@", to="") | replace(from="_index.md", to="") | replace(from=".md", to="") | json_encode() | safe }}
+        }{% if not loop.last %},{% endif %}
+        {%- endfor %}
+        {%- endif %}
+    ]
+}
+</script>
+<script src="{{ get_url(path='js/search.js', cachebust=true) | safe }}" defer></script>

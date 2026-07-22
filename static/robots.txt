@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /search_index.en.js
+Disallow: /elasticlunr.min.js
+
+Sitemap: https://example.com/sitemap.xml

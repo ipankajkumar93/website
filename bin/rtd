@@ -1,0 +1,60 @@
+#!/bin/bash
+set -e
+
+INPUT="$*"
+if [ -z "$INPUT" ]; then
+    echo "Usage: make rtd <Title>[, <Description>]"
+    exit 1
+fi
+
+TITLE="${INPUT%%,*}"
+DESC="${INPUT#*,}"
+if [ "$TITLE" = "$DESC" ]; then
+    DESC=""
+fi
+TITLE=$(echo "$TITLE" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+DESC=$(echo "$DESC" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+
+# Convert title to lowercase and replace spaces with hyphens
+SLUG=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | tr -s ' ' '-' | tr -cd 'a-z0-9-')
+# Remove leading/trailing hyphens
+SLUG=$(echo "$SLUG" | sed -e 's/^\-//' -e 's/\-$//')
+
+FILE_PATH="content/rtd/${SLUG}.md"
+CURRENT_DATE=$(date +"%Y-%m-%d")
+
+# Check if file already exists
+if [ -f "$FILE_PATH" ]; then
+    echo "Error: File ${FILE_PATH} (slug: ${SLUG}) already exists!"
+    exit 2
+fi
+
+# Write frontmatter to the file
+cat <<EOL > "$FILE_PATH"
++++
+draft = true # Set this to false when you're ready to publish the article to production
+slug = "$SLUG"
+type = "rtd"
+in_search_index = true
+title = "$TITLE"
+description = "$DESC"
+date = $CURRENT_DATE
+# updated = $CURRENT_DATE
+
+[extra]
+toc = true
+featured = false
+license = "CC-BY-SA-4.0"
+wrap_code = false
+# og_preview_img = "/images/sample-image.jpeg" # Uncomment to specify a custom OG preview image, otherwise the build script will auto-generate one.
+# cover_image = "/images/sample-image.jpeg"
+
+[taxonomies]
+rtd_tags = ["rtd"]
++++
+
+
+Flush!
+EOL
+
+echo "File created at $FILE_PATH"
