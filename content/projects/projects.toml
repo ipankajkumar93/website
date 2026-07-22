@@ -6,7 +6,7 @@
 
 [[project]]
 name = "markview"
-description = "A beautiful Markdown previewer with syntax highlighting, themes, and instant rendering."
+description = "A beautiful Markdown previewer with syntax highlighting and instant rendering."
 created = "Jul 2026"
 pushed = "Jul 2026"
 stars = 0
@@ -21,7 +21,7 @@ highlight = true
 
 [[project]]
 name = "covidTracker"
-description = "An initiative to make life easier by automating covid vaccination slots look up in India by choosing PIN codes"
+description = "Automated covid vaccination slots look up in India by choosing PIN codes"
 created = "May 2021"
 pushed = "Mar 2023"
 stars = 2
@@ -45,7 +45,7 @@ links = [
   { name = "URL", url = "https://pankajkumar.xyz" },
   { name = "GitHub", url = "https://github.com/ipankajkumar93/website" },
 ]
-highlight = true
+highlight = false
 
 [[project]]
 name = "homeLab"
@@ -58,3 +58,17 @@ language = "Markdown"
 links = [
   { name = "GitHub", url = "https://github.com/ipankajkumar93/homeLab" },
 ]
+
+[[project]]
+name = "zola-slate"
+description = "Zola based template for Blogs"
+created = "June 2026"
+pushed = "Jul 2026"
+stars = 0
+forks = 0
+language = "HTML, Python, JavaScript, Shell"
+links = [
+  { name = "URL", url = "https://zola-slate.pankajkumar.xyz" },
+  { name = "GitHub", url = "https://github.com/ipankajkumar93/zola-slate" },
+]
+highlight = true
