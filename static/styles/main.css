@@ -675,6 +675,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     flex: 1;
     min-width: 0;
     gap: var(--space-md);
+    position: relative;
 }
 
 .search-input-icon {
@@ -695,7 +696,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     font-family: var(--font-body);
     color: var(--color-text);
     outline: none;
-    padding: var(--space-xs) var(--space-sm);
+    padding: var(--space-xs) 48px var(--space-xs) var(--space-sm);
 }
 
 .search-input:focus {
@@ -705,6 +706,16 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 
 .search-input::placeholder {
     color: var(--color-text-muted);
+}
+
+.search-modal-shortcut {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    border-width: 1px;
+    padding: 0 4px;
 }
 
 .search-close {
@@ -2735,7 +2746,8 @@ main {
         display: inline;
     }
 
-    .search-btn-shortcut {
+    .search-btn-shortcut,
+    .search-modal-shortcut {
         display: none;
     }
 
