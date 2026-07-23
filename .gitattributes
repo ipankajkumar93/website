@@ -1,0 +1,3 @@
+content/** merge=ours
+static/images/** merge=ours
+config.toml merge=ours
