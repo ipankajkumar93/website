@@ -1551,10 +1551,10 @@ h6:hover .zola-anchor {
     text-align: center;
     font-size: 0.75rem; /* Much smaller */
     color: var(--color-text-secondary);
-    margin-bottom: 0.5rem;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    margin-bottom: 0; /* Reduced gap */
 }
 
 .tags {
