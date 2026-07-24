@@ -531,10 +531,30 @@ nav {
     display: none;
 }
 
+#unified-topics-view {
+    display: none;
+}
+
+body.show-unified-taxonomy #default-taxonomy-view {
+    display: none !important;
+}
+
+body.show-unified-taxonomy #unified-topics-view {
+    display: block !important;
+}
+
+.taxonomy-topic-group {
+    margin-bottom: var(--space-lg);
+}
+
 .mobile-menu-btn,
 .mobile-close-btn,
 .mobile-menu-backdrop {
     display: none;
+}
+
+.no-scroll {
+    overflow: hidden;
 }
 
 .nav-items {
@@ -800,6 +820,18 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     max-height: calc(70vh - 80px);
     scrollbar-width: thin;
     scrollbar-color: var(--color-border) transparent;
+}
+
+.toc-inner {
+    max-height: calc(100vh - 12rem);
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+}
+
+/* Let the inner scroll when open */
+.toc.is-open .toc-inner {
+    overflow-y: auto;
 }
 
 .search-empty-state {
@@ -1583,6 +1615,35 @@ h6:hover .zola-anchor {
 }
 
 .zola-anchor:hover {
+    opacity: 1;
+    color: var(--color-link);
+}
+
+.article-title {
+    position: relative;
+}
+
+.title-copy-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    opacity: 0.5;
+    transition: opacity var(--transition-fast), color var(--transition-fast);
+    position: absolute;
+    /* Vertically center relative to the title block, and shift left */
+    top: 50%;
+    transform: translateX(calc(-100% - var(--space-sm))) translateY(-50%);
+}
+.title-copy-icon svg {
+    width: 0.6em;
+    height: 0.6em;
+}
+
+
+
+.title-copy-icon:hover {
     opacity: 1;
     color: var(--color-link);
 }
@@ -3585,3 +3646,10 @@ table.in-wrapper {
         padding: var(--space-xs) 8px;
     }
 }
+
+
+/* Added for JS refactoring */
+body.no-scroll { overflow: hidden; }
+.toc.is-open .toc-inner { overflow-y: auto; }
+body.show-unified-taxonomy #default-taxonomy-view { display: none !important; }
+body.show-unified-taxonomy #unified-topics-view { display: block !important; }
