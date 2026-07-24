@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
             lightboxImg.src = this.getAttribute('href');
             lightboxImg.alt = this.querySelector('img')?.getAttribute('alt') || '';
             lightboxModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            document.body.classList.add('no-scroll');
             lightboxCloseBtn.focus();
         });
     });
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function closeLightbox() {
         lightboxModal.classList.remove('active');
-        document.body.style.overflow = '';
+        document.body.classList.remove('no-scroll');
     }
 
     // ── Mobile Menu ─────────────────────────────────────────────────────────
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function openMobileMenu() {
         navItems.classList.add('active');
         mobileBackdrop.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        document.body.classList.add('no-scroll');
         mobileMenuBtn.setAttribute('aria-expanded', 'true');
         mobileCloseBtn.focus();
     }
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function closeMobileMenu() {
         navItems.classList.remove('active');
         mobileBackdrop.classList.remove('active');
-        document.body.style.overflow = '';
+        document.body.classList.remove('no-scroll');
         mobileMenuBtn.setAttribute('aria-expanded', 'false');
     }
 
@@ -394,19 +394,6 @@ document.addEventListener('DOMContentLoaded', function () {
             tocTitle.addEventListener('click', (e) => {
                 e.stopPropagation();
                 toc.classList.toggle('is-open');
-
-                if (tocInner) {
-                    if (toc.classList.contains('is-open')) {
-                        setTimeout(() => {
-                            // Only set if still open after transition
-                            if (toc.classList.contains('is-open')) {
-                                tocInner.style.overflowY = 'auto';
-                            }
-                        }, 300);
-                    } else {
-                        tocInner.style.overflowY = 'hidden';
-                    }
-                }
             });
         }
 
@@ -415,7 +402,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (toc.classList.contains('is-open')) {
                 if (!toc.contains(e.target) || e.target.closest('a')) {
                     toc.classList.remove('is-open');
-                    if (tocInner) tocInner.style.overflowY = 'hidden';
                 }
             }
         });
@@ -474,10 +460,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (topicsUrl) {
             filterClear.href = topicsUrl;
         }
-        const defaultView = document.getElementById('default-taxonomy-view');
-        const unifiedView = document.getElementById('unified-topics-view');
-        if (defaultView) defaultView.style.display = 'none';
-        if (unifiedView) unifiedView.style.display = 'block';
+        document.body.classList.add('show-unified-taxonomy');
     }
 
     // ── Logo Typing Animation ───────────────────────────────────────────────
@@ -563,16 +546,29 @@ document.addEventListener('DOMContentLoaded', function () {
         copyBtn.title = 'Copy link';
         
         // Use the feather anchor/link icon
-        copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>`;
+        if (copyTemplate) {
+            const clone = copyTemplate.content.cloneNode(true);
+            // Replace the copy icon with an anchor icon for headings
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.innerHTML = `<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>`;
+            }
+            copyBtn.appendChild(clone);
+        }
         
         copyBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const url = window.location.origin + window.location.pathname + '#' + heading.id;
             navigator.clipboard.writeText(url).then(() => {
                 const originalHTML = copyBtn.innerHTML;
-                copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon check"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                copyBtn.innerHTML = '';
+                if (checkTemplate) {
+                    copyBtn.appendChild(checkTemplate.content.cloneNode(true));
+                }
+                copyBtn.classList.add('copied');
                 setTimeout(() => {
                     copyBtn.innerHTML = originalHTML;
+                    copyBtn.classList.remove('copied');
                 }, 2000);
             });
             history.pushState(null, null, '#' + heading.id);
@@ -583,20 +579,25 @@ document.addEventListener('DOMContentLoaded', function () {
         heading.insertBefore(copyBtn, heading.firstChild);
     });
 
-    // Social media copy link
-    const socialCopyLink = document.getElementById('social-copy-link');
-    if (socialCopyLink) {
-        socialCopyLink.addEventListener('click', (e) => {
+    // Copy link logic for social share and article title
+    const copyLinks = document.querySelectorAll('#social-copy-link, #title-copy-link');
+    copyLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
             e.preventDefault();
-            const url = socialCopyLink.getAttribute('data-url') || window.location.href;
+            const url = link.getAttribute('data-url') || window.location.href;
             navigator.clipboard.writeText(url).then(() => {
-                const originalHTML = socialCopyLink.innerHTML;
-                socialCopyLink.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon check"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                const originalHTML = link.innerHTML;
+                link.innerHTML = '';
+                if (checkTemplate) {
+                    link.appendChild(checkTemplate.content.cloneNode(true));
+                }
+                link.classList.add('copied');
                 setTimeout(() => {
-                    socialCopyLink.innerHTML = originalHTML;
+                    link.innerHTML = originalHTML;
+                    link.classList.remove('copied');
                 }, 2000);
             });
         });
-    }
+    });
 
 });
