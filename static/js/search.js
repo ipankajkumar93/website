@@ -70,7 +70,7 @@
         searchResults.innerHTML = '<div class="search-empty-state">Start typing to search</div>';
         searchInput.value = '';
         searchModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        document.body.classList.add('no-scroll');
         
         typePlaceHolder();
 
@@ -102,7 +102,7 @@
         if (navItems && navItems.classList.contains('active')) {
             // Keep overflow hidden if mobile menu is open
         } else {
-            document.body.style.overflow = '';
+            document.body.classList.remove('no-scroll');
         }
     }
 
