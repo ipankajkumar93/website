@@ -600,4 +600,89 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // ── Custom Tooltip ──────────────────────────────────────────────────────
+    const tooltipEl = document.createElement('div');
+    tooltipEl.className = 'custom-tooltip';
+    document.body.appendChild(tooltipEl);
+
+    const tooltipSelectors = [
+        '#title-copy-link',
+        '.heading-copy-link',
+        '.share-icon',
+        '.social-icon',
+        '#back-to-top',
+        '.search-btn',
+        '.theme-toggle',
+        '.copy-code-btn'
+    ].join(', ');
+
+    const getTooltipText = (target) => {
+        let text = target.getAttribute('title');
+        if (text) {
+            target.setAttribute('data-title', text);
+            target.removeAttribute('title');
+            return text;
+        }
+        return target.getAttribute('data-title') || target.getAttribute('aria-label');
+    };
+
+    document.addEventListener('mouseover', function(e) {
+        const target = e.target.closest(tooltipSelectors);
+        if (!target) return;
+        
+        // Prevent flickering when moving between target and its children
+        if (e.relatedTarget && target.contains(e.relatedTarget)) return;
+
+        const text = getTooltipText(target);
+        if (!text) return;
+
+        tooltipEl.textContent = text;
+        tooltipEl.classList.add('visible');
+
+        const rect = target.getBoundingClientRect();
+        const margin = 8;
+        
+        let top = rect.top + window.scrollY - tooltipEl.offsetHeight - margin;
+        const halfWidth = tooltipEl.offsetWidth / 2;
+        let left = rect.left + window.scrollX + (rect.width / 2) - halfWidth;
+        
+        // Vertical bounds check: if it goes off the top, place it below
+        if (top < window.scrollY + margin) {
+            top = rect.bottom + window.scrollY + margin;
+        }
+        
+        // Horizontal bounds check: ensure it doesn't go off the sides
+        const maxLeft = window.innerWidth - tooltipEl.offsetWidth - margin;
+        
+        if (left < margin) {
+            tooltipEl.style.left = margin + 'px';
+            tooltipEl.style.right = 'auto';
+        } else if (left > maxLeft) {
+            // Force it to stay on screen by anchoring to the right edge
+            tooltipEl.style.left = 'auto';
+            tooltipEl.style.right = margin + 'px';
+        } else {
+            tooltipEl.style.left = left + 'px';
+            tooltipEl.style.right = 'auto';
+        }
+
+        tooltipEl.style.top = top + 'px';
+    });
+
+    document.addEventListener('mouseout', function(e) {
+        const target = e.target.closest(tooltipSelectors);
+        if (target) {
+            // Prevent hiding when moving into a child element
+            if (e.relatedTarget && target.contains(e.relatedTarget)) return;
+            tooltipEl.classList.remove('visible');
+        }
+    });
+
+    window.addEventListener('scroll', () => tooltipEl.classList.remove('visible'), { passive: true });
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest(tooltipSelectors)) {
+            tooltipEl.classList.remove('visible');
+        }
+    });
+
 });
