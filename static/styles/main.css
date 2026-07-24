@@ -758,15 +758,6 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     color: var(--color-text-muted);
 }
 
-.search-modal-shortcut {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    border-width: 1px;
-    padding: 0 4px;
-}
 
 .search-close {
     display: flex;
@@ -872,6 +863,46 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.search-modal-footer {
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    .search-modal-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: var(--space-sm) var(--space-md);
+        border-top: 1px solid var(--color-border);
+        background-color: var(--color-bg-subtle);
+        border-radius: 0 0 var(--radius-md) var(--radius-md);
+    }
+}
+
+.search-shortcuts {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.shortcut-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.shortcut-group kbd {
+    font-size: 14px;
+    padding: 2px 6px;
+    border-width: 1px;
+    background-color: transparent;
+    min-width: 24px;
+    text-align: center;
+}
+
 
 /* Dark mode adjustments */
 :root[data-theme="dark"] .search-modal-backdrop {
@@ -2820,8 +2851,7 @@ main {
         display: inline;
     }
 
-    .search-btn-shortcut,
-    .search-modal-shortcut {
+    .search-btn-shortcut {
         display: none;
     }
 

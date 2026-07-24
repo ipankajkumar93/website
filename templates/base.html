@@ -106,7 +106,6 @@
                     {{ icons::render(name="search", class="search-input-icon") }}
                     <h2 id="search-modal-title" class="sr-only">Site Search</h2>
                     <input type="text" id="search-input" class="search-input" placeholder="Search posts, projects, travel…" autocomplete="off" aria-label="Search posts, projects, travel…" />
-                    <span class="search-btn-shortcut search-modal-shortcut" aria-hidden="true">Esc</span>
                 </div>
                 <button class="search-close" aria-label="Close search">
                     {{ icons::render(name="x") }}
@@ -114,6 +113,19 @@
             </div>
             <div id="search-results" class="search-results" aria-live="polite" aria-label="Search results" role="listbox">
                 <div class="search-empty-state">What are you looking for?</div>
+            </div>
+            <div class="search-modal-footer">
+                <div class="search-shortcuts">
+                    <div class="shortcut-group">
+                        <kbd>↑</kbd> <kbd>↓</kbd> <span>Navigate</span>
+                    </div>
+                    <div class="shortcut-group">
+                        <kbd>↵</kbd> <span>Select</span>
+                    </div>
+                    <div class="shortcut-group">
+                        <kbd>Esc</kbd> <span>Close</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
