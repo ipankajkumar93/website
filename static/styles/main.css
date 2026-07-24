@@ -353,7 +353,7 @@ h6 {
     transform: scale(1.1);
 }
 
-@media (min-width: 950px) {
+@media (min-width: 951px) {
     .heading-copy-link:hover {
         transform: translateY(-50%) scale(1.1);
     }
@@ -1344,7 +1344,7 @@ article h1 {
     border-right-width: 0;
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 950.98px) {
     .toc.restricted-width:not(.is-stuck) {
         width: 100%;
         max-width: 100%;
@@ -2586,7 +2586,7 @@ main {
     outline-offset: 2px;
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 950.98px) {
     .back-to-top {
         bottom: var(--space-lg);
         right: var(--space-md);
@@ -2608,7 +2608,7 @@ main {
 /* --------------------------------------------------------------------------
    Responsive Design
    -------------------------------------------------------------------------- */
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 950.98px) {
     :root {
         --max-width: 100%;
     }
@@ -2904,7 +2904,7 @@ main {
     }
 }
 
-@media screen and (max-width: 950px) and (max-height: 450px) {
+@media screen and (max-width: 950.98px) and (max-height: 450px) {
     .nav-items {
         width: 450px;
         max-width: 85vw;
