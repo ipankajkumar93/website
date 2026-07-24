@@ -67,7 +67,7 @@
     }
 
     function openSearch() {
-        searchResults.innerHTML = '<div class="search-empty-state">What are you looking for?</div>';
+        searchResults.innerHTML = '<div class="search-empty-state">Start typing to search</div>';
         searchInput.value = '';
         searchModal.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -86,7 +86,7 @@
                 window.__loadSearch(function() {
                     initSearchIndex();
                     searchInput.disabled = false;
-                    searchResults.innerHTML = '<div class="search-empty-state">What are you looking for?</div>';
+                    searchResults.innerHTML = '<div class="search-empty-state">Start typing to search</div>';
                     setTimeout(() => {
                         searchInput.focus();
                     }, 100);
@@ -133,7 +133,7 @@
 
     function performSearch(query) {
         if (!query || query.length < 2) {
-            searchResults.innerHTML = '<div class="search-empty-state">What are you looking for?</div>';
+            searchResults.innerHTML = '<div class="search-empty-state">Start typing to search</div>';
             return;
         }
 
