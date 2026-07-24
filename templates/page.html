@@ -27,6 +27,7 @@
   <div class="meta">
     {%- if page.date %}
     <div class="post-date">
+        {{ icons::render(name="calendar") }}
         <time datetime='{{ page.date | date(format=' %+') }}'>
           {{- page.date | date(format=config.extra.date_format) -}}
         </time>
@@ -37,6 +38,7 @@
         {%- endif %}
     </div>
     <div class="reading-time">
+      {{ icons::render(name="clock") }}
       {{ page.reading_time }} min read ({{ page.word_count }} words)
     </div>
     {%- endif %}
@@ -90,9 +92,10 @@
 
   {%- if page.taxonomies %}
   <div class="tags{% if is_restricted %} restricted-width{% endif %}" aria-label="Tags">
+    <div class="tags-label">Related Tags</div>
     {%- for name, taxon in page.taxonomies %}
     {%- for item in taxon %}
-    <a href="{{ get_taxonomy_url(kind=name, name=item) }}" class="tag">#{{ item }}</a>
+    <a href="{{ get_taxonomy_url(kind=name, name=item) }}" class="tag">{{ item }}</a>
     {%- endfor %}
     {%- endfor %}
   </div>
@@ -101,6 +104,9 @@
   <div class="share-block{% if is_restricted %} restricted-width{% endif %}">
     <span class="share-label">Worth sharing?</span>
     <div class="share-icons">
+      <a href="javascript:void(0);" id="social-copy-link" data-url="{{ current_url }}" class="share-icon" aria-label="Copy link" title="Copy link">
+        {{ icons::render(name="copy-link") }}
+      </a>
       <a href="https://api.whatsapp.com/send?text={{ page.title | urlencode }}%20{{ current_url | urlencode }}"
         target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on WhatsApp">
         {{ icons::render(name="whatsapp") }}

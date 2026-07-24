@@ -23,7 +23,7 @@
     {% for tag_str in tag_links | sort %}
       {% set parts = tag_str | split(pat="||") %}
       <a href="{{ parts[1] }}?ref=topics" class="topic-pill">
-        #{{ parts[0] }}
+        {{ parts[0] }}
       </a>
     {% endfor %}
   </div>

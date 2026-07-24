@@ -551,4 +551,52 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Custom heading copy links (placed at the front)
+    const headings = document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6');
+    headings.forEach(heading => {
+        if (!heading.id) return;
+        
+        const copyBtn = document.createElement('a');
+        copyBtn.className = 'heading-copy-link';
+        copyBtn.href = '#' + heading.id;
+        copyBtn.setAttribute('aria-label', 'Copy link to this section');
+        copyBtn.title = 'Copy link';
+        
+        // Use the feather anchor/link icon
+        copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>`;
+        
+        copyBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = window.location.origin + window.location.pathname + '#' + heading.id;
+            navigator.clipboard.writeText(url).then(() => {
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon check"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                }, 2000);
+            });
+            history.pushState(null, null, '#' + heading.id);
+            // Don't scroll since they just wanted to copy it, but update hash
+        });
+        
+        // Insert it at the very beginning of the heading
+        heading.insertBefore(copyBtn, heading.firstChild);
+    });
+
+    // Social media copy link
+    const socialCopyLink = document.getElementById('social-copy-link');
+    if (socialCopyLink) {
+        socialCopyLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = socialCopyLink.getAttribute('data-url') || window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const originalHTML = socialCopyLink.innerHTML;
+                socialCopyLink.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon check"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                setTimeout(() => {
+                    socialCopyLink.innerHTML = originalHTML;
+                }, 2000);
+            });
+        });
+    }
+
 });

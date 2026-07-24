@@ -133,8 +133,9 @@
   
   {% if tags and tags.items | length > 0 %}
   <div class="section-tags">
+    <div class="tags-label">Related Tags</div>
     {% for post in tags.items %}
-    <a href="{{ post.permalink }}" class="tag">#{{ post.name }}</a>
+    <a href="{{ post.permalink }}" class="tag">{{ post.name }}</a>
     {% endfor %}
   </div>
   {% endif %}

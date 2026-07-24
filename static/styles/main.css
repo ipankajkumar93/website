@@ -297,6 +297,7 @@ h4 {
     margin-bottom: var(--space-md);
     letter-spacing: -0.02em;
     scroll-margin-top: 70px;
+    position: relative; /* For absolute positioned anchor links */
 }
 
 h5,
@@ -308,6 +309,54 @@ h6 {
     /* body-weight headings - use normal tracking, not display negative */
     letter-spacing: normal;
     scroll-margin-top: 70px;
+    position: relative; /* For absolute positioned anchor links */
+}
+
+/* Custom Heading Copy Links */
+.heading-copy-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    opacity: 0.5; /* More faint */
+    transition: color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+    text-decoration: none;
+    
+    /* Default (mobile): inline, just before text */
+    position: relative;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    top: -0.1em;
+}
+
+@media (min-width: 951px) {
+    .heading-copy-link {
+        /* Desktop: outdented */
+        position: absolute;
+        right: 100%;
+        margin-right: 0;
+        padding-right: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        vertical-align: baseline;
+    }
+}
+
+.heading-copy-link .svg-icon {
+    width: 0.6em; /* Noticeably smaller than the heading */
+    height: 0.6em;
+}
+
+.heading-copy-link:hover {
+    color: var(--color-link); /* Highlighted on hover */
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+@media (min-width: 950px) {
+    .heading-copy-link:hover {
+        transform: translateY(-50%) scale(1.1);
+    }
 }
 
 h1 {
@@ -1225,9 +1274,18 @@ article h1 {
 
 .post-date,
 .reading-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: var(--step-0);
     color: var(--color-text-secondary);
     font-family: var(--font-mono);
+}
+
+.post-date .svg-icon,
+.reading-time .svg-icon {
+    width: 1.2em;
+    height: 1.2em;
 }
 
 /* Table of Contents */
@@ -1488,6 +1546,17 @@ h6:hover .zola-anchor {
 /* --------------------------------------------------------------------------
    Tags
    -------------------------------------------------------------------------- */
+.tags-label {
+    width: 100%; /* Force flex items to wrap below */
+    text-align: center;
+    font-size: 0.75rem; /* Much smaller */
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
 .tags {
     display: flex;
     flex-wrap: wrap;
