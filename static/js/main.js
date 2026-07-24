@@ -626,7 +626,10 @@ document.addEventListener('DOMContentLoaded', function () {
         return target.getAttribute('data-title') || target.getAttribute('aria-label');
     };
 
-    document.addEventListener('mouseover', function(e) {
+    document.addEventListener('pointerover', function(e) {
+        // Only show for mouse interactions (ignore touch)
+        if (e.pointerType !== 'mouse') return;
+
         const target = e.target.closest(tooltipSelectors);
         if (!target) return;
         
@@ -669,7 +672,9 @@ document.addEventListener('DOMContentLoaded', function () {
         tooltipEl.style.top = top + 'px';
     });
 
-    document.addEventListener('mouseout', function(e) {
+    document.addEventListener('pointerout', function(e) {
+        if (e.pointerType !== 'mouse') return;
+        
         const target = e.target.closest(tooltipSelectors);
         if (target) {
             // Prevent hiding when moving into a child element
