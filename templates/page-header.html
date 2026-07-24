@@ -5,12 +5,7 @@
 {% block main %}
 <div class="section-header">
   {% set title_id = page.slug | default(value=page.title | slugify) %}
-  <h1 id="{{ title_id }}" class="article-title">
-    <a href="javascript:void(0);" id="title-copy-link" data-url="{{ current_url | safe }}" class="title-copy-icon" aria-label="Copy link to article" title="Copy link">
-      {{ icons::render(name="copy-link") }}
-    </a>
-    {{ page.title }}
-  </h1>
+  <h1 id="{{ title_id }}" class="article-title">{{ page.title }}</h1>
   {% if page.description %}
   <p class="section-description">{{ page.description | replace(from="{{ config.title }}", to=config.title) | markdown(inline=true) | safe }}</p>
   {% endif %}
