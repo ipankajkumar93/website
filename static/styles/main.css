@@ -1314,7 +1314,7 @@ article h1 {
 
 .toc.restricted-width {
     width: 100%;
-    max-width: 860px;
+    max-width: 910px;
     /* Matches the article width initially */
     margin-left: auto;
     margin-right: auto;
@@ -1339,7 +1339,7 @@ article h1 {
 }
 
 .toc.restricted-width.is-stuck {
-    max-width: 870px;
+    max-width: 920px;
     border-left-width: 0;
     border-right-width: 0;
 }
@@ -1355,16 +1355,16 @@ article h1 {
 
 @media screen and (min-width: 951px) {
     .toc.restricted-width {
-        width: 90%;
+        width: calc(90% + 50px);
         align-self: center;
     }
 
     .toc.restricted-width.is-stuck {
-        width: calc(90% + 10px);
+        width: calc(90% + 60px);
         margin-left: auto;
         margin-right: auto;
         align-self: center;
-        max-width: 870px;
+        max-width: 920px;
     }
 }
 
