@@ -1,5 +1,5 @@
 +++
-title = "Contact Me"
+title = "Contact"
 description = "Find me on the internet - drop me an email or pick any of these platforms."
 template = "contact.html"
 
