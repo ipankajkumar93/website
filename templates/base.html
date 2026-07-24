@@ -84,16 +84,23 @@
                 </a>
                 {%- endfor %}
                 {%- endif -%}
-                <button class="search-btn" aria-label="Search (Ctrl+K)">
+                <button class="search-btn search-btn-mobile" aria-label="Search (Ctrl+K)">
                     {{ icons::render(name="search") }}
                     <span class="search-btn-text">Search</span>
                     <span class="search-btn-shortcut" aria-hidden="true">Ctrl+K</span>
                 </button>
             </div>
-            <button class="theme-toggle" title="Toggle Dark Mode" aria-label="Switch to dark mode">
-                <span class="theme-icon-dark">{{ icons::render(name="sun") }}</span>
-                <span class="theme-icon-light">{{ icons::render(name="moon") }}</span>
-            </button>
+            <div class="header-right">
+                <button class="search-btn search-btn-desktop" aria-label="Search (Ctrl+K)">
+                    {{ icons::render(name="search") }}
+                    <span class="search-btn-text">Search</span>
+                    <span class="search-btn-shortcut" aria-hidden="true">Ctrl+K</span>
+                </button>
+                <button class="theme-toggle" title="Toggle Dark Mode" aria-label="Switch to dark mode">
+                    <span class="theme-icon-dark">{{ icons::render(name="sun") }}</span>
+                    <span class="theme-icon-light">{{ icons::render(name="moon") }}</span>
+                </button>
+            </div>
         </nav>
     </header>
 
@@ -106,14 +113,26 @@
                     {{ icons::render(name="search", class="search-input-icon") }}
                     <h2 id="search-modal-title" class="sr-only">Site Search</h2>
                     <input type="text" id="search-input" class="search-input" placeholder="Search posts, projects, travel…" autocomplete="off" aria-label="Search posts, projects, travel…" />
-                    <span class="search-btn-shortcut search-modal-shortcut" aria-hidden="true">Esc</span>
                 </div>
                 <button class="search-close" aria-label="Close search">
                     {{ icons::render(name="x") }}
                 </button>
             </div>
             <div id="search-results" class="search-results" aria-live="polite" aria-label="Search results" role="listbox">
-                <div class="search-empty-state">What are you looking for?</div>
+                <div class="search-empty-state">Start typing to search</div>
+            </div>
+            <div class="search-modal-footer">
+                <div class="search-shortcuts">
+                    <div class="shortcut-group">
+                        <kbd>↑</kbd> <kbd>↓</kbd> <span>Navigate</span>
+                    </div>
+                    <div class="shortcut-group">
+                        <kbd>↵</kbd> <span>Select</span>
+                    </div>
+                    <div class="shortcut-group">
+                        <kbd>Esc</kbd> <span>Close</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
