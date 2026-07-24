@@ -84,16 +84,23 @@
                 </a>
                 {%- endfor %}
                 {%- endif -%}
-                <button class="search-btn" aria-label="Search (Ctrl+K)">
+                <button class="search-btn search-btn-mobile" aria-label="Search (Ctrl+K)">
                     {{ icons::render(name="search") }}
                     <span class="search-btn-text">Search</span>
                     <span class="search-btn-shortcut" aria-hidden="true">Ctrl+K</span>
                 </button>
             </div>
-            <button class="theme-toggle" title="Toggle Dark Mode" aria-label="Switch to dark mode">
-                <span class="theme-icon-dark">{{ icons::render(name="sun") }}</span>
-                <span class="theme-icon-light">{{ icons::render(name="moon") }}</span>
-            </button>
+            <div class="header-right">
+                <button class="search-btn search-btn-desktop" aria-label="Search (Ctrl+K)">
+                    {{ icons::render(name="search") }}
+                    <span class="search-btn-text">Search</span>
+                    <span class="search-btn-shortcut" aria-hidden="true">Ctrl+K</span>
+                </button>
+                <button class="theme-toggle" title="Toggle Dark Mode" aria-label="Switch to dark mode">
+                    <span class="theme-icon-dark">{{ icons::render(name="sun") }}</span>
+                    <span class="theme-icon-light">{{ icons::render(name="moon") }}</span>
+                </button>
+            </div>
         </nav>
     </header>
 

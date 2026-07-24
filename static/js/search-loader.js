@@ -55,9 +55,9 @@
     }
 
     // Strategy 2: Preload on hover/focus of search button
-    const searchBtn = document.querySelector('.search-btn');
-    if (searchBtn) {
-        searchBtn.addEventListener('mouseenter', function () { loadSearchScripts(); }, { once: true });
-        searchBtn.addEventListener('focus', function () { loadSearchScripts(); }, { once: true });
-    }
+    const searchBtns = document.querySelectorAll('.search-btn');
+    searchBtns.forEach(btn => {
+        btn.addEventListener('mouseenter', function () { loadSearchScripts(); }, { once: true });
+        btn.addEventListener('focus', function () { loadSearchScripts(); }, { once: true });
+    });
 })();
