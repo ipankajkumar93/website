@@ -1,6 +1,6 @@
 // ── Search ─────────────────────────────────────────────
 (function () {
-    const searchBtn = document.querySelector('.search-btn');
+    const searchBtns = document.querySelectorAll('.search-btn');
     const searchModal = document.getElementById('search-modal');
     const searchInput = document.getElementById('search-input');
     const searchResults = document.getElementById('search-results');
@@ -8,7 +8,7 @@
     const searchBackdrop = document.querySelector('.search-modal-backdrop');
     const searchDataEl = document.getElementById('search-data');
 
-    if (!searchBtn || !searchModal || !searchDataEl) return;
+    if (searchBtns.length === 0 || !searchModal || !searchDataEl) return;
 
     let searchData = {};
     try {
@@ -67,7 +67,7 @@
     }
 
     function openSearch() {
-        searchResults.innerHTML = '<div class="search-empty-state">What are you looking for?</div>';
+        searchResults.innerHTML = '<div class="search-empty-state">Start typing to search</div>';
         searchInput.value = '';
         searchModal.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -86,7 +86,7 @@
                 window.__loadSearch(function() {
                     initSearchIndex();
                     searchInput.disabled = false;
-                    searchResults.innerHTML = '<div class="search-empty-state">What are you looking for?</div>';
+                    searchResults.innerHTML = '<div class="search-empty-state">Start typing to search</div>';
                     setTimeout(() => {
                         searchInput.focus();
                     }, 100);
@@ -133,7 +133,7 @@
 
     function performSearch(query) {
         if (!query || query.length < 2) {
-            searchResults.innerHTML = '<div class="search-empty-state">What are you looking for?</div>';
+            searchResults.innerHTML = '<div class="search-empty-state">Start typing to search</div>';
             return;
         }
 
@@ -202,7 +202,7 @@
         searchResults.innerHTML = html;
     }
 
-    if (searchBtn) searchBtn.addEventListener('click', openSearch);
+    searchBtns.forEach(btn => btn.addEventListener('click', openSearch));
     if (searchClose) searchClose.addEventListener('click', closeSearch);
     if (searchBackdrop) searchBackdrop.addEventListener('click', closeSearch);
 
