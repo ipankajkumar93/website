@@ -20,7 +20,7 @@ wrap_code = false
 post_tags = ["post", "IT", "AI", "India", "software"]
 +++
 
-### How the IT service sector found the perfect excuse in AI
+## How the IT service sector found the perfect excuse in AI
 
 Ten years in this industry - across product companies where engineering was treated like a craft, and service companies where it was treated like inventory - has taught me one uncomfortable truth: most IT service organizations never saw developers as developers. We were "resources." Billable, fungible, disposable resources. 
 > AI didn't create this mindset. It just gave management a new vocabulary to justify it.
