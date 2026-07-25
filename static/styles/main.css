@@ -1638,7 +1638,7 @@ h6:hover .zola-anchor {
     align-items: center;
     justify-content: center;
     position: relative;
-    color: var(--color-text-muted);
+    color: var(--color-text-secondary);
     font-family: var(--font-mono);
     font-size: 0.85rem;
     font-weight: 500;
