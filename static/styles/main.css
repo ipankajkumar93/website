@@ -1654,11 +1654,7 @@ h6:hover .zola-anchor {
 }
 
 .copy-url-btn svg {
-    position: absolute;
-    right: 100%;
     margin-right: 0.35rem;
-    top: 50%;
-    transform: translateY(-50%);
     width: 1.1em;
     height: 1.1em;
 }
