@@ -600,6 +600,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // ── Footnotes Accessibility & Tooltip Text ──────────────────────────────
+    document.querySelectorAll('.footnotes-list a').forEach(link => {
+        if (!link.hasAttribute('aria-label') && !link.hasAttribute('title')) {
+            link.setAttribute('aria-label', 'Return to text');
+        }
+    });
+
+    document.querySelectorAll('.footnote-reference a').forEach(link => {
+        if (!link.hasAttribute('aria-label') && !link.hasAttribute('title')) {
+            link.setAttribute('aria-label', 'Jump to footnote');
+        }
+    });
+
     // ── Custom Tooltip ──────────────────────────────────────────────────────
     const tooltipEl = document.createElement('div');
     tooltipEl.className = 'custom-tooltip';
@@ -613,7 +626,9 @@ document.addEventListener('DOMContentLoaded', function () {
         '#back-to-top',
         '.search-btn',
         '.theme-toggle',
-        '.copy-code-btn'
+        '.copy-code-btn',
+        '.footnotes-list a',
+        '.footnote-reference a'
     ].join(', ');
 
     const getTooltipText = (target) => {

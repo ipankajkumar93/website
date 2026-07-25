@@ -3694,3 +3694,92 @@ body.show-unified-taxonomy #unified-topics-view { display: block !important; }
     opacity: 1;
     visibility: visible;
 }
+
+/* --------------------------------------------------------------------------
+   Footnotes Offset (Accounts for sticky Header menu and Sticky TOC menu)
+   -------------------------------------------------------------------------- */
+/* Jumping down to the footnote list */
+[id^="fn-"] {
+    scroll-margin-top: 60px;
+}
+
+/* Returning back up to the text reference */
+[id^="fr-"] {
+    scroll-margin-top: 70px;
+}
+
+/* If the reference in text is inline, ensure it can have scroll-margin */
+sup[id^="fr-"] {
+    display: inline-block;
+}
+
+@media screen and (max-width: 1024.98px) {
+    /* Jumping down to the footnote list (Mobile) */
+    [id^="fn-"] {
+        scroll-margin-top: 125px; /* Stops closer to the header */
+    }
+
+    /* Returning back up to the text reference (Mobile) */
+    [id^="fr-"] {
+        scroll-margin-top: 160px; /* Clears the sticky TOC */
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Footnotes Styling & Title
+   -------------------------------------------------------------------------- */
+/* Hide the default hr that Zola might inject before footnotes if present */
+hr:has(+ .footnotes) {
+    display: none;
+}
+
+/* Add a "Footnotes" title to the footnotes container */
+.footnotes::before {
+    content: "Footnotes";
+    display: block;
+    font-size: calc(var(--step-4) * 0.9);
+    font-family: var(--font-display);
+    color: var(--color-text);
+    font-weight: 400;
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.02em;
+}
+
+/* Style the ordered list of footnotes */
+ol.footnotes-list {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-body);
+    margin-bottom: var(--space-2xl);
+    padding-left: 0;
+    list-style: none;
+    counter-reset: footnotes-counter;
+}
+
+ol.footnotes-list li {
+    counter-increment: footnotes-counter;
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 8px;
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-sm);
+    
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 var(--space-md);
+    align-items: start;
+}
+
+ol.footnotes-list li::before {
+    content: counter(footnotes-counter) ".";
+    font-weight: 600;
+    color: var(--color-text);
+    grid-column: 1;
+    grid-row: 1;
+}
+
+ol.footnotes-list li p {
+    grid-column: 2;
+    margin: 0;
+}
