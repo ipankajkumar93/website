@@ -22,15 +22,15 @@
   {%- endif %}
   {%- if not page.extra.menu %}
   {%- if page.title %}
-  {% set title_id = page.slug | default(value=page.title | slugify) %}
-  <h1 id="{{ title_id }}" class="article-title">
-    <a href="javascript:void(0);" id="title-copy-link" data-url="{{ current_url | safe }}" class="title-copy-icon" aria-label="Copy link to article" title="Copy link">
+  <h1 class="article-title">{{ page.title }}</h1>
+  <div class="title-copy-url">
+    <a href="javascript:void(0);" id="title-copy-link" data-url="{{ current_url | safe }}" class="copy-url-btn" aria-label="Copy link to article" title="Copy link to article">
       {{ icons::render(name="copy-link") }}
+      <span>COPY URL</span>
     </a>
-    {{ page.title }}
-  </h1>
+  </div>
   {%- endif %}
-  <div class="meta">
+  <div class="meta article-meta">
     {%- if page.date %}
     <div class="post-date">
         {{ icons::render(name="calendar") }}
