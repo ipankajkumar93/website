@@ -1637,7 +1637,7 @@ h6:hover .zola-anchor {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.25rem;
+    position: relative;
     color: var(--color-text-muted);
     font-family: var(--font-mono);
     font-size: 0.85rem;
@@ -1652,6 +1652,11 @@ h6:hover .zola-anchor {
 }
 
 .copy-url-btn svg {
+    position: absolute;
+    right: 100%;
+    margin-right: 0.35rem;
+    top: 50%;
+    transform: translateY(-50%);
     width: 1.1em;
     height: 1.1em;
 }
