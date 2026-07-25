@@ -47,7 +47,10 @@
                     </time>
                   </i>
                 </span>
-                <a href="{{ p.permalink }}">{{ p.title }}</a>{% if p.draft %}<span class="draft-tag">DRAFT</span>{% endif %}
+                <span class="post-title-wrapper">
+                  <a href="{{ p.permalink }}">{{ p.title }}</a>
+                  {% if p.draft %}<span class="draft-tag">DRAFT</span>{% endif %}
+                </span>
               </li>
             {% endif %}
           {% endfor %}
@@ -106,9 +109,11 @@
                   </time>
                 </i>
               </span>
-              <a href="{{ parts[1] }}">{{ parts[3] }}</a>
-              <span class="category-badge">{{ parts[2] }}</span>
-              {% if parts[4] == "true" %}<span class="draft-tag">DRAFT</span>{% endif %}
+              <span class="post-title-wrapper">
+                <a href="{{ parts[1] }}">{{ parts[3] }}</a>
+                <span class="category-badge">{{ parts[2] }}</span>
+                {% if parts[4] == "true" %}<span class="draft-tag">DRAFT</span>{% endif %}
+              </span>
             </li>
           {% endfor %}
         </ul>
@@ -176,9 +181,11 @@
                 </time>
               </i>
             </span>
-            <a href="{{ parts[1] }}">{{ parts[3] }}</a>
-            <span class="category-badge">{{ parts[2] }}</span>
-            {% if parts[4] == "true" %}<span class="draft-tag">DRAFT</span>{% endif %}
+            <span class="post-title-wrapper">
+              <a href="{{ parts[1] }}">{{ parts[3] }}</a>
+              <span class="category-badge">{{ parts[2] }}</span>
+              {% if parts[4] == "true" %}<span class="draft-tag">DRAFT</span>{% endif %}
+            </span>
           </li>
         {% else %}
           <li>No posts yet</li>

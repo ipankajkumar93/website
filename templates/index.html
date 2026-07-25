@@ -23,7 +23,10 @@
     {% for page in all_pages | sort(attribute="date") | reverse %}
       {% if page.extra.featured %}
       <li>
-        <a href="{{ page.permalink }}">{{ page.title }}</a>{% if page.draft %}<span class="draft-tag">DRAFT</span>{% endif %}
+        <span class="post-title-wrapper">
+          <a href="{{ page.permalink }}">{{ page.title }}</a>
+          {% if page.draft %}<span class="draft-tag">DRAFT</span>{% endif %}
+        </span>
       </li>
       {% endif %}
     {% endfor %}
