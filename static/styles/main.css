@@ -1364,6 +1364,8 @@ article h1 {
 .reading-time .svg-icon {
     width: 1.2em;
     height: 1.2em;
+    position: relative;
+    top: -2px;
 }
 
 /* Table of Contents */
