@@ -3585,10 +3585,10 @@ table.in-wrapper {
     margin: var(--space-xl) 0;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 .mermaid svg {
-    max-width: min(100%, 520px);
     height: auto;
     font-size: 15px;
     font-weight: 500;
