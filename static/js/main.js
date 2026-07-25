@@ -535,7 +535,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Custom heading copy links (placed at the front)
-    const headings = document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6');
+    const headings = document.querySelectorAll('.post-content h2');
     headings.forEach(heading => {
         if (!heading.id) return;
         

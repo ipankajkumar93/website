@@ -342,9 +342,11 @@ h6 {
     }
 }
 
-.heading-copy-link .svg-icon {
-    width: 0.6em; /* Noticeably smaller than the heading */
-    height: 0.6em;
+.heading-copy-link .svg-icon,
+.heading-copy-link svg {
+    width: 0.5em; /* Noticeably smaller than the heading */
+    height: 0.5em;
+    stroke-width: 3;
 }
 
 .heading-copy-link:hover {
@@ -1362,6 +1364,8 @@ article h1 {
 .reading-time .svg-icon {
     width: 1.2em;
     height: 1.2em;
+    position: relative;
+    top: -2px;
 }
 
 /* Table of Contents */
@@ -1606,6 +1610,7 @@ h6 {
     vertical-align: middle;
 }
 
+
 h2:hover .zola-anchor,
 h3:hover .zola-anchor,
 h4:hover .zola-anchor,
@@ -1619,33 +1624,47 @@ h6:hover .zola-anchor {
     color: var(--color-link);
 }
 
+/* Article Title & Copy URL */
 .article-title {
-    position: relative;
+    margin-top: calc(var(--space-sm) * -1);
+    margin-bottom: var(--space-xs) !important;
 }
 
-.title-copy-icon {
+.title-copy-url {
+    text-align: center;
+    margin-bottom: var(--space-md);
+}
+
+.copy-url-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-text-muted);
-    text-decoration: none;
-    opacity: 0.5;
-    transition: opacity var(--transition-fast), color var(--transition-fast);
-    position: absolute;
-    /* Vertically center relative to the title block, and shift left */
-    top: 50%;
-    transform: translateX(calc(-100% - var(--space-sm))) translateY(-50%);
-}
-.title-copy-icon svg {
-    width: 0.6em;
-    height: 0.6em;
+    position: relative;
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none !important;
+    transition: color var(--transition-fast);
 }
 
-
-
-.title-copy-icon:hover {
-    opacity: 1;
+.copy-url-btn:hover {
     color: var(--color-link);
+    text-decoration: none !important;
+}
+
+.copy-url-btn svg {
+    position: absolute;
+    right: 100%;
+    margin-right: 0.35rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.1em;
+    height: 1.1em;
+}
+
+.article-meta {
+    padding-bottom: var(--space-sm) !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -3585,10 +3604,10 @@ table.in-wrapper {
     margin: var(--space-xl) 0;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 .mermaid svg {
-    max-width: min(100%, 520px);
     height: auto;
     font-size: 15px;
     font-weight: 500;
