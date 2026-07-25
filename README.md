@@ -24,7 +24,7 @@ My personal website, blog, and digital home on the internet.
 
 ## 🌐 Overview
 
-This repository contains the complete source for my personal site - a fast, minimal static site built with [Zola](https://www.getzola.org/) and served via Cloudflare Pages. The theme is heavily customized from its [bearblog](https://codeberg.org/alanpearce/zola-bearblog) roots, with significant UX improvements, a Geist + Instrument Serif + JetBrains Mono font stack, a stone-palette WCAG-compliant color system, and a range of interactive features built in vanilla JavaScript.
+This repository contains the complete source for my personal site - a fast, minimal static site built with [Zola](https://www.getzola.org/) and served via Cloudflare Pages. The theme used is my own open-source theme, [zola-slate](https://github.com/ipankajkumar93/zola-slate), which was originally customized from its [bearblog](https://codeberg.org/alanpearce/zola-bearblog) roots, with significant UX improvements, a Geist + Instrument Serif + JetBrains Mono font stack, a stone-palette WCAG-compliant color system, and a range of interactive features built in vanilla JavaScript.
 
 The site covers writing, homelab notes, read-the-docs references, project logs, and travel - all accessible under a unified search and tag taxonomy.
 
@@ -41,31 +41,34 @@ The site covers writing, homelab notes, read-the-docs references, project logs, 
 | Diagrams | [Mermaid.js](https://mermaid.js.org/) |
 | OG Image Generation | Python + [Pillow](https://pillow.readthedocs.io/) via `uv` |
 | Analytics | [Umami](https://umami.is/) (self-hosted, privacy-first) |
-| Theme Lineage | [mr-karan.dev](https://mrkaran.dev) → [zola-bearblog](https://codeberg.org/alanpearce/zola-bearblog) |
+| Theme Lineage | [zola-slate](https://github.com/ipankajkumar93/zola-slate) (my open-source theme) → [mr-karan.dev](https://mrkaran.dev) → [zola-bearblog](https://codeberg.org/alanpearce/zola-bearblog) |
 
 ---
 
 ## ✨ Features
 
 **🧭 Navigation & UX**
-- Shell-language nav prefixes (`>`, `./`) matching the site's terminal aesthetic
-- Native browser navigation (no SPA routing)
+- Overhauled Header and Nav Menu UI with shell-language prefixes (`>`, `./`) matching the terminal aesthetic
 - Smooth `@view-transition` page transitions with clip-path reveal for theme toggling
 - Responsive sticky Table of Contents (mobile, tablet, desktop)
+- Custom interactive tooltips for mouse hover events
 - Floating back-to-top button for long reads
 
 **🔍 Content & Discovery**
-- Full-text site search via elasticlunr modal
+- Full-text site search via enhanced elasticlunr modal
 - Topics taxonomy - unified tag browsing across posts and notes
 - AJAX pagination - seamless page turns without full reloads
 - Next / Previous post navigation
+- Convenient "Copy URL" functionality below post titles and auto-generated anchor links for H2 sections
 - Social sharing buttons ("Worth sharing?")
 
 **💻 Code & Writing**
 - Native diff highlighting support
-- Mermaid diagram rendering (auto-detected fenced code blocks)
+- Mermaid diagram rendering (auto-detected fenced code blocks, with race-condition safeguards)
+- Enhanced Footnote UI for improved readability and navigation
 - Code copy button with correct handling of soft-wrapped lines
 - JetBrains Mono monospace stack for all code surfaces
+- Custom icon system for Read Time indicators
 
 **🎨 Design & Theming**
 - Stone-palette dark/light color system with WCAG-compliant three-tier text hierarchy
