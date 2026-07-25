@@ -25,7 +25,10 @@
         </time>
         {% endif %}
       </span>
-      <a href="{{ page.permalink }}">{{ page.title }}</a>{% if page.draft %}<span class="draft-tag">DRAFT</span>{% endif %}
+      <span class="post-title-wrapper">
+        <a href="{{ page.permalink }}">{{ page.title }}</a>
+        {% if page.draft %}<span class="draft-tag">DRAFT</span>{% endif %}
+      </span>
     </li>
     {% else %}
     <li class="empty-state-item">
