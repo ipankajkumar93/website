@@ -1225,8 +1225,9 @@ ul.blog-posts li:hover {
    Topics UI
    -------------------------------------------------------------------------- */
 .topics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 0.8rem;
     margin-top: var(--space-2xl);
 }
@@ -1235,6 +1236,7 @@ ul.blog-posts li:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     padding: var(--space-sm) var(--space-md);
     background-color: var(--color-bg-subtle);
     border: 2px solid var(--color-border);
@@ -1388,7 +1390,7 @@ article h1 {
     width: 1.2em;
     height: 1.2em;
     position: relative;
-    top: -2px;
+    top: -1px;
 }
 
 /* Table of Contents */
