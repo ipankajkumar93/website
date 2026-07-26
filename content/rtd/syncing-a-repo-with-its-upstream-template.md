@@ -26,7 +26,9 @@ If you build a project on top of an open-source template or boilerplate repo, yo
 
 Here's the setup I landed on. It uses a second Git remote pointed at the upstream repo, plus a custom merge driver that tells Git to always keep "our" version of specific files and folders. Once it's wired up, pulling updates becomes a two-command routine.
 
-> **Note:** I'm using a website/theme as the running example below since that's the situation I was in, but nothing here is specific to websites. This works for any repo that needs to keep tracking an external template, boilerplate, or starter-kit repo - a backend service scaffolded from a starter template, a config repo based on a shared base, and so on. Swap in whatever names make sense for your project; `template` is just the remote name I chose, not a requirement.
+{% admonition(kind="note") %}
+I'm using a website/theme as the running example below since that's the situation I was in, but nothing here is specific to websites. This works for any repo that needs to keep tracking an external template, boilerplate, or starter-kit repo - a backend service scaffolded from a starter template, a config repo based on a shared base, and so on. Swap in whatever names make sense for your project; `template` is just the remote name I chose, not a requirement.
+{% end %}
 
 ## Why Not Just Fork the Upstream Repo?
 
