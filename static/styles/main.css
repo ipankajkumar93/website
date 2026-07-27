@@ -3709,6 +3709,25 @@ body.show-unified-taxonomy #default-taxonomy-view { display: none !important; }
 body.show-unified-taxonomy #unified-topics-view { display: block !important; }
 
 /* --------------------------------------------------------------------------
+   Simple Blur for Post Content when TOC is open
+   -------------------------------------------------------------------------- */
+.post-content {
+    transition: filter 0.3s ease, -webkit-filter 0.3s ease;
+}
+
+.toc.is-open ~ .post-content {
+    filter: blur(6px) brightness(0.55);
+    -webkit-filter: blur(6px) brightness(0.55);
+    pointer-events: none;
+    user-select: none;
+}
+
+:root[data-theme="dark"] .toc.is-open ~ .post-content {
+    filter: blur(6px) brightness(0.4);
+    -webkit-filter: blur(6px) brightness(0.4);
+}
+
+/* --------------------------------------------------------------------------
    Custom Tooltip
    -------------------------------------------------------------------------- */
 .custom-tooltip {
