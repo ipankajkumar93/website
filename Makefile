@@ -24,8 +24,8 @@ og-images:
 build:
 	$(ZOLA) build
 	$(MAKE) og-images
-	@mv public/llms.txt/index.html public/llms.txt && rmdir public/llms.txt
-	@mv public/llms-full.txt/index.html public/llms-full.txt && rmdir public/llms-full.txt
+	@mv public/llms.txt/index.html public/llms_tmp.txt && rm -rf public/llms.txt && mv public/llms_tmp.txt public/llms.txt
+	@mv public/llms-full.txt/index.html public/llms-full_tmp.txt && rm -rf public/llms-full.txt && mv public/llms-full_tmp.txt public/llms-full.txt
 
 # Update project metadata from GitHub (Currently disabled)
 # projects:
