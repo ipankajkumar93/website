@@ -5,9 +5,9 @@
 
 Full corpus (all pages, one document): {{ config.base_url | safe }}llms-full.txt
 
-## Pages
 {% for section_name in config.extra.featured_sections %}
 {% set sec = get_section(path=section_name ~ "/_index.md") %}
+## {{ sec.title | default(value=section_name | capitalize) | safe }}
 {% for page in sec.pages %}
 {% if page.draft %}{% continue %}{% endif %}
 - [{{ page.title | safe }}]({{ page.permalink | safe }}){% if page.description %} — {{ page.description | safe }}{% endif %}{% endfor %}

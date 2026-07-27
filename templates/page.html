@@ -201,8 +201,8 @@
       "name": "{{ config.title }}",
       "url": "{{ config.base_url | safe }}"
     },
-    "datePublished": "{{ page.date }}",
-    "dateModified": "{% if page.updated %}{{ page.updated }}{% else %}{{ page.date }}{% endif %}",
+    "datePublished": "{{ page.date | date(format='%+') }}",
+    "dateModified": "{% if page.updated %}{{ page.updated | date(format='%+') }}{% else %}{{ page.date | date(format='%+') }}{% endif %}",
     "wordCount": "{{ page.word_count }}",
     "mainEntityOfPage": {
       "@type": "WebPage",
