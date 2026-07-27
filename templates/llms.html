@@ -1,0 +1,12 @@
+# {{ config.title }}
+{{ config.description }}
+
+Full corpus (all pages, one document): {{ config.base_url }}llms-full.txt
+
+## Pages
+{% for section_name in config.extra.featured_sections %}
+{% set sec = get_section(path=section_name ~ "/_index.md") %}
+{% for page in sec.pages %}
+{% if page.draft %}{% continue %}{% endif %}
+- [{{ page.title }}]({{ page.permalink }}){% if page.description %} — {{ page.description }}{% endif %}{% endfor %}
+{% endfor %}
