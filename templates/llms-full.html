@@ -16,11 +16,11 @@ Source: {{ page.permalink | safe }}
 {% set parts = raw_content | split(pat="+++") %}
 {% set raw_markdown = parts | slice(start=2) | join(sep="+++") %}
 {% set clean_markdown = raw_markdown
-    | replace(from="{% admonition(kind=\"note\") %}", to="> **Note:**")
-    | replace(from="{% admonition(kind=\"tip\") %}", to="> **Tip:**")
-    | replace(from="{% admonition(kind=\"important\") %}", to="> **Important:**")
-    | replace(from="{% admonition(kind=\"warning\") %}", to="> **Warning:**")
-    | replace(from="{% admonition(kind=\"caution\") %}", to="> **Caution:**")
+    | replace(from='{% admonition(kind="note") %}', to="> **Note:**")
+    | replace(from='{% admonition(kind="tip") %}', to="> **Tip:**")
+    | replace(from='{% admonition(kind="important") %}', to="> **Important:**")
+    | replace(from='{% admonition(kind="warning") %}', to="> **Warning:**")
+    | replace(from='{% admonition(kind="caution") %}', to="> **Caution:**")
     | replace(from="{% end %}", to="")
 %}
 {{ clean_markdown | trim | safe }}
