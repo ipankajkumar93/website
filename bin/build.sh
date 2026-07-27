@@ -15,4 +15,10 @@ echo ">>> Synchronizing OG images to public directory..."
 mkdir -p public/images/og
 cp -a static/images/og/* public/images/og/ || true
 
+echo ">>> Fixing AI index filenames..."
+mv public/llms.txt/index.html public/llms.txt || true
+rm -rf public/llms.txt/ || true
+mv public/llms-full.txt/index.html public/llms-full.txt || true
+rm -rf public/llms-full.txt/ || true
+
 echo ">>> Done."
