@@ -1,3 +1,10 @@
+# Last updated: {{ now() | date(format="%Y-%m-%d") }}
+
+# {{ config.title | safe }}
+{{ config.description | safe }}
+
+Index (summary of all pages): {{ config.base_url | safe }}llms.txt
+
 {% for section_name in config.extra.featured_sections %}
 {% set sec = get_section(path=section_name ~ "/_index.md") %}
 {% for page in sec.pages %}

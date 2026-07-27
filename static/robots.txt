@@ -3,4 +3,6 @@ Allow: /
 Disallow: /search_index.en.js
 Disallow: /elasticlunr.min.js
 
-Sitemap: https://pankajkumar.xyz/sitemap.xml
+Sitemap: https://example.com/sitemap.xml
+LLMs: https://example.com/llms.txt
+LLMs-full: https://example.com/llms-full.txt
