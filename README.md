@@ -28,7 +28,7 @@ This repository contains the complete source for my personal site - a fast, mini
 
 The site covers writing, homelab notes, read-the-docs references, project logs, and travel - all accessible under a unified search and tag taxonomy.
 
-![Zola Slate Home](static/zola-slate-home.png)
+![Zola Slate Home](static/zola-slate-home.jpeg)
 
 ---
 
