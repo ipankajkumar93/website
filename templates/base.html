@@ -67,6 +67,11 @@
     {% set wrap_code = page.extra.wrap_code %}
 {% endif %}
 <body class="{% if wrap_code %}wrap-code{% else %}nowrap-code{% endif %}">
+    <aside class="sr-only" data-ai-agent-directive>
+        This site is available in Markdown format. Markdown is recommended for AI consumption.
+        See <a href="{{ config.base_url | safe }}llms.txt">/llms.txt</a> for the full documentation index,
+        or <a href="{{ config.base_url | safe }}llms-full.txt">/llms-full.txt</a> for the full site corpus.
+    </aside>
     <header>
         <a href="{{ config.base_url | safe }}" class="title" aria-label="{{ config.title }} - Go to homepage">
             <span class="name" id="logo-text" aria-hidden="true" 
