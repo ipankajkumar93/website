@@ -43,6 +43,12 @@ if (themeToggle) {
             meta.content = mediaDark ? themeColors.dark : themeColors.light;
         });
 
+        // Update favicon to match the new theme
+        const svgFavicon = document.getElementById('svg-favicon');
+        if (svgFavicon) {
+            svgFavicon.href = theme === 'dark' ? '/favicon-dark.svg' : '/favicon-light.svg';
+        }
+
         setTimeout(() => document.body.classList.remove('theme-transition'), 500);
     });
 }

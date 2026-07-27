@@ -17,4 +17,13 @@
     if (stored !== theme) {
         localStorage.setItem('theme', theme);
     }
+
+    // Swap SVG favicon based on resolved theme (Chrome ignores media on <link rel="icon">)
+    try {
+        const svgIcon = document.getElementById('svg-favicon');
+        if (svgIcon) {
+            svgIcon.href = theme === 'dark' ? '/favicon-dark.svg' : '/favicon-light.svg';
+        }
+    } catch (e) {}
 })();
+
