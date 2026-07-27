@@ -49,6 +49,12 @@ The site covers writing, homelab notes, read-the-docs references, project logs, 
 
 ## ✨ Features
 
+**🤖 AI Readiness**
+- Fully optimized for LLM ingestion and AI search bots (Claude, ChatGPT, Gemini etc.)
+- Auto-generated `/llms.txt` index of all site content
+- Auto-generated `/llms-full.txt` containing the entire site corpus in clean Markdown
+- Hidden HTML directives to route AI scrapers away from HTML and directly to the clean Markdown endpoints
+
 **🧭 Navigation & UX**
 - Overhauled Header and Nav Menu UI with shell-language prefixes (`>`, `./`) matching the terminal aesthetic
 - Smooth `@view-transition` page transitions with clip-path reveal for theme toggling
