@@ -2,13 +2,13 @@
 {% set sec = get_section(path=section_name ~ "/_index.md") %}
 {% for page in sec.pages %}
 {% if page.draft %}{% continue %}{% endif %}
-# {{ page.title }}
-Source: {{ page.permalink }}
+# {{ page.title | safe }}
+Source: {{ page.permalink | safe }}
 
 {% set raw_content = load_data(path=page.relative_path) %}
 {% set parts = raw_content | split(pat="+++") %}
 {% set raw_markdown = parts | slice(start=2) | join(sep="+++") %}
-{{ raw_markdown | trim }}
+{{ raw_markdown | trim | safe }}
 
 {% endfor %}
 {% endfor %}
