@@ -3063,11 +3063,6 @@ main {
     }
 
 
-    .projects-grid,
-    .services-grid,
-    .sitemap-items-grid {
-        grid-template-columns: 1fr;
-    }
 
     .image-grid {
         grid-template-columns: 1fr;
