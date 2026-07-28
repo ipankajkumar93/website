@@ -12,8 +12,8 @@ if (themeToggle) {
     if (activeTheme === 'dark') {
         // SVG is now managed by CSS and base.html template
     }
-    // Sync aria-pressed to the actual theme on load (not hardcoded in HTML)
-    themeToggle.setAttribute('aria-pressed', activeTheme === 'dark' ? 'true' : 'false');
+    // Sync aria-checked to the actual theme on load (not hardcoded in HTML)
+    themeToggle.setAttribute('aria-checked', activeTheme === 'dark' ? 'true' : 'false');
 
     themeToggle.addEventListener('click', function () {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -28,7 +28,7 @@ if (themeToggle) {
         // instead of transitioning.
         void document.body.offsetHeight;
 
-        themeToggle.setAttribute('aria-pressed', isDark ? 'false' : 'true');
+        themeToggle.setAttribute('aria-checked', isDark ? 'false' : 'true');
 
         document.documentElement.setAttribute('data-theme', theme);
         document.documentElement.style.colorScheme = theme;
