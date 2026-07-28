@@ -3,8 +3,18 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self' https://example.com https://*.example.com; script-src 'self' https://example.com https://*.example.com 'unsafe-inline' um.example.com static.cloudflareinsights.com; style-src 'self' https://example.com https://*.example.com 'unsafe-inline'; img-src 'self' https://example.com https://*.example.com data:; font-src 'self' https://example.com https://*.example.com; connect-src 'self' https://example.com https://*.example.com um.example.com cloudflareinsights.com; frame-src www.youtube-nocookie.com www.youtube.com
+  Content-Security-Policy: default-src 'self' https://example.com https://*.example.com; script-src 'self' https://example.com https://*.example.com um.example.com static.cloudflareinsights.com; style-src 'self' https://example.com https://*.example.com; img-src 'self' https://example.com https://*.example.com data:; font-src 'self' https://example.com https://*.example.com; connect-src 'self' https://example.com https://*.example.com um.example.com cloudflareinsights.com; frame-src www.youtube-nocookie.com www.youtube.com
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Cache-Control: public, max-age=0, must-revalidate
 
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
+
+/styles/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=2592000

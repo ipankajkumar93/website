@@ -1,3 +1,13 @@
+{% set is_remote = path is starting_with("http") %}
+{% if not is_remote %}
+  {% set clean_path = path | trim_start_matches(pat="/") %}
+  {% set local_path = "static/" ~ clean_path %}
+  {% set meta = get_image_metadata(path=local_path) %}
+  {% set dim = ' width="' ~ meta.width ~ '" height="' ~ meta.height ~ '"' %}
+{% else %}
+  {% set dim = "" %}
+{% endif %}
+
 {% if avif or webp %}
 <picture>
   {% if avif %}
@@ -8,8 +18,8 @@
   {% set webp_path = path | replace(from=".jpg", to=".webp") | replace(from=".png", to=".webp") %}
   <source srcset="{{ get_url(path=webp_path, trailing_slash=false, cachebust=true) | safe }}" type="image/webp">
   {% endif %}
-  <img src="{{ get_url(path=path, trailing_slash=false, cachebust=true) | safe }}" alt="{{ alt | default(value='') }}" {% if class %}class="{{ class }}"{% endif %} {% if loading %}loading="{{ loading }}"{% endif %} />
+  <img src="{{ get_url(path=path, trailing_slash=false, cachebust=true) | safe }}" alt="{{ alt | default(value='') }}" {% if class %}class="{{ class }}"{% endif %} {% if loading %}loading="{{ loading }}"{% endif %} {{ dim | safe }} />
 </picture>
 {% else %}
-<img src="{{ get_url(path=path, trailing_slash=false, cachebust=true) | safe }}" alt="{{ alt | default(value='') }}" {% if class %}class="{{ class }}"{% endif %} {% if loading %}loading="{{ loading }}"{% endif %} />
+<img src="{{ get_url(path=path, trailing_slash=false, cachebust=true) | safe }}" alt="{{ alt | default(value='') }}" {% if class %}class="{{ class }}"{% endif %} {% if loading %}loading="{{ loading }}"{% endif %} {{ dim | safe }} />
 {% endif %}

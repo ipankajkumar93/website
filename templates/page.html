@@ -53,7 +53,14 @@
 
   {%- if page.extra.cover_image %}
   <div class="article-cover{% if is_restricted %} restricted-width{% endif %}">
-    <img src="{{ page.extra.cover_image | safe }}" alt="Cover image for {{ page.title }}" loading="lazy" />
+    {% set cover_path = page.extra.cover_image %}
+    {% if cover_path is starting_with("/") %}
+      {% set cover_path_local = "static" ~ cover_path %}
+      {% set meta = get_image_metadata(path=cover_path_local) %}
+      <img src="{{ cover_path | safe }}" alt="Cover image for {{ page.title }}" fetchpriority="high" width="{{ meta.width }}" height="{{ meta.height }}" />
+    {% else %}
+      <img src="{{ cover_path | safe }}" alt="Cover image for {{ page.title }}" fetchpriority="high" />
+    {% endif %}
   </div>
   {%- endif %}
 

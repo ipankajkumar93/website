@@ -52,15 +52,15 @@
         href="{{ get_url(path=config.feed_filenames[0]) | safe }}">
     {%- endblock -%}
     {%- endif %}
-    <link rel="preload" href="{{ get_url(path="fonts/geist_5.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="{{ get_url(path="fonts/geist_10.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ get_url(path="fonts/geist-variable-latin.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ get_url(path="fonts/jetbrains-mono-variable-latin.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ get_url(path="fonts/jetbrains-mono-italic-variable-latin.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ get_url(path="fonts/instrument_3.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ get_url(path="fonts/instrument_4.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="{{ get_url(path="fonts/jetbrains_6.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="{{ get_url(path="fonts/jetbrains_18.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{{ get_url(path="styles/fonts.css", trailing_slash=false, cachebust=true) | safe }}">
     <link rel="stylesheet" href="{{ get_url(path="styles/main.css", trailing_slash=false, cachebust=true) | safe }}">
     <script src="{{ get_url(path='js/theme.js', cachebust=true) | safe }}"></script>
-    <script src="{{ get_url(path='js/analytics.js', cachebust=true) | safe }}"></script>
+    <script src="{{ get_url(path='js/analytics.js', cachebust=true) | safe }}" defer></script>
 </head>
 {% set wrap_code = config.extra.wrap_code | default(value=false) %}
 {% if page and page.extra.wrap_code is defined %}
@@ -73,6 +73,7 @@
         or <a href="{{ config.base_url | safe }}llms-full.txt">/llms-full.txt</a> for the full site corpus.
     </aside>
     <header>
+        <div class="header-inner">
         <a href="{{ config.base_url | safe }}" class="title" aria-label="{{ config.title }} - Go to homepage">
             <span class="name" id="logo-text" aria-hidden="true" 
                   data-title="{{ config.title }}" 
@@ -126,12 +127,13 @@
                     <span class="search-btn-text">Search</span>
                     <span class="search-btn-shortcut" aria-hidden="true">Ctrl+K</span>
                 </button>
-                <button class="theme-toggle" title="Toggle Dark Mode" aria-label="Switch to dark mode">
+                <button class="theme-toggle" role="switch" title="Toggle Dark Mode" aria-label="Switch to dark mode">
                     <span class="theme-icon-dark">{{ icons::render(name="sun") }}</span>
                     <span class="theme-icon-light">{{ icons::render(name="moon") }}</span>
                 </button>
             </div>
         </nav>
+        </div>
     </header>
 
     <!-- Search Modal -->
@@ -142,6 +144,7 @@
                 <div class="search-input-wrapper">
                     {{ icons::render(name="search", class="search-input-icon") }}
                     <h2 id="search-modal-title" class="sr-only">Site Search</h2>
+                    <label for="search-input" class="sr-only">Search</label>
                     <input type="text" id="search-input" class="search-input" placeholder="Search posts, projects, travel…" autocomplete="off" aria-label="Search posts, projects, travel…" />
                 </div>
                 <button class="search-close" aria-label="Close search">
