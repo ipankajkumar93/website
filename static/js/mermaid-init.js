@@ -45,7 +45,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         mermaid.initialize({ startOnLoad: false, theme: getMermaidTheme() });
 
-        // Wait for layout to settle before asking mermaid to measure
+        // Wait for layout and web fonts to settle before asking mermaid to measure
+        await document.fonts.ready;
         await afterLayout();
         await mermaid.run();
 

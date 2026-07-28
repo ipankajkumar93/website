@@ -420,21 +420,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (headings.length > 0) {
             let activeHeadingId = null;
-            let scrollTicking = false;
 
-            const updateActiveLink = () => {
-                let current = null;
-                // Find the last heading that has scrolled past the top offset
-                for (let h of headings) {
-                    if (h.getBoundingClientRect().top <= 150) {
-                        current = h.id;
-                    }
-                }
-                // Fallback to first heading if at the very top
-                if (!current && headings.length > 0) {
-                    current = headings[0].id;
-                }
-
+            const updateActiveLink = (current) => {
                 if (current !== activeHeadingId) {
                     activeHeadingId = current;
                     tocLinks.forEach(link => {
@@ -445,17 +432,30 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     });
                 }
-                scrollTicking = false;
             };
 
-            window.addEventListener('scroll', () => {
-                if (!scrollTicking) {
-                    requestAnimationFrame(updateActiveLink);
-                    scrollTicking = true;
+            const observer = new IntersectionObserver((entries) => {
+                // Find the visible heading that is highest on the screen
+                let topMostIntersecting = null;
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (!topMostIntersecting || entry.boundingClientRect.top < topMostIntersecting.boundingClientRect.top) {
+                            topMostIntersecting = entry;
+                        }
+                    }
+                });
+
+                if (topMostIntersecting) {
+                    updateActiveLink(topMostIntersecting.target.id);
                 }
-            }, { passive: true });
-            // Initial check
-            updateActiveLink();
+            }, { rootMargin: '-10% 0px -70% 0px', threshold: 0 });
+
+            headings.forEach(h => observer.observe(h));
+
+            // Fallback to first heading if at the very top initially
+            if (!activeHeadingId && headings.length > 0) {
+                updateActiveLink(headings[0].id);
+            }
         }
     }
 
