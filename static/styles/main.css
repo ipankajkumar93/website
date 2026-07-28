@@ -108,6 +108,10 @@
     --transition-slow: 350ms ease;
     --transition-theme: 100ms ease;
 
+    /* Blur */
+    --blur-backdrop: 6px;
+    --backdrop-overlay: rgba(0, 0, 0, 0.45);
+
     /* Border Radius */
     --radius-sm: 4px;
     --radius-md: 8px;
@@ -175,6 +179,8 @@
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.4);
+
+    --backdrop-overlay: rgba(0, 0, 0, 0.6);
 }
 
 /* --------------------------------------------------------------------------
@@ -708,9 +714,9 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 .search-modal-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background: var(--backdrop-overlay);
+    backdrop-filter: blur(var(--blur-backdrop));
+    -webkit-backdrop-filter: blur(var(--blur-backdrop));
     opacity: 0;
     transition: opacity 0.2s ease;
 }
@@ -955,10 +961,6 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 
 
 /* Dark mode adjustments */
-:root[data-theme="dark"] .search-modal-backdrop {
-    background: rgba(0, 0, 0, 0.7);
-}
-
 :root[data-theme="dark"] .search-modal-content {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
@@ -2179,8 +2181,8 @@ figcaption {
     height: 100%;
     background-color: rgba(12, 10, 9, 0.95);
     cursor: pointer;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(var(--blur-backdrop));
+    -webkit-backdrop-filter: blur(var(--blur-backdrop));
 }
 
 .lightbox-modal.active {
@@ -2884,9 +2886,9 @@ main {
         display: block;
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
+        background: var(--backdrop-overlay);
+        backdrop-filter: blur(var(--blur-backdrop));
+        -webkit-backdrop-filter: blur(var(--blur-backdrop));
         z-index: var(--z-backdrop);
         opacity: 0;
         visibility: hidden;
@@ -2898,9 +2900,7 @@ main {
         visibility: visible;
     }
 
-    :root[data-theme="dark"] .mobile-menu-backdrop {
-        background: rgba(0, 0, 0, 0.7);
-    }
+
 
     .nav-items {
         position: fixed;
@@ -3725,15 +3725,15 @@ body.show-unified-taxonomy #unified-topics-view { display: block !important; }
 }
 
 .toc.is-open ~ .post-content {
-    filter: blur(6px) brightness(0.55);
-    -webkit-filter: blur(6px) brightness(0.55);
+    filter: blur(var(--blur-backdrop)) brightness(0.55);
+    -webkit-filter: blur(var(--blur-backdrop)) brightness(0.55);
     pointer-events: none;
     user-select: none;
 }
 
 :root[data-theme="dark"] .toc.is-open ~ .post-content {
-    filter: blur(6px) brightness(0.4);
-    -webkit-filter: blur(6px) brightness(0.4);
+    filter: blur(var(--blur-backdrop)) brightness(0.4);
+    -webkit-filter: blur(var(--blur-backdrop)) brightness(0.4);
 }
 
 /* --------------------------------------------------------------------------
