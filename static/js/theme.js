@@ -18,11 +18,15 @@
         localStorage.setItem('theme', theme);
     }
 
-    // Swap SVG favicon based on resolved theme (Chrome ignores media on <link rel="icon">)
+    // Swap favicons based on resolved theme (Chrome ignores media on <link rel="icon">)
     try {
         const svgIcon = document.getElementById('svg-favicon');
         if (svgIcon) {
-            svgIcon.href = theme === 'dark' ? '/favicon-dark.svg' : '/favicon-light.svg';
+            svgIcon.href = theme === 'dark' ? (svgIcon.dataset.darkHref || '/favicon-dark.svg') : (svgIcon.dataset.lightHref || '/favicon-light.svg');
+        }
+        const icoIcon = document.getElementById('ico-favicon');
+        if (icoIcon) {
+            icoIcon.href = theme === 'dark' ? (icoIcon.dataset.darkHref || '/favicon-dark.ico') : (icoIcon.dataset.lightHref || '/favicon-light.ico');
         }
     } catch (e) {}
 })();
