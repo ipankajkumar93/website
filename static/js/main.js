@@ -46,7 +46,11 @@ if (themeToggle) {
         // Update favicon to match the new theme
         const svgFavicon = document.getElementById('svg-favicon');
         if (svgFavicon) {
-            svgFavicon.href = theme === 'dark' ? '/favicon-dark.svg' : '/favicon-light.svg';
+            svgFavicon.href = theme === 'dark' ? (svgFavicon.dataset.darkHref || '/favicon-dark.svg') : (svgFavicon.dataset.lightHref || '/favicon-light.svg');
+        }
+        const icoFavicon = document.getElementById('ico-favicon');
+        if (icoFavicon) {
+            icoFavicon.href = theme === 'dark' ? (icoFavicon.dataset.darkHref || '/favicon-dark.ico') : (icoFavicon.dataset.lightHref || '/favicon-light.ico');
         }
 
         setTimeout(() => document.body.classList.remove('theme-transition'), 500);
