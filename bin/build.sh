@@ -19,12 +19,13 @@ echo ">>> Copying markdown files to public directory..."
 uv run scripts/copy_md_files.py
 
 echo ">>> Fixing AI index filenames..."
-mv public/llms.txt/index.html public/llms_tmp.txt || true
-rm -rf public/llms.txt || true
-mv public/llms_tmp.txt public/llms.txt || true
+mv public/llms.txt/index.html public/llms_tmp.txt && \
+    rm -rf public/llms.txt && \
+    mv public/llms_tmp.txt public/llms.txt
 
-mv public/llms-full.txt/index.html public/llms-full_tmp.txt || true
-rm -rf public/llms-full.txt || true
-mv public/llms-full_tmp.txt public/llms-full.txt || true
+# llms-full.txt
+mv public/llms-full.txt/index.html public/llms-full_tmp.txt && \
+    rm -rf public/llms-full.txt && \
+    mv public/llms-full_tmp.txt public/llms-full.txt
 
 echo ">>> Done."
