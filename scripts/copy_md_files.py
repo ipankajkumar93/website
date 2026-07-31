@@ -6,7 +6,7 @@
 
 """
 Copies raw markdown files from the content directory to their corresponding
-output directories in public/ so they can be accessed directly.
+output directories in public/ so they can be accessed directly by LLMs.
 """
 
 import os
