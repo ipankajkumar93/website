@@ -120,3 +120,59 @@
         {% endif -%}
     {% endif -%}
 {% endif -%}
+
+{# ── JSON-LD Structured Data ─────────────────────────────── #}
+<script type="application/ld+json">
+{% if og_type == "article" -%}
+{% if "posts" in page.components or "travel" in page.components -%}
+  {% set schema_type = "BlogPosting" -%}
+{% else -%}
+  {% set schema_type = "Article" -%}
+{% endif -%}
+{
+  "@context": "https://schema.org",
+  "@type": "{{ schema_type }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ og_url | safe }}"
+  },
+  "headline": {{ og_title | json_encode | safe }},
+  "description": {{ og_description | json_encode | safe }},
+  "url": "{{ og_url | safe }}",
+  {% if og_image %}"image": "{{ config.base_url ~ og_image | safe }}",{% endif %}
+  "author": {
+    "@type": "Person",
+    "name": {{ config.title | json_encode | safe }},
+    "url": "{{ config.base_url | safe }}"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": {{ config.title | json_encode | safe }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ config.base_url | safe }}icons/icon-512x512.png"
+    }
+  },
+  "datePublished": "{{ article_published_time | date(format='%+') }}",
+  "dateModified": "{{ article_modified_time | date(format='%+') }}"{% if page and page.word_count %},
+  "wordCount": {{ page.word_count }},
+  "inLanguage": "{{ lang | default(value='en') }}"{% endif %}
+}
+{% else -%}
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": "{{ config.base_url | safe }}",
+  "name": {{ config.title | json_encode | safe }},
+  "description": {{ config.description | json_encode | safe }},
+  "publisher": {
+    "@type": "Person",
+    "name": {{ config.title | json_encode | safe }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ config.base_url | safe }}icons/icon-512x512.png"
+    }
+  }
+}
+{% endif -%}
+</script>

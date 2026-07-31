@@ -24,6 +24,7 @@ og-images:
 build:
 	$(ZOLA) build
 	$(MAKE) og-images
+	@uv run scripts/copy_md_files.py
 	@mv public/llms.txt/index.html public/llms_tmp.txt && rm -rf public/llms.txt && mv public/llms_tmp.txt public/llms.txt
 	@mv public/llms-full.txt/index.html public/llms-full_tmp.txt && rm -rf public/llms-full.txt && mv public/llms-full_tmp.txt public/llms-full.txt
 
