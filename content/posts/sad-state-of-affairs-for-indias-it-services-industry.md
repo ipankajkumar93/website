@@ -1,5 +1,5 @@
 +++
-draft = true # Set this to false when you're ready to publish the article to production
+draft = false # Set this to false when you're ready to publish the article to production
 slug = "sad-state-of-affairs-for-indias-it-services-industry"
 type = "post"
 in_search_index = true

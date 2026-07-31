@@ -9,7 +9,7 @@ date = 2026-07-31
 
 [extra]
 toc = true
-featured = true
+featured = false
 license = "CC-BY-SA-4.0"
 wrap_code = false
 
