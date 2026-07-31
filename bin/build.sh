@@ -15,6 +15,9 @@ echo ">>> Synchronizing OG images to public directory..."
 mkdir -p public/images/og
 cp -a static/images/og/* public/images/og/ || true
 
+echo ">>> Copying markdown files to public directory..."
+uv run scripts/copy_md_files.py
+
 echo ">>> Fixing AI index filenames..."
 mv public/llms.txt/index.html public/llms_tmp.txt || true
 rm -rf public/llms.txt || true

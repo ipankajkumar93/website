@@ -7,10 +7,12 @@ Index (summary of all pages): {{ config.base_url | safe }}llms.txt
 
 {% for section_name in config.extra.featured_sections %}
 {% set sec = get_section(path=section_name ~ "/_index.md") %}
+## {{ sec.title | default(value=section_name | capitalize) | safe }}
+
 {% for page in sec.pages %}
 {% if page.draft %}{% continue %}{% endif %}
 # {{ page.title | safe }}
-Source: {{ page.permalink | safe }}
+Source: {{ page.permalink | safe }}{{ page.slug }}.md
 
 {% set raw_content = load_data(path=page.relative_path) %}
 {% set parts = raw_content | split(pat="+++") %}
