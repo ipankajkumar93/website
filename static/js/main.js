@@ -153,12 +153,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Close menu when a link inside is clicked (fixes bfcache back-button issue)
-        navItems.addEventListener('click', function (e) {
-            if (e.target.closest('a')) {
-                closeMobileMenu();
-            }
-        });
     }
 
     function openMobileMenu() {
