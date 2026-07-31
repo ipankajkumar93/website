@@ -10,5 +10,5 @@ Full corpus (all pages, one document): {{ config.base_url | safe }}llms-full.txt
 ## {{ sec.title | default(value=section_name | capitalize) | safe }}
 {% for page in sec.pages %}
 {% if page.draft %}{% continue %}{% endif %}
-- [{{ page.title | safe }}]({{ page.permalink | safe }}{{ page.slug }}.md){% if page.description %} — {{ page.description | safe }}{% endif %}{% endfor %}
+- [{{ page.title | safe }}]({{ page.permalink | safe }}{{ page.slug }}.md){% if page.description %} - {{ page.description | safe }}{% endif %}{% endfor %}
 {% endfor %}
