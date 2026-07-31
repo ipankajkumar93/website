@@ -112,34 +112,86 @@ The script reads and respects the TOML frontmatter: draft pages are skipped, so 
 # scripts/copy_md_files.py
 import os
 import shutil
+import re
+import sys
+from pathlib import Path
 
-CONTENT_DIR = "content"
-PUBLIC_DIR  = "public"
+try:
+    import tomllib
+except ModuleNotFoundError:
+    import tomli as tomllib
 
-def is_draft(filepath):
-    with open(filepath, "r", encoding="utf-8") as f:
-        content = f.read()
-    parts = content.split("+++")
-    if len(parts) < 3:
-        return False
-    frontmatter = parts[1]
-    for line in frontmatter.splitlines():
-        if line.strip().startswith("draft") and "true" in line:
-            return True
-    return False
+def parse_frontmatter(content: str) -> dict:
+    match = re.match(r"^\+\+\+\s*\n(.*?)\n\+\+\+", content, re.DOTALL)
+    if not match:
+        return {}
+    try:
+        return tomllib.loads(match.group(1))
+    except Exception:
+        return {}
 
-for root, dirs, files in os.walk(CONTENT_DIR):
-    for filename in files:
-        if not filename.endswith(".md") or filename == "_index.md":
+def copy_md_files():
+    project_root = Path(__file__).parent.parent
+    content_dir = project_root / "content"
+    public_dir = project_root / "public"
+
+    if not public_dir.exists():
+        print("Error: public directory does not exist. Run zola build first.")
+        sys.exit(1)
+
+    copied = 0
+    for md_file in content_dir.rglob("*.md"):
+        if md_file.name == "_index.md":
             continue
-        src = os.path.join(root, filename)
-        if is_draft(src):
+
+        content = md_file.read_text(encoding='utf-8')
+        fm = parse_frontmatter(content)
+        
+        # Skip drafts
+        if fm.get("draft") == True:
             continue
-        slug = filename[:-3]  # strip .md
-        dest_dir = os.path.join(PUBLIC_DIR, slug)
-        os.makedirs(dest_dir, exist_ok=True)
-        shutil.copy2(src, os.path.join(dest_dir, filename))
-        print(f"  Copied: {src} -> {dest_dir}/{filename}")
+            
+        slug = fm.get("slug")
+        if not slug:
+            if md_file.name == "index.md":
+                slug = md_file.parent.name
+            else:
+                slug = md_file.stem
+                
+        rel_path = md_file.relative_to(content_dir)
+        
+        if md_file.name == "index.md":
+            if rel_path.parent.name == slug:
+                output_dir = public_dir / rel_path.parent
+            else:
+                output_dir = public_dir / rel_path.parent / slug
+        else:
+            if rel_path.parent == Path("."): 
+                output_dir = public_dir / slug
+            else:
+                output_dir = public_dir / rel_path.parent / slug
+                
+        output_path = output_dir / f"{slug}.md"
+        
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Read the raw bytes and prepend a UTF-8 BOM if missing.
+        # This forces LLM crawlers and browsers to decode the file as UTF-8
+        # (fixing corrupted characters like ├──) even without HTTP charset headers.
+        raw_bytes = md_file.read_bytes()
+        if not raw_bytes.startswith(b'\xef\xbb\xbf'):
+            raw_bytes = b'\xef\xbb\xbf' + raw_bytes
+            
+        output_path.write_bytes(raw_bytes)
+        shutil.copystat(md_file, output_path)
+        
+        print(f"Copied {md_file.relative_to(project_root)} to {output_path.relative_to(project_root)}")
+        copied += 1
+        
+    print(f"Successfully copied {copied} markdown files.")
+
+if __name__ == "__main__":
+    copy_md_files()
 ```
 
 ## 5. Creating the llms.txt and llms-full.txt Indexes
@@ -226,14 +278,14 @@ After running the full build pipeline - `zola build`, then `copy_md_files.py`, t
 
 ```text
 public/
-|-- index.html               <- Standard Zola homepage
-|-- sitemap.xml              <- Standard Zola sitemap
-|-- robots.txt               <- Updated with LLMs/LLMs-full entries
-|-- llms.txt                 <- AI index (renamed from directory by build.sh)
-|-- llms-full.txt            <- AI corpus (renamed from directory by build.sh)
-`-- my-post/
-    |-- index.html           <- Standard Zola HTML post
-    `-- my-post.md           <- Raw Markdown injected by copy_md_files.py
+├── index.html               ← Standard Zola homepage
+├── sitemap.xml              ← Standard Zola sitemap
+├── robots.txt               ← Updated with LLMs/LLMs-full entries
+├── llms.txt                 ← AI index (renamed from directory by build.sh)
+├── llms-full.txt            ← AI corpus (renamed from directory by build.sh)
+└── my-post/
+    ├── index.html           ← Standard Zola HTML post
+    └── my-post.md           ← Raw Markdown injected by copy_md_files.py
 ```
 
 Each post directory ends up with both representations side by side. The HTML page announces the Markdown sibling via `<link rel="alternate">` in the `<head>`, so any crawler that inspects head tags can find the clean version immediately.
