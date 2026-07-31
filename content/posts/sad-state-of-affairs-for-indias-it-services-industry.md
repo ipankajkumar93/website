@@ -4,7 +4,7 @@ slug = "sad-state-of-affairs-for-indias-it-services-industry"
 type = "post"
 in_search_index = true
 title = "Sad state of affairs for India's IT Services Industry"
-description = ""
+description = "A reflection on how the IT services industry uses AI hype to devalue developers and demand more output under the guise of progress."
 date = 2026-07-20
 # updated = 2026-07-20
 
