@@ -52,6 +52,11 @@
         href="{{ get_url(path=config.feed_filenames[0]) | safe }}">
     {%- endblock -%}
     {%- endif %}
+    <link rel="alternate" type="text/plain" title="LLMs Index" href="{{ config.base_url | safe }}llms.txt">
+    <link rel="alternate" type="text/plain" title="LLMs Full Corpus" href="{{ config.base_url | safe }}llms-full.txt">
+    {% if page -%}
+    <link rel="alternate" type="text/markdown" title="Markdown Source" href="{{ page.permalink | safe }}{{ page.slug }}.md">
+    {% endif -%}
     <link rel="preload" href="{{ get_url(path="fonts/geist-variable-latin.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ get_url(path="fonts/jetbrains-mono-variable-latin.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ get_url(path="fonts/jetbrains-mono-italic-variable-latin.woff2", trailing_slash=false) | safe }}" as="font" type="font/woff2" crossorigin>

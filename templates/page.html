@@ -183,40 +183,7 @@
 </article>
 
 {% if is_restricted %}
-{% if page.extra.og_preview_img %}
-  {% set og_image = page.extra.og_preview_img | trim_start_matches(pat="/") %}
-{% else %}
-  {% set path_trimmed = page.path | trim_end_matches(pat="/") %}
-  {% set og_image = "images/og" ~ path_trimmed ~ ".png" %}
-{% endif %}
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "{{ page.title }}",
-    "description": "{{ page.description | default(value='') }}",
-    "url": "{{ current_url | safe }}",
-    "image": "{{ config.base_url ~ og_image | safe }}",
-    "inLanguage": "en",
-    "author": {
-      "@type": "Person",
-      "name": "{{ config.title }}",
-      "url": "{{ config.base_url | safe }}"
-    },
-    "publisher": {
-      "@type": "Person",
-      "name": "{{ config.title }}",
-      "url": "{{ config.base_url | safe }}"
-    },
-    "datePublished": "{{ page.date | date(format='%+') }}",
-    "dateModified": "{% if page.updated %}{{ page.updated | date(format='%+') }}{% else %}{{ page.date | date(format='%+') }}{% endif %}",
-    "wordCount": "{{ page.word_count }}",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "{{ current_url | safe }}"
-    }
-  }
-  </script>
+
 {% endif %}
 
 {% if "mermaid" in page.content %}

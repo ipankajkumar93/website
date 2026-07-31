@@ -4,5 +4,5 @@ Disallow: /search_index.en.js
 Disallow: /elasticlunr.min.js
 
 Sitemap: https://pankajkumar.xyz/sitemap.xml
-LLMs: https://pankajkumar.xyz/llms.txt
-LLMs-full: https://pankajkumar.xyz/llms-full.txt
+LLMs-txt: https://pankajkumar.xyz/llms.txt
+LLMs-full-txt: https://pankajkumar.xyz/llms-full.txt
