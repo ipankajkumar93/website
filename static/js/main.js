@@ -144,9 +144,19 @@ document.addEventListener('DOMContentLoaded', function () {
         createFocusTrap(navItems);
 
         document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && navItems.classList.contains('active')) {
+            const searchModal = document.getElementById('search-modal');
+            const isSearchActive = searchModal && searchModal.classList.contains('active');
+            
+            if (e.key === 'Escape' && navItems.classList.contains('active') && !isSearchActive) {
                 closeMobileMenu();
                 mobileMenuBtn.focus();
+            }
+        });
+
+        // Close menu when a link inside is clicked (fixes bfcache back-button issue)
+        navItems.addEventListener('click', function (e) {
+            if (e.target.closest('a')) {
+                closeMobileMenu();
             }
         });
     }
