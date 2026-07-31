@@ -61,6 +61,9 @@
     /* Brand accent - fixed cobalt, same in both themes (used where color must not shift) */
     --color-accent-brand: #2870C2;
 
+    /* Animations */
+    --bounce-offset: -2px;
+
     /* Links */
     --color-link: #2870C2;
     --color-link-hover: #1A7FFF;
@@ -420,7 +423,7 @@ h3 {
     background-color: var(--color-accent-subtle);
     border-color: var(--color-accent);
     text-decoration: none;
-    transform: translateY(-1.5px);
+    transform: translateY(var(--bounce-offset));
 }
 
 .text-accent {
@@ -601,7 +604,7 @@ body.show-unified-taxonomy #unified-topics-view {
     color: var(--color-text);
     background-color: var(--color-accent-subtle);
     border-color: var(--color-accent);
-    transform: translateY(-1.5px);
+    transform: translateY(var(--bounce-offset));
 }
 
 .nav-items a.active {
@@ -628,7 +631,7 @@ body.show-unified-taxonomy #unified-topics-view {
     border-color: var(--color-accent);
     color: var(--color-text);
     background-color: var(--color-accent-subtle);
-    transform: translateY(-1.5px);
+    transform: translateY(var(--bounce-offset));
 }
 
 .search-btn i,
@@ -673,7 +676,7 @@ body.show-unified-taxonomy #unified-topics-view {
     border-color: var(--color-accent);
     color: var(--color-text);
     background-color: var(--color-accent-subtle);
-    transform: translateY(-1.5px);
+    transform: translateY(var(--bounce-offset));
 }
 
 .theme-toggle i,
@@ -819,7 +822,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     background-color: var(--color-accent-subtle);
     color: var(--color-text);
     border-color: var(--color-accent);
-    transform: translateY(-1.5px);
+    transform: translateY(var(--bounce-offset));
 }
 
 .search-close svg {
@@ -1031,7 +1034,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     background-color: var(--color-accent-subtle);
     border-color: var(--color-accent);
     color: var(--color-text);
-    transform: translateY(-2px);
+    transform: translateY(var(--bounce-offset));
 }
 
 .share-icon svg {
@@ -1267,7 +1270,7 @@ ul.blog-posts li:hover {
     border-color: var(--color-accent);
     color: var(--color-text);
     background-color: var(--color-accent-subtle);
-    transform: translateY(-2px);
+    transform: translateY(var(--bounce-offset));
     box-shadow: 0 4px 12px var(--color-shadow);
 }
 
@@ -1750,7 +1753,7 @@ a.tag:hover {
     background-color: var(--color-accent-subtle);
     border-color: var(--color-accent);
     color: var(--color-text);
-    transform: translateY(-1.5px);
+    transform: translateY(var(--bounce-offset));
 }
 
 :root[data-theme="dark"] .tags>a:hover,
@@ -2290,7 +2293,7 @@ figcaption {
 .project-card:hover {
     border-color: var(--color-accent-brand);
     box-shadow: var(--shadow-md);
-    transform: translateY(-4px);
+    transform: translateY(var(--bounce-offset));
 }
 
 .project-card.featured {
@@ -2495,7 +2498,7 @@ footer {
     color: var(--color-text);
     background-color: var(--color-accent-subtle);
     border-color: var(--color-accent);
-    transform: translateY(-1.5px);
+    transform: translateY(var(--bounce-offset));
 }
 
 .social-icon svg,
@@ -2747,7 +2750,7 @@ main {
 
 .back-to-top:hover {
     color: var(--color-text);
-    transform: translateY(-1.5px);
+    transform: translateY(var(--bounce-offset));
 }
 
 .back-to-top:hover::before {
@@ -2880,7 +2883,7 @@ main {
         border-color: var(--color-accent);
         color: var(--color-text);
         background-color: var(--color-accent-subtle);
-        transform: translateY(-1.5px);
+        transform: translateY(var(--bounce-offset));
     }
 
     .mobile-close-btn {
@@ -2907,7 +2910,7 @@ main {
         border-color: var(--color-accent);
         color: var(--color-text);
         background-color: var(--color-accent-subtle);
-        transform: translateY(-1.5px);
+        transform: translateY(var(--bounce-offset));
     }
 
     .mobile-close-btn svg,
@@ -3330,7 +3333,7 @@ main {
     color: var(--color-text);
     background-color: var(--color-accent-subtle);
     box-shadow: var(--shadow-sm);
-    transform: translateY(-1.5px);
+    transform: translateY(var(--bounce-offset));
 }
 
 .pagination-btn.disabled,
@@ -3497,7 +3500,7 @@ table.in-wrapper {
 }
 
 .contact-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(var(--bounce-offset));
     border-color: var(--color-accent);
     background-color: var(--color-accent-subtle);
     box-shadow: var(--shadow-md);
@@ -3617,7 +3620,7 @@ table.in-wrapper {
 }
 
 .sitemap-item-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(var(--bounce-offset));
     box-shadow: var(--shadow-md);
     border-color: var(--color-accent);
     background-color: var(--color-accent-subtle);
