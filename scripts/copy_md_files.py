@@ -73,7 +73,17 @@ def copy_md_files():
         output_path = output_dir / f"{slug}.md"
         
         output_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(md_file, output_path)
+        
+        # Read the raw bytes and prepend a UTF-8 BOM if missing.
+        # This forces LLM crawlers and browsers to decode the file as UTF-8
+        # (fixing corrupted characters like ├──) even without HTTP charset headers.
+        raw_bytes = md_file.read_bytes()
+        if not raw_bytes.startswith(b'\xef\xbb\xbf'):
+            raw_bytes = b'\xef\xbb\xbf' + raw_bytes
+            
+        output_path.write_bytes(raw_bytes)
+        shutil.copystat(md_file, output_path)
+        
         print(f"Copied {md_file.relative_to(project_root)} to {output_path.relative_to(project_root)}")
         copied += 1
         
