@@ -1781,7 +1781,7 @@ code {
     font-size: 0.85em;
     font-weight: 400;
     background-color: var(--color-bg-subtle);
-    color: var(--color-code-text);
+    color: var(--color-accent);
     border: 2px solid var(--color-border);
     padding: 0.2em 0.45em;
     border-radius: var(--radius-md);
@@ -1859,6 +1859,7 @@ pre code {
     overflow-wrap: normal;
     background: transparent;
     border: none;
+    color: inherit;
     border-radius: 0;
     overflow-x: auto;
     scrollbar-width: thin;
