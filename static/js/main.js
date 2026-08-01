@@ -392,14 +392,36 @@ document.addEventListener('DOMContentLoaded', function () {
     const toc = document.querySelector('.toc');
     if (toc) {
         if (tocSentinel) {
-            const observer = new IntersectionObserver((entries) => {
-                if (entries[0].boundingClientRect.top < 0) {
-                    toc.classList.add('is-stuck');
-                } else {
-                    toc.classList.remove('is-stuck');
+            let tocObserver;
+            function initTocObserver() {
+                if (tocObserver) {
+                    tocObserver.disconnect();
                 }
-            });
-            observer.observe(tocSentinel);
+                
+                const topStr = window.getComputedStyle(toc).top;
+                const topVal = parseFloat(topStr) || 0;
+                const rootMarginTop = Math.max(0, Math.ceil(topVal) + 1);
+                
+                tocObserver = new IntersectionObserver((entries) => {
+                    if (entries[0].boundingClientRect.top <= topVal + 1) {
+                        toc.classList.add('is-stuck');
+                    } else {
+                        toc.classList.remove('is-stuck');
+                    }
+                }, {
+                    rootMargin: `-${rootMarginTop}px 0px 0px 0px`,
+                    threshold: 0
+                });
+                tocObserver.observe(tocSentinel);
+            }
+            
+            initTocObserver();
+            
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(initTocObserver, 100);
+            }, { passive: true });
         }
 
         const tocTitle = toc.querySelector('.toc-title');
