@@ -2800,6 +2800,11 @@ main {
     .nav-next {
         max-width: 100%;
     }
+
+    .nav-prev.empty,
+    .nav-next.empty {
+        display: none;
+    }
 }
 
 /* --------------------------------------------------------------------------
