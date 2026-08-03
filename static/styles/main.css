@@ -999,8 +999,8 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     align-items: center;
     justify-content: center;
     gap: var(--space-sm);
-    margin-top: var(--space-3xl);
-    margin-bottom: var(--space-xl);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-md);
 }
 
 .share-icons {
