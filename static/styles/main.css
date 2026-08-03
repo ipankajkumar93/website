@@ -1732,6 +1732,11 @@ h6:hover .zola-anchor {
     margin-bottom: 0;
 }
 
+.tags.no-nav {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
 .tags>a,
 a.tag {
     display: inline-flex;
