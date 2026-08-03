@@ -100,7 +100,7 @@ The site covers writing, homelab notes, read-the-docs references, project logs, 
 
 ```bash
 # Clone the repo
-git clone https://github.com/johndoe/zola-slate.git
+git clone https://github.com/iPankajKumar93/zola-slate.git
 cd zola-slate
 
 # Serve locally with drafts enabled
