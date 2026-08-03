@@ -137,7 +137,7 @@
   </div>
 
   {%- if page.taxonomies %}
-  <div class="tags" aria-label="Tags">
+  <div class="tags{% if not page.lower and not page.higher %} no-nav{% endif %}" aria-label="Tags">
     <div class="tags-label">Related Tags</div>
     {%- for name, taxon in page.taxonomies %}
     {%- for item in taxon %}
