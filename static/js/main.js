@@ -627,6 +627,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (checkTemplate) {
                     link.appendChild(checkTemplate.content.cloneNode(true));
                 }
+                if (link.id === 'title-copy-link') {
+                    const span = document.createElement('span');
+                    span.textContent = 'COPIED';
+                    link.appendChild(span);
+                }
                 link.classList.add('copied');
                 setTimeout(() => {
                     link.innerHTML = originalHTML;

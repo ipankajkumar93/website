@@ -999,8 +999,8 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     align-items: center;
     justify-content: center;
     gap: var(--space-sm);
-    margin-top: var(--space-md);
-    margin-bottom: var(--space-md);
+    margin-top: var(--space-3xl);
+    margin-bottom: var(--space-xl);
 }
 
 .share-icons {
@@ -1047,8 +1047,8 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     display: flex;
     justify-content: space-between;
     gap: var(--space-lg);
-    margin-top: var(--space-2xl);
-    padding-bottom: var(--space-md);
+    margin-top: var(--space-3xl);
+    padding-bottom: var(--space-2xl);
 }
 
 .nav-prev,
@@ -1726,7 +1726,7 @@ h6:hover .zola-anchor {
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--space-sm);
-    margin-top: var(--space-2xl);
+    margin-top: var(--space-md);
     padding-bottom: var(--space-lg);
     border-bottom: 1px solid var(--color-border);
     margin-bottom: 0;
