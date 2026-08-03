@@ -9,22 +9,22 @@ handle = "Pankaj Kumar"
 url = "mailto:ipankaj.singh10+website@gmail.com"
 icon = "mail"
 
-[extra.twitter]
-platform = "Twitter / X"
-handle = "@ipankajkumar93"
-url = "https://x.com/ipankajkumar93"
-icon = "twitter"
+[extra.x]
+platform = "X"
+handle = "@iPankajKumar93"
+url = "https://x.com/iPankajKumar93"
+icon = "x-logo"
 
 [extra.github]
 platform = "GitHub"
-handle = "ipankajkumar93"
-url = "https://github.com/ipankajkumar93"
+handle = "iPankajKumar93"
+url = "https://github.com/iPankajKumar93"
 icon = "github"
 
 [extra.linkedin]
 platform = "LinkedIn"
-handle = "ipankajkumar93"
-url = "https://linkedin.com/in/ipankajkumar93"
+handle = "iPankajKumar93"
+url = "https://linkedin.com/in/iPankajKumar93"
 icon = "linkedin"
 +++
 

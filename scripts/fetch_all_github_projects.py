@@ -11,7 +11,7 @@ Usage:
     uv run scripts/fetch_all_github_projects.py [username]
     
 Example:
-    uv run scripts/fetch_all_github_projects.py ipankajkumar93
+    uv run scripts/fetch_all_github_projects.py iPankajKumar93
 """
 
 import json
@@ -204,7 +204,7 @@ def get_default_username() -> str:
                 return github_url.strip("/").split("/")[-1]
     except Exception as e:
         print(f"Warning: Could not parse config.toml for github username: {e}", file=sys.stderr)
-    return "ipankajkumar93"
+    return "iPankajKumar93"
 
 def main():
     """Main function to process repositories."""

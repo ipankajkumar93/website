@@ -14,7 +14,7 @@ forks = 0
 language = "CSS, JavaScript, HTML, Shell"
 links = [
   { name = "URL", url = "https://markview.pankajkumar.xyz/" },
-  { name = "GitHub", url = "https://github.com/ipankajkumar93/markview" },
+  { name = "GitHub", url = "https://github.com/iPankajKumar93/markview" },
 ]
 highlight = true
 
@@ -29,7 +29,7 @@ forks = 2
 language = "TypeScript, HTML, JavaScript"
 links = [
   { name = "URL", url = "https://www.trackcovid19.info/" },
-  { name = "GitHub", url = "https://github.com/ipankajkumar93/covidtracker" },
+  { name = "GitHub", url = "https://github.com/iPankajKumar93/covidtracker" },
 ]
 highlight = true
 
@@ -43,7 +43,7 @@ forks = 0
 language = "HTML, Python, JavaScript, Shell"
 links = [
   { name = "URL", url = "https://pankajkumar.xyz" },
-  { name = "GitHub", url = "https://github.com/ipankajkumar93/website" },
+  { name = "GitHub", url = "https://github.com/iPankajKumar93/website" },
 ]
 highlight = false
 
@@ -56,7 +56,7 @@ stars = 2
 forks = 2
 language = "Markdown"
 links = [
-  { name = "GitHub", url = "https://github.com/ipankajkumar93/homeLab" },
+  { name = "GitHub", url = "https://github.com/iPankajKumar93/homeLab" },
 ]
 
 [[project]]
@@ -69,6 +69,6 @@ forks = 0
 language = "HTML, Python, JavaScript, Shell"
 links = [
   { name = "URL", url = "https://zola-slate.pankajkumar.xyz" },
-  { name = "GitHub", url = "https://github.com/ipankajkumar93/zola-slate" },
+  { name = "GitHub", url = "https://github.com/iPankajKumar93/zola-slate" },
 ]
 highlight = true

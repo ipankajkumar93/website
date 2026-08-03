@@ -9,7 +9,7 @@ If you ever clone this repository to a new computer, the Git remotes and local G
 
 1. **Add the template remote:**
    ```bash
-   git remote add template https://github.com/ipankajkumar93/zola-slate.git
+   git remote add template https://github.com/iPankajKumar93/zola-slate.git
    ```
 
 2. **Register the custom merge driver:**
