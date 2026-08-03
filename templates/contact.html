@@ -4,7 +4,7 @@
 {% block page_content %}
 <div class="contact-page">
   <div class="contact-grid">
-    {% set links = [page.extra.email, page.extra.twitter, page.extra.github, page.extra.linkedin] %}
+    {% set links = [page.extra.email, page.extra.x, page.extra.github, page.extra.linkedin] %}
     {% for link in links %}
     <a href="{{ link.url }}" {% if link.url is starting_with("http") %}target="_blank" rel="noopener noreferrer me" {%
       endif %} class="contact-card" aria-label="{{ link.platform }} profile">

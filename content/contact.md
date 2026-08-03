@@ -9,11 +9,11 @@ handle = "John Doe"
 url = "mailto:hello@example.com"
 icon = "mail"
 
-[extra.twitter]
-platform = "Twitter / X"
+[extra.x]
+platform = "X"
 handle = "@johndoe"
 url = "https://x.com/johndoe"
-icon = "twitter"
+icon = "x-logo"
 
 [extra.github]
 platform = "GitHub"
