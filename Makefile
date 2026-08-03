@@ -31,7 +31,7 @@ build:
 # Update project metadata from GitHub (Currently disabled)
 # projects:
 # 	@echo "Fetching latest project metadata from GitHub..."
-# 	@uv run scripts/fetch_all_github_projects.py ipankajkumar93 > content/projects/projects.toml
+# 	@uv run scripts/fetch_all_github_projects.py iPankajKumar93 > content/projects/projects.toml
 # 	@echo "Successfully updated content/projects/projects.toml"
 
 # Content creation targets

@@ -72,7 +72,7 @@ def fetch_data(url):
 ## 4. Links
 
 Standard links are created using square brackets for the text and parentheses for the URL:
-[Visit my GitHub profile](https://github.com/ipankajkumar93)
+[Visit my GitHub profile](https://github.com/iPankajKumar93)
 
 ## 5. Lists
 

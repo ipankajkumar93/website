@@ -6,7 +6,7 @@ My personal website, blog, and digital home on the internet.
 
 <p align="center">
   <a href="https://pankajkumar.xyz"><img src="https://img.shields.io/badge/Website-pankajkumar.xyz-00BFA5?style=for-the-badge&logo=safari&logoColor=white" alt="Website"></a>
-  <a href="https://github.com/ipankajkumar93"><img src="https://img.shields.io/badge/GitHub-ipankajkumar93-7C3AED?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
+  <a href="https://github.com/iPankajKumar93"><img src="https://img.shields.io/badge/GitHub-iPankajKumar93-7C3AED?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
 </p>
 
 <p align="center">
@@ -24,7 +24,7 @@ My personal website, blog, and digital home on the internet.
 
 ## 🌐 Overview
 
-This repository contains the complete source for my personal site - a fast, minimal static site built with [Zola](https://www.getzola.org/) and served via Cloudflare Pages. The theme used is my own open-source theme, [zola-slate](https://github.com/ipankajkumar93/zola-slate), which was originally customized from its [bearblog](https://codeberg.org/alanpearce/zola-bearblog) roots, with significant UX improvements, a Geist + Instrument Serif + JetBrains Mono font stack, a stone-palette WCAG-compliant color system, and a range of interactive features built in vanilla JavaScript.
+This repository contains the complete source for my personal site - a fast, minimal static site built with [Zola](https://www.getzola.org/) and served via Cloudflare Pages. The theme used is my own open-source theme, [zola-slate](https://github.com/iPankajKumar93/zola-slate), which was originally customized from its [bearblog](https://codeberg.org/alanpearce/zola-bearblog) roots, with significant UX improvements, a Geist + Instrument Serif + JetBrains Mono font stack, a stone-palette WCAG-compliant color system, and a range of interactive features built in vanilla JavaScript.
 
 The site covers writing, homelab notes, read-the-docs references, project logs, and travel - all accessible under a unified search and tag taxonomy.
 
@@ -43,7 +43,7 @@ The site covers writing, homelab notes, read-the-docs references, project logs, 
 | Diagrams | [Mermaid.js](https://mermaid.js.org/) |
 | OG Image Generation | Python + [Pillow](https://pillow.readthedocs.io/) via `uv` |
 | Analytics | [Umami](https://umami.is/) (self-hosted, privacy-first) |
-| Theme Lineage | [zola-slate](https://github.com/ipankajkumar93/zola-slate) (my open-source theme) → [mr-karan.dev](https://mrkaran.dev) → [zola-bearblog](https://codeberg.org/alanpearce/zola-bearblog) |
+| Theme Lineage | [zola-slate](https://github.com/iPankajKumar93/zola-slate) (my open-source theme) → [mr-karan.dev](https://mrkaran.dev) → [zola-bearblog](https://codeberg.org/alanpearce/zola-bearblog) |
 
 ---
 
@@ -103,7 +103,7 @@ The site covers writing, homelab notes, read-the-docs references, project logs, 
 
 ```bash
 # Clone the repo
-git clone https://github.com/ipankajkumar93/pankajkumar.xyz.git
+git clone https://github.com/iPankajKumar93/pankajkumar.xyz.git
 cd pankajkumar.xyz
 
 # Serve locally with drafts enabled

@@ -8,9 +8,9 @@ title = "Home"
 
   <div class="home-content">
 
-I'm Pankaj Kumar, though online I go by `@ipankajkumar93`. I work at [Bitwise](https://bitwiseglobal.com/) as a fullstack developer, building resilient architectures, high-availability systems and the infrastructure that keeps them observable.
+I'm Pankaj Kumar, though online I go by `@iPankajKumar93`. I work at [Bitwise](https://bitwiseglobal.com/) as a fullstack developer, building resilient architectures, high-availability systems and the infrastructure that keeps them observable.
 
-I like to [craft](https://github.com/ipankajkumar93) stuff around homelab, monitoring, networking and distributed systems.
+I like to [craft](https://github.com/iPankajKumar93) stuff around homelab, monitoring, networking and distributed systems.
 
 When I'm off the clock, I'm reading about space and aircraft, watching documentaries, hitting the open road on [Titan](#), or hunting down good food. And when I need to slow down, old Hindi songs and ghazals do the trick - here's my [Gaana playlist](https://gaana.com/playlist/fall-in-love-ewl4vppbwz) if you want to share the vibe.
 
