@@ -194,8 +194,8 @@
                     {% if contact_page.extra.linkedin %}
                     <a href="{{ contact_page.extra.linkedin.url }}" target="_blank" rel="noopener noreferrer me" title="LinkedIn" class="social-icon" aria-label="LinkedIn">{{ icons::render(name="linkedin") }}</a>
                     {% endif %}
-                    {% if contact_page.extra.twitter %}
-                    <a href="{{ contact_page.extra.twitter.url }}" target="_blank" rel="noopener noreferrer me" title="Twitter/X" class="social-icon" aria-label="Twitter">{{ icons::render(name="twitter") }}</a>
+                    {% if contact_page.extra.x %}
+                    <a href="{{ contact_page.extra.x.url }}" target="_blank" rel="noopener noreferrer me" title="X" class="social-icon" aria-label="X">{{ icons::render(name="x-logo") }}</a>
                     {% endif %}
                     <a href="{{ get_url(path=config.feed_filenames[0] | default(value="atom.xml")) }}" target="_blank" rel="noopener noreferrer" title="RSS Feed" class="social-icon" aria-label="RSS Feed">
                         {{ icons::render(name="rss") }}</a>
