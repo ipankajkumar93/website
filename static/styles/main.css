@@ -3897,3 +3897,15 @@ ol.footnotes-list li p {
     grid-column: 2;
     margin: 0;
 }
+
+/* --------------------------------------------------------------------------
+   Mermaid Diagrams
+   -------------------------------------------------------------------------- */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: var(--space-xl) auto;
+    width: 100%;
+    overflow-x: auto;
+}
