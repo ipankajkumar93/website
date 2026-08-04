@@ -22,13 +22,20 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (w && h) {
                 // Ensure there is a viewBox so the SVG scales correctly
                 if (!svg.getAttribute("viewBox")) {
-                    svg.setAttribute("viewBox", `0 0 ${parseFloat(w)} ${parseFloat(h)}`);
+                    // Only set viewBox if we can parse reliable absolute width/height
+                    if (!w.includes('%') && !h.includes('%')) {
+                        svg.setAttribute("viewBox", `0 0 ${parseFloat(w)} ${parseFloat(h)}`);
+                    }
                 }
                 svg.removeAttribute("width");
                 svg.removeAttribute("height");
                 // Let CSS control the size
                 svg.style.width = "100%";
-                svg.style.maxWidth = parseFloat(w) + "px";
+                if (w.includes('%')) {
+                    svg.style.maxWidth = w;
+                } else {
+                    svg.style.maxWidth = parseFloat(w) + "px";
+                }
                 svg.style.height = "auto";
             }
         });
