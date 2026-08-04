@@ -288,6 +288,10 @@ main {
     padding-top: var(--space-xl);
     padding-bottom: var(--space-lg);
     overflow-anchor: none;
+    /* Pre-promote to compositor layer so the entrance animation
+       doesn't need to rasterize the entire subtree mid-flight.
+       Especially important after idle periods when GPU caches are cold. */
+    will-change: transform, opacity;
 }
 
 
@@ -2654,7 +2658,13 @@ hr {
 }
 
 main {
-    animation: fadeInUp 0.5s ease-out;
+    /* Deceleration curve front-loads visible motion into the first ~40% of
+       the duration, so even if the compositor drops frames on a cold start
+       (idle tab / refresh after sleep), the snap is barely perceptible.
+       animation-delay gives the rendering pipeline one frame to settle
+       before animating.  fill-mode:both keeps opacity:0 during the delay
+       so there is no flash of unstyled content. */
+    animation: fadeInUp 0.5s ease-out 0.05s both;
 }
 
 /* Respect OS-level reduced-motion preference.
