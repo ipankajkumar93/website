@@ -1,18 +1,5 @@
 // ── Helpers ────────────────────────────────────────────────────────────────
 
-// ── Page Entrance Animation Cleanup ─────────────────────────────────────────
-// CSS sets will-change: transform, opacity on <main> to pre-promote the
-// compositor layer for the fadeInUp animation.  Once the animation finishes
-// we remove the hint so the browser can reclaim the GPU memory.
-{
-    const mainEl = document.querySelector('main');
-    if (mainEl) {
-        mainEl.addEventListener('animationend', function () {
-            mainEl.style.willChange = 'auto';
-        }, { once: true });
-    }
-}
-
 // ── Theme Toggle ────────────────────────────────────────────────────────────
 // main.js loads synchronously at the end of <body> so the DOM is fully
 // available here. The icon is updated eagerly (before DOMContentLoaded)
