@@ -226,20 +226,17 @@ body {
        to avoid sluggish hover states and inadvertent color animations site-wide. */
 }
 
-/* Noise texture overlay - promoted to its own compositor layer for performance */
+/* Noise texture overlay */
 body::before {
     content: '';
     position: fixed;
-    top: -5%;
-    left: -5%;
-    width: 110%;
-    height: 110%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     opacity: 0.02;
     z-index: var(--z-noise);
-    /* will-change: transform promotes to compositor layer without wasting a layer for a static animation */
-    will-change: transform;
-    backface-visibility: hidden;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
 
@@ -288,10 +285,6 @@ main {
     padding-top: var(--space-xl);
     padding-bottom: var(--space-lg);
     overflow-anchor: none;
-    /* Pre-promote to compositor layer so the entrance animation
-       doesn't need to rasterize the entire subtree mid-flight.
-       Especially important after idle periods when GPU caches are cold. */
-    will-change: transform, opacity;
 }
 
 
