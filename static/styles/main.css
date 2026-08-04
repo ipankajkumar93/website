@@ -128,7 +128,7 @@
     --z-modal: 400;
     --z-toast: 500;
     --z-noise: 9999;
-    --noise-opacity: 0.15;
+    --noise-opacity: 0.12;
 
     color-scheme: light;
 }
@@ -136,7 +136,7 @@
 /* Dark Mode */
 :root[data-theme="dark"] {
     color-scheme: dark;
-    --noise-opacity: 0.04;
+    --noise-opacity: 0.03;
     --color-bg: #0C0A09;
     --color-bg-elevated: #1C1917;
     --color-bg-subtle: #1C1917;
@@ -3707,13 +3707,14 @@ table.in-wrapper {
 /* Mermaid diagrams */
 .mermaid {
     margin: var(--space-xl) 0;
-    display: flex;
-    justify-content: center;
+    text-align: center;
     overflow: hidden;
+    width: 100%;
 }
 
 .mermaid svg {
-    height: auto;
+    display: inline-block;
+    height: auto !important;
     font-size: 15px;
     font-weight: 500;
 }

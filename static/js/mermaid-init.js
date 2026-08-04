@@ -50,7 +50,11 @@ document.addEventListener("DOMContentLoaded", async function () {
             el.textContent = el.getAttribute("data-mermaid-source") || "";
         });
 
-        mermaid.initialize({ startOnLoad: false, theme: getMermaidTheme() });
+        mermaid.initialize({ 
+            startOnLoad: false, 
+            theme: getMermaidTheme(),
+            fontFamily: "var(--font-body), system-ui, sans-serif"
+        });
 
         // Wait for layout and web fonts to settle before asking mermaid to measure
         await document.fonts.ready;
