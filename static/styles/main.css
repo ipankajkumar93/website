@@ -1092,7 +1092,8 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    transition: transform var(--transition-fast);
+    color: var(--color-text);
+    transition: transform var(--transition-fast), color var(--transition-fast);
 }
 
 .nav-prev:has(a:hover) i,
@@ -1100,7 +1101,6 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 .nav-next:has(a:hover) i,
 .nav-next:has(a:hover) svg {
     transform: scale(1.2);
-    color: var(--color-text);
 }
 
 .nav-title {
