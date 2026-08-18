@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% import "macros/icons.html" as icons %}
 
 {% block title %}{{ section.title }} | {{ super() }}{% endblock %}
 
@@ -24,10 +23,10 @@
           <h3 class="project-name">{{ proj.name }}</h3>
           <div class="project-stats">
             {% if proj.stars %}
-            <span class="project-stars">{{ icons::render(name="star") }}{{ proj.stars }}</span>
+            <span class="project-stars">{{ <icon name="star" /> }}{{ proj.stars }}</span>
             {% endif %}
             {% if proj.forks %}
-            <span class="project-forks">{{ icons::render(name="git-fork") }}{{ proj.forks }}</span>
+            <span class="project-forks">{{ <icon name="git-fork" /> }}{{ proj.forks }}</span>
             {% endif %}
           </div>
         </div>
@@ -70,10 +69,10 @@
           <h3 class="project-name">{{ proj.name }}</h3>
           <div class="project-stats">
             {% if proj.stars %}
-            <span class="project-stars">{{ icons::render(name="star") }}{{ proj.stars }}</span>
+            <span class="project-stars">{{ <icon name="star" /> }}{{ proj.stars }}</span>
             {% endif %}
             {% if proj.forks %}
-            <span class="project-forks">{{ icons::render(name="git-fork") }}{{ proj.forks }}</span>
+            <span class="project-forks">{{ <icon name="git-fork" /> }}{{ proj.forks }}</span>
             {% endif %}
           </div>
         </div>

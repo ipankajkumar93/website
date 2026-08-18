@@ -16,11 +16,11 @@
     <li>
       <span>
         {% if page.updated %}
-        <time datetime='{{ page.updated | date(format="%+") }}'>
+        <time datetime='{{ page.updated | date(format="%Y-%m-%dT%H:%M:%S%z") }}'>
           {{ page.updated | date(format=config.extra.date_format) }}
         </time>
         {% else %}
-        <time datetime='{{ page.date | date(format="%+") }}'>
+        <time datetime='{{ page.date | date(format="%Y-%m-%dT%H:%M:%S%z") }}'>
           {{ page.date | date(format=config.extra.date_format) }}
         </time>
         {% endif %}
@@ -129,7 +129,7 @@
 </div>
 
   {% if section.extra.taxonomy %}
-  {% set tags = get_taxonomy(kind=section.extra.taxonomy, fail_on_missing=false) %}
+  {% set tags = get_taxonomy(kind=section.extra.taxonomy | replace(from="_", to="-"), ignore_missing=true) %}
   {% else %}
   {% set tags = false %}
   {% endif %}
