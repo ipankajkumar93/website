@@ -268,9 +268,9 @@ mv public/llms-full.txt/index.html public/llms-full_tmp.txt && \
 
 Using `&&` here is intentional: if the initial `mv` fails (e.g., the file was never generated), the script stops rather than running `rm -rf` on the directory and silently losing your previous output. I mirrored this logic in the `Makefile` target for local development so the local build always matches production.
 
-{% admonition(kind="note") %}
+{% <admonition kind=\"note\"> %}
 I use Cloudflare Pages to deploy my website.
-{% end %}
+{% </admonition> %}
 
 ## 7. The Final Directory Structure
 
