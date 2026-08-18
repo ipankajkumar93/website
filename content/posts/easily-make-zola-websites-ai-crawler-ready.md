@@ -30,11 +30,13 @@ This post documents exactly how I made `pankajkumar.xyz` fully AI-crawler ready:
 The first thing I did was make every HTML page self-announcing. Any AI agent that lands on a standard page should immediately know where to find the clean, machine-readable version. I added a visually hidden `<aside>` to `templates/base.html`:
 
 ```html
+{% raw %}
 <aside class="sr-only" data-ai-agent-directive>
     This site is available in Markdown format. Markdown is recommended for AI consumption.
     See <a href="{{ config.base_url | safe }}llms.txt">/llms.txt</a> for the full documentation index,
     or <a href="{{ config.base_url | safe }}llms-full.txt">/llms-full.txt</a> for the full site corpus.
 </aside>
+{% endraw %}
 ```
 
 The `.sr-only` class keeps it invisible to human readers while remaining fully legible to crawlers parsing the document body.
@@ -58,20 +60,23 @@ Crawlers rely heavily on `<head>` metadata - often more than the document body. 
 **`<link rel="alternate">`** in `base.html` declares the Markdown endpoints programmatically:
 
 ```html
+{% raw %}
 <link rel="alternate" type="text/plain" title="LLMs Index" href="{{ config.base_url | safe }}llms.txt">
 <link rel="alternate" type="text/plain" title="LLMs Full Corpus" href="{{ config.base_url | safe }}llms-full.txt">
 {% if page -%}
 <link rel="alternate" type="text/markdown" title="Markdown Source" href="{{ page.permalink | safe }}{{ page.slug }}.md">
 {% endif -%}
+{% endraw %}
 ```
 
 **JSON-LD schema** in `page.html` gives AI models rich structured context - title, description, word count, dates, publisher - so they can categorize and index an article before even reading the body. I also wired up dynamic OG image resolution here: if the page defines `extra.og_preview_img` it uses that; otherwise it falls back to the auto-generated image path at `images/og/<page-path>.png`.
 
 ```html
+{% raw %}
 {% if page.extra.og_preview_img %}
-  {% set og_image = page.extra.og_preview_img | trim_start_matches(pat="/") %}
+  {% set og_image = page.extra.og_preview_img | trim_start(pat="/") %}
 {% else %}
-  {% set path_trimmed = page.path | trim_end_matches(pat="/") %}
+  {% set path_trimmed = page.path | trim_end(pat="/") %}
   {% set og_image = "images/og" ~ path_trimmed ~ ".png" %}
 {% endif %}
 <script type="application/ld+json">
@@ -98,6 +103,7 @@ Crawlers rely heavily on `<head>` metadata - often more than the document body. 
   "wordCount": "{{ page.word_count }}"
 }
 </script>
+{% endraw %}
 ```
 
 ## 4. Exposing Raw Markdown Pages
@@ -203,6 +209,7 @@ I created two Zola templates that generate these files dynamically from the site
 **`templates/llms.html`** - the index:
 
 ```jinja2
+{% raw %}
 # Last updated: {{ now() | date(format="%Y-%m-%d") }}
 
 # {{ config.title | safe }}
@@ -218,11 +225,13 @@ Full corpus (all pages, one document): {{ config.base_url | safe }}llms-full.txt
 - [{{ page.title }}]({{ page.permalink }}){% if page.description %} - {{ page.description }}{% endif %}
 {% endfor %}
 {% endfor %}
+{% endraw %}
 ```
 
-**`templates/llms-full.html`** - the full corpus. This one uses a small trick: `load_data` fetches the raw file from disk, then `split(pat="+++")` breaks it on the TOML delimiters. TOML frontmatter is wrapped in two `+++` fences, which means splitting on `+++` gives three parts: an empty string before the first fence, the frontmatter itself, and the Markdown body. `slice(start=2)` therefore skips the first two parts and leaves only the body content.
+**`templates/llms-full.html`** - the full corpus. This one uses a small trick: `load_data` fetches the raw file from disk, then `split(pat="+++")` breaks it on the TOML delimiters. TOML frontmatter is wrapped in two `+++` fences, which means splitting on `+++` gives three parts: an empty string before the first fence, the frontmatter itself, and the Markdown body. `parts[2:]` therefore skips the first two parts and leaves only the body content.
 
 ```jinja2
+{% raw %}
 # Last updated: {{ now() | date(format="%Y-%m-%d") }}
 
 # {{ config.title | safe }}
@@ -239,11 +248,12 @@ Source: {{ page.permalink }}
 
 {% set raw_content = load_data(path=page.relative_path) %}
 {% set parts = raw_content | split(pat="+++") %}
-{% set raw_markdown = parts | slice(start=2) | join(sep="+++") %}
+{% set raw_markdown = parts[2:] | join(sep="+++") %}
 {{ raw_markdown | trim }}
 
 {% endfor %}
 {% endfor %}
+{% endraw %}
 ```
 
 These templates are powered by two simple content files - `content/llms.md` and `content/llms-full.md` - that do nothing except point to their respective templates.
@@ -268,7 +278,7 @@ mv public/llms-full.txt/index.html public/llms-full_tmp.txt && \
 
 Using `&&` here is intentional: if the initial `mv` fails (e.g., the file was never generated), the script stops rather than running `rm -rf` on the directory and silently losing your previous output. I mirrored this logic in the `Makefile` target for local development so the local build always matches production.
 
-{% <admonition kind=\"note\"> %}
+{% <admonition kind="note"> %}
 I use Cloudflare Pages to deploy my website.
 {% </admonition> %}
 
