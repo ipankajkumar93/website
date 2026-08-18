@@ -28,9 +28,9 @@ If you're running Pi-hole as the DNS resolver for your home network, you've prob
 The fix is to run two Pi-hole nodes in an **active-active high-availability cluster**, using **keepalived** and the VRRP protocol to manage automatic failover between them. This post walks through exactly how to set that up.
 
 
-{% admonition(kind="note") %}
+{% <admonition kind="note"> %}
 None of this is Raspberry Pi–specific. Any pair of machines running a Debian-based OS works - old laptops, mini PCs, VMs, whatever you have lying around. I have used a pair of Raspberry Pi 4Bs (1GB RAM) running DietPi OS, but the steps translate directly to any Debian/Ubuntu-based setup.
-{% end %}
+{% </admonition> %}
 
 
 ---
@@ -99,9 +99,9 @@ The dedicated `keepalived_script` user is used to run health-check scripts with 
 
 Each node runs **two VRRP instances** - one where it's the preferred master, and one where it's a pure backup. This is what creates the active-active effect: both VIPs are "live" somewhere on the network at all times, and each node is actively serving one of them.
 
-{% admonition(kind="important") %}
+{% <admonition kind="important"> %}
 **Change the `auth_pass` value** on both configs mentioned below to a unique shared secret before deploying. You can generate one with `openssl rand -base64 6`.
-{% end %}
+{% </admonition> %}
 ### Node 1
 
 `/etc/keepalived/keepalived.conf`

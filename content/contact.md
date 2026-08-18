@@ -28,6 +28,6 @@ url = "https://linkedin.com/in/iPankajKumar93"
 icon = "linkedin"
 +++
 
-{% admonition(kind="note") %}
+{% <admonition kind="note"> %}
 I _don't prefer_ phone calls. Also, a polite request to please follow the [No Hello](https://www.nohello.com/2013/01/please-dont-say-just-hello-in-chat.html?m=1&ref=pankajkumar.xyz) rule in case you're reaching out for technical help.
-{% end %}
+{% </admonition> %}

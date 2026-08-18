@@ -17,7 +17,7 @@ When I'm off the clock, I'm reading about space and aircraft, watching documenta
   </div>
 
   <div class="home-image">
-    {{ img(path="images/website/profile.jpg", alt="PankajProfile Image", loading="lazy", class="img-rounded", avif=true, webp=true) }}
+    {{ <img path="images/website/profile.jpg" alt="PankajProfile Image" loading="lazy" class="img-rounded" avif={true} webp={true} /> }}
   </div>
 
 </div>

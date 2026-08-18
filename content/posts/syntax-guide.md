@@ -117,7 +117,7 @@ The simplest way to embed an image or a GIF:
 
 ### Method B: Image with Caption (Zola Shortcode)
 Use the custom `img_caption` shortcode to beautifully display an image with a caption below it:
-{{ img_caption(path="/images/sample-image.jpeg", caption="This is a profile picture with a caption.") }}
+{{ <img_caption path="/images/sample-image.jpeg" caption="This is a profile picture with a caption." /> }}
 
 ### Method C: Lightbox Image (Click to Zoom)
 If you want the user to be able to click the image and view it in a full-screen overlay (lightbox), use this raw HTML snippet:
@@ -149,7 +149,7 @@ There are two primary ways to embed YouTube videos that are used across the site
 
 #### Method A: Native Embed (Zola Shortcode)
 Use the custom `youtube` shortcode to embed the full interactive iframe directly into the post:
-{{ youtube(id="dQw4w9WgXcQ") }}
+{{ <youtube id="dQw4w9WgXcQ" /> }}
 
 #### Method B: Lightweight Image Link
 For better page-load performance, you can use a thumbnail image that links out to the video instead of loading an iframe:
@@ -159,25 +159,25 @@ For better page-load performance, you can use a thumbnail image that links out t
 
 Admonitions are custom Zola shortcodes used to highlight important information, warnings, or notes.
 
-{% admonition(kind="note") %}
+{% <admonition kind="note"> %}
 This is a standard note admonition. 
-{% end %}
+{% </admonition> %}
 
-{% admonition(kind="tip") %}
+{% <admonition kind="tip"> %}
 This is a tip admonition.
-{% end %}
+{% </admonition> %}
 
-{% admonition(kind="important") %}
+{% <admonition kind="important"> %}
 This is an important admonition. 
-{% end %}
+{% </admonition> %}
 
-{% admonition(kind="warning") %}
+{% <admonition kind="warning"> %}
 This is a warning admonition.
-{% end %}
+{% </admonition> %}
 
-{% admonition(kind="caution") %}
+{% <admonition kind="caution"> %}
 This is a caution admonition.
-{% end %}
+{% </admonition> %}
 
 ## 11. Code Line Differences
 

@@ -1,4 +1,3 @@
-{% import "macros/icons.html" as icons %}
 <!DOCTYPE html>
 <html lang="{{ lang | default(value="en-US") }}">
 
@@ -45,13 +44,13 @@
     {% endif %}
 
     {% include "og.html" %}
-    {%- if config.generate_feeds %}
     {% block rss -%}
+    {%- if config.generate_feeds %}
     <link rel="alternate" type={% if config.feed_filenames[0]=="atom.xml" %}"application/atom+xml"{% else
         %}"application/rss+xml"{% endif %} title="{{ config.title }}"
         href="{{ get_url(path=config.feed_filenames[0]) | safe }}">
-    {%- endblock -%}
     {%- endif %}
+    {%- endblock -%}
     <link rel="alternate" type="text/plain" title="LLMs Index" href="{{ config.base_url | safe }}llms.txt">
     <link rel="alternate" type="text/plain" title="LLMs Full Corpus" href="{{ config.base_url | safe }}llms-full.txt">
     {% if page -%}
@@ -87,19 +86,19 @@
 
         <nav aria-label="Main Navigation">
             <button class="mobile-menu-btn" title="Menu" aria-label="Menu">
-                {{ icons::render(name="menu") }}
+                {{ <icon name="menu" /> }}
             </button>
             <div class="mobile-menu-backdrop"></div>
             <div class="nav-items">
                 <button class="mobile-close-btn" aria-label="Close menu">
-                    {{ icons::render(name="x") }}
+                    {{ <icon name="x" /> }}
                 </button>
                 {%- if config.extra.main_menu %}
                 {%- for item in config.extra.main_menu %}
                 
                 {%- if item.url == "/" %}
                     {%- set resolved_url = config.base_url %}
-                {%- elif item.url is matching("https?://") %}
+                {%- elif item.url is matching(pat="https?://") %}
                     {%- set resolved_url = item.url %}
                 {%- else %}
                     {%- set resolved_url = get_url(path=item.url) %}
@@ -108,33 +107,33 @@
                 {%- set_global is_active = false %}
                 {%- if current_url and item.url == "/" and current_url == resolved_url %}
                     {%- set_global is_active = true %}
-                {%- elif current_url and item.url != "/" and current_url is starting_with(resolved_url) %}
+                {%- elif current_url and item.url != "/" and current_url is starting_with(pat=resolved_url) %}
                     {%- set_global is_active = true %}
                 {%- endif %}
 
                 <a href="{{ resolved_url | safe }}" {% if is_active %}class="active"{% endif %}>
                     {% if item.icon %}
-                        {{ icons::render(name=item.icon) }}
+                        {{ <icon name={item.icon} /> }}
                     {% endif %}
                     {{ item.name | safe }}
                 </a>
                 {%- endfor %}
                 {%- endif -%}
                 <button class="search-btn search-btn-mobile" aria-label="Search (Ctrl+K)">
-                    {{ icons::render(name="search") }}
+                    {{ <icon name="search" /> }}
                     <span class="search-btn-text">Search</span>
                     <span class="search-btn-shortcut" aria-hidden="true">Ctrl+K</span>
                 </button>
             </div>
             <div class="header-right">
                 <button class="search-btn search-btn-desktop" aria-label="Search (Ctrl+K)">
-                    {{ icons::render(name="search") }}
+                    {{ <icon name="search" /> }}
                     <span class="search-btn-text">Search</span>
                     <span class="search-btn-shortcut" aria-hidden="true">Ctrl+K</span>
                 </button>
                 <button class="theme-toggle" role="switch" title="Toggle Dark Mode" aria-label="Switch to dark mode">
-                    <span class="theme-icon-dark">{{ icons::render(name="sun") }}</span>
-                    <span class="theme-icon-light">{{ icons::render(name="moon") }}</span>
+                    <span class="theme-icon-dark">{{ <icon name="sun" /> }}</span>
+                    <span class="theme-icon-light">{{ <icon name="moon" /> }}</span>
                 </button>
             </div>
         </nav>
@@ -147,13 +146,13 @@
         <div class="search-modal-content">
             <div class="search-modal-header">
                 <div class="search-input-wrapper">
-                    {{ icons::render(name="search", class="search-input-icon") }}
+                    {{ <icon name="search" class="search-input-icon" /> }}
                     <h2 id="search-modal-title" class="sr-only">Site Search</h2>
                     <label for="search-input" class="sr-only">Search</label>
                     <input type="text" id="search-input" class="search-input" placeholder="Search posts, projects, travel…" autocomplete="off" aria-label="Search posts, projects, travel…" />
                 </div>
                 <button class="search-close" aria-label="Close search">
-                    {{ icons::render(name="x") }}
+                    {{ <icon name="x" /> }}
                 </button>
             </div>
             <div id="search-results" class="search-results" aria-live="polite" aria-label="Search results" role="listbox">
@@ -162,10 +161,10 @@
             <div class="search-modal-footer">
                 <div class="search-shortcuts">
                     <div class="shortcut-group">
-                        <kbd>{{ icons::render(name="arrow-up") }}</kbd> <kbd>{{ icons::render(name="arrow-down") }}</kbd> <span>to Navigate</span>
+                        <kbd>{{ <icon name="arrow-up" /> }}</kbd> <kbd>{{ <icon name="arrow-down" /> }}</kbd> <span>to Navigate</span>
                     </div>
                     <div class="shortcut-group">
-                        <kbd>{{ icons::render(name="enter") }}</kbd> <span>to Select</span>
+                        <kbd>{{ <icon name="enter" /> }}</kbd> <span>to Select</span>
                     </div>
                     <div class="shortcut-group">
                         <kbd>Esc</kbd> <span>to Close</span>
@@ -184,35 +183,35 @@
                © 2018 – {{ now() | date(format="%Y") }} All rights reserved.
             </div>
             <div class="footer-center">
-                Crafted with {{ icons::render(name="heart", class="heart-icon") }} by {{ config.title }}
+                Crafted with {{ <icon name="heart" class="heart-icon" /> }} by {{ config.title }}
             </div>
             <div class="footer-right">
                 <div class="social-links">
                     {% if contact_page.extra.github %}
-                    <a href="{{ contact_page.extra.github.url }}" target="_blank" rel="noopener noreferrer me" title="GitHub" class="social-icon" aria-label="GitHub">{{ icons::render(name="github") }}</a>
+                    <a href="{{ contact_page.extra.github.url }}" target="_blank" rel="noopener noreferrer me" title="GitHub" class="social-icon" aria-label="GitHub">{{ <icon name="github" /> }}</a>
                     {% endif %}
                     {% if contact_page.extra.linkedin %}
-                    <a href="{{ contact_page.extra.linkedin.url }}" target="_blank" rel="noopener noreferrer me" title="LinkedIn" class="social-icon" aria-label="LinkedIn">{{ icons::render(name="linkedin") }}</a>
+                    <a href="{{ contact_page.extra.linkedin.url }}" target="_blank" rel="noopener noreferrer me" title="LinkedIn" class="social-icon" aria-label="LinkedIn">{{ <icon name="linkedin" /> }}</a>
                     {% endif %}
                     {% if contact_page.extra.x %}
-                    <a href="{{ contact_page.extra.x.url }}" target="_blank" rel="noopener noreferrer me" title="X" class="social-icon" aria-label="X">{{ icons::render(name="x-logo") }}</a>
+                    <a href="{{ contact_page.extra.x.url }}" target="_blank" rel="noopener noreferrer me" title="X" class="social-icon" aria-label="X">{{ <icon name="x-logo" /> }}</a>
                     {% endif %}
                     <a href="{{ get_url(path=config.feed_filenames[0] | default(value="atom.xml")) }}" target="_blank" rel="noopener noreferrer" title="RSS Feed" class="social-icon" aria-label="RSS Feed">
-                        {{ icons::render(name="rss") }}</a>
-                    <a href="/sitemap/" title="Sitemap" class="social-icon" aria-label="Sitemap">{{ icons::render(name="network") }}</a>
+                        {{ <icon name="rss" /> }}</a>
+                    <a href="/sitemap/" title="Sitemap" class="social-icon" aria-label="Sitemap">{{ <icon name="network" /> }}</a>
                 </div>
             </div>
         </div>
     </footer>
     <button id="back-to-top" class="back-to-top" title="Back to top" aria-label="Back to top">
-        {{ icons::render(name="arrow-up") }}
+        {{ <icon name="arrow-up" /> }}
     </button>
     <script src="{{ get_url(path='js/main.js', cachebust=true) | safe }}"></script>
     <meta id="search-config" data-elasticlunr="{{ get_url(path='elasticlunr.min.js', trailing_slash=false, cachebust=true) | safe }}" data-search-index="{{ get_url(path='search_index.en.js', trailing_slash=false, cachebust=true) | safe }}">
     <script src="{{ get_url(path='js/search-loader.js', cachebust=true) | safe }}"></script>
     {% include "includes/search.html" %}
 
-    <template id="icon-copy">{{ icons::render(name="copy") }}</template>
-    <template id="icon-check">{{ icons::render(name="check") }}</template>
+    <template id="icon-copy">{{ <icon name="copy" /> }}</template>
+    <template id="icon-check">{{ <icon name="check" /> }}</template>
 </body>
 </html>

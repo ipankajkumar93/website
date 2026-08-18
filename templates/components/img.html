@@ -1,6 +1,7 @@
-{% set is_remote = path is starting_with("http") %}
+{% component img(path, avif=false, webp=false, alt="", class="", loading="") %}
+{% set is_remote = path is starting_with(pat="http") %}
 {% if not is_remote %}
-  {% set clean_path = path | trim_start_matches(pat="/") %}
+  {% set clean_path = path | trim_start(pat="/") %}
   {% set local_path = "static/" ~ clean_path %}
   {% set meta = get_image_metadata(path=local_path) %}
   {% set dim = ' width="' ~ meta.width ~ '" height="' ~ meta.height ~ '"' %}
@@ -23,3 +24,4 @@
 {% else %}
 <img src="{{ get_url(path=path, trailing_slash=false, cachebust=true) | safe }}" alt="{{ alt | default(value='') }}" {% if class %}class="{{ class }}"{% endif %} {% if loading %}loading="{{ loading }}"{% endif %} {{ dim | safe }} />
 {% endif %}
+{% endcomponent img %}
