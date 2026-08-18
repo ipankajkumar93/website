@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% import "macros/icons.html" as icons %}
 
 {% block title %}{{ term.name }} · {{ taxonomy.name | replace(from="_tags", to="") | title }} | {{ super() }}{% endblock %}
 
@@ -19,7 +18,7 @@
       <div class="filter-header">
         <h1 class="filter-heading">Filtering for "<span class="text-accent">{{ term.name }}</span>"</h1>
         <a href="{{ back_url }}" class="filter-clear" id="filter-clear" data-topics-url="{{ get_url(path='@/topics.md') }}" aria-label="Clear filter">
-          Clear {{ icons::render(name="x") }}
+          Clear {{ <icon name="x" /> }}
         </a>
       </div>
     {%- endif %}
@@ -29,7 +28,7 @@
       {% for p in term.pages %}
         {% set edate = p.updated | default(value=p.date) %}
         {% set serialized = edate ~ "||" ~ p.permalink %}
-        {% set_global sortable_strings = sortable_strings | concat(with=serialized) %}
+        {% set_global sortable_strings = [...sortable_strings, serialized] %}
       {% endfor %}
       {% set sorted_strings = sortable_strings | sort | reverse %}
 
@@ -42,9 +41,11 @@
               <li>
                 <span>
                   <i>
-                    <time datetime='{{ parts[0] | date(format="%+") }}'>
+                    {% if parts[0] | trim %}
+                    <time datetime='{{ parts[0] | date(format="%Y-%m-%dT%H:%M:%S%z") }}'>
                       {{ parts[0] | date(format=config.extra.date_format) }}
                     </time>
+                    {% endif %}
                   </i>
                 </span>
                 <span class="post-title-wrapper">
@@ -65,7 +66,7 @@
       
       {%- for tax in config.taxonomies %}
         {%- if tax.name != current_tax_name %}
-          {%- set other_taxonomy = get_taxonomy(kind=tax.name, fail_on_missing=false) %}
+          {%- set other_taxonomy = get_taxonomy(kind=tax.slug, ignore_missing=true) %}
           {%- if other_taxonomy %}
             {%- for t in other_taxonomy.items %}
               {%- if t.name == current_term %}
@@ -87,7 +88,7 @@
                     {% set draft_str = "false" %}
                   {% endif %}
                   {% set serialized = edate ~ "||" ~ p.permalink ~ "||" ~ tax_display_name ~ "||" ~ p.title ~ "||" ~ draft_str %}
-                  {% set_global also_found_unified = also_found_unified | concat(with=serialized) %}
+                  {% set_global also_found_unified = [...also_found_unified, serialized] %}
                 {% endfor %}
               {%- endif %}
             {%- endfor %}
@@ -104,9 +105,11 @@
             <li>
               <span>
                 <i>
-                  <time datetime='{{ parts[0] | date(format="%+") }}'>
+                  {% if parts[0] | trim %}
+                  <time datetime='{{ parts[0] | date(format="%Y-%m-%dT%H:%M:%S%z") }}'>
                     {{ parts[0] | date(format=config.extra.date_format) }}
                   </time>
+                  {% endif %}
                 </i>
               </span>
               <span class="post-title-wrapper">
@@ -132,13 +135,13 @@
           {% set draft_str = "false" %}
         {% endif %}
         {% set serialized = edate ~ "||" ~ p.permalink ~ "||" ~ current_tax_display_name ~ "||" ~ p.title ~ "||" ~ draft_str %}
-        {% set_global unified_pages = unified_pages | concat(with=serialized) %}
+        {% set_global unified_pages = [...unified_pages, serialized] %}
       {% endfor %}
 
       {# 2. Add other taxonomy pages #}
       {% for tax in config.taxonomies %}
         {% if tax.name != current_tax_name %}
-          {% set other_taxonomy = get_taxonomy(kind=tax.name, fail_on_missing=false) %}
+          {% set other_taxonomy = get_taxonomy(kind=tax.slug, ignore_missing=true) %}
           {% if other_taxonomy %}
             {% for t in other_taxonomy.items %}
               {% if t.name == current_term %}
@@ -160,7 +163,7 @@
                     {% set draft_str = "false" %}
                   {% endif %}
                   {% set serialized = edate ~ "||" ~ p.permalink ~ "||" ~ display_name ~ "||" ~ p.title ~ "||" ~ draft_str %}
-                  {% set_global unified_pages = unified_pages | concat(with=serialized) %}
+                  {% set_global unified_pages = [...unified_pages, serialized] %}
                 {% endfor %}
               {% endif %}
             {% endfor %}
@@ -176,9 +179,11 @@
           <li>
             <span>
               <i>
-                <time datetime='{{ parts[0] | date(format="%+") }}'>
+                {% if parts[0] | trim %}
+                <time datetime='{{ parts[0] | date(format="%Y-%m-%dT%H:%M:%S%z") }}'>
                   {{ parts[0] | date(format=config.extra.date_format) }}
                 </time>
+                {% endif %}
               </i>
             </span>
             <span class="post-title-wrapper">

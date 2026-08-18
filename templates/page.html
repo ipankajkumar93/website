@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% import "macros/icons.html" as icons %}
 
 {% block title %}{% if page.title %}{{ page.title }} | {% endif %}{{ super() }}{% endblock %}
 
@@ -25,7 +24,7 @@
   <h1 class="article-title">{{ page.title }}</h1>
   <div class="title-copy-url">
     <a href="javascript:void(0);" id="title-copy-link" data-url="{{ current_url | safe }}" class="copy-url-btn" aria-label="Copy link to article" title="Copy link to article">
-      {{ icons::render(name="copy-link") }}
+      {{ <icon name="copy-link" /> }}
       <span>COPY URL</span>
     </a>
   </div>
@@ -33,18 +32,18 @@
   <div class="meta article-meta">
     {%- if page.date %}
     <div class="post-date">
-        {{ icons::render(name="calendar") }}
-        <time datetime='{{ page.date | date(format=' %+') }}'>
+        {{ <icon name="calendar" /> }}
+        <time datetime='{{ page.date | date(format='%Y-%m-%dT%H:%M:%S%z') }}'>
           {{- page.date | date(format=config.extra.date_format) -}}
         </time>
         {%- if page.updated %}
-        &nbsp;(Updated: <time datetime='{{ page.updated | date(format=' %+') }}'>
+        &nbsp;(Updated: <time datetime='{{ page.updated | date(format='%Y-%m-%dT%H:%M:%S%z') }}'>
           {{- page.updated | date(format=config.extra.date_format) -}}
         </time>)
         {%- endif %}
     </div>
     <div class="reading-time">
-      {{ icons::render(name="timer") }}
+      {{ <icon name="timer" /> }}
       {{ page.reading_time }} min read ({{ page.word_count }} words)
     </div>
     {%- endif %}
@@ -54,7 +53,7 @@
   {%- if page.extra.cover_image %}
   <div class="article-cover{% if is_restricted %} restricted-width{% endif %}">
     {% set cover_path = page.extra.cover_image %}
-    {% if cover_path is starting_with("/") %}
+    {% if cover_path is starting_with(pat="/") %}
       {% set cover_path_local = "static" ~ cover_path %}
       {% set meta = get_image_metadata(path=cover_path_local) %}
       <img src="{{ cover_path | safe }}" alt="Cover image for {{ page.title }}" fetchpriority="high" width="{{ meta.width }}" height="{{ meta.height }}" />
@@ -69,7 +68,7 @@
   <div class="toc{% if is_restricted %} restricted-width{% endif %}">
     <div class="toc-title">
       <span>What's inside</span>
-      {{ icons::render(name="chevrons-down", class="toc-icon") }}
+      {{ <icon name="chevrons-down" class="toc-icon" /> }}
     </div>
     <div class="toc-content">
       <div class="toc-inner">
@@ -107,31 +106,31 @@
     <span class="share-label">Worth sharing?</span>
     <div class="share-icons">
       <a href="javascript:void(0);" id="social-copy-link" data-url="{{ current_url }}" class="share-icon" aria-label="Copy link" title="Copy link">
-        {{ icons::render(name="copy-link") }}
+        {{ <icon name="copy-link" /> }}
       </a>
       <a href="https://api.whatsapp.com/send?text={{ page.title | urlencode }}%20{{ current_url | urlencode }}"
         target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on WhatsApp">
-        {{ icons::render(name="whatsapp") }}
+        {{ <icon name="whatsapp" /> }}
       </a>
       <a href="https://www.facebook.com/sharer/sharer.php?u={{ current_url | urlencode }}" target="_blank"
         rel="noopener noreferrer" class="share-icon" aria-label="Share on Facebook">
-        {{ icons::render(name="facebook") }}
+        {{ <icon name="facebook" /> }}
       </a>
       <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ current_url | urlencode }}&title={{ page.title | urlencode }}"
         target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on LinkedIn">
-        {{ icons::render(name="linkedin") }}
+        {{ <icon name="linkedin" /> }}
       </a>
       <a href="https://x.com/intent/tweet?url={{ current_url | urlencode }}&text={{ page.title | urlencode }}"
         target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on X">
-        {{ icons::render(name="x-logo") }}
+        {{ <icon name="x-logo" /> }}
       </a>
       <a href="https://t.me/share/url?url={{ current_url | urlencode }}&text={{ page.title | urlencode }}"
         target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on Telegram">
-        {{ icons::render(name="send") }}
+        {{ <icon name="send" /> }}
       </a>
       <a href="mailto:?subject={{ page.title | urlencode }}&body={{ current_url | urlencode }}" target="_blank"
         rel="noopener noreferrer" class="share-icon" aria-label="Share via Email">
-        {{ icons::render(name="mail") }}
+        {{ <icon name="mail" /> }}
       </a>
     </div>
   </div>
@@ -141,7 +140,7 @@
     <div class="tags-label">Related Tags</div>
     {%- for name, taxon in page.taxonomies %}
     {%- for item in taxon %}
-    <a href="{{ get_taxonomy_url(kind=name, name=item) }}" class="tag">{{ item }}</a>
+    <a href="{{ get_taxonomy_url(kind=name | replace(from='_', to='-'), term=item) }}" class="tag">{{ item }}</a>
     {%- endfor %}
     {%- endfor %}
   </div>
@@ -152,7 +151,7 @@
     {% if page.lower %}
     <div class="nav-prev">
       <a href="{{ page.lower.permalink }}" class="nav-label" aria-label="Previous post">
-        {{ icons::render(name="chevron-left") }}
+        {{ <icon name="chevron-left" /> }}
         <span>Previous</span>
       </a>
       <div class="nav-title-wrapper">
@@ -167,7 +166,7 @@
     <div class="nav-next">
       <a href="{{ page.higher.permalink }}" class="nav-label" aria-label="Next post">
         <span>Next</span>
-        {{ icons::render(name="chevron-right") }}
+        {{ <icon name="chevron-right" /> }}
       </a>
       <div class="nav-title-wrapper">
         <a href="{{ page.higher.permalink }}" class="nav-title" aria-hidden="true">{{ page.higher.title }}</a>

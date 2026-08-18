@@ -7,16 +7,16 @@
   {% set_global seen_tags = [] %}
 
   {% for tax in config.taxonomies %}
-    {% set taxonomy = get_taxonomy(kind=tax.name, fail_on_missing=false) %}
+    {% set taxonomy = get_taxonomy(kind=tax.slug, ignore_missing=true) %}
     {% if taxonomy %}
       {% for term in taxonomy.items %}
         {% if term.name not in seen_tags %}
-          {% set_global seen_tags = seen_tags | concat(with=term.name) %}
+          {% set_global seen_tags = [...seen_tags, term.name] %}
           
           {# Calculate total count across all taxonomies #}
           {% set_global total_count = 0 %}
           {% for inner_tax in config.taxonomies %}
-            {% set inner_taxonomy = get_taxonomy(kind=inner_tax.name, fail_on_missing=false) %}
+            {% set inner_taxonomy = get_taxonomy(kind=inner_tax.slug, ignore_missing=true) %}
             {% if inner_taxonomy %}
               {% for inner_term in inner_taxonomy.items %}
                 {% if inner_term.name == term.name %}
@@ -28,7 +28,7 @@
           {% endfor %}
 
           {% set serialized = term.name ~ "||" ~ term.permalink ~ "||" ~ total_count %}
-          {% set_global tag_data = tag_data | concat(with=serialized) %}
+          {% set_global tag_data = [...tag_data, serialized] %}
         {% endif %}
       {% endfor %}
     {% endif %}
