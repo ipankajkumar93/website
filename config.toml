@@ -37,7 +37,7 @@ external_links_no_referrer = false  # Handled by Referrer-Policy header in _head
 external_links_no_follow = true
 
 [markdown.highlighting]
-enabled = true
+
 light_theme = "github-light-default"
 dark_theme = "github-dark-default"
 

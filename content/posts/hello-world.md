@@ -6,7 +6,7 @@ in_search_index = true
 title = "Hello World"
 description = "My first post on my new blog."
 date = 2026-06-14
-# updated = 2026-06-14
+updated = 2026-06-14
 
 [extra]
 toc = true # Generates Table of Contents for the page if true

@@ -17,7 +17,7 @@ If you'd like to get in touch, head over to the contact page!
   </div>
 
   <div class="home-image">
-    {{ img(path="images/website/profile.jpg", alt="Profile Image", loading="lazy", class="img-rounded") }}
+    {{ <img path="images/website/profile.jpg" alt="Profile Image" loading="lazy" class="img-rounded" /> }}
   </div>
 
 </div>

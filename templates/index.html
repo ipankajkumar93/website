@@ -6,7 +6,7 @@
   {% set all_pages = [] %}
   {% for section_name in config.extra.featured_sections %}
     {% set section_obj = get_section(path=section_name ~ "/_index.md") %}
-    {% set_global all_pages = all_pages | concat(with=section_obj.pages) %}
+    {% set_global all_pages = [...all_pages, ...section_obj.pages] %}
   {% endfor %}
   
   {% set has_featured = false %}

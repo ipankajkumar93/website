@@ -1,5 +1,4 @@
 {% extends "page-header.html" %}
-{% import "macros/icons.html" as icons %}
 
 {% block title %}Sitemap - {{ config.title }}{% endblock %}
 
@@ -10,7 +9,7 @@
     <!-- Home Page -->
     <a href="{{ config.base_url }}" class="sitemap-item-card">
         <span class="sitemap-item-title">
-            <span class="sitemap-icon-wrapper">{{ icons::render(name="home") }}</span>
+            <span class="sitemap-icon-wrapper">{{ <icon name="home" /> }}</span>
             <span class="sitemap-text-wrapper">Home</span>
         </span>
     </a>
@@ -40,7 +39,7 @@
         <a href="{{ page.permalink }}" class="sitemap-item-card">
             <span class="sitemap-item-title">
                 {% if badge_icon %}
-                    <span class="sitemap-icon-wrapper">{{ icons::render(name=badge_icon) }}</span>
+                    <span class="sitemap-icon-wrapper">{{ <icon name={badge_icon} /> }}</span>
                 {% endif %}
                 <span class="sitemap-text-wrapper">{{ page.title }}</span>
             </span>
@@ -71,7 +70,7 @@
         <a href="{{ section.permalink }}" class="sitemap-item-card">
             <span class="sitemap-item-title">
                 {% if badge_icon %}
-                    <span class="sitemap-icon-wrapper">{{ icons::render(name=badge_icon) }}</span>
+                    <span class="sitemap-icon-wrapper">{{ <icon name={badge_icon} /> }}</span>
                 {% endif %}
                 <span class="sitemap-text-wrapper">{{ badge_name }}</span>
             </span>
@@ -82,7 +81,7 @@
         <a href="{{ page.permalink }}" class="sitemap-item-card">
             <span class="sitemap-item-title">
                 {% if badge_icon %}
-                    <span class="sitemap-icon-wrapper">{{ icons::render(name=badge_icon) }}</span>
+                    <span class="sitemap-icon-wrapper">{{ <icon name={badge_icon} /> }}</span>
                 {% endif %}
                 <span class="sitemap-text-wrapper">{{ page.title }}</span>
             </span>

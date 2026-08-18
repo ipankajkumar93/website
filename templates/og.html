@@ -32,9 +32,9 @@
     {% endif -%}
     {# Use custom og_preview_img if set, otherwise fall back to auto-generated image #}
     {% if page.extra.og_preview_img -%}
-        {% set og_image = page.extra.og_preview_img | trim_start_matches(pat="/") -%}
+        {% set og_image = page.extra.og_preview_img | trim_start(pat="/") -%}
     {% else -%}
-        {% set path_trimmed = page.path | trim_end_matches(pat="/") -%}
+        {% set path_trimmed = page.path | trim_end(pat="/") -%}
         {% set og_image = "images/og" ~ path_trimmed ~ ".png" -%}
     {% endif -%}
     {% set x_card = "summary_large_image" -%}
@@ -43,7 +43,7 @@
     {% set og_title = section.title | default(value=config.title) -%}
     {% set og_description = section.description | default(value=config.description) -%}
     {% set og_url = section.permalink -%}
-    {% set path_trimmed = current_path | trim_end_matches(pat="/") -%}
+    {% set path_trimmed = current_path | trim_end(pat="/") -%}
     {% if path_trimmed == "" -%}
         {% set og_image = "images/og/home.png" -%}
     {% else -%}
@@ -79,8 +79,8 @@
     <meta property="article:author" content="{{ config.base_url | safe }}">
     {% if page.taxonomies -%}
         {% for taxonomy_name, terms in page.taxonomies -%}
-            {% if taxonomy_name is matching("_tags$") -%}
-                {% set section_name = taxonomy_name | trim_end_matches(pat="_tags") | capitalize -%}
+            {% if taxonomy_name is matching(pat="_tags$") -%}
+                {% set section_name = taxonomy_name | trim_end(pat="_tags") | capitalize -%}
                 <meta property="article:section" content="{{ section_name }}">
             {% endif -%}
             {% for tag in terms -%}
@@ -112,7 +112,7 @@
     {% if page.taxonomies -%}
         {% set all_tags = [] -%}
         {% for taxonomy_name, terms in page.taxonomies -%}
-            {% set_global all_tags = all_tags | concat(with=terms) -%}
+            {% set_global all_tags = [...all_tags, ...terms] -%}
         {% endfor -%}
         {% if all_tags | length > 0 -%}
             <meta name="twitter:label2" content="Filed under">
@@ -153,8 +153,8 @@
       "url": "{{ config.base_url | safe }}icons/icon-512x512.png"
     }
   },
-  "datePublished": "{{ article_published_time | date(format='%+') }}",
-  "dateModified": "{{ article_modified_time | date(format='%+') }}"{% if page and page.word_count %},
+  "datePublished": "{{ article_published_time | date(format='%Y-%m-%dT%H:%M:%S%z') }}",
+  "dateModified": "{{ article_modified_time | date(format='%Y-%m-%dT%H:%M:%S%z') }}"{% if page and page.word_count %},
   "wordCount": {{ page.word_count }},
   "inLanguage": "{{ lang | default(value='en') }}"{% endif %}
 }

@@ -1,15 +1,14 @@
 {% extends "page-header.html" %}
-{% import "macros/icons.html" as icons %}
 
 {% block page_content %}
 <div class="contact-page">
   <div class="contact-grid">
     {% set links = [page.extra.email, page.extra.x, page.extra.github, page.extra.linkedin] %}
     {% for link in links %}
-    <a href="{{ link.url }}" {% if link.url is starting_with("http") %}target="_blank" rel="noopener noreferrer me" {%
+    <a href="{{ link.url }}" {% if link.url is starting_with(pat="http") %}target="_blank" rel="noopener noreferrer me" {%
       endif %} class="contact-card" aria-label="{{ link.platform }} profile">
       <span class="contact-card-icon">
-        {{ icons::render(name=link.icon) }}
+        {{ <icon name={link.icon} /> }}
       </span>
       <span class="contact-card-platform">{{ link.platform }}</span>
       <span class="contact-card-handle">{{ link.handle }}</span>
