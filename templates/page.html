@@ -33,13 +33,9 @@
     {%- if page.date %}
     <div class="post-date">
         {{ <icon name="calendar" /> }}
-        <time datetime='{{ page.date | date(format='%Y-%m-%dT%H:%M:%S%z') }}'>
-          {{- page.date | date(format=config.extra.date_format) -}}
-        </time>
+        <time datetime='{{ page.date | date(format="%Y-%m-%dT%H:%M:%S%z") }}'>{{ page.date | date(format=config.extra.date_format) }}</time>
         {%- if page.updated %}
-        &nbsp;(Updated: <time datetime='{{ page.updated | date(format='%Y-%m-%dT%H:%M:%S%z') }}'>
-          {{- page.updated | date(format=config.extra.date_format) -}}
-        </time>)
+        <span>(Updated: <time datetime='{{ page.updated | date(format="%Y-%m-%dT%H:%M:%S%z") }}'>{{ page.updated | date(format=config.extra.date_format) }}</time>)</span>
         {%- endif %}
     </div>
     <div class="reading-time">
