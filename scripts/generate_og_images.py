@@ -4,7 +4,7 @@
 # dependencies = ["Pillow"]
 # ///
 """
-OG Image Generator for example.com
+OG Image Generator for pankajkumar.xyz
 
 Generates social preview images for blog posts that don't have a custom og_preview_img.
 Uses the blog's warm terracotta aesthetic with clean, modern typography.
@@ -27,8 +27,8 @@ CACHE_VERSION = 1
 
 # Configuration
 CONFIG = {
-    "author": "John Doe",
-    "site": "example.com",
+    "author": "Pankaj Kumar",
+    "site": "pankajkumar.xyz",
     "width": 1200,
     "height": 630,
     "padding": 80,
@@ -506,7 +506,7 @@ class OGImageGenerator:
                 if public_html.exists():
                     try:
                         html_content = public_html.read_text(encoding='utf-8', errors='ignore')
-                        match = re.search(r'<div class="reading-time">\s*<i>(\d+)\s+minute', html_content)
+                        match = re.search(r'<div class="reading-time">.*?(\d+)\s+min read', html_content, re.DOTALL)
                         if match:
                             read_time = int(match.group(1))
                     except Exception:
