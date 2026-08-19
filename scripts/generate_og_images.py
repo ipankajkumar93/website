@@ -460,7 +460,7 @@ class OGImageGenerator:
                 
             category = self.cat_map.get(content_dir.name, content_dir.name.capitalize())
             
-            for md_file in content_dir.glob("*.md"):
+            for md_file in content_dir.rglob("*.md"):
                 if md_file.name == "_index.md":
                     continue
 
@@ -506,7 +506,7 @@ class OGImageGenerator:
                 if public_html.exists():
                     try:
                         html_content = public_html.read_text(encoding='utf-8', errors='ignore')
-                        match = re.search(r'<div class="reading-time">\s*<i>(\d+)\s+minute', html_content)
+                        match = re.search(r'<div class="reading-time">.*?(\d+)\s+min read', html_content, re.DOTALL)
                         if match:
                             read_time = int(match.group(1))
                     except Exception:

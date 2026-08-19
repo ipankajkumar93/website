@@ -65,6 +65,15 @@
     <link rel="stylesheet" href="{{ get_url(path="styles/main.css", trailing_slash=false, cachebust=true) | safe }}">
     <script src="{{ get_url(path='js/theme.js', cachebust=true) | safe }}"></script>
     <script src="{{ get_url(path='js/analytics.js', cachebust=true) | safe }}" defer></script>
+    {% set use_katex = config.extra.katex | default(value=false) %}
+    {% if page and page.extra.katex is defined %}
+        {% set use_katex = page.extra.katex %}
+    {% elif section and section.extra.katex is defined %}
+        {% set use_katex = section.extra.katex %}
+    {% endif %}
+    {% if use_katex %}
+    <link rel="stylesheet" href="{{ get_url(path='katex/katex.min.css', cachebust=true) | safe }}">
+    {% endif %}
 </head>
 {% set wrap_code = config.extra.wrap_code | default(value=false) %}
 {% if page and page.extra.wrap_code is defined %}
@@ -213,5 +222,22 @@
 
     <template id="icon-copy">{{ <icon name="copy" /> }}</template>
     <template id="icon-check">{{ <icon name="check" /> }}</template>
+    
+    {% if use_katex %}
+    <script defer src="{{ get_url(path='katex/katex.min.js', cachebust=true) | safe }}"></script>
+    <script defer src="{{ get_url(path='katex/contrib/auto-render.min.js', cachebust=true) | safe }}"></script>
+    <script defer src="{{ get_url(path='js/katex-init.js', cachebust=true) | safe }}"></script>
+    {% endif %}
+
+    {% set use_mermaid = config.extra.mermaid | default(value=false) %}
+    {% if page and page.extra.mermaid is defined %}
+        {% set use_mermaid = page.extra.mermaid %}
+    {% elif section and section.extra.mermaid is defined %}
+        {% set use_mermaid = section.extra.mermaid %}
+    {% endif %}
+    {% if use_mermaid %}
+    <script defer src="{{ get_url(path='js/mermaid.min.js', cachebust=true) | safe }}"></script>
+    <script defer src="{{ get_url(path='js/mermaid-init.js', cachebust=true) | safe }}"></script>
+    {% endif %}
 </body>
 </html>

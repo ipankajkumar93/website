@@ -9,6 +9,8 @@ date = 2026-06-14
 # updated = 2026-06-14
 
 [extra]
+katex = false
+mermaid = false
 toc = true # Generates Table of Contents for the page if true
 featured = false
 license = "CC-BY-SA-4.0"

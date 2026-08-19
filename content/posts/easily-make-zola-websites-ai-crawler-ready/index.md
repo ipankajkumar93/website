@@ -8,6 +8,8 @@ description = "A comprehensive guide on making your static Zola website complete
 date = 2026-07-31
 
 [extra]
+katex = false
+mermaid = false
 toc = true
 featured = false
 license = "CC-BY-SA-4.0"

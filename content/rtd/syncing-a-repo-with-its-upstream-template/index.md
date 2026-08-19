@@ -9,6 +9,8 @@ date = 2026-07-26
 # updated = 2026-07-26
 
 [extra]
+katex = false
+mermaid = false
 toc = true
 featured = true
 license = "CC-BY-SA-4.0"

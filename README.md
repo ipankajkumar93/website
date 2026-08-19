@@ -41,6 +41,7 @@ The site covers writing, homelab notes, read-the-docs references, project logs, 
 | Search | [elasticlunr.js](http://elasticlunr.com/) |
 | Syntax Highlighting | Zola native (built-in) |
 | Diagrams | [Mermaid.js](https://mermaid.js.org/) |
+| Math Rendering | [KaTeX](https://katex.org/) |
 | OG Image Generation | Python + [Pillow](https://pillow.readthedocs.io/) via `uv` |
 | Analytics | [Umami](https://umami.is/) (self-hosted, privacy-first) |
 | Theme Lineage | [zola-slate](https://github.com/iPankajKumar93/zola-slate) (my open-source theme) → [mr-karan.dev](https://mrkaran.dev) → [zola-bearblog](https://codeberg.org/alanpearce/zola-bearblog) |
@@ -222,6 +223,7 @@ Third-party components and their licenses are fully documented in [THIRD-PARTY-L
 | [Zola](https://www.getzola.org/) | Static site generator | MIT |
 | [zola-bearblog](https://codeberg.org/alanpearce/zola-bearblog) | Base theme (via mr-karan.dev) | MIT |
 | [Mermaid.js](https://mermaid.js.org/) | Diagram rendering | MIT |
+| [KaTeX](https://katex.org/) | Math rendering | MIT |
 | [Geist](https://vercel.com/font) | Primary sans-serif font | OFL 1.1 |
 | [Instrument Serif](https://github.com/Instrument/instrument-sans) | Typography accent font | OFL 1.1 |
 | [JetBrains Mono](https://www.jetbrains.com/lp/mono/) | Monospace / code font | OFL 1.1 |
