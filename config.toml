@@ -69,7 +69,7 @@ icon = "file-text"
 
 [[extra.main_menu]]
 name = "Topics"
-url = "@/topics.md"
+url = "@/topics/index.md"
 icon = "hash"
 
 [[extra.main_menu]]
@@ -89,7 +89,7 @@ icon = "server"
 
 # [[extra.main_menu]]
 # name = "Talks"
-# url = "@/talks.md"
+# url = "@/talks/index.md"
 # icon = "mic"
 
 [[extra.main_menu]]
@@ -99,5 +99,5 @@ icon = "map"
 
 [[extra.main_menu]]
 name = "Contact"
-url = "@/contact.md"
+url = "@/contact/index.md"
 icon = "at-sign"

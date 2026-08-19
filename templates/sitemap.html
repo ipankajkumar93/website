@@ -17,7 +17,7 @@
     <!-- Main Pages -->
     {% for page in root.pages %}
         {% set page_path = page.relative_path %}
-        {% if page_path == "llms.md" or page_path == "llms-full.md" %}
+        {% if page_path == "llms/index.md" or page_path == "llms-full/index.md" %}
             {% continue %}
         {% endif %}
         {% set_global badge_name = "" %}
@@ -32,7 +32,7 @@
             {% endfor %}
         {% endif %}
 
-        {% if page_path == "sitemap.md" %}
+        {% if page_path == "sitemap/index.md" %}
             {% set_global badge_icon = "network" %}
         {% endif %}
 

@@ -20,14 +20,17 @@ SLUG=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | tr -s ' ' '-' | tr -cd 'a-z0
 # Remove leading/trailing hyphens
 SLUG=$(echo "$SLUG" | sed -e 's/^\-//' -e 's/\-$//')
 
-FILE_PATH="content/posts/${SLUG}.md"
+DIR_PATH="content/posts/${SLUG}"
+FILE_PATH="${DIR_PATH}/index.md"
 CURRENT_DATE=$(date +"%Y-%m-%d")
 
-# Check if file already exists
-if [ -f "$FILE_PATH" ]; then
-    echo "Error: File ${FILE_PATH} (slug: ${SLUG}) already exists!"
+# Check if directory already exists
+if [ -d "$DIR_PATH" ]; then
+    echo "Error: Directory ${DIR_PATH} (slug: ${SLUG}) already exists!"
     exit 2
 fi
+
+mkdir -p "$DIR_PATH"
 
 # Write frontmatter to the file
 cat <<EOL > "$FILE_PATH"
