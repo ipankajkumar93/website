@@ -460,7 +460,7 @@ class OGImageGenerator:
                 
             category = self.cat_map.get(content_dir.name, content_dir.name.capitalize())
             
-            for md_file in content_dir.glob("*.md"):
+            for md_file in content_dir.rglob("*.md"):
                 if md_file.name == "_index.md":
                     continue
 
