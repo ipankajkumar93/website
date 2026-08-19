@@ -63,7 +63,7 @@ def copy_md_files():
             if rel_path.parent.name == slug:
                 output_dir = public_dir / rel_path.parent
             else:
-                output_dir = public_dir / rel_path.parent / slug
+                output_dir = public_dir / rel_path.parent.parent / slug
         else:
             if rel_path.parent == Path("."): 
                 output_dir = public_dir / slug
