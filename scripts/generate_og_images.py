@@ -487,14 +487,22 @@ class OGImageGenerator:
                 # Zola uses the slug from frontmatter if it exists, otherwise it defaults to the filename
                 slug = fm.get("slug")
                 if not slug:
-                    slug = md_file.stem
+                    if md_file.name == "index.md":
+                        slug = md_file.parent.name
+                    else:
+                        slug = md_file.stem
                 
                 # Get the relative path from the content directory to preserve subfolders
                 rel_path = md_file.relative_to(self.project_root / "content")
                 
+                if md_file.name == "index.md" and rel_path.parent.name == slug:
+                    public_html_dir = self.project_root / "public" / rel_path.parent
+                else:
+                    public_html_dir = self.project_root / "public" / rel_path.parent.parent / slug
+                
                 # Try to extract the exact reading time from Zola's generated HTML
                 read_time = 0
-                public_html = self.project_root / "public" / rel_path.parent / slug / "index.html"
+                public_html = public_html_dir / "index.html"
                 if public_html.exists():
                     try:
                         html_content = public_html.read_text(encoding='utf-8', errors='ignore')
@@ -515,7 +523,10 @@ class OGImageGenerator:
                     word_count = len(re.findall(r'[a-zA-Z]+', body_clean))
                     read_time = max(1, int(word_count / 200) + (1 if word_count % 200 > 0 else 0))
                 
-                output_path = self.output_dir / rel_path.parent / f"{slug}.png"
+                if md_file.name == "index.md":
+                    output_path = self.output_dir / rel_path.parent.parent / f"{slug}.png"
+                else:
+                    output_path = self.output_dir / rel_path.parent / f"{slug}.png"
 
                 # Check cache
                 content_hash = self._content_hash(title, description, category, date_str, read_time)
