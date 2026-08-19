@@ -12,6 +12,8 @@ updated = 2026-07-06
 post_tags = ["post", "markdown", "syntax", "guide"]
 
 [extra]
+katex = true
+mermaid = true
 toc = true # Generates Table of Contents for the page if true
 featured = false
 license = "CC-BY-SA-4.0"
@@ -221,6 +223,17 @@ You can also add multiple footnotes in the same document.[^2]
 [^1]: This is the text of the footnote that appears when the superscript number is clicked.
 [^2]: This is the second footnote. Zola will automatically number and link them in order!
 
+## 15. Math Rendering (KaTeX)
+
+You can render mathematical equations cleanly using KaTeX. 
+
+For inline equations, wrap your math in single dollar signs: $E=mc^2$.
+
+For block equations, wrap them in double dollar signs:
+
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
 
 *This concludes the syntax reference guide. Happy writing!*
 

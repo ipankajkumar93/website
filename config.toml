@@ -47,6 +47,8 @@ brand = "~/pnkjkmr"      # Used as the logo name in the header
 favicon = "/favicon.svg"
 date_format = "%d %b, %Y"
 wrap_code = false
+katex = false           # Toggle to enable KaTeX math rendering globally on all pages
+mermaid = false         # Toggle to enable Mermaid.js flowchart rendering globally on all pages
 
 # Section configurations
 
