@@ -16,6 +16,8 @@ toc = true # Generates Table of Contents for the page if true
 featured = false
 license = "CC-BY-SA-4.0"
 wrap_code = false
+katex = true
+mermaid = true
 
 # og_preview_img = "/images/sample-image.jpeg"    #Uncomment this to add your own OG preview image or let the python script generate one for you for OG images.
 # cover_image = "/images/sample-image.jpeg"
@@ -217,6 +219,18 @@ flowchart TD
     C --> D
     D -->|Wrangler Deploy| E([☁️ Cloudflare Edge])
 ```
+
+## 15. Math Rendering (KaTeX)
+
+You can render mathematical equations cleanly using KaTeX. 
+
+For inline equations, wrap your math in single dollar signs: $E=mc^2$.
+
+For block equations, wrap them in double dollar signs:
+
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
 
 *This concludes the syntax reference guide. Happy writing!*
 

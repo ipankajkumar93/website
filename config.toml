@@ -44,6 +44,8 @@ dark_theme = "github-dark-default"
 # Custom Variables (Accessible via config.extra in templates)
 
 [extra]
+# katex = true           # Uncomment to enable KaTeX math rendering globally on all pages
+# mermaid = true         # Uncomment to enable Mermaid.js flowchart rendering globally on all pages
 brand = "~/johndoe"      # Used as the logo name in the header
 favicon = "/favicon.svg"
 date_format = "%d %b, %Y"

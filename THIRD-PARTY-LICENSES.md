@@ -55,6 +55,8 @@ The underlying layout and styling are heavily inspired by [bearblog.dev](https:/
 ### Mermaid.js
 [Mermaid.js](https://mermaid.js.org/) is used for rendering interactive flowcharts and diagrams natively in Markdown code blocks. It is licensed under the MIT License.
 
+### KaTeX
+[KaTeX](https://katex.org/) is used for fast math typesetting and rendering natively in the browser. It is licensed under the MIT License.
 
 ## Fonts
 
