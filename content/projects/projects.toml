@@ -16,7 +16,7 @@ links = [
   { name = "URL", url = "https://markview.pankajkumar.xyz/" },
   { name = "GitHub", url = "https://github.com/iPankajKumar93/markview" },
 ]
-highlight = true
+featured = true
 
 
 [[project]]
@@ -31,7 +31,7 @@ links = [
   { name = "URL", url = "https://www.trackcovid19.info/" },
   { name = "GitHub", url = "https://github.com/iPankajKumar93/covidtracker" },
 ]
-highlight = true
+featured = true
 
 [[project]]
 name = "website"
@@ -45,7 +45,7 @@ links = [
   { name = "URL", url = "https://pankajkumar.xyz" },
   { name = "GitHub", url = "https://github.com/iPankajKumar93/website" },
 ]
-highlight = false
+featured = false
 
 [[project]]
 name = "homeLab"
@@ -60,7 +60,7 @@ links = [
 ]
 
 [[project]]
-name = "Zola-Slate"
+name = "zola-slate"
 description = "Zola based template for Blogs"
 created = "June 2026"
 pushed = "Jul 2026"
@@ -71,4 +71,4 @@ links = [
   { name = "URL", url = "https://zola-slate.pankajkumar.xyz" },
   { name = "GitHub", url = "https://github.com/iPankajKumar93/zola-slate" },
 ]
-highlight = true
+featured = true
