@@ -14,3 +14,17 @@ links = [
   { name = "GitHub", url = "https://github.com/johndoe/example-project" },
 ]
 highlight = true
+
+[[project]]
+name = "example-project"
+description = "A sample open source project."
+created = "Jul 2026"
+pushed = "Jul 2026"
+stars = 10
+forks = 2
+language = "CSS, JavaScript, HTML"
+links = [
+  { name = "URL", url = "https://example.com/" },
+  { name = "GitHub", url = "https://github.com/johndoe/example-project" },
+]
+highlight = false

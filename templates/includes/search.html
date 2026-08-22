@@ -2,7 +2,8 @@
 {
     "projects": [
         {%- set data = load_data(path="content/projects/projects.toml", format="toml") %}
-        {%- for proj in data.project %}
+        {%- set projects_list = data.project | default(value=[]) %}
+        {%- for proj in projects_list %}
         {
             "name": {{ proj.name | json_encode() | safe }},
             "description": {{ proj.description | json_encode() | safe }},
