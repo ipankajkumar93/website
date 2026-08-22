@@ -3,14 +3,22 @@
     "projects": [
         {%- set data = load_data(path="content/projects/projects.toml", format="toml") %}
         {%- set projects_list = data.project | default(value=[]) %}
+        {%- set first_item = true %}
         {%- for proj in projects_list %}
+        {%- set proj_name = proj | get(key="name", default="") %}
+        {%- if proj_name %}
+        {%- if not first_item %},{% endif %}
         {
-            "name": {{ proj.name | json_encode() | safe }},
-            "description": {{ proj.description | json_encode() | safe }},
-            "url": {% if proj.links %}{{ proj.links[0].url | json_encode() | safe }}{% else %}""{% endif %},
-            "language": {{ proj.language | default(value="") | json_encode() | safe }},
-            "stars": {{ proj.stars | default(value=0) }}
-        }{% if not loop.last %},{% endif %}
+            "name": {{ proj_name | json_encode() | safe }},
+            "description": {{ proj | get(key="description", default="") | json_encode() | safe }},
+            {%- set links = proj | get(key="links", default=[]) %}
+            "url": {% if links and links | length > 0 %}{{ links[0] | get(key="url", default="") | json_encode() | safe }}{% else %}""{% endif %},
+            "github": {% if links and links | length > 1 %}{{ links[1] | get(key="url", default="") | json_encode() | safe }}{% else %}""{% endif %},
+            "language": {{ proj | get(key="language", default="") | json_encode() | safe }},
+            "stars": {{ proj | get(key="stars", default=0) }}
+        }
+        {%- set_global first_item = false %}
+        {%- endif %}
         {%- endfor %}
     ],
     "menu": [
@@ -23,6 +31,24 @@
         }{% if not loop.last %},{% endif %}
         {%- endfor %}
         {%- endif %}
+    ],
+    "services": [
+        {%- set svc_data = load_data(path="content/services/services.toml", format="toml") %}
+        {%- set services_list = svc_data.service | default(value=[]) %}
+        {%- set first_svc = true %}
+        {%- for svc in services_list %}
+        {%- set svc_name = svc | get(key="name", default="") %}
+        {%- if svc_name %}
+        {%- if not first_svc %},{% endif %}
+        {
+            "name": {{ svc_name | json_encode() | safe }},
+            "description": {{ svc | get(key="description", default="") | json_encode() | safe }},
+            "url": {{ svc | get(key="url", default="") | json_encode() | safe }},
+            "github": {{ svc | get(key="github", default="") | json_encode() | safe }}
+        }
+        {%- set_global first_svc = false %}
+        {%- endif %}
+        {%- endfor %}
     ]
 }
 </script>

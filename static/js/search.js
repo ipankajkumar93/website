@@ -19,15 +19,20 @@
     }
 
     const projectData = searchData.projects || [];
+    const servicesData = searchData.services || [];
     const menuData = searchData.menu || [];
 
-    // Precompute projects menu name and category order
+    // Precompute menu names and category order
     let projectsMenuName = 'Projects';
+    let servicesMenuName = 'Services';
     const categoryOrder = [];
     menuData.forEach(item => {
         categoryOrder.push(item.name);
         if (item.url.includes("projects")) {
             projectsMenuName = item.name;
+        }
+        if (item.url.includes("services")) {
+            servicesMenuName = item.name;
         }
     });
     categoryOrder.push('Other');
@@ -127,7 +132,22 @@
             title: p.name,
             description: p.description,
             url: p.url,
+            github: p.github || "",
             category: projectsMenuName
+        }));
+    }
+
+    function searchServices(query) {
+        const q = query.toLowerCase();
+        return servicesData.filter(s =>
+            s.name.toLowerCase().includes(q) ||
+            s.description.toLowerCase().includes(q)
+        ).map(s => ({
+            title: s.name,
+            description: s.description,
+            url: s.url,
+            github: s.github || "",
+            category: servicesMenuName
         }));
     }
 
@@ -163,10 +183,22 @@
         }
 
         const projectResults = searchProjects(query).slice(0, 10);
-        const existingUrls = new Set(results.map(r => r.url));
+        const serviceResults = searchServices(query).slice(0, 10);
+        const existingItems = new Set(results.map(r => r.title + '|' + r.url + '|' + (r.github || "")));
+        
         projectResults.forEach(p => {
-            if (!existingUrls.has(p.url)) {
+            const key = p.title + '|' + p.url + '|' + p.github;
+            if (!existingItems.has(key)) {
+                existingItems.add(key);
                 results.push(p);
+            }
+        });
+        
+        serviceResults.forEach(s => {
+            const key = s.title + '|' + s.url + '|' + s.github;
+            if (!existingItems.has(key)) {
+                existingItems.add(key);
+                results.push(s);
             }
         });
 

@@ -16,11 +16,14 @@
 {% set has_featured = false %}
 {% set has_more = false %}
 {% for proj in projects_list %}
-  {% set is_highlighted = proj | get(key="highlight", default=false) %}
-  {% if is_highlighted %}
-    {% set_global has_featured = true %}
-  {% else %}
-    {% set_global has_more = true %}
+  {% set proj_name = proj | get(key="name", default="") %}
+  {% if proj_name %}
+    {% set is_featured = proj | get(key="featured", default=false) %}
+    {% if is_featured %}
+      {% set_global has_featured = true %}
+    {% else %}
+      {% set_global has_more = true %}
+    {% endif %}
   {% endif %}
 {% endfor %}
 
@@ -29,40 +32,47 @@
   <h2>Featured</h2>
   <div class="projects-grid">
     {% for proj in projects_list %}
-      {% set is_highlighted = proj | get(key="highlight", default=false) %}
-      {% if is_highlighted %}
+      {% set proj_name = proj | get(key="name", default="") %}
+      {% set is_featured = proj | get(key="featured", default=false) %}
+      {% if proj_name and is_featured %}
       <article class="project-card featured">
         <div class="project-header">
-          <h3 class="project-name">{{ proj.name }}</h3>
+          <h3 class="project-name">{{ proj_name }}</h3>
           <div class="project-stats">
-            {% if proj.stars %}
-            <span class="project-stars">{{ <icon name="star" /> }}{{ proj.stars }}</span>
+            {% set stars = proj | get(key="stars", default=0) %}
+            {% if stars %}
+            <span class="project-stars">{{ <icon name="star" /> }}{{ stars }}</span>
             {% endif %}
-            {% if proj.forks %}
-            <span class="project-forks">{{ <icon name="git-fork" /> }}{{ proj.forks }}</span>
+            {% set forks = proj | get(key="forks", default=0) %}
+            {% if forks %}
+            <span class="project-forks">{{ <icon name="git-fork" /> }}{{ forks }}</span>
             {% endif %}
           </div>
         </div>
-        <p class="project-desc">{{ proj.description }}</p>
+        <p class="project-desc">{{ proj | get(key="description", default="") }}</p>
         <div class="project-footer">
-          {% if proj.language %}
-          <span class="project-lang">{{ proj.language }}</span>
+          {% set language = proj | get(key="language", default="") %}
+          {% if language %}
+          <span class="project-lang">{{ language }}</span>
           {% endif %}
 
           <div class="project-links">
-            {% for link in proj.links -%}
-            {% if link.name == "URL" %}
-            <a href="{{ link.url }}" target="_blank" rel="noreferrer noopener" class="card-link">
+            {% set links = proj | get(key="links", default=[]) %}
+            {% for link in links -%}
+            {% set link_name = link | get(key="name", default="") %}
+            {% set link_url = link | get(key="url", default="#") %}
+            {% if link_name == "URL" %}
+            <a href="{{ link_url }}" target="_blank" rel="noreferrer noopener" class="card-link">
               <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
               URL
             </a>
-            {% elif link.name == "GitHub" %}
-            <a href="{{ link.url }}" target="_blank" rel="noreferrer noopener" class="card-link">
+            {% elif link_name == "GitHub" %}
+            <a href="{{ link_url }}" target="_blank" rel="noreferrer noopener" class="card-link">
               <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
               GitHub
             </a>
-            {% else %}
-            <a href="{{ link.url }}" target="_blank" rel="noreferrer noopener" class="card-link">{{ link.name }}</a>
+            {% elif link_name %}
+            <a href="{{ link_url }}" target="_blank" rel="noreferrer noopener" class="card-link">{{ link_name }}</a>
             {% endif %}
             {% endfor %}
           </div>
@@ -77,40 +87,47 @@
   <h2>More Projects</h2>
   <div class="projects-grid compact">
     {% for proj in projects_list %}
-      {% set is_highlighted = proj | get(key="highlight", default=false) %}
-      {% if not is_highlighted %}
+      {% set proj_name = proj | get(key="name", default="") %}
+      {% set is_featured = proj | get(key="featured", default=false) %}
+      {% if proj_name and not is_featured %}
       <article class="project-card">
         <div class="project-header">
-          <h3 class="project-name">{{ proj.name }}</h3>
+          <h3 class="project-name">{{ proj_name }}</h3>
           <div class="project-stats">
-            {% if proj.stars %}
-            <span class="project-stars">{{ <icon name="star" /> }}{{ proj.stars }}</span>
+            {% set stars = proj | get(key="stars", default=0) %}
+            {% if stars %}
+            <span class="project-stars">{{ <icon name="star" /> }}{{ stars }}</span>
             {% endif %}
-            {% if proj.forks %}
-            <span class="project-forks">{{ <icon name="git-fork" /> }}{{ proj.forks }}</span>
+            {% set forks = proj | get(key="forks", default=0) %}
+            {% if forks %}
+            <span class="project-forks">{{ <icon name="git-fork" /> }}{{ forks }}</span>
             {% endif %}
           </div>
         </div>
-        <p class="project-desc">{{ proj.description }}</p>
+        <p class="project-desc">{{ proj | get(key="description", default="") }}</p>
         <div class="project-footer">
-          {% if proj.language %}
-          <span class="project-lang">{{ proj.language }}</span>
+          {% set language = proj | get(key="language", default="") %}
+          {% if language %}
+          <span class="project-lang">{{ language }}</span>
           {% endif %}
 
           <div class="project-links">
-            {% for link in proj.links -%}
-            {% if link.name == "URL" %}
-            <a href="{{ link.url }}" target="_blank" rel="noreferrer noopener" class="card-link">
+            {% set links = proj | get(key="links", default=[]) %}
+            {% for link in links -%}
+            {% set link_name = link | get(key="name", default="") %}
+            {% set link_url = link | get(key="url", default="#") %}
+            {% if link_name == "URL" %}
+            <a href="{{ link_url }}" target="_blank" rel="noreferrer noopener" class="card-link">
               <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
               URL
             </a>
-            {% elif link.name == "GitHub" %}
-            <a href="{{ link.url }}" target="_blank" rel="noreferrer noopener" class="card-link">
+            {% elif link_name == "GitHub" %}
+            <a href="{{ link_url }}" target="_blank" rel="noreferrer noopener" class="card-link">
               <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
               GitHub
             </a>
-            {% else %}
-            <a href="{{ link.url }}" target="_blank" rel="noreferrer noopener" class="card-link">{{ link.name }}</a>
+            {% elif link_name %}
+            <a href="{{ link_url }}" target="_blank" rel="noreferrer noopener" class="card-link">{{ link_name }}</a>
             {% endif %}
             {% endfor %}
           </div>
