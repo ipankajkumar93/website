@@ -3,3 +3,9 @@ name = "Example Service"
 description = "A sample service description."
 url = "https://example.com/"
 github = "https://github.com/johndoe/example-service"
+
+[[service]]
+name = "Another Service"
+description = "A sample service description."
+url = "https://example.com/"
+github = "https://github.com/johndoe/example-service"

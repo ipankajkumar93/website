@@ -2,7 +2,7 @@
 # Total projects: 1
 
 [[project]]
-name = "example-project"
+name = "Featured-project"
 description = "A sample open source project."
 created = "Jul 2026"
 pushed = "Jul 2026"
@@ -13,4 +13,18 @@ links = [
   { name = "URL", url = "https://example.com/" },
   { name = "GitHub", url = "https://github.com/johndoe/example-project" },
 ]
-highlight = true
+featured = true
+
+[[project]]
+name = "More-project"
+description = "A sample open source project."
+created = "Jul 2026"
+pushed = "Jul 2026"
+stars = 10
+forks = 2
+language = "CSS, JavaScript, HTML"
+links = [
+  { name = "URL", url = "https://example.com/" },
+  { name = "GitHub", url = "https://github.com/johndoe/example-project" },
+]
+featured = false
