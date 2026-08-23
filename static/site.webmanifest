@@ -2,13 +2,13 @@
   "name": "John Doe",
   "short_name": "John",
   "description": "A standard template for your personal website.",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#0C0A09",
   "theme_color": "#0C0A09",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/favicon-dark.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     },
