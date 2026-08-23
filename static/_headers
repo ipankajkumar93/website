@@ -3,7 +3,7 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self' https://example.com https://*.example.com; script-src 'self' https://example.com https://*.example.com 'unsafe-inline' um.example.com static.cloudflareinsights.com; style-src 'self' https://example.com https://*.example.com 'unsafe-inline'; img-src 'self' https://example.com https://*.example.com data:; font-src 'self' https://example.com https://*.example.com; connect-src 'self' https://example.com https://*.example.com um.example.com cloudflareinsights.com; frame-src www.youtube-nocookie.com www.youtube.com
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://*.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https:; frame-src https://www.youtube-nocookie.com https://www.youtube.com
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 
 /fonts/*

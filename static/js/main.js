@@ -1,6 +1,6 @@
-// ── Helpers ────────────────────────────────────────────────────────────────
+// ── Helpers ──────────────────────────────────────────────────────────
 
-// ── Theme Toggle ────────────────────────────────────────────────────────────
+// ── Theme Toggle ────────────────────────────────────────────────────
 // main.js loads synchronously at the end of <body> so the DOM is fully
 // available here. The icon is updated eagerly (before DOMContentLoaded)
 // so the correct sun/moon icon renders without waiting for later init.
@@ -57,10 +57,10 @@ if (themeToggle) {
     });
 }
 
-// ── DOM-dependent functionality ─────────────────────────────────────────────
+// ── DOM-dependent functionality ───────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ── Focus Trap Helper ───────────────────────────────────────────────────
+    // ── Focus Trap Helper ─────────────────────────────────────────────
     function createFocusTrap(element) {
         element.addEventListener('keydown', function (e) {
             if (e.key === 'Tab') {
@@ -88,11 +88,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ── Lightbox ────────────────────────────────────────────────────────────
-    const lightboxModal = document.createElement('div');
+    // ── Lightbox ──────────────────────────────────────────────────────
+    const lightboxModal = document.createElement('dialog');
     lightboxModal.className = 'lightbox-modal';
-    lightboxModal.setAttribute('role', 'dialog');
-    lightboxModal.setAttribute('aria-modal', 'true');
     lightboxModal.innerHTML = '<button class="lightbox-close" aria-label="Close lightbox">&times;</button><img src="" alt="">';
     document.body.appendChild(lightboxModal);
 
@@ -106,6 +104,9 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             lightboxImg.src = this.getAttribute('href');
             lightboxImg.alt = this.querySelector('img')?.getAttribute('alt') || '';
+            if (typeof lightboxModal.showModal === 'function') {
+                if (!lightboxModal.open) lightboxModal.showModal();
+            }
             lightboxModal.classList.add('active');
             document.body.classList.add('no-scroll');
             lightboxCloseBtn.focus();
@@ -118,18 +119,26 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    lightboxModal.addEventListener('cancel', function (e) {
+        e.preventDefault();
+        closeLightbox();
+    });
+
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && lightboxModal.classList.contains('active')) {
+        if (e.key === 'Escape' && (lightboxModal.open || lightboxModal.classList.contains('active'))) {
             closeLightbox();
         }
     });
 
     function closeLightbox() {
         lightboxModal.classList.remove('active');
+        if (typeof lightboxModal.close === 'function' && lightboxModal.open) {
+            lightboxModal.close();
+        }
         document.body.classList.remove('no-scroll');
     }
 
-    // ── Mobile Menu ─────────────────────────────────────────────────────────
+    // ── Mobile Menu ───────────────────────────────────────────────────
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const mobileCloseBtn = document.querySelector('.mobile-close-btn');
     const navItems = document.querySelector('.nav-items');
@@ -145,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         document.addEventListener('keydown', function (e) {
             const searchModal = document.getElementById('search-modal');
-            const isSearchActive = searchModal && searchModal.classList.contains('active');
+            const isSearchActive = searchModal && (searchModal.open || searchModal.classList.contains('active'));
             
             if (e.key === 'Escape' && navItems.classList.contains('active') && !isSearchActive) {
                 closeMobileMenu();
@@ -170,11 +179,11 @@ document.addEventListener('DOMContentLoaded', function () {
         mobileMenuBtn.setAttribute('aria-expanded', 'false');
     }
 
-    // ── Back to Top ─────────────────────────────────────────────────────────
+    // ── Back to Top ───────────────────────────────────────────────────
     const backToTop = document.getElementById('back-to-top');
 
     if (backToTop) {
-        // RAF-throttled scroll listener - avoids layout thrashing
+        // RAF-throttled scroll listener - maintains accurate scroll percentage calculation
         let scrollTicking = false;
         window.addEventListener('scroll', function () {
             if (!scrollTicking) {
@@ -201,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ── Responsive Tables ───────────────────────────────────────────────────
+    // ── Responsive Tables ─────────────────────────────────────────────
     // Wraps tables in a scrollable container; uses a CSS class (not inline
     // style) to suppress the table's own bottom margin inside the wrapper.
     document.querySelectorAll('table').forEach(table => {
@@ -215,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const copyTemplate = document.getElementById('icon-copy');
     const checkTemplate = document.getElementById('icon-check');
 
-    // ── Code Block Copy Button ──────────────────────────────────────────────
+    // ── Code Block Copy Button ────────────────────────────────────────
     document.querySelectorAll('pre').forEach(block => {
         if (block.querySelector('.copy-code-btn') || !block.querySelector('code')) return;
 
@@ -270,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function () {
         block.appendChild(button);
     });
 
-    // ── Code Block Copy-Event Interceptor ───────────────────────────────────
+    // ── Code Block Copy-Event Interceptor ─────────────────────────────
     // CSS `white-space: pre-wrap` makes long lines wrap visually, but the
     // browser would normally insert \n at each visual break when the user
     // copies selected text. The handler below intercepts the native `copy`
@@ -297,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
     });
 
-    // ── AJAX Pagination ─────────────────────────────────────────────────────
+    // ── AJAX Pagination ───────────────────────────────────────────────
     let currentPageController = null;
 
     async function loadPage(url, isPopState = false) {
@@ -489,7 +498,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // ── Taxonomy Filter Logic ───────────────────────────────────────────────
+    // ── Taxonomy Filter Logic ─────────────────────────────────────────
     const filterClear = document.getElementById('filter-clear');
     if (filterClear && new URLSearchParams(window.location.search).get('ref') === 'topics') {
         const topicsUrl = filterClear.getAttribute('data-topics-url');
@@ -499,10 +508,11 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.classList.add('show-unified-taxonomy');
     }
 
-    // ── Logo Typing Animation ───────────────────────────────────────────────
+    // ── Logo Typing Animation ─────────────────────────────────────────
     const logo = document.getElementById('logo-text');
     const titleLink = logo ? logo.closest('.title') : null;
-    if (logo && titleLink) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (logo && titleLink && !prefersReducedMotion) {
         const title = logo.dataset.title || '';
         const brand = logo.dataset.brand || '';
 
@@ -641,7 +651,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // ── Footnotes Accessibility & Tooltip Text ──────────────────────────────
+    // ── Footnotes Accessibility & Tooltip Text ────────────────────────
     document.querySelectorAll('.footnotes-list a').forEach(link => {
         if (!link.hasAttribute('aria-label') && !link.hasAttribute('title')) {
             link.setAttribute('aria-label', 'Return to text');
@@ -654,7 +664,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ── Custom Tooltip ──────────────────────────────────────────────────────
+    // ── Custom Tooltip ────────────────────────────────────────────────
     const tooltipEl = document.createElement('div');
     tooltipEl.className = 'custom-tooltip';
     document.body.appendChild(tooltipEl);

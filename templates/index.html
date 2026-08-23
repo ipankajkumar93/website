@@ -11,7 +11,7 @@
   
   {% set has_featured = false %}
   {% for page in all_pages %}
-    {% if page.extra.featured %}
+    {% if page.extra?.featured %}
       {% set_global has_featured = true %}
     {% endif %}
   {% endfor %}

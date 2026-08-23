@@ -46,6 +46,10 @@ dark_theme = "github-dark-default"
 [extra]
 # katex = true           # Uncomment to enable KaTeX math rendering globally on all pages
 # mermaid = true         # Uncomment to enable Mermaid.js flowchart rendering globally on all pages
+# analytics_url = "https://um.example.com/script.js"          # Optional: Umami or custom analytics script URL
+# analytics_website_id = "df56dg3-2811-47a4-ab84-82c2edc0280f" # Optional: Website ID
+# analytics_domains = "example.com,www.example.com"          # Optional: Allowed analytics domains
+
 brand = "~/johndoe"      # Used as the logo name in the header
 favicon = "/favicon.svg"
 date_format = "%d %b, %Y"
