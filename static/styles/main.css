@@ -1,3 +1,5 @@
+@layer tokens, reset, base, components, utilities;
+
 /* --------------------------------------------------------------------------
    CSS Custom Properties
    -------------------------------------------------------------------------- */
@@ -693,6 +695,7 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
 }
 
 /* Search Modal */
+dialog.search-modal,
 .search-modal {
     --color-border: #A8A29E;
     position: fixed;
@@ -701,10 +704,22 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding-top: 12vh;
+    padding: 12vh 0 0 0;
+    margin: 0;
+    width: 100%;
+    max-width: 100vw;
+    height: 100%;
+    max-height: 100vh;
+    border: none;
+    background: transparent;
+    color: inherit;
     visibility: hidden;
     pointer-events: none;
     transition: visibility 0.2s ease;
+}
+
+dialog.search-modal::backdrop {
+    background: transparent;
 }
 
 :root[data-theme="dark"] .search-modal {
@@ -1024,6 +1039,9 @@ html[data-theme="light"] .theme-toggle .theme-icon-light {
     background-color: var(--color-bg-subtle);
     border: 2px solid var(--color-border);
     color: var(--color-text-secondary);
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
     transition: all var(--transition-fast);
 }
 
@@ -1690,6 +1708,10 @@ h6:hover .zola-anchor {
     align-items: center;
     justify-content: center;
     position: relative;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
     color: var(--color-text-secondary);
     font-family: var(--font-mono);
     font-size: 0.85rem;
@@ -2191,6 +2213,7 @@ figcaption {
 /* --------------------------------------------------------------------------
    Lightbox
    -------------------------------------------------------------------------- */
+dialog.lightbox-modal,
 .lightbox-modal {
     display: none;
     position: fixed;
@@ -2199,10 +2222,19 @@ figcaption {
     left: 0;
     width: 100%;
     height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+    margin: 0;
+    padding: 0;
+    border: none;
     background-color: rgba(12, 10, 9, 0.95);
     cursor: pointer;
     backdrop-filter: blur(var(--blur-backdrop));
     -webkit-backdrop-filter: blur(var(--blur-backdrop));
+}
+
+dialog.lightbox-modal::backdrop {
+    background: transparent;
 }
 
 .lightbox-modal.active {

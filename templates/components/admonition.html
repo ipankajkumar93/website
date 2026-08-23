@@ -1,4 +1,4 @@
-{% component admonition(kind) %}
+{% component admonition(kind="note") %}
 {% set type = kind | lower %}
 <aside class="admonition {{ type }}" {% if type == "warning" or type == "caution" %}role="alert"{% else %}role="note"{% endif %}>
 <p class="admonition-header">{% if type == "note" %}{{ <icon name="info" /> }}{% elif type == "tip" %}{{ <icon name="zap" /> }}{% elif type == "important" %}{{ <icon name="alert-circle" /> }}{% elif type == "warning" %}{{ <icon name="alert-triangle" /> }}{% elif type == "caution" %}{{ <icon name="x-octagon" /> }}{% endif %} {{ kind | title }}</p>
