@@ -3,7 +3,11 @@
 {% block page_content %}
 <div class="contact-page">
   <div class="contact-grid">
-    {% set links = [page.extra.email, page.extra.x, page.extra.github, page.extra.linkedin] %}
+    {% set links = [] %}
+    {% if page.extra?.email %}{% set_global links = [...links, page.extra.email] %}{% endif %}
+    {% if page.extra?.x %}{% set_global links = [...links, page.extra.x] %}{% endif %}
+    {% if page.extra?.github %}{% set_global links = [...links, page.extra.github] %}{% endif %}
+    {% if page.extra?.linkedin %}{% set_global links = [...links, page.extra.linkedin] %}{% endif %}
     {% for link in links %}
     <a href="{{ link.url }}" {% if link.url is starting_with(pat="http") %}target="_blank" rel="noopener noreferrer me" {%
       endif %} class="contact-card" aria-label="{{ link.platform }} profile">

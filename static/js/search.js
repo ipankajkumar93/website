@@ -1,4 +1,4 @@
-// ── Search ─────────────────────────────────────────────
+// ── Search ─────────────────────────────────────────────────────────
 (function () {
     const searchBtns = document.querySelectorAll('.search-btn');
     const searchModal = document.getElementById('search-modal');
@@ -64,6 +64,13 @@
             .replace(/'/g, '&#039;');
     }
 
+    function isSafeUrl(url) {
+        if (!url || typeof url !== 'string') return false;
+        const trimmed = url.trim();
+        if (/^\s*javascript:/i.test(trimmed) || /^\s*data:/i.test(trimmed)) return false;
+        return /^(https?:\/\/|\/|#)/i.test(trimmed);
+    }
+
     function initSearchIndex() {
         if (searchIndex) return;
         if (typeof elasticlunr !== 'undefined' && typeof window.searchIndex !== 'undefined') {
@@ -74,6 +81,12 @@
     function openSearch() {
         searchResults.innerHTML = '<div class="search-empty-state">Start typing to search</div>';
         searchInput.value = '';
+        
+        if (typeof searchModal.showModal === 'function') {
+            if (!searchModal.open) {
+                searchModal.showModal();
+            }
+        }
         searchModal.classList.add('active');
         document.body.classList.add('no-scroll');
         
@@ -102,6 +115,9 @@
 
     function closeSearch() {
         searchModal.classList.remove('active');
+        if (typeof searchModal.close === 'function' && searchModal.open) {
+            searchModal.close();
+        }
         
         const navItems = document.querySelector('.nav-items');
         if (navItems && navItems.classList.contains('active')) {
@@ -115,7 +131,7 @@
         for (const item of menuData) {
             if (item.url === '/') {
                 if (url === '/') return item.name;
-            } else if (!item.url.match(/^https?:\/\//)) {
+            } else if (!item.url.match(/^https?:/)) {
                 if (url.includes(item.clean_url)) return item.name;
             }
         }
@@ -219,9 +235,10 @@
             html += '<div class="search-group">';
             html += '<h3 class="search-group-title">' + sanitize(cat) + ' <span class="search-group-count">(' + grouped[cat].length + ')</span></h3>';
             grouped[cat].forEach(item => {
-                const isExternal = item.url && (item.url.startsWith('http://') || item.url.startsWith('https://'));
+                const rawUrl = isSafeUrl(item.url) ? item.url : '#';
+                const isExternal = rawUrl && (rawUrl.startsWith('http://') || rawUrl.startsWith('https://'));
                 const targetAttr = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
-                html += '<a href="' + sanitize(item.url) + '"' + targetAttr + ' class="search-result-item" role="option">';
+                html += '<a href="' + sanitize(rawUrl) + '"' + targetAttr + ' class="search-result-item" role="option">';
                 html += '<span class="search-result-title">' + sanitize(item.title) + '</span>';
                 if (item.description) {
                     html += '<span class="search-result-desc">' + sanitize(item.description).substring(0, 120) + '</span>';
@@ -238,6 +255,11 @@
     if (searchClose) searchClose.addEventListener('click', closeSearch);
     if (searchBackdrop) searchBackdrop.addEventListener('click', closeSearch);
 
+    searchModal.addEventListener('cancel', function(e) {
+        e.preventDefault();
+        closeSearch();
+    });
+
     if (searchInput) {
         searchInput.addEventListener('input', function () {
             clearTimeout(debounceTimer);
@@ -248,62 +270,65 @@
     document.addEventListener('keydown', function (e) {
         if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
             e.preventDefault();
-            if (searchModal && searchModal.classList.contains('active')) {
+            const isOpen = searchModal.open || searchModal.classList.contains('active');
+            if (isOpen) {
                 closeSearch();
-            } else if (searchModal) {
+            } else {
                 openSearch();
             }
         }
-        if (e.key === 'Escape' && searchModal && searchModal.classList.contains('active')) {
-            e.preventDefault();
-            closeSearch();
+        if (e.key === 'Escape') {
+            const isOpen = searchModal.open || searchModal.classList.contains('active');
+            if (isOpen) {
+                e.preventDefault();
+                closeSearch();
+            }
         }
     });
 
-    if (searchModal) {
-        searchModal.addEventListener('keydown', function (e) {
-            if (!searchModal.classList.contains('active')) return;
+    searchModal.addEventListener('keydown', function (e) {
+        const isOpen = searchModal.open || searchModal.classList.contains('active');
+        if (!isOpen) return;
 
-            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-                const results = Array.from(searchResults.querySelectorAll('.search-result-item'));
-                if (results.length === 0) return;
-                
-                e.preventDefault();
-                const active = document.activeElement;
-                const currentIndex = results.indexOf(active);
-                let nextIndex = 0;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            const results = Array.from(searchResults.querySelectorAll('.search-result-item'));
+            if (results.length === 0) return;
+            
+            e.preventDefault();
+            const active = document.activeElement;
+            const currentIndex = results.indexOf(active);
+            let nextIndex = 0;
 
-                if (e.key === 'ArrowDown') {
-                    nextIndex = currentIndex < results.length - 1 ? currentIndex + 1 : 0;
-                } else {
-                    nextIndex = currentIndex > 0 ? currentIndex - 1 : results.length - 1;
-                }
-                results[nextIndex].focus();
-                return;
+            if (e.key === 'ArrowDown') {
+                nextIndex = currentIndex < results.length - 1 ? currentIndex + 1 : 0;
+            } else {
+                nextIndex = currentIndex > 0 ? currentIndex - 1 : results.length - 1;
             }
+            results[nextIndex].focus();
+            return;
+        }
 
-            if (e.key === 'Tab') {
-                const focusable = Array.from(
-                    searchModal.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])')
-                ).filter(el => !el.closest('[aria-hidden="true"]'));
+        if (e.key === 'Tab') {
+            const focusable = Array.from(
+                searchModal.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])')
+            ).filter(el => !el.closest('[aria-hidden="true"]'));
 
-                if (focusable.length === 0) return;
+            if (focusable.length === 0) return;
 
-                const first = focusable[0];
-                const last = focusable[focusable.length - 1];
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
 
-                if (e.shiftKey) {
-                    if (document.activeElement === first || document.activeElement === searchModal) {
-                        e.preventDefault();
-                        last.focus();
-                    }
-                } else {
-                    if (document.activeElement === last) {
-                        e.preventDefault();
-                        first.focus();
-                    }
+            if (e.shiftKey) {
+                if (document.activeElement === first || document.activeElement === searchModal) {
+                    e.preventDefault();
+                    last.focus();
+                }
+            } else {
+                if (document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
                 }
             }
-        });
-    }
+        }
+    });
 })();

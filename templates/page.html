@@ -19,14 +19,14 @@
     <span class="draft-note">This post is unpublished and only visible in local preview</span>
   </div>
   {%- endif %}
-  {%- if not page.extra.menu %}
+  {%- if not page.extra?.menu %}
   {%- if page.title %}
   <h1 class="article-title">{{ page.title }}</h1>
   <div class="title-copy-url">
-    <a href="javascript:void(0);" id="title-copy-link" data-url="{{ current_url | safe }}" class="copy-url-btn" aria-label="Copy link to article" title="Copy link to article">
+    <button type="button" id="title-copy-link" data-url="{{ current_url | safe }}" class="copy-url-btn" aria-label="Copy link to article" title="Copy link to article">
       {{ <icon name="copy-link" /> }}
       <span>COPY URL</span>
-    </a>
+    </button>
   </div>
   {%- endif %}
   <div class="meta article-meta">
@@ -46,7 +46,7 @@
   </div>
   {%- endif %}
 
-  {%- if page.extra.cover_image %}
+  {%- if page.extra?.cover_image %}
   <div class="article-cover{% if is_restricted %} restricted-width{% endif %}">
     {% set cover_path = page.extra.cover_image %}
     {% if cover_path is starting_with(pat="/") %}
@@ -59,7 +59,7 @@
   </div>
   {%- endif %}
 
-  {%- if page.extra.toc and page.toc %}
+  {%- if page.extra?.toc and page.toc %}
   <div id="toc-sentinel"></div>
   <div class="toc{% if is_restricted %} restricted-width{% endif %}">
     <div class="toc-title">
@@ -91,7 +91,7 @@
     
     <div class="post-license">
       - Written by human, polished by AI
-      {% if page.extra.license and page.extra.license == "CC-BY-SA-4.0" %}
+      {% if page.extra?.license == "CC-BY-SA-4.0" %}
       <br>
       - This post is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>
       {% endif %}
@@ -101,9 +101,9 @@
   <div class="share-block{% if is_restricted %} restricted-width{% endif %}">
     <span class="share-label">Worth sharing?</span>
     <div class="share-icons">
-      <a href="javascript:void(0);" id="social-copy-link" data-url="{{ current_url }}" class="share-icon" aria-label="Copy link" title="Copy link">
+      <button type="button" id="social-copy-link" data-url="{{ current_url }}" class="share-icon" aria-label="Copy link" title="Copy link">
         {{ <icon name="copy-link" /> }}
-      </a>
+      </button>
       <a href="https://api.whatsapp.com/send?text={{ page.title | urlencode }}%20{{ current_url | urlencode }}"
         target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on WhatsApp">
         {{ <icon name="whatsapp" /> }}
@@ -112,7 +112,7 @@
         rel="noopener noreferrer" class="share-icon" aria-label="Share on Facebook">
         {{ <icon name="facebook" /> }}
       </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ current_url | urlencode }}&title={{ page.title | urlencode }}"
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ current_url | urlencode }}"
         target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on LinkedIn">
         {{ <icon name="linkedin" /> }}
       </a>
