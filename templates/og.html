@@ -31,7 +31,7 @@
         {% set article_modified_time = page.date -%}
     {% endif -%}
     {# Use custom og_preview_img if set, otherwise fall back to auto-generated image #}
-    {% if page.extra.og_preview_img -%}
+    {% if page.extra?.og_preview_img -%}
         {% set og_image = page.extra.og_preview_img | trim_start(pat="/") -%}
     {% else -%}
         {% set path_trimmed = page.path | trim_end(pat="/") -%}
@@ -52,7 +52,7 @@
     {% set x_card = "summary_large_image" -%}
 {% endif -%}
 
-{# ── Standard HTML Meta ─────────────────────────────────── #}
+{# ── Standard HTML Meta ─────────────────────────────────────────── #}
 <meta name="description" content="{{ og_description }}">
 <meta name="author" content="{{ config.title }}">
 <link rel="canonical" href="{{ og_url | safe }}">
@@ -90,13 +90,13 @@
     {% endif -%}
 {% endif -%}
 
-{# ── X Cards ──────────────────────────────────── #}
+{# ── X Cards ──────────────────────────────────────────────────────── #}
 {% set contact_page = get_page(path="contact/index.md") %}
 <meta name="twitter:card" content="{{ x_card }}">
 <meta name="twitter:title" content="{{ og_title }}">
 <meta name="twitter:description" content="{{ og_description }}">
 <meta name="twitter:url" content="{{ og_url | safe }}">
-{% if contact_page.extra.x %}
+{% if contact_page.extra?.x?.url %}
 <meta name="twitter:site" content="@{{ contact_page.extra.x.url | split(pat='/') | last }}">
 <meta name="twitter:creator" content="@{{ contact_page.extra.x.url | split(pat='/') | last }}">
 {% endif %}
@@ -121,7 +121,7 @@
     {% endif -%}
 {% endif -%}
 
-{# ── JSON-LD Structured Data ─────────────────────────────── #}
+{# ── JSON-LD Structured Data ─────────────────────────────────────── #}
 <script type="application/ld+json">
 {% if og_type == "article" -%}
 {% if "posts" in page.components or "travel" in page.components -%}

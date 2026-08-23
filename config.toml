@@ -49,6 +49,9 @@ date_format = "%d %b, %Y"
 wrap_code = false
 katex = false           # Toggle to enable KaTeX math rendering globally on all pages
 mermaid = false         # Toggle to enable Mermaid.js flowchart rendering globally on all pages
+analytics_url = "https://um.pankajkumar.xyz/script.js"          # Optional: Umami or custom analytics script URL
+analytics_website_id = "ada632ca-2811-47a4-ab84-82c2edc0280f" # Optional: Website ID
+analytics_domains = "pankajkumar.xyz,www.pankajkumar.xyz"          # Optional: Allowed analytics domains
 
 # Section configurations
 
