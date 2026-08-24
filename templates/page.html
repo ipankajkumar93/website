@@ -151,7 +151,7 @@
         <span>Previous</span>
       </a>
       <div class="nav-title-wrapper">
-        <a href="{{ page.lower.permalink }}" class="nav-title" aria-hidden="true">{{ page.lower.title }}</a>
+        <a href="{{ page.lower.permalink }}" class="nav-title" aria-hidden="true" tabindex="-1">{{ page.lower.title }}</a>
       </div>
     </div>
     {% else %}
@@ -165,7 +165,7 @@
         {{ <icon name="chevron-right" /> }}
       </a>
       <div class="nav-title-wrapper">
-        <a href="{{ page.higher.permalink }}" class="nav-title" aria-hidden="true">{{ page.higher.title }}</a>
+        <a href="{{ page.higher.permalink }}" class="nav-title" aria-hidden="true" tabindex="-1">{{ page.higher.title }}</a>
       </div>
     </div>
     {% else %}

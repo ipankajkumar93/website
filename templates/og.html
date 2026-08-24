@@ -21,8 +21,10 @@
     {% else -%}
         {% set og_type = "website" -%}
     {% endif -%}
-    {% set og_title = page.title -%}
-    {% set og_description = page.description -%}
+    {% set og_title = page.title | default(value=config.title) -%}
+    {% if not og_title %}{% set og_title = config.title %}{% endif -%}
+    {% set og_description = page.description | default(value=config.description) -%}
+    {% if not og_description %}{% set og_description = config.description %}{% endif -%}
     {% set og_url = page.permalink -%}
     {% set article_published_time = page.date -%}
     {% if page.updated -%}
@@ -41,7 +43,9 @@
 {% elif section -%}
     {% set og_type = "website" -%}
     {% set og_title = section.title | default(value=config.title) -%}
+    {% if not og_title %}{% set og_title = config.title %}{% endif -%}
     {% set og_description = section.description | default(value=config.description) -%}
+    {% if not og_description %}{% set og_description = config.description %}{% endif -%}
     {% set og_url = section.permalink -%}
     {% set path_trimmed = current_path | trim_end(pat="/") -%}
     {% if path_trimmed == "" -%}
