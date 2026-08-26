@@ -3719,6 +3719,15 @@ table.in-wrapper {
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-sm);
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sitemap-item-badge svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: var(--icon-stroke-bold, 2);
 }
 
 .sitemap-icon-wrapper {
