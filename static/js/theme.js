@@ -22,11 +22,11 @@
     try {
         const svgIcon = document.getElementById('svg-favicon');
         if (svgIcon) {
-            svgIcon.href = theme === 'dark' ? (svgIcon.dataset.darkHref || '/favicon-dark.svg') : (svgIcon.dataset.lightHref || '/favicon-light.svg');
+            svgIcon.href = theme === 'dark' ? (svgIcon.dataset.darkHref || '/favicon-light.svg') : (svgIcon.dataset.lightHref || '/favicon-light.svg');
         }
         const icoIcon = document.getElementById('ico-favicon');
         if (icoIcon) {
-            icoIcon.href = theme === 'dark' ? (icoIcon.dataset.darkHref || '/favicon-dark.ico') : (icoIcon.dataset.lightHref || '/favicon-light.ico');
+            icoIcon.href = theme === 'dark' ? (icoIcon.dataset.darkHref || '/favicon-light.ico') : (icoIcon.dataset.lightHref || '/favicon-light.ico');
         }
     } catch (e) {}
 })();
