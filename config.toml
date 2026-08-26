@@ -51,7 +51,7 @@ dark_theme = "github-dark-default"
 # analytics_domains = "example.com,www.example.com"          # Optional: Allowed analytics domains
 
 brand = "~/johndoe"      # Used as the logo name in the header
-favicon = "/favicon.svg"
+favicon = "/favicon-light.svg"
 date_format = "%d %b, %Y"
 wrap_code = false
 
