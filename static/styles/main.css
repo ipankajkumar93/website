@@ -3697,6 +3697,7 @@ table.in-wrapper {
     -webkit-box-orient: vertical;
     overflow: hidden;
     color: var(--color-text-secondary);
+    text-align: center;
 }
 
 .sitemap-item-card:hover .sitemap-item-title {
