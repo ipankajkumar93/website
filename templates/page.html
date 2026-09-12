@@ -136,7 +136,7 @@
     <div class="tags-label">Related Tags</div>
     {%- for name, taxon in page.taxonomies %}
     {%- for item in taxon %}
-    <a href="{{ get_taxonomy_url(kind=name | replace(from='_', to='-'), term=item) }}" class="tag">{{ item }}</a>
+    <a href="{{ get_taxonomy_url(kind=name, term=item) }}" class="tag">{{ item }}</a>
     {%- endfor %}
     {%- endfor %}
   </div>
