@@ -5,11 +5,11 @@ echo ">>> Installing uv..."
 curl -LsSf https://astral.sh/uv/0.12.3/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
 
-echo ">>> Ensuring Zola 0.23.4 is installed..."
-if ! command -v zola &> /dev/null || ! zola --version | grep -q "0.23.4"; then
-    echo "Downloading Zola 0.23.4..."
+echo ">>> Ensuring Zola 0.23.5 is installed..."
+if ! command -v zola &> /dev/null || ! zola --version | grep -q "0.23.5"; then
+    echo "Downloading Zola 0.23.5..."
     mkdir -p "$HOME/.local/bin"
-    curl -L https://github.com/getzola/zola/releases/download/v0.23.4/zola-v0.23.4-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C "$HOME/.local/bin"
+    curl -L https://github.com/getzola/zola/releases/download/v0.23.5/zola-v0.23.5-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C "$HOME/.local/bin"
 fi
 
 echo ">>> Building Zola site..."
