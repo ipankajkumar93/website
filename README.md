@@ -6,7 +6,7 @@ A clean, minimal, and fast boilerplate template for personal websites and blogs.
 
 <p align="center">
   <a href="https://example.com"><img src="https://img.shields.io/badge/Website-example.com-00BFA5?style=for-the-badge&logo=safari&logoColor=white" alt="Website"></a>
-  <a href="https://github.com/johndoe/zola-slate"><img src="https://img.shields.io/badge/GitHub-johndoe-7C3AED?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
+  <a href="https://github.com/ipankajkumar93/zola-slate"><img src="https://img.shields.io/badge/GitHub-johndoe-7C3AED?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
 </p>
 
 <p align="center">
@@ -153,7 +153,7 @@ make <type> <Title>[, <Description>]
 These are intentional style choices baked into the site's voice:
 
 - **Article signatures:** `Flush!`
-- **Footer:** _Crafted with ❤️ by John Doe_
+- **Footer:** _Crafted with ❤️ by Pankaj Kumar_
 - **Nav prefixes:** `>` and `./` (shell-language aesthetic)
 
 > 📖 For a full reference of supported Markdown syntax, formatting elements, and content patterns used across the site, see the **[Post Syntax Guide](https://example.com/posts/syntax-guide/)**.
@@ -231,6 +231,6 @@ Third-party components and their licenses are fully documented in [THIRD-PARTY-L
 
 <div align="center">
 
-Crafted with ❤️ by [John Doe](https://example.com)
+Crafted with ❤️ by [Pankaj Kumar](https://pankajkumar.xyz)
 
 </div>
