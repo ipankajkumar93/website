@@ -1817,7 +1817,7 @@ code {
     font-size: 0.85em;
     font-weight: 400;
     background-color: var(--color-bg-subtle);
-    color: var(--color-accent);
+    color: var(--color-link);
     border: 2px solid var(--color-border);
     padding: 0.2em 0.45em;
     border-radius: var(--radius-md);
