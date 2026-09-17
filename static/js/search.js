@@ -40,7 +40,7 @@
     let searchIndex = null;
     let debounceTimer = null;
     let typeInterval = null;
-    const fullPlaceHolder = "Search posts, projects, travel…";
+    const fullPlaceHolder = (searchInput && searchInput.getAttribute('placeholder')) || "Type to Search…";
 
     function typePlaceHolder() {
         searchInput.setAttribute('placeholder', '');
