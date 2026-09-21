@@ -63,6 +63,11 @@
     /* Brand accent - fixed cobalt, same in both themes (used where color must not shift) */
     --color-accent-brand: #2870C2;
 
+    /* Scrollbar */
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: #3070ba;
+    --scrollbar-thumb-hover: #1A5AA8;
+
     /* Animations */
     --bounce-offset: -2px;
 
@@ -167,6 +172,11 @@
     --color-accent-subtle: #0A1E3D;
     --color-accent-muted: #163E70;
 
+    /* Scrollbar */
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: #163E70;
+    --scrollbar-thumb-hover: #2870C2;
+
     --color-link: #4D9FFF;
     --color-link-hover: #80BFFF;
     --color-link-visited: #A8A29E;
@@ -209,6 +219,38 @@ html {
     scroll-behavior: smooth;
     scrollbar-gutter: stable;
     background-color: var(--color-bg);
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* --------------------------------------------------------------------------
+   Custom Scrollbars (Site-wide)
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: var(--radius-full);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: var(--scrollbar-thumb-hover);
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
 }
 
 body {
@@ -846,15 +888,57 @@ dialog.search-modal::backdrop {
     overflow-y: auto;
     padding: var(--space-sm);
     max-height: calc(70vh - 80px);
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-border) transparent;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+.search-results::-webkit-scrollbar {
+    width: 8px;
+}
+
+.search-results::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 4px 0;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: var(--radius-full);
+}
+
+.search-results::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover);
+}
+
+.search-results::-webkit-scrollbar-thumb:active {
+    background-color: var(--scrollbar-thumb-hover);
 }
 
 .toc-inner {
     max-height: calc(100vh - 12rem);
     overflow-y: hidden;
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-border) transparent;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+.toc-inner::-webkit-scrollbar {
+    width: 8px;
+}
+
+.toc-inner::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 4px 0;
+}
+
+.toc-inner::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: var(--radius-full);
+}
+
+.toc-inner::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover);
+}
+
+.toc-inner::-webkit-scrollbar-thumb:active {
+    background-color: var(--scrollbar-thumb-hover);
 }
 
 /* Let the inner scroll when open */
@@ -1593,8 +1677,7 @@ article h1 {
     padding: 0 var(--space-lg);
     opacity: 0;
     border-radius: 0 0 var(--radius-md) var(--radius-md);
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-border) transparent;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
     transition: opacity 0.3s ease-out;
 }
 
@@ -1898,8 +1981,7 @@ pre code {
     color: inherit;
     border-radius: 0;
     overflow-x: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-border) transparent;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
 }
 
 /* Custom Scrollbar for Code Blocks */
@@ -1912,11 +1994,14 @@ pre code::-webkit-scrollbar-track {
     border-radius: var(--radius-full);
 }
 pre code::-webkit-scrollbar-thumb {
-    background-color: var(--color-border);
+    background-color: var(--scrollbar-thumb);
     border-radius: var(--radius-full);
 }
 pre code::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-text-muted);
+    background-color: var(--scrollbar-thumb-hover);
+}
+pre code::-webkit-scrollbar-thumb:active {
+    background-color: var(--scrollbar-thumb-hover);
 }
 
 /* Optional soft-wrapping enabled via config/frontmatter */
@@ -3842,7 +3927,7 @@ body.show-unified-taxonomy #unified-topics-view { display: block !important; }
    Custom Tooltip
    -------------------------------------------------------------------------- */
 .custom-tooltip {
-    position: absolute;
+    position: fixed;
     background-color: var(--color-bg-elevated);
     color: var(--color-text);
     border: 1px solid var(--color-text-muted);

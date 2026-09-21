@@ -679,7 +679,10 @@ document.addEventListener('DOMContentLoaded', function () {
         '.theme-toggle',
         '.copy-code-btn',
         '.footnotes-list a',
-        '.footnote-reference a'
+        '.footnote-reference a',
+        '.mobile-menu-btn',
+        '.mobile-close-btn',
+        '.search-close'
     ].join(', ');
 
     const getTooltipText = (target) => {
@@ -702,6 +705,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // Prevent flickering when moving between target and its children
         if (e.relatedTarget && target.contains(e.relatedTarget)) return;
 
+        const parentDialog = target.closest('dialog');
+        const container = parentDialog || document.body;
+        if (tooltipEl.parentNode !== container) {
+            container.appendChild(tooltipEl);
+        }
+
         const text = getTooltipText(target);
         if (!text) return;
 
@@ -710,14 +719,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const rect = target.getBoundingClientRect();
         const margin = 8;
-        
-        let top = rect.top + window.scrollY - tooltipEl.offsetHeight - margin;
+        let top = rect.top - tooltipEl.offsetHeight - margin;
         const halfWidth = tooltipEl.offsetWidth / 2;
-        let left = rect.left + window.scrollX + (rect.width / 2) - halfWidth;
+        let left = rect.left + (rect.width / 2) - halfWidth;
         
         // Vertical bounds check: if it goes off the top, place it below
-        if (top < window.scrollY + margin) {
-            top = rect.bottom + window.scrollY + margin;
+        if (top < margin) {
+            top = rect.bottom + margin;
         }
         
         // Horizontal bounds check: ensure it doesn't go off the sides
