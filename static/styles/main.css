@@ -1409,7 +1409,7 @@ ul.blog-posts li:hover {
     background-color: var(--color-border);
 }
 
-ul.blog-posts li span:not(.draft-tag):not(.category-badge):not(.post-title-wrapper) {
+ul.blog-posts li span:not(.draft-tag):not(.taxonomy-label):not(.post-title-wrapper) {
     flex: 0 0 110px;
     font-size: var(--step-0);
     color: var(--color-text-muted);
@@ -3219,7 +3219,7 @@ main {
         text-wrap: pretty;
     }
 
-    ul.blog-posts li span:not(.draft-tag):not(.category-badge):not(.post-title-wrapper) {
+    ul.blog-posts li span:not(.draft-tag):not(.taxonomy-label):not(.post-title-wrapper) {
         flex: none;
     }
 
@@ -3388,7 +3388,7 @@ main {
     vertical-align: middle;
 }
 
-.category-badge {
+.taxonomy-label {
     display: inline-block;
     margin-left: var(--space-sm);
     padding: 0.15rem 0.4rem;
@@ -3408,12 +3408,12 @@ main {
 }
 
 .post-title-wrapper a,
-.post-title-wrapper .category-badge {
+.post-title-wrapper .taxonomy-label {
     margin-right: 0.35rem;
 }
 
 .post-title-wrapper .draft-tag,
-.post-title-wrapper .category-badge {
+.post-title-wrapper .taxonomy-label {
     margin-left: 0;
 }
 
