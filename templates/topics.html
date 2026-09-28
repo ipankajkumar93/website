@@ -37,7 +37,7 @@
   <div class="topics-grid">
     {% for tag_str in tag_data | sort %}
       {% set parts = tag_str | split(pat="||") %}
-      <a href="{{ parts[1] }}?ref=topics" class="topic-pill">
+      <a href="{{ parts[1] }}?view=topics" class="topic-pill">
         {{ parts[0] }} <span class="topic-count">{{ parts[2] }}</span>
       </a>
     {% endfor %}
