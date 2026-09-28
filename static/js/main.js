@@ -500,7 +500,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ── Taxonomy Filter Logic ─────────────────────────────────────────
     const filterClear = document.getElementById('filter-clear');
-    if (filterClear && new URLSearchParams(window.location.search).get('ref') === 'topics') {
+    if (filterClear && new URLSearchParams(window.location.search).get('view') === 'topics') {
         const topicsUrl = filterClear.getAttribute('data-topics-url');
         if (topicsUrl) {
             filterClear.href = topicsUrl;
