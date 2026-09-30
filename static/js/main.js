@@ -9,11 +9,12 @@ const themeToggle = document.querySelector('.theme-toggle');
 if (themeToggle) {
     const activeTheme = document.documentElement.getAttribute('data-theme') || 'dark';
 
-    if (activeTheme === 'dark') {
-        // SVG is now managed by CSS and base.html template
-    }
     // Sync aria-checked to the actual theme on load (not hardcoded in HTML)
     themeToggle.setAttribute('aria-checked', activeTheme === 'dark' ? 'true' : 'false');
+    
+    const initialTooltip = activeTheme === 'dark' ? 'Lights On' : 'Lights Off';
+    themeToggle.setAttribute('title', initialTooltip);
+    themeToggle.setAttribute('aria-label', initialTooltip);
 
     themeToggle.addEventListener('click', function () {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -29,6 +30,19 @@ if (themeToggle) {
         void document.body.offsetHeight;
 
         themeToggle.setAttribute('aria-checked', isDark ? 'false' : 'true');
+
+        const newTooltip = theme === 'dark' ? 'Lights On' : 'Lights Off';
+        if (themeToggle.hasAttribute('data-title')) {
+            themeToggle.setAttribute('data-title', newTooltip);
+        } else {
+            themeToggle.setAttribute('title', newTooltip);
+        }
+        themeToggle.setAttribute('aria-label', newTooltip);
+
+        const activeTooltip = document.querySelector('.custom-tooltip.visible');
+        if (activeTooltip && (activeTooltip.textContent === 'Lights On' || activeTooltip.textContent === 'Lights Off' || activeTooltip.textContent === 'Toggle Dark Mode')) {
+            activeTooltip.textContent = newTooltip;
+        }
 
         document.documentElement.setAttribute('data-theme', theme);
         document.documentElement.style.colorScheme = theme;
