@@ -693,6 +693,10 @@ body.show-unified-taxonomy #unified-topics-view {
     opacity: 0.8;
 }
 
+.search-btn:hover .search-btn-shortcut {
+    color: var(--color-text);
+}
+
 .search-btn-text {
     display: none;
 }
