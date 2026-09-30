@@ -3882,6 +3882,8 @@ table.in-wrapper {
 
 .card-link svg {
     color: var(--color-accent);
+    width: 14px;
+    height: 14px;
 }
 
 /* Squeeze header items between 1025px and 1100px */
@@ -3932,8 +3934,8 @@ body.show-unified-taxonomy #unified-topics-view { display: block !important; }
     color: var(--color-text);
     border: 1px solid var(--color-text-muted);
     padding: 4px 8px;
-    border-radius: 4px;
-    font-size: var(--font-size-2xs);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-xs);
     font-weight: 500;
     pointer-events: none;
     z-index: 10000;
