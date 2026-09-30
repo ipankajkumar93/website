@@ -1401,8 +1401,8 @@ ul.blog-posts li:hover {
 
 .topic-pill:hover .topic-count {
     background-color: var(--color-bg);
-    color: var(--color-accent);
-    box-shadow: inset 0 0 0 1px var(--color-accent);
+    color: var(--color-text);
+    box-shadow: inset 0 0 0 1.5px var(--color-accent);
 }
 
 :root[data-theme="dark"] ul.blog-posts li:hover {
@@ -3884,6 +3884,11 @@ table.in-wrapper {
     color: var(--color-accent);
     width: 14px;
     height: 14px;
+    transition: color var(--transition-fast);
+}
+
+.card-link:hover svg {
+    color: var(--color-text);
 }
 
 /* Squeeze header items between 1025px and 1100px */
