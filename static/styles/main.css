@@ -2434,7 +2434,7 @@ dialog.lightbox-modal::backdrop {
     top: -10px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0.625rem;
+    font-size: 0.66rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -3794,13 +3794,13 @@ table.in-wrapper {
     top: -8px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0.55rem;
+    font-size: 0.6rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: white;
     background-color: var(--color-accent-brand);
-    padding: 2px var(--space-sm);
+    padding: 2px 10px;
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-sm);
     white-space: nowrap;
