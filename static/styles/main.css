@@ -1421,6 +1421,10 @@ ul.blog-posts li span:not(.draft-tag):not(.taxonomy-label):not(.post-title-wrapp
     font-variant-numeric: tabular-nums;
 }
 
+ul.blog-posts li span.date {
+    font-style: italic;
+}
+
 ul.blog-posts li a {
     color: var(--color-text);
     font-weight: 500;
