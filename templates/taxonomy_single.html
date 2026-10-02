@@ -40,13 +40,13 @@
             {% if p.permalink == p_url %}
               <li>
                 <span>
-                  <i>
+                  <span class="date">
                     {% if parts[0] | trim %}
                     <time datetime='{{ parts[0] | date(format="%Y-%m-%dT%H:%M:%S%z") }}'>
                       {{ parts[0] | date(format=config.extra.date_format) }}
                     </time>
                     {% endif %}
-                  </i>
+                  </span>
                 </span>
                 <span class="post-title-wrapper">
                   <a href="{{ p.permalink }}">{{ p.title }}</a>
@@ -104,13 +104,13 @@
             {% set parts = s | split(pat="||") %}
             <li>
               <span>
-                <i>
+                <span class="date">
                   {% if parts[0] | trim %}
                   <time datetime='{{ parts[0] | date(format="%Y-%m-%dT%H:%M:%S%z") }}'>
                     {{ parts[0] | date(format=config.extra.date_format) }}
                   </time>
                   {% endif %}
-                </i>
+                </span>
               </span>
               <span class="post-title-wrapper">
                 <a href="{{ parts[1] }}">{{ parts[3] }}</a>
@@ -123,7 +123,7 @@
       {% endif %}
     </div>
 
-    <div id="unified-topics-view" style="display: none;">
+    <div id="unified-topics-view">
       {% set_global unified_pages = [] %}
 
       {# 1. Add current taxonomy pages #}
@@ -178,13 +178,13 @@
           {% set parts = s | split(pat="||") %}
           <li>
             <span>
-              <i>
+              <span class="date">
                 {% if parts[0] | trim %}
                 <time datetime='{{ parts[0] | date(format="%Y-%m-%dT%H:%M:%S%z") }}'>
                   {{ parts[0] | date(format=config.extra.date_format) }}
                 </time>
                 {% endif %}
-              </i>
+              </span>
             </span>
             <span class="post-title-wrapper">
               <a href="{{ parts[1] }}">{{ parts[3] }}</a>
