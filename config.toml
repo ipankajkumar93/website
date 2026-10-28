@@ -60,6 +60,11 @@ wrap_code = false
 featured_sections = ["posts", "rtd", "travel"]
 og_sections = ["posts", "rtd", "travel"]
 restricted_sections = ["posts", "rtd", "travel"] # Applies restricted-width CSS and Article JSON-LD schema
+upvote_sections = ["posts", "rtd", "travel"]     # Categories where upvote widget should be rendered
+
+# Upvote Configuration
+enable_upvotes = true
+upvote_api_url = "/api/upvote-server" # Cloudflare Pages function route (functions/api/upvote-server.js)
 
 # Navigation Menu
 

@@ -98,6 +98,24 @@
     </div>
   </div>
 
+  {% set show_upvote = false %}
+  {% if config.extra.enable_upvotes | default(value=false) %}
+    {% if page.components and config.extra.upvote_sections %}
+      {% for sec in config.extra.upvote_sections %}
+        {% if sec in page.components %}
+          {% set_global show_upvote = true %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% if page.extra?.upvote is defined %}
+      {% set_global show_upvote = page.extra.upvote %}
+    {% endif %}
+  {% endif %}
+
+  {% if show_upvote %}
+    {% include "components/upvote.html" %}
+  {% endif %}
+
   <div class="share-block{% if is_restricted %} restricted-width{% endif %}">
     <span class="share-label">Worth sharing?</span>
     <div class="share-icons">
@@ -177,8 +195,8 @@
 
 </article>
 
-{% if is_restricted %}
-
+{% if show_upvote %}
+<script src="{{ get_url(path='js/upvote-client.js', cachebust=true) | safe }}" defer></script>
 {% endif %}
 
 {% endblock %}
