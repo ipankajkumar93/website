@@ -67,7 +67,7 @@ async function queryNeon(databaseUrl, query, params = []) {
 // Main Cloudflare Pages Function entrypoint
 export async function onRequest(context) {
   const { request, env } = context;
-  const secret = env.UPVOTE_SECRET || 'slate-upvote-secret-salt-2026';
+  const secret = env.UPVOTE_SECRET || 'upvote-secret-salt-2026';
   const databaseUrl = env.DATABASE_URL;
 
   // Standard CORS headers
@@ -122,16 +122,16 @@ export async function onRequest(context) {
       );
     }
 
-    // Query Neon via HTTP
+    // Query Neon via HTTP (check hasVoted by voter_token so different devices on same Wi-Fi can vote)
     const sql = `
       SELECT 
         COALESCE((SELECT count FROM article_upvotes WHERE id = $1), 0) AS count,
         EXISTS(
           SELECT 1 FROM article_voters 
-          WHERE post_id = $1 AND (voter_token = $2 OR ip_hash = $3)
+          WHERE post_id = $1 AND voter_token = $2
         ) AS "hasVoted"
     `;
-    const dbResult = await queryNeon(databaseUrl, sql, [postId, voterToken, ipHash]);
+    const dbResult = await queryNeon(databaseUrl, sql, [postId, voterToken]);
 
     let count = 0;
     let hasVoted = false;
@@ -227,13 +227,13 @@ export async function onRequest(context) {
       );
     }
 
-    // 1. Check if voter already voted
+    // 1. Check if this specific device/voter token already voted
     const checkSql = `
       SELECT 1 FROM article_voters 
-      WHERE post_id = $1 AND (voter_token = $2 OR ip_hash = $3) 
+      WHERE post_id = $1 AND voter_token = $2 
       LIMIT 1
     `;
-    const checkRes = await queryNeon(databaseUrl, checkSql, [postId, voterToken, ipHash]);
+    const checkRes = await queryNeon(databaseUrl, checkSql, [postId, voterToken]);
 
     if (checkRes && checkRes.rows && checkRes.rows.length > 0) {
       const countSql = `SELECT count FROM article_upvotes WHERE id = $1`;
@@ -245,13 +245,13 @@ export async function onRequest(context) {
           count: current,
           hasVoted: true,
           dbStatus: 'online',
-          message: 'Already upvoted',
+          message: 'Already upvoted on this device',
         }),
         { status: 200, headers: corsHeaders }
       );
     }
 
-    // 2. Insert voter
+    // 2. Record this unique device's vote
     await queryNeon(databaseUrl, `INSERT INTO article_voters (post_id, voter_token, ip_hash) VALUES ($1, $2, $3)`, [
       postId,
       voterToken,
