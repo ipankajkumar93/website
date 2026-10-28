@@ -10,7 +10,7 @@
 
     const postId = form.dataset.id;
     const apiUrl = form.dataset.api;
-    const storageKey = 'slate_voted_' + postId;
+    const storageKey = 'upvoted_' + postId;
     const honeypot = form.querySelector('input[name="title"]');
 
     const pageLoadTime = Date.now();
@@ -37,10 +37,14 @@
 
     // 1. Get or generate persistent anonymous voter token (device-level, VPN/IP-independent)
     function getVoterToken() {
-      let token = localStorage.getItem('slate_voter_token');
+      let token = localStorage.getItem('voter_token');
       if (!token) {
-        token = 'vtr_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
-        localStorage.setItem('slate_voter_token', token);
+        if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+          token = 'vtr_' + window.crypto.randomUUID().replace(/-/g, '');
+        } else {
+          token = 'vtr_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
+        }
+        localStorage.setItem('voter_token', token);
       }
       return token;
     }
