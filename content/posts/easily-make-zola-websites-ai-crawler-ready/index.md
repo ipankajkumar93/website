@@ -14,6 +14,11 @@ toc = true
 featured = false
 license = "CC-BY-SA-4.0"
 wrap_code = false
+upvote = true # Set to false to disable upvotes on this article
+# uid = "posts/easily-make-zola-websites-ai-crawler-ready" # Optional: Set to original ID if you rename this post's slug in the future to preserve upvotes
+
+# og_preview_img = "/images/sample-image.jpeg" # Uncomment to specify a custom OG preview image, otherwise the build script will auto-generate one.
+# cover_image = "/images/sample-image.jpeg"
 
 [taxonomies]
 post_tags = ["post", "zola", "ai", "llm"]

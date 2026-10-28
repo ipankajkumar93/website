@@ -696,7 +696,8 @@ document.addEventListener('DOMContentLoaded', function () {
         '.footnote-reference a',
         '.mobile-menu-btn',
         '.mobile-close-btn',
-        '.search-close'
+        '.search-close',
+        '#upvote-btn'
     ].join(', ');
 
     const getTooltipText = (target) => {
