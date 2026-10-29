@@ -3,14 +3,15 @@
 <div class="upvote-container{% if is_restricted %} restricted-width{% endif %}" id="upvote-container">
   <form class="upvote-form" id="upvote-form" data-id="{{ post_id }}" data-api="{{ config.extra.upvote_api_url }}" onsubmit="return false;">
     <!-- Honeypot field for bot deterrence -->
-    <input type="text" name="title" value="{{ page.title }}" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none!important">
+    <input type="text" name="title" value="{{ page.title }}" class="upvote-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
     
     <button type="button" class="upvote-button" id="upvote-btn" aria-label="Upvote this article" data-title="Upvote this article">
       <span class="upvote-icon">
         {{ <icon name="chevrons-up" /> }}
       </span>
       <span class="upvote-label">Upvote</span>
-      <span class="upvote-count" id="upvote-count" aria-live="polite">0</span>
+      <span class="upvote-count" id="upvote-count" aria-live="polite" data-state="loading"></span>
     </button>
+    <span class="upvote-status" role="status"></span>
   </form>
 </div>
