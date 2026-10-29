@@ -1100,6 +1100,13 @@ dialog.search-modal::backdrop {
     margin-bottom: var(--space-xs);
 }
 
+/* Without JavaScript the button cannot work, so do not show it. */
+@media (scripting: none) {
+    .upvote-container {
+        display: none;
+    }
+}
+
 .upvote-button {
     display: inline-flex;
     align-items: center;
@@ -1117,11 +1124,21 @@ dialog.search-modal::backdrop {
     transition: all var(--transition-fast);
 }
 
-.upvote-button:hover:not(.upvoted):not([aria-disabled="true"]):not(:disabled) {
-    color: var(--color-text);
-    background-color: var(--color-accent-subtle);
-    border-color: var(--color-accent);
-    transform: translateY(var(--bounce-offset));
+/* Hover styles only on devices that really hover. On touch screens :hover
+   sticks after a tap, which made a rolled-back (failed) vote look upvoted. */
+@media (hover: hover) {
+    .upvote-button:hover:not(.upvoted):not([aria-disabled="true"]):not(:disabled) {
+        color: var(--color-text);
+        background-color: var(--color-accent-subtle);
+        border-color: var(--color-accent);
+        transform: translateY(var(--bounce-offset));
+    }
+}
+
+/* Keyboard focus */
+.upvote-button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
 }
 
 .upvote-icon svg {
@@ -1147,7 +1164,26 @@ dialog.search-modal::backdrop {
     transition: all var(--transition-fast);
 }
 
-.upvote-button:hover:not(.upvoted):not([aria-disabled="true"]):not(:disabled) .upvote-count,
+/* Count states (set by upvote-client.js via data-state):
+   loading     - server has not answered yet: invisible, space reserved
+   ready       - show the number
+   unavailable - count could not be loaded: hide the chip entirely */
+.upvote-count[data-state="loading"] {
+    opacity: 0;
+}
+
+.upvote-count[data-state="unavailable"] {
+    display: none;
+}
+
+@media (hover: hover) {
+    .upvote-button:hover:not(.upvoted):not([aria-disabled="true"]):not(:disabled) .upvote-count {
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        box-shadow: inset 0 0 0 1.5px var(--color-accent);
+    }
+}
+
 .upvote-button.upvoted .upvote-count {
     background-color: var(--color-bg);
     color: var(--color-text);
@@ -1160,6 +1196,43 @@ dialog.search-modal::backdrop {
     border-color: var(--color-accent);
     cursor: default;
     transform: none;
+}
+
+/* Disabled for a few seconds while an error message is showing. */
+.upvote-button[aria-disabled="true"]:not(.upvoted) {
+    cursor: default;
+}
+
+/* Screen-reader-only live region for vote results and errors. */
+.upvote-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Honeypot field: removed from layout and the accessibility tree. The extra
+   .upvote-form in the selector out-ranks any global .sr-only rule, so no
+   !important is needed. The client script still reads its value. */
+.upvote-form .upvote-honeypot {
+    display: none;
+}
+
+/* Respect reduced-motion preferences. Keep this block last so it wins. */
+@media (prefers-reduced-motion: reduce) {
+    .upvote-button,
+    .upvote-count {
+        transition: none;
+    }
+
+    .upvote-button:hover:not(.upvoted):not([aria-disabled="true"]):not(:disabled) {
+        transform: none;
+    }
 }
 
 /* Share Block */
