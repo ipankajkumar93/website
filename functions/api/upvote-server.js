@@ -1,13 +1,163 @@
 // functions/api/upvote-server.js
-// Cloudflare Pages Function (Native Web Standards, zero dependencies, no package.json needed)
-// Deployed automatically by Cloudflare Pages when you push to git.
+// Cloudflare Pages Function (native Web APIs, zero dependencies).
+// Route: /api/upvote-server   (same-origin with the site, so no CORS headers)
 //
-// Environment Variables (Configured in Cloudflare Pages Dashboard -> Settings -> Environment Variables):
-//   DATABASE_URL   = postgres://user:password@ep-xyz.neon.tech/neondb?sslmode=require
-//   UPVOTE_SECRET  = (optional) random secret key for HMAC anti-tampering verification
+// Environment variables (Cloudflare Pages -> Settings -> Environment variables):
+//   DATABASE_URL   postgres://user:password@ep-xyz.neon.tech/neondb?sslmode=require
+//   UPVOTE_SECRET  random string, 16+ chars. Used to HMAC IP addresses.
+//                  POST fails closed (503) if it is missing or too short.
+//
+// Schema: see upvotes.sql
+//
+// API
+//   GET  ?id=<post>&voterToken=<token>  -> 200 { id, count, hasVoted }
+//   POST { id, voterToken, title }      -> 200 { id, count, hasVoted: true, status: 'voted' | 'duplicate' }
+//                                          429 { error: 'rate_limited', count }
+//   Other failures: 400 / 403 / 413 / 415 / 503 with { error }.
 
-// Helper: HMAC-SHA256 signature using native Web Crypto API (supported in Cloudflare Workers)
-async function generateHmac(secret, message) {
+// ---------------------------------------------------------------------------
+// Tunables
+// ---------------------------------------------------------------------------
+const LIMITS = {
+  // Per-IP caps per clock hour (UTC). Enforced atomically by counter rows in
+  // ip_quota, so concurrent requests cannot overshoot. Because the window is a
+  // fixed clock hour, a burst straddling the hour boundary can get up to 2x.
+  perPostPerHour: 20, // distinct voter tokens per IP per post
+  perIpPerHour: 60, // across all posts (also bounds junk post IDs per IP)
+  quotaRetentionHours: 2, // ip_quota rows older than this are deleted
+  scrubProbability: 0.02, // fraction of successful votes that trigger cleanup
+  dbTimeoutMs: 5000,
+  maxBodyBytes: 2048,
+};
+
+const POST_ID_MAX = 200;
+// Segments start alphanumeric, so "." / ".." segments are impossible.
+const POST_ID_RE = /^[A-Za-z0-9][A-Za-z0-9._~-]*(?:\/[A-Za-z0-9][A-Za-z0-9._~-]*){0,5}$/;
+const VOTER_TOKEN_RE = /^vtr_[a-f0-9]{32}$/;
+
+// ---------------------------------------------------------------------------
+// SQL
+// ---------------------------------------------------------------------------
+
+// One atomic statement:
+//   gate (already voted?) -> per-post quota -> all-posts quota -> insert voter
+//   -> bump counter
+// The quota steps are "INSERT ... ON CONFLICT DO UPDATE ... WHERE n < cap":
+// Postgres locks the quota row and re-checks the cap against its latest
+// version, so racing requests are serialized and the cap is exact.
+// $1 post_id, $2 voter_token, $3 ip_hash, $4 per-post cap, $5 per-IP cap
+// Returns one row: status ('voted' | 'duplicate' | 'capped') and the count.
+const VOTE_SQL = `
+WITH gate AS (
+  SELECT EXISTS (
+    SELECT 1 FROM article_voters WHERE post_id = $1 AND voter_token = $2
+  ) AS dup
+),
+q_post AS (
+  INSERT INTO ip_quota (ip_hash, scope, window_start, n)
+  SELECT $3, $1, date_trunc('hour', NOW(), 'UTC'), 1 FROM gate WHERE NOT gate.dup
+  ON CONFLICT (ip_hash, scope, window_start)
+    DO UPDATE SET n = ip_quota.n + 1 WHERE ip_quota.n < $4
+  RETURNING 1
+),
+q_all AS (
+  INSERT INTO ip_quota (ip_hash, scope, window_start, n)
+  SELECT $3, '*', date_trunc('hour', NOW(), 'UTC'), 1 FROM q_post
+  ON CONFLICT (ip_hash, scope, window_start)
+    DO UPDATE SET n = ip_quota.n + 1 WHERE ip_quota.n < $5
+  RETURNING 1
+),
+ins AS (
+  INSERT INTO article_voters (post_id, voter_token)
+  SELECT $1, $2 FROM q_all
+  ON CONFLICT (post_id, voter_token) DO NOTHING
+  RETURNING 1
+),
+bump AS (
+  INSERT INTO article_upvotes (id, count, updated_at)
+  SELECT $1, 1, NOW() FROM ins
+  ON CONFLICT (id) DO UPDATE
+    SET count = article_upvotes.count + 1, updated_at = NOW()
+  RETURNING count
+)
+SELECT
+  CASE
+    WHEN EXISTS (SELECT 1 FROM ins) THEN 'voted'
+    -- Not inserted: already voted, or both quotas passed but ON CONFLICT
+    -- skipped the row (two requests racing on the same token).
+    WHEN (SELECT dup FROM gate) OR EXISTS (SELECT 1 FROM q_all) THEN 'duplicate'
+    ELSE 'capped'
+  END AS status,
+  COALESCE(
+    (SELECT count FROM bump),
+    (SELECT count FROM article_upvotes WHERE id = $1),
+    0
+  )::int AS count
+`;
+
+// $1 post_id, $2 voter_token ('' when unknown). Integers only, no booleans, so
+// the result does not depend on how Neon encodes bool values over HTTP.
+const STATE_SQL = `
+SELECT
+  COALESCE((SELECT count FROM article_upvotes WHERE id = $1), 0)::int AS count,
+  (EXISTS (
+    SELECT 1 FROM article_voters WHERE post_id = $1 AND voter_token = $2
+  ))::int AS has_voted
+`;
+
+const SCRUB_SQL = `
+DELETE FROM ip_quota
+WHERE window_start < date_trunc('hour', NOW(), 'UTC') - INTERVAL '${Math.floor(LIMITS.quotaRetentionHours)} hours'
+`;
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+const BASE_HEADERS = {
+  'Content-Type': 'application/json; charset=utf-8',
+  'Cache-Control': 'no-store',
+  'X-Content-Type-Options': 'nosniff',
+};
+
+function json(body, status = 200, extraHeaders = {}) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...BASE_HEADERS, ...extraHeaders },
+  });
+}
+
+// Accepts "posts/hello-world", "/posts/hello-world/" etc. Returns the
+// normalized ID or null when invalid.
+function normalizePostId(raw) {
+  if (typeof raw !== 'string') return null;
+  const id = raw.trim().replace(/^\/+|\/+$/g, '');
+  if (!id || id.length > POST_ID_MAX || !POST_ID_RE.test(id)) return null;
+  return id;
+}
+
+// Collapse an IP to the unit we rate-limit on: IPv4 as-is, IPv6 as its /64
+// (a single subscriber normally owns a whole /64, so per-address limits would
+// be trivially bypassed).
+function ipKey(ip) {
+  if (!ip) return 'unknown';
+  const v = ip.trim().toLowerCase();
+  const mapped = v.match(/^::ffff:(\d{1,3}(?:\.\d{1,3}){3})$/);
+  if (mapped) return mapped[1];
+  if (!v.includes(':')) return v;
+  const halves = v.split('::');
+  if (halves.length > 2) return v;
+  const left = halves[0] ? halves[0].split(':') : [];
+  const right = halves.length === 2 && halves[1] ? halves[1].split(':') : [];
+  let groups = left;
+  if (halves.length === 2) {
+    const missing = Math.max(8 - left.length - right.length, 0);
+    groups = [...left, ...Array(missing).fill('0'), ...right];
+  }
+  return 'v6:' + groups.slice(0, 4).map((g) => g.padStart(4, '0')).join(':');
+}
+
+async function hmacHex(secret, message) {
   const enc = new TextEncoder();
   const key = await crypto.subtle.importKey(
     'raw',
@@ -16,287 +166,182 @@ async function generateHmac(secret, message) {
     false,
     ['sign']
   );
-  const signature = await crypto.subtle.sign('HMAC', key, enc.encode(message));
-  return Array.from(new Uint8Array(signature))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('');
+  const sig = await crypto.subtle.sign('HMAC', key, enc.encode(message));
+  return Array.from(new Uint8Array(sig), (b) => b.toString(16).padStart(2, '0')).join('');
 }
 
-// Helper: Privacy-preserving IP hash
+// Keyed hash of the (normalized) client IP. Only used as the ip_quota key and
+// never stored next to a vote. Not reversible without the secret.
 async function getIpHash(request, secret) {
-  const ip = request.headers.get('cf-connecting-ip') ||
-             request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
-             '127.0.0.1';
-  const enc = new TextEncoder();
-  const hashBuffer = await crypto.subtle.digest('SHA-256', enc.encode(ip + secret));
-  return Array.from(new Uint8Array(hashBuffer))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('')
-    .substring(0, 24);
+  // cf-connecting-ip is always set by Cloudflare. We deliberately do not fall
+  // back to x-forwarded-for, which a client could spoof to dodge the caps.
+  const ip = ipKey(request.headers.get('cf-connecting-ip'));
+  return (await hmacHex(secret, 'ip:' + ip)).slice(0, 32);
 }
 
-// Helper: Execute SQL via Neon HTTP API with native fetch (zero npm packages needed)
-// Compatible with both direct Neon and Vercel Postgres (powered by Neon)
-async function queryNeon(databaseUrl, query, params = []) {
-  try {
-    const urlObj = new URL(databaseUrl.replace(/^postgres(ql)?:\/\//, 'https://'));
-    // Strip TCP port (e.g. :5432) and '-pooler' prefix to target Neon's direct HTTPS endpoint
-    const host = urlObj.hostname.replace('-pooler', '');
-    const neonHttpUrl = `https://${host}/sql`;
-
-    const res = await fetch(neonHttpUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Neon-Connection-String': databaseUrl,
-      },
-      body: JSON.stringify({ query, params }),
-    });
-
-    if (!res.ok) {
-      throw new Error(`Neon HTTP error: ${res.statusText}`);
-    }
-
-    return await res.json();
-  } catch (err) {
-    console.warn('Neon HTTP query failed:', err.message);
-    return null;
-  }
+// Neon SQL-over-HTTP. Throws on any failure (the caller maps that to a 503).
+function neonEndpoint(databaseUrl) {
+  const u = new URL(databaseUrl.replace(/^postgres(?:ql)?:\/\//, 'https://'));
+  // The HTTP endpoint is served on the direct (non "-pooler") hostname.
+  return `https://${u.hostname.replace('-pooler', '')}/sql`;
 }
 
-// Main Cloudflare Pages Function entrypoint
-export async function onRequest(context) {
-  const { request, env } = context;
-  const secret = env.UPVOTE_SECRET || 'upvote-secret-salt-2026';
-  const databaseUrl = env.DATABASE_URL;
+async function query(env, sql, params) {
+  const res = await fetch(neonEndpoint(env.DATABASE_URL), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Neon-Connection-String': env.DATABASE_URL,
+    },
+    body: JSON.stringify({ query: sql, params }),
+    signal: AbortSignal.timeout(LIMITS.dbTimeoutMs),
+  });
 
-  // Standard CORS headers
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Content-Type': 'application/json',
-  };
-
-  if (request.method === 'OPTIONS') {
-    return new Response(null, { status: 200, headers: corsHeaders });
-  }
-
-  const url = new URL(request.url);
-  const rawId = url.searchParams.get('id') || '';
-  const voterTokenFromQuery = url.searchParams.get('voterToken') || '';
-
-  // --------------------------------------------------------------------------
-  // GET: Fetch live count & issue anti-tampering signed token
-  // --------------------------------------------------------------------------
-  if (request.method === 'GET') {
-    if (!rawId || rawId.length > 255) {
-      return new Response(JSON.stringify({ error: 'Valid post ID required' }), {
-        status: 400,
-        headers: corsHeaders,
-      });
-    }
-
-    const postId = rawId.trim().replace(/^\/+|\/+$/g, '');
-    const ipHash = await getIpHash(request, secret);
-    const voterToken = voterTokenFromQuery.slice(0, 64) || `anon_${ipHash}`;
-
-    // Issue cryptographic anti-tampering token:
-    // Binds this exact postId + timestamp + voterToken with secret HMAC
-    const now = Date.now();
-    const tokenPayload = `${postId}:${now}:${voterToken}`;
-    const signature = await generateHmac(secret, tokenPayload);
-    const token = `${now}.${signature}`;
-
-    // Failsafe: if database is not yet configured or offline
-    if (!databaseUrl) {
-      return new Response(
-        JSON.stringify({
-          id: postId,
-          count: 0,
-          hasVoted: false,
-          token: token,
-          dbStatus: 'offline',
-        }),
-        { status: 200, headers: corsHeaders }
-      );
-    }
-
-    // Query Neon via HTTP (check hasVoted by voter_token so different devices on same Wi-Fi can vote)
-    const sql = `
-      SELECT 
-        COALESCE((SELECT count FROM article_upvotes WHERE id = $1), 0) AS count,
-        EXISTS(
-          SELECT 1 FROM article_voters 
-          WHERE post_id = $1 AND voter_token = $2
-        ) AS "hasVoted"
-    `;
-    const dbResult = await queryNeon(databaseUrl, sql, [postId, voterToken]);
-
-    let count = 0;
-    let hasVoted = false;
-
-    if (dbResult && dbResult.rows && dbResult.rows.length > 0) {
-      count = parseInt(dbResult.rows[0].count, 10) || 0;
-      hasVoted = Boolean(dbResult.rows[0].hasVoted);
-    }
-
-    return new Response(
-      JSON.stringify({
-        id: postId,
-        count: count,
-        hasVoted: hasVoted,
-        token: token,
-        dbStatus: dbResult ? 'online' : 'unreachable',
-      }),
-      { status: 200, headers: corsHeaders }
-    );
-  }
-
-  // --------------------------------------------------------------------------
-  // POST: Record an upvote with strict anti-tampering verification
-  // --------------------------------------------------------------------------
-  if (request.method === 'POST') {
-    let body = {};
+  if (!res.ok) {
+    let detail = '';
     try {
-      body = await request.json();
+      detail = (await res.json()).message || '';
     } catch {
-      body = {};
+      /* non-JSON error body */
     }
+    throw new Error(`Neon HTTP ${res.status}${detail ? ': ' + detail : ''}`);
+  }
 
-    // Bot Defense 1: Honeypot check (title must be empty)
-    if (body.title) {
-      return new Response(JSON.stringify({ error: 'Bot detected' }), {
-        status: 400,
-        headers: corsHeaders,
-      });
-    }
+  const data = await res.json();
+  if (!data || !Array.isArray(data.rows)) throw new Error('Unexpected Neon response');
+  return data.rows;
+}
 
-    const postId = (body.id || '').trim().replace(/^\/+|\/+$/g, '');
-    if (!postId || postId.length > 255) {
-      return new Response(JSON.stringify({ error: 'Valid post ID required' }), {
-        status: 400,
-        headers: corsHeaders,
-      });
-    }
+// Neon may return ints as numbers or as text depending on its output mode.
+const toInt = (v) => {
+  const n = Number(v);
+  return Number.isFinite(n) ? Math.trunc(n) : 0;
+};
 
+// ---------------------------------------------------------------------------
+// Handlers
+// ---------------------------------------------------------------------------
+
+async function handleGet(context, url) {
+  const { env } = context;
+  if (!env.DATABASE_URL) {
+    console.error('upvote: DATABASE_URL is not configured');
+    return json({ error: 'Service unavailable' }, 503);
+  }
+
+  const postId = normalizePostId(url.searchParams.get('id'));
+  if (!postId) return json({ error: 'Valid post ID required' }, 400);
+
+  // The token is optional on GET; an unknown/invalid one just means hasVoted=false.
+  const rawToken = url.searchParams.get('voterToken') || '';
+  const voterToken = VOTER_TOKEN_RE.test(rawToken) ? rawToken : '';
+
+  try {
+    const rows = await query(env, STATE_SQL, [postId, voterToken]);
+    const row = rows[0] || {};
+    return json({
+      id: postId,
+      count: toInt(row.count),
+      hasVoted: toInt(row.has_voted) === 1,
+    });
+  } catch (err) {
+    console.error('upvote GET failed:', err.message);
+    return json({ error: 'Service unavailable' }, 503);
+  }
+}
+
+async function handlePost(context, request, url) {
+  const { env } = context;
+
+  // Browsers always send Origin on cross-origin POSTs. Together with the
+  // Content-Type check below (which forces a CORS preflight, and we send no
+  // CORS headers) this stops other sites from casting votes through a
+  // visitor's browser and burning that visitor's IP quota.
+  const origin = request.headers.get('origin');
+  if (origin && origin !== url.origin) return json({ error: 'Forbidden' }, 403);
+
+  const contentType = (request.headers.get('content-type') || '').toLowerCase();
+  if (!contentType.startsWith('application/json')) {
+    return json({ error: 'Content-Type must be application/json' }, 415);
+  }
+
+  if (!env.DATABASE_URL) {
+    console.error('upvote: DATABASE_URL is not configured');
+    return json({ error: 'Service unavailable' }, 503);
+  }
+  const secret = env.UPVOTE_SECRET;
+  if (!secret || secret.length < 16) {
+    console.error('upvote: UPVOTE_SECRET is missing or shorter than 16 characters');
+    return json({ error: 'Service unavailable' }, 503);
+  }
+
+  let body;
+  try {
+    const text = await request.text();
+    if (text.length > LIMITS.maxBodyBytes) return json({ error: 'Payload too large' }, 413);
+    body = JSON.parse(text);
+  } catch {
+    return json({ error: 'Invalid JSON body' }, 400);
+  }
+  if (!body || typeof body !== 'object' || Array.isArray(body)) {
+    return json({ error: 'Invalid JSON body' }, 400);
+  }
+
+  // Honeypot: the page pre-fills this field and the client clears it on real
+  // user interaction, so a non-empty value means no human interaction.
+  if (body.title) return json({ error: 'Request rejected' }, 400);
+
+  const postId = normalizePostId(body.id);
+  if (!postId) return json({ error: 'Valid post ID required' }, 400);
+
+  const voterToken = typeof body.voterToken === 'string' ? body.voterToken : '';
+  if (!VOTER_TOKEN_RE.test(voterToken)) return json({ error: 'Valid voter token required' }, 400);
+
+  try {
     const ipHash = await getIpHash(request, secret);
-    const voterToken = (body.voterToken || '').slice(0, 64) || `anon_${ipHash}`;
-
-    // ------------------------------------------------------------------------
-    // ANTI-TAMPERING VERIFICATION:
-    // Verify that nobody intercepted the request and changed the post ID!
-    // ------------------------------------------------------------------------
-    const token = body.token || '';
-    if (token) {
-      const [tokenTimeStr, clientSignature] = token.split('.');
-      const tokenTime = parseInt(tokenTimeStr, 10);
-
-      // Check token expiration (valid for 1 hour)
-      if (isNaN(tokenTime) || Date.now() - tokenTime > 3600000) {
-        return new Response(JSON.stringify({ error: 'Token expired. Please refresh the page.' }), {
-          status: 403,
-          headers: corsHeaders,
-        });
-      }
-
-      // Recompute expected HMAC for the received postId
-      const expectedPayload = `${postId}:${tokenTime}:${voterToken}`;
-      const expectedSignature = await generateHmac(secret, expectedPayload);
-
-      // If an attacker altered postId, the signatures will NOT match!
-      if (expectedSignature !== clientSignature) {
-        return new Response(
-          JSON.stringify({ error: 'Security verification failed: Post ID tampering detected' }),
-          { status: 403, headers: corsHeaders }
-        );
-      }
-    }
-
-    // Failsafe: if database is not configured
-    if (!databaseUrl) {
-      return new Response(
-        JSON.stringify({
-          id: postId,
-          count: 1,
-          hasVoted: false,
-          dbStatus: 'offline',
-          message: 'Upvoted locally (Database not yet configured)',
-        }),
-        { status: 200, headers: corsHeaders }
-      );
-    }
-
-    // 1. Check if this specific device/voter token already voted
-    const checkSql = `
-      SELECT 1 FROM article_voters 
-      WHERE post_id = $1 AND voter_token = $2 
-      LIMIT 1
-    `;
-    const checkRes = await queryNeon(databaseUrl, checkSql, [postId, voterToken]);
-
-    if (checkRes && checkRes.rows && checkRes.rows.length > 0) {
-      const countSql = `SELECT count FROM article_upvotes WHERE id = $1`;
-      const countRes = await queryNeon(databaseUrl, countSql, [postId]);
-      const current = countRes?.rows?.[0]?.count ? parseInt(countRes.rows[0].count, 10) : 0;
-      return new Response(
-        JSON.stringify({
-          id: postId,
-          count: current,
-          hasVoted: true,
-          dbStatus: 'online',
-          message: 'Already upvoted on this device',
-        }),
-        { status: 200, headers: corsHeaders }
-      );
-    }
-
-    // 2. Record this unique device's vote
-    await queryNeon(databaseUrl, `INSERT INTO article_voters (post_id, voter_token, ip_hash) VALUES ($1, $2, $3)`, [
+    const rows = await query(env, VOTE_SQL, [
       postId,
       voterToken,
       ipHash,
+      LIMITS.perPostPerHour,
+      LIMITS.perIpPerHour,
     ]);
+    const row = rows[0];
+    if (!row) throw new Error('Vote statement returned no row');
 
-    // 3. Increment count
-    const updateSql = `
-      INSERT INTO article_upvotes (id, count, updated_at)
-      VALUES ($1, 1, NOW())
-      ON CONFLICT (id) DO UPDATE 
-      SET count = article_upvotes.count + 1, updated_at = NOW()
-      RETURNING count
-    `;
-    const updateRes = await queryNeon(databaseUrl, updateSql, [postId]);
+    const status = String(row.status);
+    const count = toInt(row.count);
 
-    if (!updateRes) {
-      return new Response(
-        JSON.stringify({
-          id: postId,
-          count: 1,
-          hasVoted: false,
-          dbStatus: 'unreachable',
-          message: 'Database temporarily unavailable',
-        }),
-        { status: 200, headers: corsHeaders }
-      );
+    if (status === 'voted' || status === 'duplicate') {
+      if (status === 'voted' && Math.random() < LIMITS.scrubProbability) {
+        // Best-effort cleanup of expired quota rows (hashed IPs).
+        const scrub = query(env, SCRUB_SQL, []).catch((e) =>
+          console.warn('upvote scrub failed:', e.message)
+        );
+        if (typeof context.waitUntil === 'function') context.waitUntil(scrub);
+      }
+      return json({ id: postId, count, hasVoted: true, status });
     }
 
-    const finalCount = updateRes?.rows?.[0]?.count ? parseInt(updateRes.rows[0].count, 10) : 1;
+    if (status === 'capped') {
+      // The quota resets at the top of the next UTC hour.
+      const retryAfter = Math.max(1, Math.ceil((3600000 - (Date.now() % 3600000)) / 1000));
+      return json({ error: 'rate_limited', count }, 429, { 'Retry-After': String(retryAfter) });
+    }
 
-    return new Response(
-      JSON.stringify({
-        id: postId,
-        count: finalCount,
-        hasVoted: true,
-        dbStatus: 'online',
-        message: 'Upvoted successfully',
-      }),
-      { status: 200, headers: corsHeaders }
-    );
+    throw new Error(`Unexpected vote status: ${status}`);
+  } catch (err) {
+    console.error('upvote POST failed:', err.message);
+    return json({ error: 'Service unavailable' }, 503);
   }
+}
 
-  return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-    status: 405,
-    headers: corsHeaders,
-  });
+export async function onRequest(context) {
+  const { request } = context;
+  const url = new URL(request.url);
+
+  if (request.method === 'GET') return handleGet(context, url);
+  if (request.method === 'POST') return handlePost(context, request, url);
+
+  return json({ error: 'Method not allowed' }, 405, { Allow: 'GET, POST' });
 }
