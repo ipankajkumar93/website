@@ -1535,6 +1535,7 @@ ul.blog-posts li:hover {
     font-size: var(--step-0);
     font-family: var(--font-mono);
     transition: all var(--transition-base);
+    text-transform: lowercase;
 }
 
 .topic-pill:hover {
