@@ -52,6 +52,9 @@ npm-debug.log*
 # Sass cache (if compile_sass is enabled later)
 .sass-cache/
 
+# Claude Code local settings (user-specific overrides, not committed)
+.claude/settings.local.json
+
 # Automatically generated OG images
 static/images/og/
 
