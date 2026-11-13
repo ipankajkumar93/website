@@ -283,6 +283,8 @@
         });
     }
 
+    form.addEventListener('submit', (e) => e.preventDefault());
+
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       // Ignore script-generated clicks (element.click() from a bot). Assistive

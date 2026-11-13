@@ -126,7 +126,7 @@ Use the custom `img_caption` shortcode to beautifully display an image with a ca
 ### Method C: Lightbox Image (Click to Zoom)
 If you want the user to be able to click the image and view it in a full-screen overlay (lightbox), use this raw HTML snippet:
 
-<div style="text-align: center;">
+<div class="text-center">
 <a href="/images/sample-image.jpeg" class="lightbox-thumbnail" data-featherlight="image">
     <img src="/images/sample-image.jpeg" alt="Profile Picture" width="400">
 </a>
@@ -235,5 +235,6 @@ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 $$
 
 *This concludes the syntax reference guide. Happy writing!*
+
 
 Flush!

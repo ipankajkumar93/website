@@ -51,6 +51,7 @@
         href="{{ get_url(path=config.feed_filenames[0]) | safe }}">
     {%- endif %}
     {%- endblock -%}
+    {# Head asset and link URLs are strictly built with get_url and config.base_url; safe filter preserves unescaped query and path characters #}
     <link rel="alternate" type="text/plain" title="LLMs Index" href="{{ config.base_url | safe }}llms.txt">
     <link rel="alternate" type="text/plain" title="LLMs Full Corpus" href="{{ config.base_url | safe }}llms-full.txt">
     {% if page -%}

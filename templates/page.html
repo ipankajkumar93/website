@@ -52,15 +52,15 @@
     {% if cover_path is starting_with(pat="/") %}
       {% set cover_path_local = "static" ~ cover_path %}
       {% set meta = get_image_metadata(path=cover_path_local) %}
-      <img src="{{ cover_path | safe }}" alt="Cover image for {{ page.title }}" fetchpriority="high" width="{{ meta.width }}" height="{{ meta.height }}" />
+      <img src="{{ cover_path | safe }}" alt="Cover image for {{ page.title }}" fetchpriority="high" decoding="async" width="{{ meta.width }}" height="{{ meta.height }}" />
     {% else %}
-      <img src="{{ cover_path | safe }}" alt="Cover image for {{ page.title }}" fetchpriority="high" />
+      <img src="{{ cover_path | safe }}" alt="Cover image for {{ page.title }}" fetchpriority="high" decoding="async" />
     {% endif %}
   </div>
   {%- endif %}
 
   {%- if page.extra?.toc and page.toc %}
-  <div id="toc-sentinel"></div>
+  <div id="toc-sentinel" class="toc-sentinel"></div>
   <div class="toc{% if is_restricted %} restricted-width{% endif %}">
     <div class="toc-title">
       <span>What's inside</span>
@@ -87,6 +87,7 @@
   </div>
   {%- endif %}
   <div class="post-content{% if is_restricted %} restricted-width{% endif %}">
+    {# Render parsed Markdown content as HTML #}
     {{ page.content | safe }}
     
     <div class="post-license">

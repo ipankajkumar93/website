@@ -30,13 +30,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                 svg.removeAttribute("width");
                 svg.removeAttribute("height");
                 // Let CSS control the size
-                svg.style.width = "100%";
-                if (w.includes('%')) {
-                    svg.style.maxWidth = w;
-                } else {
-                    svg.style.maxWidth = parseFloat(w) + "px";
-                }
-                svg.style.height = "auto";
+                const maxWidth = w.includes('%') ? w : parseFloat(w) + "px";
+                svg.style.setProperty('--svg-max-width', maxWidth);
             }
         });
     }
