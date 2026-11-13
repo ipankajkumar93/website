@@ -531,7 +531,7 @@ a:hover {
 
 @layer components {
 /* Underline style for content links */
-article a:not(.tag):not(.zola-anchor),
+article a:not(.tag):not(.zola-anchor):not(.nav-label):not(.nav-title),
 main p a:not(.tag),
 main li a:not(.tag) {
     text-decoration: underline;
@@ -602,11 +602,11 @@ nav {
 }
 
 body.show-unified-taxonomy .default-taxonomy-view {
-    display: none !important;
+    display: none;
 }
 
 body.show-unified-taxonomy .unified-topics-view {
-    display: block !important;
+    display: block;
 }
 
 .taxonomy-topic-group {
@@ -1343,7 +1343,7 @@ dialog.search-modal::backdrop {
 .nav-next:has(a:hover) .nav-label,
 .nav-next:has(a:hover) .nav-title {
     color: var(--color-link);
-    text-decoration: none !important;
+    text-decoration: none;
 }
 
 .nav-label {
@@ -1589,7 +1589,7 @@ ul.blog-posts li span:not(.draft-tag):not(.taxonomy-label):not(.post-title-wrapp
 }
 
 ul.blog-posts li span.date {
-    font-style: italic;
+    font-style: normal;
 }
 
 ul.blog-posts li a {
@@ -1956,9 +1956,9 @@ h6:hover .zola-anchor {
 }
 
 /* Article Title & Copy URL */
-.article-title {
+h1.article-title {
     margin-top: calc(var(--space-sm) * -1);
-    margin-bottom: var(--space-xs) !important;
+    margin-bottom: var(--space-xs);
 }
 
 .title-copy-url {
@@ -1979,13 +1979,13 @@ h6:hover .zola-anchor {
     font-family: var(--font-mono);
     font-size: 0.85rem;
     font-weight: 500;
-    text-decoration: none !important;
+    text-decoration: none;
     transition: color var(--transition-fast);
 }
 
 .copy-url-btn:hover {
     color: var(--color-link);
-    text-decoration: none !important;
+    text-decoration: none;
 }
 
 .copy-url-btn svg {
@@ -1995,7 +1995,7 @@ h6:hover .zola-anchor {
 }
 
 .article-meta {
-    padding-bottom: var(--space-sm) !important;
+    padding-bottom: var(--space-sm);
 }
 
 /* --------------------------------------------------------------------------
@@ -2137,12 +2137,12 @@ pre {
     box-shadow:
         0 4px 6px -1px rgba(0, 0, 0, 0.1),
         0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    color-scheme: light !important;
+    color-scheme: light;
     display: grid;
 }
 
 :root[data-theme="dark"] pre {
-    color-scheme: dark !important;
+    color-scheme: dark;
 }
 
 /* Code inside pre */
@@ -2411,7 +2411,7 @@ img {
 }
 
 iframe {
-    max-width: 100% !important;
+    max-width: 100%;
     display: block;
 }
 
@@ -2970,7 +2970,7 @@ main {
    Targets only named animations defined on this site - NOT a wildcard rule,
    which would clobber the browser's built-in cursor-blink animation. */
 @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto !important; }
+    html { scroll-behavior: auto; }
     main {
         animation: none;
     }
@@ -4017,7 +4017,7 @@ table.in-wrapper {
     display: inline-block;
     width: 100%;
     max-width: var(--svg-max-width, 100%);
-    height: auto !important;
+    height: auto;
     font-size: 15px;
     font-weight: 500;
 }
