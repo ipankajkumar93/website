@@ -48,7 +48,7 @@ So instead of forking, I linked the histories after the fact: added the upstream
 This part only needs to happen once, on the repo itself, and it's what makes everything else possible.
 
 1. **Add a `.gitattributes` file** at the root of your repo that marks the paths you want protected with the `merge=ours` strategy - for example:
-   ```
+   ```gitattributes
    content/** merge=ours
    static/images/** merge=ours
    config.toml merge=ours
@@ -104,4 +104,6 @@ The `.gitattributes` rules do the heavy lifting here - they automatically preven
 
 That's it - no manual cherry-picking, no diffing upstream changes by hand. The merge driver keeps your content safe by default, and you opt files in or out as your setup evolves.
 
+
 Flush!
+

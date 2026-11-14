@@ -1,7 +1,7 @@
 {% set post_id = page.extra.uid | default(value=page.path) %}
 
 <div class="upvote-container{% if is_restricted %} restricted-width{% endif %}" id="upvote-container">
-  <form class="upvote-form" id="upvote-form" data-id="{{ post_id }}" data-api="{{ config.extra.upvote_api_url }}" onsubmit="return false;">
+  <form class="upvote-form" id="upvote-form" data-id="{{ post_id }}" data-api="{{ config.extra.upvote_api_url }}">
     <!-- Honeypot field for bot deterrence -->
     <input type="text" name="title" value="{{ page.title }}" class="upvote-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
     

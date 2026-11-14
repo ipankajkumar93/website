@@ -74,4 +74,5 @@ The tragedy is that *service-based companies were never built to value that kind
 
 We were never `developers` to this system. We were always just `resources`. AI didn't change that. It just gave them a more fashionable word for it.
 
+
 Flush!

@@ -263,7 +263,7 @@ Source: {{ page.permalink }}
 {% endraw %}
 ```
 
-These templates are powered by two simple content files - `content/llms.md` and `content/llms-full.md` - that do nothing except point to their respective templates.
+These templates are powered by two simple content files - `content/llms/index.md` and `content/llms-full/index.md` - that do nothing except point to their respective templates.
 
 ## 6. Fixing the File Extensions in the Build Process
 
@@ -314,5 +314,6 @@ Each post directory ends up with both representations side by side. The HTML pag
 Most static sites are technically accessible to AI crawlers but practically difficult to parse. Noisy HTML, missing structured metadata, and no predictable Markdown endpoint all create friction that degrades the quality of AI-generated answers citing your content.
 
 With these seven changes - an HTML directive, an updated `robots.txt`, semantic head tags, Markdown mirroring, dynamically generated `llms.txt` and `llms-full.txt`, and build-time fixups - the site now speaks the language AI agents actually prefer. The implementation adds no runtime overhead (everything is generated at build time) and degrades gracefully: every change is purely additive and leaves the human-facing site untouched.
+
 
 Flush!

@@ -26,7 +26,7 @@ post_tags = ["post","upvote","zola","serverless"]
 
 *Anonymous per-device votes, one serverless function and one Postgres database. No framework required, no npm packages.*
 
-Static sites are fast, cheap and hard to break, but the moment you want a live upvote counter you need somewhere to keep state. This post walks through a small upvote system I built for my blog, which is a static site on [Cloudflare Pages](https://pages.cloudflare.com/). Nothing in it depends on a particular site generator: the page side is one HTML snippet, one script and some CSS, and the server side is one function plus three Postgres tables. It was inspired by [Herman’s Bear Blog](https://herman.bearblog.dev/) and [Betaveros’s deep-dive “That Accursed Upvote Button”](https://betaveros.bearblog.dev/that-accursed-upvote-button/), which are both worth reading for the tradeoffs involved.
+Static sites are fast, cheap and hard to break, but the moment you want a live upvote counter you need somewhere to keep state. This post walks through a small upvote system I built for my blog, which is a static site on [Cloudflare Pages](https://pages.cloudflare.com/). Nothing in it depends on a particular site generator: the page side is one HTML snippet, one script and some CSS, and the server side is one function plus three Postgres tables. It was inspired by [Herman's Bear Blog](https://herman.bearblog.dev/) and [Betaveros's deep-dive "That Accursed Upvote Button"](https://betaveros.bearblog.dev/that-accursed-upvote-button/), which are both worth reading for the tradeoffs involved.
 
 By the end you will have:
 
@@ -66,13 +66,13 @@ Postgres (Neon)
 2. **Fail visibly, never silently.** If the API is down, the count is hidden instead of showing a made-up number, and a failed vote is rolled back with a short message. The reader is never locked out.
 3. **Per-device votes, not per-network.** One vote must not lock out everyone behind the same router.
 4. **Survive URL changes.** Renaming a post must not orphan its votes.
-5. **The count can’t drift.** The aggregate and the voter rows change in one atomic statement.
+5. **The count can't drift.** The aggregate and the voter rows change in one atomic statement.
 
 ## Design decisions worth explaining
 
 ### 1. Identify voters with a token, not an IP address
 
-The obvious first approach is to store the visitor’s IP and refuse a second vote from it. The problem is NAT: every device behind one router, from a family’s phones to hundreds of people in an office or on a campus, presents the same public IP. One upvote then locks out the whole network.
+The obvious first approach is to store the visitor's IP and refuse a second vote from it. The problem is NAT: every device behind one router, from a family's phones to hundreds of people in an office or on a campus, presents the same public IP. One upvote then locks out the whole network.
 
 Instead, the browser generates a random anonymous `voter_token` and keeps it in `localStorage`. The database enforces one vote per `(post_id, voter_token)` pair, so a laptop and a phone on the same Wi-Fi can each vote once.
 
@@ -80,15 +80,15 @@ The IP is not thrown away, but it is used for one narrow purpose: generous hourl
 
 The tradeoff is that clearing site data gives you a fresh identity. For a blog upvote button I think that is acceptable.
 
-### 2. Don’t sign the vote request
+### 2. Don't sign the vote request
 
-An earlier version of mine handed out a short-lived HMAC token on `GET` and verified it on `POST`, so a vote couldn’t be redirected to another post. It looked rigorous, and it protected nothing: anyone scripting the endpoint can simply request a token for whichever post they like. It also made the system more fragile, because a tab left open for an hour had an expired token, and a click that landed before the token arrived was sent without one.
+An earlier version of mine handed out a short-lived HMAC token on `GET` and verified it on `POST`, so a vote couldn't be redirected to another post. It looked rigorous, and it protected nothing: anyone scripting the endpoint can simply request a token for whichever post they like. It also made the system more fragile, because a tab left open for an hour had an expired token, and a click that landed before the token arrived was sent without one.
 
-I removed it. What protects the endpoint now is boring and checkable: strict validation of every input, an `Origin` check plus a JSON-only content type (which stop *other websites* from casting votes through a visitor’s browser), and per-IP caps. If you later need real bot resistance, put a challenge such as Cloudflare Turnstile in front of the `POST` and verify its token on the server before touching the database.
+I removed it. What protects the endpoint now is boring and checkable: strict validation of every input, an `Origin` check plus a JSON-only content type (which stop *other websites* from casting votes through a visitor's browser), and per-IP caps. If you later need real bot resistance, put a challenge such as Cloudflare Turnstile in front of the `POST` and verify its token on the server before touching the database.
 
 ### 3. Enforce the caps with counters, not by counting rows
 
-The natural way to cap votes per IP is to count that IP’s recent rows in the votes table and insert only if the count is under the limit. Under concurrency that check is unreliable: every request reads the same snapshot, so a burst all passes the check at once. In a test with 100 simultaneous requests from one IP against a cap of 20, this approach let 50 through.
+The natural way to cap votes per IP is to count that IP's recent rows in the votes table and insert only if the count is under the limit. Under concurrency that check is unreliable: every request reads the same snapshot, so a burst all passes the check at once. In a test with 100 simultaneous requests from one IP against a cap of 20, this approach let 50 through.
 
 The fix is to move the check onto a row that Postgres locks. Each IP gets a counter row per hour, and the vote runs `INSERT ... ON CONFLICT DO UPDATE ... WHERE n < cap`. Concurrent requests queue on that row and each one re-checks the cap against the latest value. The same test then lets through exactly 20.
 
@@ -98,11 +98,11 @@ Two honest tradeoffs: the window is a fixed clock hour, so a burst that straddle
 
 An optimistic UI is nice, but it creates a nasty failure mode. Suppose the click handler writes `upvoted = true` to `localStorage` and the request then fails. On every later visit the button is stuck in its voted state while the count shows `0`.
 
-The rules I use: `localStorage` is only a cache for the first paint. It is written only after the server confirms the vote, and it is deleted whenever a later `GET` says the server has no vote. If the API is merely unreachable, the cache is left alone, so a returning voter still sees their vote. The count stays hidden until the server has reported it, and no “+1” is shown while the real number is unknown. A failed vote is rolled back and the button shows the failure for a few seconds.
+The rules I use: `localStorage` is only a cache for the first paint. It is written only after the server confirms the vote, and it is deleted whenever a later `GET` says the server has no vote. If the API is merely unreachable, the cache is left alone, so a returning voter still sees their vote. The count stays hidden until the server has reported it, and no "+1" is shown while the real number is unknown. A failed vote is rolled back and the button shows the failure for a few seconds.
 
 ### 5. Use aria-disabled, not disabled
 
-A native `disabled` button is removed from the tab order and, in several browsers, stops firing mouse events, so hover feedback such as a tooltip silently stops working. `aria-disabled="true"` plus a CSS class keeps the button focusable and hoverable, and screen readers still announce it as unavailable. The click handler simply returns early. The same state is used for the few seconds after a failed vote, so the button can’t be hammered while the failure message is showing.
+A native `disabled` button is removed from the tab order and, in several browsers, stops firing mouse events, so hover feedback such as a tooltip silently stops working. `aria-disabled="true"` plus a CSS class keeps the button focusable and hoverable, and screen readers still announce it as unavailable. The click handler simply returns early. The same state is used for the few seconds after a failed vote, so the button can't be hammered while the failure message is showing.
 
 ## Step 1: Create the database tables
 
@@ -142,7 +142,7 @@ How the pieces work together:
 - **`article_upvotes`** holds the number you display.
 - **`article_voters`** holds one row per vote. Its primary key is what stops a device from voting twice on the same post. No IP-derived data lives here.
 - **`ip_quota`** holds only a keyed hash and a count per hour. The function deletes rows older than two hours, so these hashes never pile up.
-- Because the count lives in a separate table from the votes, the two have to change together. The function in Step 2 does that in a single SQL statement, so they can’t drift apart.
+- Because the count lives in a separate table from the votes, the two have to change together. The function in Step 2 does that in a single SQL statement, so they can't drift apart.
 - The column sizes match the validation in the function (post IDs up to 200 characters, tokens of exactly 36). The function uses the three-argument form of `date_trunc`, which needs Postgres 12 or newer.
 
 Then copy your connection string from the Neon dashboard (**Connect**, then copy the connection string). It looks like this:
@@ -153,7 +153,7 @@ postgresql://USER:PASSWORD@ep-example-123456.us-east-2.aws.neon.tech/neondb?sslm
 
 ## Step 2: The serverless function
 
-On Cloudflare Pages, any file under a top-level `functions/` directory (at the root of the repository, next to your site’s source) is deployed as a function, and the file path becomes the route. Saving this as `functions/api/upvote-server.js` serves it at `/api/upvote-server`.
+On Cloudflare Pages, any file under a top-level `functions/` directory (at the root of the repository, next to your site's source) is deployed as a function, and the file path becomes the route. Saving this as `functions/api/upvote-server.js` serves it at `/api/upvote-server`.
 
 ```javascript
 // functions/api/upvote-server.js
@@ -508,10 +508,10 @@ export async function onRequest(context) {
 A few notes on this file:
 
 - **Status codes.** `200` means voted or already voted, `400` invalid input, `403` a request from another origin, `413` body too large, `415` wrong content type, `429` hourly cap reached, and `503` a database error or missing configuration. The client treats `429` and every other non-success as a failed vote.
-- **One statement, three tables.** Data-modifying CTEs in Postgres all run within one statement, which is atomic. `gate` checks whether this device already voted, `q_post` and `q_all` take a unit from the two hourly quotas, `ins` records the vote only if both quotas allowed it, and `bump` increments the aggregate only if `ins` actually inserted a row. A repeated vote or a concurrent duplicate inserts nothing and changes nothing, so the count and the voter rows can’t disagree.
+- **One statement, three tables.** Data-modifying CTEs in Postgres all run within one statement, which is atomic. `gate` checks whether this device already voted, `q_post` and `q_all` take a unit from the two hourly quotas, `ins` records the vote only if both quotas allowed it, and `bump` increments the aggregate only if `ins` actually inserted a row. A repeated vote or a concurrent duplicate inserts nothing and changes nothing, so the count and the voter rows can't disagree.
 - **Input is validated before it touches SQL.** All values are bound parameters, the post ID is restricted to a conservative character set (letters, digits, `._~-` and up to six `/`-separated segments), and the voter token must match its exact format.
-- **Why SQL over HTTP?** A Worker can’t keep a pooled TCP connection around between requests, and an HTTP call is one round trip with nothing to open or close. It is the transport Neon’s own serverless driver uses in HTTP mode. If you would rather depend on a supported client, use `@neondatabase/serverless`; the SQL stays the same. The code strips `-pooler` from the host name, which is what worked for me.
-- **The client IP.** `cf-connecting-ip` is the header Cloudflare sets with the visitor’s address. On another host, use whichever header your platform sets itself, and never fall back to one a client can send, because a spoofable header lets people dodge the caps. IPv6 addresses are collapsed to their /64, since one subscriber usually owns a whole /64.
+- **Why SQL over HTTP?** A Worker can't keep a pooled TCP connection around between requests, and an HTTP call is one round trip with nothing to open or close. It is the transport Neon's own serverless driver uses in HTTP mode. If you would rather depend on a supported client, use `@neondatabase/serverless`; the SQL stays the same. The code strips `-pooler` from the host name, which is what worked for me.
+- **The client IP.** `cf-connecting-ip` is the header Cloudflare sets with the visitor's address. On another host, use whichever header your platform sets itself, and never fall back to one a client can send, because a spoofable header lets people dodge the caps. IPv6 addresses are collapsed to their /64, since one subscriber usually owns a whole /64.
 - **The secret.** `UPVOTE_SECRET` only keys the IP hash. Rotating it resets the current quota counts and nothing else. `GET` works without it, while `POST` returns `503` until it is set to at least 16 characters.
 - **Cleanup.** About 2% of successful votes trigger a best-effort delete of expired `ip_quota` rows, run with `waitUntil` so it never delays the response. Votes and counts are never deleted.
 - **Tuning.** The caps are constants at the top of the file: 20 votes per IP per post per hour, and 60 per IP across all posts. If a post is shared inside a large office or campus, raise them.
@@ -550,7 +550,7 @@ This is plain HTML, so it works in any template engine or static page. Only the 
 
 What each part is for:
 
-- **`data-id`** is the post’s vote ID, and **`data-api`** is the function’s URL. Both are read by the script.
+- **`data-id`** is the post's vote ID, and **`data-api`** is the function's URL. Both are read by the script.
 - **The honeypot** is a text field a human never sees. The page ships it pre-filled, the script empties it on the first genuine mouse, touch or key event, and the server rejects any vote that arrives with it still filled. That catches scripts that replay the form without interacting. It is a speed bump, not protection. The field name is arbitrary (here it is called `title`), but the markup, the script and the function must all agree on it, so change them together.
 - **`data-state="loading"`** on the count starts it invisible, with its space reserved, so there is no flash of a wrong number.
 - **The `upvote-label` span** must stay: the script puts failure messages there for a few seconds.
@@ -879,9 +879,9 @@ Save this as `static/js/upvote-client.js`, or wherever your site serves scripts 
 What the script takes care of:
 
 - **Instant first paint, then reconciliation.** It shows the remembered state immediately, then asks the server and corrects anything that disagrees. Requests are deferred with `requestIdleCallback`, so the page never waits on them.
-- **Optimistic voting with rollback.** The click updates the button at once. If the server doesn’t confirm, the count and button go back and the button shows `Try again later` (for a `429`) or `Upvote failed` for a few seconds, disabled so it can’t be hammered.
-- **No misleading numbers.** The count is hidden until the server reports it, and a click before that doesn’t invent a “+1”.
-- **Stale responses are ignored.** If the initial `GET` arrives after the user has already voted, it can’t overwrite the confirmed result.
+- **Optimistic voting with rollback.** The click updates the button at once. If the server doesn't confirm, the count and button go back and the button shows `Try again later` (for a `429`) or `Upvote failed` for a few seconds, disabled so it can't be hammered.
+- **No misleading numbers.** The count is hidden until the server reports it, and a click before that doesn't invent a "+1".
+- **Stale responses are ignored.** If the initial `GET` arrives after the user has already voted, it can't overwrite the confirmed result.
 - **Three cheap speed bumps.** The honeypot field, a 1.5 second minimum between page load and the request (an early click is delayed, not dropped), and a check that the click is a real user event rather than a script calling `element.click()`.
 - **Storage that can fail.** Private modes and blocked storage fall back to memory instead of breaking the page, and tokens in an unexpected format are replaced.
 
@@ -1037,11 +1037,11 @@ The only site-specific part is producing a stable ID for each post and printing 
 
 ### Choosing the post ID
 
-The ID can be any string that identifies a post and never changes. The post’s path works well, for example `posts/hello-world`.
+The ID can be any string that identifies a post and never changes. The post's path works well, for example `posts/hello-world`.
 
 - The function strips leading and trailing slashes, so `/posts/hello-world/` and `posts/hello-world` are the same post.
 - Allowed characters are letters, digits, `.`, `_`, `~` and `-`, in up to six `/`-separated segments that each start with a letter or digit, 200 characters at most. If a slug contains anything else, such as spaces or non-ASCII characters, give that post an explicit ID.
-- Most generators expose the path directly. For example: `page.path` in Zola, `.RelPermalink` in Hugo, `page.url` in Jekyll and Eleventy, and `Astro.url.pathname` in Astro. Check your generator’s docs for the exact output; what matters is that it stays the same for a given post.
+- Most generators expose the path directly. For example: `page.path` in Zola, `.RelPermalink` in Hugo, `page.url` in Jekyll and Eleventy, and `Astro.url.pathname` in Astro. Check your generator's docs for the exact output; what matters is that it stays the same for a given post.
 
 To survive renames, add an optional front-matter field (I call mine `uid`) and prefer it when it is set:
 
@@ -1049,7 +1049,7 @@ To survive renames, add an optional front-matter field (I call mine `uid`) and p
 data-id = post.uid, if set; otherwise the post's path
 ```
 
-If you later rename a post’s slug, set `uid` to the **old** ID. Votes are keyed on that string, so they follow the post.
+If you later rename a post's slug, set `uid` to the **old** ID. Votes are keyed on that string, so they follow the post.
 
 ### Where to render it
 
@@ -1065,7 +1065,7 @@ Render the snippet only on post pages, after the article body, and load the scri
 
 ### Testing locally
 
-Static-site dev servers only serve files. They do not run Pages Functions, so on a plain dev server the button will hide its count and roll back any click with “Upvote failed”, which is the fail-visibly path working as intended. To exercise the real API locally, build your site and serve the output directory through Wrangler (`public` for Zola and Hugo, `_site` for Jekyll and Eleventy, `dist` for Astro):
+Static-site dev servers only serve files. They do not run Pages Functions, so on a plain dev server the button will hide its count and roll back any click with "Upvote failed", which is the fail-visibly path working as intended. To exercise the real API locally, build your site and serve the output directory through Wrangler (`public` for Zola and Hugo, `_site` for Jekyll and Eleventy, `dist` for Astro):
 
 ```bash
 npx wrangler pages dev public
@@ -1111,10 +1111,10 @@ The function uses only web-standard APIs (`fetch`, `Request`, `Response`, `crypt
   ```
 
   On other platforms, read `DATABASE_URL` and `UPVOTE_SECRET` from wherever your host exposes environment variables and map its request object onto `request`.
-- **The client IP header.** Replace `cf-connecting-ip` in `getIpHash` with the header your platform sets itself, and make sure a client can’t supply it.
+- **The client IP header.** Replace `cf-connecting-ip` in `getIpHash` with the header your platform sets itself, and make sure a client can't supply it.
 - **Same origin.** The function checks that `Origin` matches its own origin and sends no CORS headers, so the page and the function must live on the same origin. If your API is on a different domain, you will need to add CORS headers and loosen that check deliberately.
 
-The SQL runs on any Postgres 12 or newer. If you aren’t using Neon’s HTTP endpoint, replace the `query` helper with your own driver call: the statements take the same positional parameters and return the same single row, and the one-statement design works the same over a pooled connection.
+The SQL runs on any Postgres 12 or newer. If you aren't using Neon's HTTP endpoint, replace the `query` helper with your own driver call: the statements take the same positional parameters and return the same single row, and the one-statement design works the same over a pooled connection.
 
 ## Operating it
 
@@ -1140,17 +1140,18 @@ UPDATE article_upvotes SET count = 0, updated_at = NOW() WHERE id = 'posts/hello
 
 ## Limitations and hardening
 
-This is a *soft* counter. Be clear-eyed about what it does and doesn’t stop:
+This is a *soft* counter. Be clear-eyed about what it does and doesn't stop:
 
-- **It is not abuse-proof.** Anyone can clear `localStorage` and get a fresh voter token. The hourly caps limit what a single network can do, but they don’t stop someone rotating IP addresses. If that matters, add a rate-limiting rule at your CDN for the endpoint, and put a challenge such as [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) in front of the `POST`, verifying its token on the server before any database call. For a personal blog I decided that wasn’t worth the effort yet.
-- **Tune the caps for your audience.** The caps are per network. If a post is shared inside a large office or campus, votes beyond the cap in that hour are refused with the “Try again later” message. Raise `perPostPerHour` if you expect that.
-- **Arbitrary IDs create rows.** The function validates the *format* of the post ID but not that the post exists, so a script can create rows for IDs that were never real. The all-posts cap bounds how many a single network can create per hour. Checking existence would conflict with explicit IDs, since a pinned ID may no longer match a live URL, so if it ever matters, periodically delete the rows for IDs you don’t recognise from both `article_voters` and `article_upvotes`.
+- **It is not abuse-proof.** Anyone can clear `localStorage` and get a fresh voter token. The hourly caps limit what a single network can do, but they don't stop someone rotating IP addresses. If that matters, add a rate-limiting rule at your CDN for the endpoint, and put a challenge such as [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) in front of the `POST`, verifying its token on the server before any database call. For a personal blog I decided that wasn't worth the effort yet.
+- **Tune the caps for your audience.** The caps are per network. If a post is shared inside a large office or campus, votes beyond the cap in that hour are refused with the "Try again later" message. Raise `perPostPerHour` if you expect that.
+- **Arbitrary IDs create rows.** The function validates the *format* of the post ID but not that the post exists, so a script can create rows for IDs that were never real. The all-posts cap bounds how many a single network can create per hour. Checking existence would conflict with explicit IDs, since a pinned ID may no longer match a live URL, so if it ever matters, periodically delete the rows for IDs you don't recognise from both `article_voters` and `article_upvotes`.
 - **The speed bumps are only speed bumps.** The honeypot, the minimum delay and the real-click check stop naive scripts. A script driving a real browser passes all three.
 - **Privacy.** No raw IP address is stored. A keyed hash of it exists only in `ip_quota`, for about two hours. The voter token is random and anonymous, but it is a persistent per-browser identifier that sits in your database next to every post that browser voted on, so it is worth a line in your privacy notes.
-- **Cold starts.** On Neon’s free tier the database can scale to zero, so the first request after an idle period may take noticeably longer. The deferred, non-blocking script means readers never wait on it, but the count may appear a moment late.
+- **Cold starts.** On Neon's free tier the database can scale to zero, so the first request after an idle period may take noticeably longer. The deferred, non-blocking script means readers never wait on it, but the count may appear a moment late.
 
 ## Wrapping up
 
 The whole thing is three tables, one function and one small script, and it fails visibly at every layer. The most useful lessons were the unglamorous ones: identify devices rather than networks, treat the server as the only source of truth about whether someone voted, let the database enforce uniqueness, and keep the aggregate and the voter rows consistent in one statement instead of checking in application code. Put limits on a row that Postgres locks rather than counting rows and hoping requests arrive one at a time. And be honest about the difference between cheap speed bumps and real abuse protection, which includes deleting a feature, like the signed token I started with, when it only looks like security.
+
 
 Flush!

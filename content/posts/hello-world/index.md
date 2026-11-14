@@ -31,4 +31,6 @@ This site has existed since 2018, yet **write more** never made it out of the ba
 
 This is my first article on the updated blog, and genuinely only my second attempt at writing.
 
+
 Flush!
+

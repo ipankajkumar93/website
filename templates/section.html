@@ -6,7 +6,8 @@
 <div class="section-header">
   <h1>{{ section.title }}</h1>
   {% if section.description %}
-  <p class="section-description">{{ section.description | markdown(inline=true) | safe }}</p>
+  {# Render markdown description as safe HTML #}
+  <p class="section-description">{{ section.description | markdown(inline=true) | replace(from="<a href=", to="<a target=\"_blank\" rel=\"noopener noreferrer\" href=") | safe }}</p>
   {% endif %}
 </div>
 <div id="pagination-container" class="pagination-container">
