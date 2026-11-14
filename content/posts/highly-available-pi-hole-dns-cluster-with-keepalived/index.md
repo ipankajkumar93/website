@@ -33,7 +33,7 @@ The fix is to run two Pi-hole nodes in an **active-active high-availability clus
 
 
 {% <admonition kind="note"> %}
-None of this is Raspberry Pi–specific. Any pair of machines running a Debian-based OS works - old laptops, mini PCs, VMs, whatever you have lying around. I have used a pair of Raspberry Pi 4Bs (1GB RAM) running DietPi OS, but the steps translate directly to any Debian/Ubuntu-based setup.
+None of this is Raspberry Pi-specific. Any pair of machines running a Debian-based OS works - old laptops, mini PCs, VMs, whatever you have lying around. I have used a pair of Raspberry Pi 4Bs (1GB RAM) running DietPi OS, but the steps translate directly to any Debian/Ubuntu-based setup.
 {% </admonition> %}
 
 
@@ -326,6 +326,6 @@ If both checks pass, you have a working active-active Pi-hole cluster: DNS keeps
 
 With this setup, your router never talks to a single point of failure - it talks to two VIPs that are always being served by a healthy node. The health-check script goes a step further than just "is the process alive," actually confirming DNS resolution end-to-end before considering a node healthy. Combine this with keeping both nodes' Pi-hole configuration in sync (via Teleporter export/import) and you've got a resilient, low-maintenance DNS layer for your home network.
 
-Flush!
 
+Flush!
 

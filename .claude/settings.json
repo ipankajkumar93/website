@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "zola check",
+      "zola build",
+      "zola serve --drafts",
+      "zola --version",
+      "make preview",
+      "make check-links",
+      "git status",
+      "git diff",
+      "git log",
+      "git branch",
+      "git show",
+      "grep -r"
+    ],
+    "ask": [
+      "make build",
+      "make og-images",
+      "uv run scripts/generate_og_images.py",
+      "uv run scripts/copy_md_files.py",
+      "make post *",
+      "make rtd *",
+      "make travel *",
+      "git add",
+      "git commit",
+      "git push",
+      "git checkout",
+      "git merge"
+    ],
+    "deny": [
+      "cat .env*",
+      "cat *secret*",
+      "printenv DATABASE_URL",
+      "printenv UPVOTE_SECRET",
+      "rm -rf *",
+      "wrangler *"
+    ]
+  }
+}
+

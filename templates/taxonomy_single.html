@@ -23,7 +23,7 @@
       </div>
     {%- endif %}
 
-    <div id="default-taxonomy-view">
+    <div id="default-taxonomy-view" class="default-taxonomy-view">
       {% set_global sortable_strings = [] %}
       {% for p in term.pages %}
         {% set edate = p.updated | default(value=p.date, boolean=true) %}
@@ -123,7 +123,7 @@
       {% endif %}
     </div>
 
-    <div id="unified-topics-view">
+    <div id="unified-topics-view" class="unified-topics-view">
       {% set_global unified_pages = [] %}
 
       {# 1. Add current taxonomy pages #}

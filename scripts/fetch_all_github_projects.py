@@ -1,5 +1,6 @@
 #!/usr/bin/env -S uv run --script
 # /// script
+# requires-python = ">=3.11"
 # dependencies = ["requests"]
 # ///
 
@@ -18,11 +19,11 @@ import json
 import sys
 import time
 import tomllib
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 import requests
 
-def fetch_all_repos(username: str) -> list:
+def fetch_all_repos(username: str) -> list[dict]:
     """
     Fetch all public repositories for a GitHub user.
     
@@ -72,7 +73,7 @@ def fetch_all_repos(username: str) -> list:
     
     return repos
 
-def fetch_languages(repo: dict) -> list:
+def fetch_languages(repo: dict) -> list[str]:
     """
     Fetch all languages for a repository, sorted by bytes (descending).
 
@@ -237,9 +238,9 @@ def main():
     project_root = script_dir.parent
     output_path = project_root / "content" / "projects" / "new_projects.toml"
 
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write("# GitHub Projects\n")
-        f.write(f"# Generated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write(f"# Generated on {datetime.now(UTC).strftime('%Y-%m-%d %H:%M:%S UTC')}\n")
         f.write(f"# Total projects: {len(filtered_repos)}\n")
         f.write("\n")
 

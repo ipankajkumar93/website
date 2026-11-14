@@ -9,7 +9,6 @@ Copies raw markdown files from the content directory to their corresponding
 output directories in public/ so they can be accessed directly by LLMs.
 """
 
-import os
 import shutil
 import re
 import sys

@@ -12,7 +12,6 @@
         }
     }
     document.documentElement.setAttribute('data-theme', theme);
-    document.documentElement.style.colorScheme = theme;
     // Only write to localStorage if the value has changed (avoids redundant writes)
     if (stored !== theme) {
         localStorage.setItem('theme', theme);
