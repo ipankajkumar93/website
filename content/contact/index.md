@@ -11,7 +11,7 @@ icon = "mail"
 
 [extra.x]
 platform = "X"
-handle = "@johndoe"
+handle = "johndoe"
 url = "https://x.com/johndoe"
 icon = "x-logo"
 
