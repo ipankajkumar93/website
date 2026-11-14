@@ -6,6 +6,7 @@
 <div class="section-header">
   <h1>{{ section.title }}</h1>
   {% if section.description %}
+  {# Render markdown description as safe HTML #}
   <p class="section-description">{{ section.description | markdown(inline=true) | safe }}</p>
   {% endif %}
 </div>

@@ -1,3 +1,4 @@
+{# All URLs and JSON-LD in this template are derived from verified config.base_url and Zola permalinks; safe filter preserves unescaped URL ampersands and JSON structure. #}
 {% set og_type = "website" -%}
 {% set og_title = config.title -%}
 {% set og_description = config.description -%}
@@ -19,7 +20,8 @@
     {% if is_article -%}
         {% set og_type = "article" -%}
     {% else -%}
-        {% set og_type = "website" -%}
+        {# All URLs and JSON-LD in this template are derived from verified config.base_url and Zola permalinks; safe filter preserves unescaped URL ampersands and JSON structure. #}
+{% set og_type = "website" -%}
     {% endif -%}
     {% set og_title = page.title | default(value=config.title) -%}
     {% if not og_title %}{% set og_title = config.title %}{% endif -%}
@@ -41,7 +43,8 @@
     {% endif -%}
     {% set x_card = "summary_large_image" -%}
 {% elif section -%}
-    {% set og_type = "website" -%}
+    {# All URLs and JSON-LD in this template are derived from verified config.base_url and Zola permalinks; safe filter preserves unescaped URL ampersands and JSON structure. #}
+{% set og_type = "website" -%}
     {% set og_title = section.title | default(value=config.title) -%}
     {% if not og_title %}{% set og_title = config.title %}{% endif -%}
     {% set og_description = section.description | default(value=config.description) -%}

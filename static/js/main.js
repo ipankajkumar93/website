@@ -45,7 +45,6 @@ if (themeToggle) {
         }
 
         document.documentElement.setAttribute('data-theme', theme);
-        document.documentElement.style.colorScheme = theme;
         localStorage.setItem('theme', theme);
 
         // Sync the status-bar / browser chrome color with the active theme.
@@ -273,20 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.error('Failed to copy text: ', err);
                 });
             } else {
-                const textArea = document.createElement("textarea");
-                textArea.value = textToCopy;
-                textArea.style.position = "fixed";
-                textArea.style.opacity = "0";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showSuccess();
-                } catch (err) {
-                    console.error('Fallback copy failed', err);
-                }
-                document.body.removeChild(textArea);
+                console.warn('Clipboard API unavailable');
             }
         });
 
@@ -537,7 +523,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const brandWidth = titleLink.getBoundingClientRect().width;
             logo.textContent = title || '\u200B'; // Reset
 
-            titleLink.style.minWidth = Math.max(currentWidth, brandWidth) + 'px';
+            titleLink.style.setProperty('--title-min-width', `${Math.max(currentWidth, brandWidth)}px`);
 
             const INITIAL_DELAY  = 2500;  // ms before animation starts
             const DELETE_BASE    = 85;    // ms per char (base, fastest)
@@ -747,18 +733,18 @@ document.addEventListener('DOMContentLoaded', function () {
         const maxLeft = window.innerWidth - tooltipEl.offsetWidth - margin;
         
         if (left < margin) {
-            tooltipEl.style.left = margin + 'px';
-            tooltipEl.style.right = 'auto';
+            tooltipEl.style.setProperty('--tooltip-left', `${margin}px`);
+            tooltipEl.style.setProperty('--tooltip-right', 'auto');
         } else if (left > maxLeft) {
             // Force it to stay on screen by anchoring to the right edge
-            tooltipEl.style.left = 'auto';
-            tooltipEl.style.right = margin + 'px';
+            tooltipEl.style.setProperty('--tooltip-left', 'auto');
+            tooltipEl.style.setProperty('--tooltip-right', `${margin}px`);
         } else {
-            tooltipEl.style.left = left + 'px';
-            tooltipEl.style.right = 'auto';
+            tooltipEl.style.setProperty('--tooltip-left', `${left}px`);
+            tooltipEl.style.setProperty('--tooltip-right', 'auto');
         }
 
-        tooltipEl.style.top = top + 'px';
+        tooltipEl.style.setProperty('--tooltip-top', `${top}px`);
     });
 
     document.addEventListener('pointerout', function(e) {

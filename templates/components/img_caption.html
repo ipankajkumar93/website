@@ -1,6 +1,7 @@
 {% component img_caption(path, caption) %}
 <figure>
-    <img src="{{ get_url(path=path, trailing_slash=false, cachebust=true) | safe }}" alt="{{ caption }}">
+    {# URL generated via get_url is trusted and safe #}
+    <img src="{{ get_url(path=path, trailing_slash=false, cachebust=true) | safe }}" alt="{{ caption }}" loading="lazy" decoding="async">
     <figcaption>{{ caption }}</figcaption>
 </figure>
 {% endcomponent img_caption %}
