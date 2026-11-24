@@ -43,6 +43,7 @@ dark_theme = "github-dark-default"
 # Custom Variables (Accessible via config.extra in templates)
 
 [extra]
+license = "CC-BY-NC-SA-4.0"
 brand = "~/pnkjkmr"      # Used as the logo name in the header
 favicon = "/favicon-light.svg"
 date_format = "%d %b, %Y"
