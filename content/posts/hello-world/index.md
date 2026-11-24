@@ -11,7 +11,7 @@ updated = 2026-06-14
 [extra]
 toc = true # Generates Table of Contents for the page if true
 featured = false
-license = "CC-BY-SA-4.0"
+license = "CC-BY-NC-SA-4.0"
 wrap_code = false
 upvote = true # Set to false to disable upvotes on this article
 # uid = "posts/hello-world" # Optional: Set to original ID if you rename this post's slug in the future to preserve upvotes

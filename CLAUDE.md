@@ -7,7 +7,7 @@
 Zola 0.23.6 static site template (personal website & blog) deployed on Cloudflare Pages.
 **Upstream template repo** — changes here flow to downstream forks via `git fetch`/`git merge`.
 Downstream repos replace `content/` but share everything else, including this front matter schema.
-Dual-licensed: GPLv3 (code), CC BY-SA 4.0 (content).
+Dual-licensed: GPLv3 (code), CC BY-NC-SA 4.0 (content).
 
 ## Architecture
 

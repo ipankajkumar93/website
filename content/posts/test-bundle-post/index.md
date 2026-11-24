@@ -11,7 +11,7 @@ date = 2026-08-19
 [extra]
 toc = true
 featured = false
-license = "CC-BY-SA-4.0"
+license = "CC-BY-NC-SA-4.0"
 wrap_code = false
 # og_preview_img = "/images/sample-image.jpeg" # Uncomment to specify a custom OG preview image, otherwise the build script will auto-generate one.
 # cover_image = "/images/sample-image.jpeg"

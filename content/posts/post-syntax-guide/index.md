@@ -14,7 +14,7 @@ post_tags = ["post", "markdown", "syntax", "guide"]
 [extra]
 toc = true # Generates Table of Contents for the page if true
 featured = false
-license = "CC-BY-SA-4.0"
+license = "CC-BY-NC-SA-4.0"
 wrap_code = false
 katex = true
 mermaid = true
