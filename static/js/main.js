@@ -16,29 +16,22 @@ if (themeToggle) {
     themeToggle.setAttribute('title', initialTooltip);
     themeToggle.setAttribute('aria-label', initialTooltip);
 
-    const updateThemeMeta = (isDark) => {
-        const themeColors = { dark: '#0C0A09', light: '#FAF9F7' };
-        document.querySelectorAll('meta[name="theme-color"]').forEach(meta => {
-            const mediaDark = meta.media && meta.media.includes('dark');
-            meta.content = mediaDark ? themeColors.dark : themeColors.light;
-        });
+    themeToggle.addEventListener('click', function () {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const theme = isDark ? 'light' : 'dark';
 
-        // Update favicon to match the new theme
-        const svgFavicon = document.getElementById('svg-favicon');
-        if (svgFavicon) {
-            svgFavicon.href = isDark ? (svgFavicon.dataset.darkHref || '/favicon-light.svg') : (svgFavicon.dataset.lightHref || '/favicon-light.svg');
-        }
-        const icoFavicon = document.getElementById('ico-favicon');
-        if (icoFavicon) {
-            icoFavicon.href = isDark ? (icoFavicon.dataset.darkHref || '/favicon-light.ico') : (icoFavicon.dataset.lightHref || '/favicon-light.ico');
-        }
-    };
+        document.body.classList.add('theme-transition');
 
-    const applyTheme = (theme, updateMeta = true) => {
-        const isDark = theme === 'dark';
-        themeToggle.setAttribute('aria-checked', isDark ? 'true' : 'false');
+        // Force a reflow so the browser commits the transition styles BEFORE
+        // we flip the color variables.  Without this, the browser can batch
+        // the classList change and the data-theme change into a single style
+        // recalculation, causing some elements (e.g. TOC borders) to snap
+        // instead of transitioning.
+        void document.body.offsetHeight;
 
-        const newTooltip = isDark ? 'Lights On' : 'Lights Off';
+        themeToggle.setAttribute('aria-checked', isDark ? 'false' : 'true');
+
+        const newTooltip = theme === 'dark' ? 'Lights On' : 'Lights Off';
         if (themeToggle.hasAttribute('data-title')) {
             themeToggle.setAttribute('data-title', newTooltip);
         } else {
@@ -54,48 +47,26 @@ if (themeToggle) {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
 
-        if (updateMeta) {
-            updateThemeMeta(isDark);
-        }
-    };
-
-    let isTransitioning = false;
-
-    themeToggle.addEventListener('click', async function () {
-        if (isTransitioning) return;
-
-        const currentTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const supportsViewTransition = 'startViewTransition' in document && !prefersReducedMotion;
-
-        if (!supportsViewTransition) {
-            if (!prefersReducedMotion) {
-                document.body.classList.add('theme-transition');
-                void document.body.offsetHeight;
-            }
-            applyTheme(nextTheme, true);
-            if (!prefersReducedMotion) {
-                setTimeout(() => document.body.classList.remove('theme-transition'), 500);
-            }
-            return;
-        }
-
-        isTransitioning = true;
-
-        const transition = document.startViewTransition(() => {
-            applyTheme(nextTheme, false);
+        // Sync the status-bar / browser chrome color with the active theme.
+        // We update both media-prefixed <meta name="theme-color"> tags so
+        // Android Chrome picks the right one regardless of the OS dark-mode setting.
+        const themeColors = { dark: '#0C0A09', light: '#FAF9F7' };
+        document.querySelectorAll('meta[name="theme-color"]').forEach(meta => {
+            const mediaDark = meta.media && meta.media.includes('dark');
+            meta.content = mediaDark ? themeColors.dark : themeColors.light;
         });
 
-        try {
-            await transition.finished;
-        } catch {
-            // Transition was aborted or cancelled
-        } finally {
-            updateThemeMeta(nextTheme === 'dark');
-            isTransitioning = false;
+        // Update favicon to match the new theme
+        const svgFavicon = document.getElementById('svg-favicon');
+        if (svgFavicon) {
+            svgFavicon.href = theme === 'dark' ? (svgFavicon.dataset.darkHref || '/favicon-light.svg') : (svgFavicon.dataset.lightHref || '/favicon-light.svg');
         }
+        const icoFavicon = document.getElementById('ico-favicon');
+        if (icoFavicon) {
+            icoFavicon.href = theme === 'dark' ? (icoFavicon.dataset.darkHref || '/favicon-light.ico') : (icoFavicon.dataset.lightHref || '/favicon-light.ico');
+        }
+
+        setTimeout(() => document.body.classList.remove('theme-transition'), 500);
     });
 }
 
