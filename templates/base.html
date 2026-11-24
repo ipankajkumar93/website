@@ -39,9 +39,16 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>{%- block title %}{{ config.title }}{%- endblock %}</title>
-    {% if page?.extra?.license %}
-    <meta name="license" content="{{ page.extra.license }}">
-    {% endif %}
+    {%- if page?.extra?.license %}
+    {%- set meta_license = page.extra.license %}
+    {%- elif section?.extra?.license %}
+    {%- set meta_license = section.extra.license %}
+    {%- elif config.extra.license %}
+    {%- set meta_license = config.extra.license %}
+    {%- else %}
+    {%- set meta_license = "CC-BY-NC-SA-4.0" %}
+    {%- endif %}
+    <meta name="license" content="{{ meta_license }}">
 
     {% include "og.html" %}
     {% block rss -%}
