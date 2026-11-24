@@ -2850,15 +2850,39 @@ footer {
         gap: var(--space-sm);
     }
 
+    .footer-center {
+        display: contents;
+    }
+
     .footer-left,
-    .footer-center,
-    .footer-right {
+    .footer-right,
+    .footer-crafted,
+    .footer-center > span {
         flex: none;
         width: 100%;
         text-align: center;
     }
 
-    .footer-right,
+    .footer-license-icons {
+        order: 1;
+    }
+
+    .footer-left {
+        order: 2;
+    }
+
+    .footer-crafted,
+    .footer-center > span {
+        order: 3;
+        white-space: normal;
+    }
+
+    .footer-right {
+        order: 4;
+        display: flex;
+        justify-content: center;
+    }
+
     .social-links {
         justify-content: center;
     }
