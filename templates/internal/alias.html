@@ -1,0 +1,14 @@
+{# Overrides Zola's built-in alias template to include the CC-BY-NC-SA-4.0 license meta tag on redirect stub pages #}
+<!doctype html>
+<meta charset="utf-8">
+<meta name="license" content="CC-BY-NC-SA-4.0">
+<title>Redirect</title>
+<script>
+  const target = "{{ url | safe }}";
+  const hash = window.location.hash || "";
+  window.location.replace(target + hash);
+</script>
+<noscript>
+  <meta http-equiv="refresh" content="0; url={{ url | safe }}">
+</noscript>
+<p><a href="{{ url | safe }}">Click here</a> to be redirected.</p>
