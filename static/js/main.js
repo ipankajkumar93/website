@@ -670,11 +670,11 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.appendChild(tooltipEl);
 
     const tooltipSelectors = [
-        '#title-copy-link',
+        '.copy-url-btn',
         '.heading-copy-link',
         '.share-icon',
         '.social-icon',
-        '#back-to-top',
+        '.back-to-top',
         '.search-btn',
         '.theme-toggle',
         '.copy-code-btn',
@@ -683,7 +683,8 @@ document.addEventListener('DOMContentLoaded', function () {
         '.mobile-menu-btn',
         '.mobile-close-btn',
         '.search-close',
-        '#upvote-btn'
+        '.upvote-button',
+        '.footer-license-icons'
     ].join(', ');
 
     const getTooltipText = (target) => {
@@ -764,5 +765,4 @@ document.addEventListener('DOMContentLoaded', function () {
             tooltipEl.classList.remove('visible');
         }
     });
-
 });

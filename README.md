@@ -14,7 +14,7 @@ A clean, minimal, and fast boilerplate template for personal websites and blogs.
   <a href="https://pages.cloudflare.com/"><img src="https://img.shields.io/badge/Deployed%20on-Cloudflare%20Pages-F38020?style=for-the-badge&logo=cloudflare" alt="Deployed on Cloudflare Pages"></a>
   <a href="https://example.com"><img src="https://img.shields.io/badge/Website-UP-success?style=for-the-badge" alt="Website Status"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/Source%20Code-GPLv3-blue?style=for-the-badge" alt="Source Code License"></a>
-  <a href="LICENSE-CONTENT"><img src="https://img.shields.io/badge/Content-CC%20BY--SA%204.0-FF1493?style=for-the-badge" alt="Content License"></a>
+  <a href="LICENSE-CONTENT"><img src="https://img.shields.io/badge/Content-CC%20BY--NC--SA%204.0-FF1493?style=for-the-badge" alt="Content License"></a>
   <a href="THIRD-PARTY-LICENSES.md"><img src="https://img.shields.io/badge/3rd%20Party-Licenses-blueviolet?style=for-the-badge" alt="3rd Party Licenses"></a>
 </p>
 
@@ -210,7 +210,7 @@ This project uses separate licenses for code and content.
 | Component | License |
 |---|---|
 | Source code, templates, scripts | [GNU General Public License v3.0 (GPLv3)](LICENSE) |
-| Articles, writing, images | [Creative Commons BY-SA 4.0](LICENSE-CONTENT) |
+| Articles, writing, images | [Creative Commons BY-NC-SA 4.0](LICENSE-CONTENT) |
 | Third-party components | [THIRD-PARTY-LICENSES](THIRD-PARTY-LICENSES.md) |
 
 Third-party components and their licenses are fully documented in [THIRD-PARTY-LICENSES](THIRD-PARTY-LICENSES.md). They include:

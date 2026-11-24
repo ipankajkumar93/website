@@ -23,8 +23,10 @@
   {%- if page.title %}
   <h1 class="article-title">{{ page.title }}</h1>
   <div class="title-copy-url">
-    <button type="button" id="title-copy-link" data-url="{{ current_url | safe }}" class="copy-url-btn" aria-label="Copy link to article" title="Copy link to article">
-      {{ <icon name="copy-link" /> }}
+    <button type="button" id="title-copy-link" data-url="{{ current_url | safe }}" class="copy-url-btn"
+      aria-label="Copy link to article" title="Copy link to article">
+      {{
+      <icon name="copy-link" /> }}
       <span>COPY URL</span>
     </button>
   </div>
@@ -32,14 +34,18 @@
   <div class="meta article-meta">
     {%- if page.date %}
     <div class="post-date">
-        {{ <icon name="calendar" /> }}
-        <time datetime='{{ page.date | date(format="%Y-%m-%dT%H:%M:%S%z") }}'>{{ page.date | date(format=config.extra.date_format) }}</time>
-        {%- if page.updated %}
-        <span>(Updated: <time datetime='{{ page.updated | date(format="%Y-%m-%dT%H:%M:%S%z") }}'>{{ page.updated | date(format=config.extra.date_format) }}</time>)</span>
-        {%- endif %}
+      {{
+      <icon name="calendar" /> }}
+      <time datetime='{{ page.date | date(format="%Y-%m-%dT%H:%M:%S%z") }}'>{{ page.date |
+        date(format=config.extra.date_format) }}</time>
+      {%- if page.updated %}
+      <span>(Updated: <time datetime='{{ page.updated | date(format="%Y-%m-%dT%H:%M:%S%z") }}'>{{ page.updated |
+          date(format=config.extra.date_format) }}</time>)</span>
+      {%- endif %}
     </div>
     <div class="reading-time">
-      {{ <icon name="timer" /> }}
+      {{
+      <icon name="timer" /> }}
       {{ page.reading_time }} min read ({{ page.word_count }} words)
     </div>
     {%- endif %}
@@ -50,11 +56,12 @@
   <div class="article-cover{% if is_restricted %} restricted-width{% endif %}">
     {% set cover_path = page.extra.cover_image %}
     {% if cover_path is starting_with(pat="/") %}
-      {% set cover_path_local = "static" ~ cover_path %}
-      {% set meta = get_image_metadata(path=cover_path_local) %}
-      <img src="{{ cover_path | safe }}" alt="Cover image for {{ page.title }}" fetchpriority="high" decoding="async" width="{{ meta.width }}" height="{{ meta.height }}" />
+    {% set cover_path_local = "static" ~ cover_path %}
+    {% set meta = get_image_metadata(path=cover_path_local) %}
+    <img src="{{ cover_path | safe }}" alt="Cover image for {{ page.title }}" fetchpriority="high" decoding="async"
+      width="{{ meta.width }}" height="{{ meta.height }}" />
     {% else %}
-      <img src="{{ cover_path | safe }}" alt="Cover image for {{ page.title }}" fetchpriority="high" decoding="async" />
+    <img src="{{ cover_path | safe }}" alt="Cover image for {{ page.title }}" fetchpriority="high" decoding="async" />
     {% endif %}
   </div>
   {%- endif %}
@@ -64,7 +71,8 @@
   <div class="toc{% if is_restricted %} restricted-width{% endif %}">
     <div class="toc-title">
       <span>What's inside</span>
-      {{ <icon name="chevrons-down" class="toc-icon" /> }}
+      {{
+      <icon name="chevrons-down" class="toc-icon" /> }}
     </div>
     <div class="toc-content">
       <div class="toc-inner">
@@ -89,63 +97,72 @@
   <div class="post-content{% if is_restricted %} restricted-width{% endif %}">
     {# Render parsed Markdown content as HTML #}
     {{ page.content | safe }}
-    
+
     <div class="post-license">
       - Written by human, polished by AI
-      {% if page.extra?.license == "CC-BY-SA-4.0" %}
+      {% if page.extra?.license == "CC-BY-NC-SA-4.0" %}
       <br>
-      - This post is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>
+      - This post is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"
+        rel="noopener noreferrer">CC BY-NC-SA 4.0</a>
       {% endif %}
     </div>
   </div>
 
   {% set show_upvote = false %}
   {% if config.extra.enable_upvotes | default(value=false) %}
-    {% if page.components and config.extra.upvote_sections %}
-      {% for sec in config.extra.upvote_sections %}
-        {% if sec in page.components %}
-          {% set_global show_upvote = true %}
-        {% endif %}
-      {% endfor %}
-    {% endif %}
-    {% if page.extra?.upvote is defined %}
-      {% set_global show_upvote = page.extra.upvote %}
-    {% endif %}
+  {% if page.components and config.extra.upvote_sections %}
+  {% for sec in config.extra.upvote_sections %}
+  {% if sec in page.components %}
+  {% set_global show_upvote = true %}
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  {% if page.extra?.upvote is defined %}
+  {% set_global show_upvote = page.extra.upvote %}
+  {% endif %}
   {% endif %}
 
   {% if show_upvote %}
-    {% include "components/upvote.html" %}
+  {% include "components/upvote.html" %}
   {% endif %}
 
   <div class="share-block{% if is_restricted %} restricted-width{% endif %}">
     <span class="share-label">Worth sharing?</span>
     <div class="share-icons">
-      <button type="button" id="social-copy-link" data-url="{{ current_url }}" class="share-icon" aria-label="Copy link" title="Copy link">
-        {{ <icon name="copy-link" /> }}
+      <button type="button" id="social-copy-link" data-url="{{ current_url }}" class="share-icon" aria-label="Copy link"
+        title="Copy link">
+        {{
+        <icon name="copy-link" /> }}
       </button>
       <a href="https://api.whatsapp.com/send?text={{ page.title | urlencode }}%20{{ current_url | urlencode }}"
         target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on WhatsApp">
-        {{ <icon name="whatsapp" /> }}
+        {{
+        <icon name="whatsapp" /> }}
       </a>
       <a href="https://www.facebook.com/sharer/sharer.php?u={{ current_url | urlencode }}" target="_blank"
         rel="noopener noreferrer" class="share-icon" aria-label="Share on Facebook">
-        {{ <icon name="facebook" /> }}
+        {{
+        <icon name="facebook" /> }}
       </a>
-      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ current_url | urlencode }}"
-        target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on LinkedIn">
-        {{ <icon name="linkedin" /> }}
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ current_url | urlencode }}" target="_blank"
+        rel="noopener noreferrer" class="share-icon" aria-label="Share on LinkedIn">
+        {{
+        <icon name="linkedin" /> }}
       </a>
       <a href="https://x.com/intent/tweet?url={{ current_url | urlencode }}&text={{ page.title | urlencode }}"
         target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on X">
-        {{ <icon name="x-logo" /> }}
+        {{
+        <icon name="x-logo" /> }}
       </a>
       <a href="https://t.me/share/url?url={{ current_url | urlencode }}&text={{ page.title | urlencode }}"
         target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Share on Telegram">
-        {{ <icon name="send" /> }}
+        {{
+        <icon name="send" /> }}
       </a>
       <a href="mailto:?subject={{ page.title | urlencode }}&body={{ current_url | urlencode }}" target="_blank"
         rel="noopener noreferrer" class="share-icon" aria-label="Share via Email">
-        {{ <icon name="mail" /> }}
+        {{
+        <icon name="mail" /> }}
       </a>
     </div>
   </div>
@@ -166,11 +183,13 @@
     {% if page.lower %}
     <div class="nav-prev">
       <a href="{{ page.lower.permalink }}" class="nav-label" aria-label="Previous post">
-        {{ <icon name="chevron-left" /> }}
+        {{
+        <icon name="chevron-left" /> }}
         <span>Previous</span>
       </a>
       <div class="nav-title-wrapper">
-        <a href="{{ page.lower.permalink }}" class="nav-title" aria-hidden="true" tabindex="-1">{{ page.lower.title }}</a>
+        <a href="{{ page.lower.permalink }}" class="nav-title" aria-hidden="true" tabindex="-1">{{ page.lower.title
+          }}</a>
       </div>
     </div>
     {% else %}
@@ -181,10 +200,12 @@
     <div class="nav-next">
       <a href="{{ page.higher.permalink }}" class="nav-label" aria-label="Next post">
         <span>Next</span>
-        {{ <icon name="chevron-right" /> }}
+        {{
+        <icon name="chevron-right" /> }}
       </a>
       <div class="nav-title-wrapper">
-        <a href="{{ page.higher.permalink }}" class="nav-title" aria-hidden="true" tabindex="-1">{{ page.higher.title }}</a>
+        <a href="{{ page.higher.permalink }}" class="nav-title" aria-hidden="true" tabindex="-1">{{ page.higher.title
+          }}</a>
       </div>
     </div>
     {% else %}
