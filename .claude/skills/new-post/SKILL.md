@@ -41,7 +41,7 @@ date = 2026-06-14            # BARE TOML date — no quotes!
 [extra]
 toc = true
 featured = false
-license = "CC-BY-SA-4.0"
+license = "CC-BY-NC-SA-4.0"
 wrap_code = false
 katex = false                # Set true if post uses LaTeX math
 mermaid = false              # Set true if post uses Mermaid diagrams

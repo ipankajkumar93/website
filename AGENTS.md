@@ -22,7 +22,7 @@ Both CLAUDE.md and GEMINI.md import this file.
 7. **Bookend convention** — article must end with `Flush!` on its own line, preceded by two blank lines
 8. **Shortcode syntax** — verify Zola 0.23 component syntax: `{% <name> %}`, `{{ <name /> }}`. Flag old-style `{{ name() }}` or Hugo-style `{{< name >}}`
 9. **Upvote uid** — if `slug` differs from directory name, flag that `uid` should be set to preserve upvote counts
-10. **License field** — should be `CC-BY-SA-4.0` for publishable content
+10. **License field** — should be `CC-BY-NC-SA-4.0` for publishable content
 11. **Grammar and spelling** — basic proofreading
 12. **Link validation** — check that internal links use correct Zola path syntax (`@/section/_index.md` or relative paths), never hardcoded domain URLs
 13. **Code block languages** — fenced code blocks MUST declare a language (e.g. ` ```bash `); flag unlabelled code blocks

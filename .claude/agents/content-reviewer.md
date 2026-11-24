@@ -68,7 +68,7 @@ Verify all required fields are present in the `+++` TOML block:
 - Flag old-style `{{ shortcode() }}` or Hugo-style `{{< shortcode >}}`
 
 ### License Field
-- `license` in `[extra]` should be `CC-BY-SA-4.0` for publishable content
+- `license` in `[extra]` should be `CC-BY-NC-SA-4.0` for publishable content
 - Flag if missing or different
 
 ### Markdown Cleanliness & Syntax
