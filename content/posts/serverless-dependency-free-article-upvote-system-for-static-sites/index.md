@@ -11,7 +11,7 @@ date = 2026-10-28
 [extra]
 toc = true
 featured = false
-license = "CC-BY-SA-4.0"
+license = "CC-BY-NC-SA-4.0"
 wrap_code = false
 katex = false
 mermaid = false
