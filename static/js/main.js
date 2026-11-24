@@ -84,42 +84,14 @@ if (themeToggle) {
 
         isTransitioning = true;
 
-        // Origin is the top-right corner (100% 0px).
-        // Calculate the maximum radius needed to cover the opposite bottom-left corner (0px, height).
-        const width = Math.max(
-            window.innerWidth,
-            document.documentElement.clientWidth,
-            window.visualViewport ? Math.ceil(window.visualViewport.width) : 0
-        );
-        const height = Math.max(
-            window.innerHeight,
-            document.documentElement.clientHeight,
-            window.visualViewport ? Math.ceil(window.visualViewport.height) : 0
-        );
-        const endRadius = Math.ceil(Math.hypot(width, height)) + 4;
-
         const transition = document.startViewTransition(() => {
             applyTheme(nextTheme, false);
         });
 
         try {
-            await transition.ready;
-            const animation = document.documentElement.animate(
-                {
-                    clipPath: [
-                        'circle(0px at 100% 0px)',
-                        `circle(${endRadius}px at 100% 0px)`
-                    ]
-                },
-                {
-                    duration: 450,
-                    easing: 'ease-in-out',
-                    pseudoElement: '::view-transition-new(root)'
-                }
-            );
-            await animation.finished;
+            await transition.finished;
         } catch {
-            // Transition or animation was aborted or cancelled
+            // Transition was aborted or cancelled
         } finally {
             updateThemeMeta(nextTheme === 'dark');
             isTransitioning = false;
