@@ -2,12 +2,9 @@
 <!doctype html>
 <meta charset="utf-8">
 <meta name="license" content="CC-BY-NC-SA-4.0">
+<meta name="redirect-target" content="{{ url | safe }}">
 <title>Redirect</title>
-<script>
-  const target = "{{ url | safe }}";
-  const hash = window.location.hash || "";
-  window.location.replace(target + hash);
-</script>
+<script src="{{ get_url(path='js/alias-redirect.js', trailing_slash=false, cachebust=true) | safe }}"></script>
 <noscript>
   <meta http-equiv="refresh" content="0; url={{ url | safe }}">
 </noscript>
