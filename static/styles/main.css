@@ -3528,14 +3528,9 @@
 
         .copy-url-btn,
         .filter-clear,
-        .tags>a,
-        a.tag,
         .topic-pill {
             min-height: 44px;
             min-width: 44px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
         }
     }
 
