@@ -105,9 +105,11 @@ Flush!
 
 Available admonition kinds: `note`, `tip`, `important`, `warning`, `caution`.
 
+> Note: `img` and `img_caption` shortcodes resolve local paths relative to `static/` (via `get_image_metadata`) so `width` and `height` attributes are added automatically. Always pass a `static/`-relative path (e.g. `images/photo.jpg` or `/images/photo.jpg`) or an `https://` URL.
+
 4. **Code block languages**: Every fenced code block must declare a language (e.g. ` ```bash `, ` ```rust `). Never leave fenced code blocks unlabelled.
 5. **Escape template syntax**: Literal `{{` or `{%` in Markdown code samples or prose MUST be wrapped in `{% raw %}...{% endraw %}` to prevent Tera template parse errors.
-6. **No raw HTML or inline styles**: Avoid raw HTML in Markdown. Never use `style="..."` or `<style>` tags. Use shortcodes or CSS classes when styling is needed.
+6. **No raw HTML or inline styles**: Avoid raw HTML in Markdown. Never use `style="..."` or `<style>` tags. Use shortcodes or CSS classes when styling is needed. For the homepage (`content/_index.md`), configure the hero heading and avatar via `[extra]` (`hero_title`, `profile_image`, `profile_alt`, `profile_avif`, `profile_webp`) instead of embedding raw `<h1>` or `<div>` wrappers in Markdown.
 7. **Smart punctuation**: `smart_punctuation = true` is enabled in config. Always type plain straight quotes (`"`, `'`) and plain hyphens (`--`, `---`). Do not hand-insert curly quotes or em dashes.
 8. **Internal links**: Use Zola `@/section/slug/index.md` or relative syntax, never hardcoded domain URLs.
 

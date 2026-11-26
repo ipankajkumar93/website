@@ -38,7 +38,7 @@ All responses (`/*`):
 | `img-src` | `'self' data: https:` | Self-hosted + data URIs + any HTTPS image |
 | `font-src` | `'self'` | Self-hosted fonts ONLY |
 | `connect-src` | `'self' https:` | Self-hosted + any HTTPS API |
-| `frame-src` | `https://www.youtube-nocookie.com https://www.youtube.com` | YouTube embeds only |
+| `frame-src` | `https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://maps.google.com` | YouTube and Google Maps embeds |
 
 ### Cache Headers (path-specific)
 
@@ -66,7 +66,7 @@ When adding a new external resource, identify which CSP directive needs updating
 ## Procedure
 
 1. **Identify the exact origin(s)** needed (e.g., `https://cdn.jsdelivr.net`, not just `https:`)
-2. **Use the narrowest possible origin** — prefer `https://specific.cdn.com` over `https://*.cdn.com` over `https:`
+2. **Always include an explicit `https://` scheme prefix** on external host-sources (e.g., `https://um.example.com`, not bare `um.example.com`) and prefer `https://specific.cdn.com` over `https://*.cdn.com` over `https:`
 3. **Propose the change** with the exact new `_headers` content — do NOT apply it without human approval
 4. **After approval**, edit `static/_headers` — the CSP is on a single long line (do not break it into multiple lines)
 5. **Test locally** with `zola serve --drafts` and check the browser console for CSP violations
@@ -75,8 +75,9 @@ When adding a new external resource, identify which CSP directive needs updating
 ## Important Notes
 
 - The CSP is a **single line** in `static/_headers`. Cloudflare Pages does not support multi-line header values.
+- Downstream site forks customize `static/_headers` for their own domain, analytics endpoint (e.g. `https://um.example.com`), and tighter `img-src` / `connect-src` rules (e.g. `https://img.youtube.com` if linking YouTube thumbnails).
 - `'unsafe-inline'` is in both `script-src` and `style-src` — this is intentional for inline theme detection and styles.
-- The `connect-src 'self' https:` is intentionally permissive for HTTPS APIs (e.g., Umami analytics, upvote API).
+- The `connect-src 'self' https:` is intentionally permissive in the base template for HTTPS APIs (e.g., Umami analytics, upvote API).
 - Adding `'unsafe-eval'` to `script-src` should be avoided. If a library requires it, find an alternative.
 - YouTube embeds use `youtube-nocookie.com` for privacy. Switching to `youtube.com` is intentional for compatibility.
 
