@@ -51,7 +51,7 @@ Template: `templates/llms.html`
 
 Template: `templates/llms-full.html`
 - Same iteration but includes full markdown body inline
-- Shortcodes (admonitions) are replaced with blockquote equivalents via Tera `replace()` filters
+- Shortcodes (`admonition`) are replaced with blockquote equivalents and `{% raw %}` / `{% endraw %}` wrappers are stripped via Tera `replace()` filters
 - Build step renames `public/llms-full.txt/index.html` → `public/llms-full.txt`
 
 ### Critical constraint

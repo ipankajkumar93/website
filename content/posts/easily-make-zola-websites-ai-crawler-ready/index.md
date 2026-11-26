@@ -26,7 +26,7 @@ post_tags = ["post", "zola", "ai", "llm"]
 
 AI agents and LLM-powered search tools are increasingly fetching live web content to answer queries. The problem: they work best with clean Markdown, but Zola - like every static site generator - compiles everything into HTML by default. HTML carries navigation chrome, footer noise, and nested tags that models have to fight through.
 
-This post documents exactly how I made `pankajkumar.xyz` fully AI-crawler ready: a `llms.txt` index, a `llms-full.txt` full corpus, and raw `.md` files served at predictable URLs alongside every HTML page. Every step below reflects the implementation that is live on my site today.
+This post documents exactly how I made `pankajkumar.xyz` fully AI-crawler ready: an `llms.txt` index, an `llms-full.txt` full corpus, and raw `.md` files served at predictable URLs alongside every HTML page. Every step below reflects the implementation that is live on my site today.
 
 > **Prerequisites:** A working Zola site, Python 3 available in your build environment, and a `build.sh` (or `Makefile`) you can extend.
 

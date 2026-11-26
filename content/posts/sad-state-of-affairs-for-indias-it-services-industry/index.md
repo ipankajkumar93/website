@@ -32,9 +32,9 @@ Ten years in this industry - across product companies where engineering was trea
 
 ## The Resource Economy
 
-In a resource economy, nobody asks if the work is good. They ask if the work is *fast enough* and *cheap enough*. `Deliver more in less time` has been the unofficial company motto since long before anyone in the C-suite could spell `LLM.` Sprints got shorter, scope got bigger, and the gap between the two was always filled by the same thing: a developer's personal time, and eventually, their patience for the job itself.
+In a resource economy, nobody asks if the work is good. They ask if the work is *fast enough* and *cheap enough*. `Deliver more in less time` has been the unofficial company motto since long before anyone in the C-suite could spell `LLM`. Sprints got shorter, scope got bigger, and the gap between the two was always filled by the same thing: a developer's personal time, and eventually, their patience for the job itself.
 
-Management, meanwhile, has rarely led - it has *followed*. Whatever term was trending at the last conference became the theme of the next townhall, regardless of whether it fit the actual problem in front of the team. Agile, then hyper-agile, then "we're basically a startup now," then digital transformation, then cloud-native everything - `a parade of buzzwords`, each one arriving at the direct expense of a developer's time, respect, and sanity. Client happiness was the only KPI that ever mattered. Developer wellbeing was a line item nobody wanted to own.
+Management, meanwhile, has rarely led - it has *followed*. Whatever term was trending at the last conference became the theme of the next town hall, regardless of whether it fit the actual problem in front of the team. Agile, then hyper-agile, then "we're basically a startup now," then digital transformation, then cloud-native everything - `a parade of buzzwords`, each one arriving at the direct expense of a developer's time, respect, and sanity. Client happiness was the only KPI that ever mattered. Developer wellbeing was a line item nobody wanted to own.
 
 > AI is simply the newest costume on the same old mannequin.
 
@@ -44,9 +44,9 @@ The most tiresome line to come out of this AI moment is the confident, faux-prog
 
 > It's a convenient thing to say - `if you're not the one being asked to prove it`.
 
-If coding were truly that trivial, **HR wouldn't need developers to build the HR portal**. **Finance wouldn't need engineers to fix the billing script**. The same leadership team repeating this line in every all-hands don't even **try** to open a code editor themselves. The claim isn't a technical observation - *it's a rhetorical tool*. Once an organization declares that `anyone can code`, it has quietly given itself `permission` to stop valuing the people who do. Your work stops being **engineering** and starts being just another checkbox, because *if anyone could've done it, then what you delivered was never special to begin with*. That's not a technology shift. That's a designed insult.
+If coding were truly that trivial, **HR wouldn't need developers to build the HR portal**. **Finance wouldn't need engineers to fix the billing script**. The same leadership team repeating this line in every all-hands doesn't even **try** to open a code editor themselves. The claim isn't a technical observation - *it's a rhetorical tool*. Once an organization declares that `anyone can code`, it has quietly given itself `permission` to stop valuing the people who do. Your work stops being **engineering** and starts being just another checkbox, because *if anyone could've done it, then what you delivered was never special to begin with*. That's not a technology shift. That's a designed insult.
 
-## The AI Townhall Problem
+## The AI Town Hall Problem
 
 Every town hall now opens with `"AI"` and closes with `"AI."` Every tagline has been rewritten to squeeze the word in somewhere, whether or not it changes anything about *how the company actually operates*. Cough or sneeze and someone will find a way to relabel it as an `"AI-powered initiative."` This isn't strategy. It's **optics** - a company trying to look relevant to clients and investors, using its own engineering workforce as the backdrop for a slide nobody in leadership actually understands.
 

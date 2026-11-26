@@ -67,7 +67,7 @@ This part only needs to happen once, on the repo itself, and it's what makes eve
    git push
    ```
 
-Once `.gitattributes` is committed and pushed, it's a permanent part of your repo's history - it travels with every future clone. You won't need to redo this step again, even on a fresh machine. What *doesn't* travel automatically is the remote pointing to the upstream repo, and the local merge driver registration - that's the part covered next.
+Once `.gitattributes` is committed and pushed, it's a permanent part of your repo's history - it travels with every future clone. You won't need to do this step again, even on a fresh machine. What *doesn't* travel automatically is the remote pointing to the upstream repo, and the local merge driver registration - that's the part covered next.
 
 ## Setting This Up on a New Machine (or Fresh Clone)
 

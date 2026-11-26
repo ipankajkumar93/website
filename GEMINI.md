@@ -12,8 +12,8 @@ Dual-licensed: GPLv3 (code), CC BY-NC-SA 4.0 (content).
 ## Architecture
 
 - **SSG**: Zola 0.23.6 — `config.toml` is the single source of truth
-- **CSS**: `static/styles/main.css` (4 200 lines, vanilla CSS custom properties, CSS layers) — no Sass
-- **JS**: vanilla — `static/js/{theme,main,analytics,upvote-client,search,search-loader}.js`
+- **CSS**: `static/styles/main.css` (vanilla CSS custom properties, CSS layers) & `static/styles/fonts.css` (`@font-face`, `font-display: swap`) — no Sass
+- **JS**: vanilla — `static/js/{theme,main,analytics,upvote-client,search,search-loader,alias-redirect}.js` (excluding vendor `mermaid.min.js` & `static/katex/`)
 - **Templates**: Tera — `templates/` (`base.html` → `page.html` / `section.html`)
 - **Content**: `content/<section>/<slug>/index.md` (page bundles with TOML front matter)
 - **Build**: `make build` or `bin/build.sh` → `zola build` → OG images → copy .md → fix llms.txt
@@ -142,7 +142,9 @@ Detailed procedures for specific workflows are documented in `.agents/skills/` (
 | **csp-headers** | Adding external scripts/fonts/iframes, modifying CSP (**plan-first**) | `.agents/skills/csp-headers/SKILL.md` |
 | **seo-llms** | Updating SEO, JSON-LD, llms.txt, feeds | `.agents/skills/seo-llms/SKILL.md` |
 | **upvote-function** | Modifying the upvote system (**plan-first**) | `.agents/skills/upvote-function/SKILL.md` |
+| **upstream-sync** | Syncing upstream template (`zola-slate`) with downstream forks | `.agents/skills/upstream-sync/SKILL.md` |
 
-## Content Review
+## Audits & Reviews
 
-Before publishing any content (setting `draft = false`), review it against the checklist defined in AGENTS.md under the `content-reviewer` agent specification.
+- **Content**: Before publishing any content (setting `draft = false`), review it against the `content-reviewer` checklist in `AGENTS.md`.
+- **Site / Code**: Run `site-auditor` (defined in `AGENTS.md` / `.claude/agents/site-auditor.md`) when auditing templates, CSS, JS, CSP, OG images, or scripts.
