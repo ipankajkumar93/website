@@ -38,7 +38,7 @@ All responses (`/*`):
 | `img-src` | `'self' data: https:` | Self-hosted + data URIs + any HTTPS image |
 | `font-src` | `'self'` | Self-hosted fonts ONLY |
 | `connect-src` | `'self' https:` | Self-hosted + any HTTPS API |
-| `frame-src` | `https://www.youtube-nocookie.com https://www.youtube.com` | YouTube embeds only |
+| `frame-src` | `https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://maps.google.com` | YouTube and Google Maps embeds |
 
 ### Cache Headers (path-specific)
 

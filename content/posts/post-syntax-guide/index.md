@@ -136,9 +136,9 @@ If you want the user to be able to click the image and view it in a full-screen 
 When you have multiple related images (like progress shots of a homelab build or multiple dashboard screenshots), stacking them vertically takes up too much space. The `image-grid` class creates a responsive 2-column grid that automatically handles spacing and scales down to a single column on mobile. It even gracefully centers the last image if there is an odd number of photos!
 
 <div class="image-grid">
-<a href="/images/sample-image.jpeg" class="lightbox-thumbnail"><img src="/images/sample-image.jpeg" alt="Image 1"></a>
-<a href="/images/sample-image.jpeg" class="lightbox-thumbnail"><img src="/images/sample-image.jpeg" alt="Image 2"></a>
-<a href="/images/sample-image.jpeg" class="lightbox-thumbnail"><img src="/images/sample-image.jpeg" alt="Image 3 (Odd centered)"></a>
+<a href="/images/sample-image.jpeg" class="lightbox-thumbnail"><img src="/images/sample-image.jpeg" alt="Sample grid image 1"></a>
+<a href="/images/sample-image.jpeg" class="lightbox-thumbnail"><img src="/images/sample-image.jpeg" alt="Sample grid image 2"></a>
+<a href="/images/sample-image.jpeg" class="lightbox-thumbnail"><img src="/images/sample-image.jpeg" alt="Sample grid image 3 centered"></a>
 </div>
 
 ## 9. Media Embeds (Maps & YouTube)

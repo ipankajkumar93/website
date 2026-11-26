@@ -1,7 +1,16 @@
 {% component img_caption(path, caption) %}
+{% set is_remote = path is starting_with(pat="http") %}
+{% if not is_remote %}
+  {% set clean_path = path | trim_start(pat="/") %}
+  {% set local_path = "static/" ~ clean_path %}
+  {% set meta = get_image_metadata(path=local_path) %}
+  {% set dim = ' width="' ~ meta.width ~ '" height="' ~ meta.height ~ '"' %}
+{% else %}
+  {% set dim = "" %}
+{% endif %}
 <figure>
-    {# URL generated via get_url is trusted and safe #}
-    <img src="{{ get_url(path=path, trailing_slash=false, cachebust=true) | safe }}" alt="{{ caption }}" loading="lazy" decoding="async">
-    <figcaption>{{ caption }}</figcaption>
+{# URL generated via get_url is trusted and safe #}
+<img src="{{ get_url(path=path, trailing_slash=false, cachebust=true) | safe }}" alt="{{ caption }}" loading="lazy" decoding="async"{{ dim | safe }}>
+<figcaption>{{ caption }}</figcaption>
 </figure>
 {% endcomponent img_caption %}
