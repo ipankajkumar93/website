@@ -104,13 +104,17 @@ document.addEventListener('DOMContentLoaded', function () {
     // ── Lightbox ──────────────────────────────────────────────────────
     const lightboxModal = document.createElement('dialog');
     lightboxModal.className = 'lightbox-modal';
-    lightboxModal.innerHTML = '<button class="lightbox-close" aria-label="Close lightbox">&times;</button><img src="" alt="">';
+    const lightboxCloseBtn = document.createElement('button');
+    lightboxCloseBtn.className = 'lightbox-close';
+    lightboxCloseBtn.setAttribute('aria-label', 'Close lightbox');
+    lightboxCloseBtn.textContent = '\u00D7';
+    const lightboxImg = document.createElement('img');
+    lightboxImg.src = '';
+    lightboxImg.alt = '';
+    lightboxModal.replaceChildren(lightboxCloseBtn, lightboxImg);
     document.body.appendChild(lightboxModal);
 
     createFocusTrap(lightboxModal);
-
-    const lightboxImg = lightboxModal.querySelector('img');
-    const lightboxCloseBtn = lightboxModal.querySelector('.lightbox-close');
 
     document.querySelectorAll('a.lightbox-thumbnail').forEach(link => {
         link.addEventListener('click', function (e) {
@@ -256,13 +260,19 @@ document.addEventListener('DOMContentLoaded', function () {
             const textToCopy = code.textContent.trimEnd();
 
             const showSuccess = () => {
-                button.innerHTML = '';
-                if (checkTemplate) button.appendChild(checkTemplate.content.cloneNode(true));
+                if (checkTemplate) {
+                    button.replaceChildren(checkTemplate.content.cloneNode(true));
+                } else {
+                    button.replaceChildren();
+                }
                 button.classList.add('copied');
 
                 setTimeout(() => {
-                    button.innerHTML = '';
-                    if (copyTemplate) button.appendChild(copyTemplate.content.cloneNode(true));
+                    if (copyTemplate) {
+                        button.replaceChildren(copyTemplate.content.cloneNode(true));
+                    } else {
+                        button.replaceChildren();
+                    }
                     button.classList.remove('copied');
                 }, 2000);
             };
@@ -339,7 +349,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const newContainer = doc.getElementById('pagination-container');
             if (newContainer) {
-                container.innerHTML = newContainer.innerHTML;
+                const importedNodes = Array.from(newContainer.childNodes).map(n => document.importNode(n, true));
+                container.replaceChildren(...importedNodes);
 
                 if (doc.title) {
                     document.title = doc.title;
@@ -597,7 +608,12 @@ document.addEventListener('DOMContentLoaded', function () {
             // Replace the copy icon with an anchor icon for headings
             const svg = clone.querySelector('svg');
             if (svg) {
-                svg.innerHTML = `<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>`;
+                const svgNs = 'http://www.w3.org/2000/svg';
+                const p1 = document.createElementNS(svgNs, 'path');
+                p1.setAttribute('d', 'M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71');
+                const p2 = document.createElementNS(svgNs, 'path');
+                p2.setAttribute('d', 'M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71');
+                svg.replaceChildren(p1, p2);
             }
             copyBtn.appendChild(clone);
         }
@@ -606,14 +622,11 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             const url = window.location.origin + window.location.pathname + '#' + heading.id;
             navigator.clipboard.writeText(url).then(() => {
-                const originalHTML = copyBtn.innerHTML;
-                copyBtn.innerHTML = '';
-                if (checkTemplate) {
-                    copyBtn.appendChild(checkTemplate.content.cloneNode(true));
-                }
+                const originalNodes = Array.from(copyBtn.childNodes).map(n => n.cloneNode(true));
+                copyBtn.replaceChildren(...(checkTemplate ? [checkTemplate.content.cloneNode(true)] : []));
                 copyBtn.classList.add('copied');
                 setTimeout(() => {
-                    copyBtn.innerHTML = originalHTML;
+                    copyBtn.replaceChildren(...originalNodes.map(n => n.cloneNode(true)));
                     copyBtn.classList.remove('copied');
                 }, 2000);
             });
@@ -632,19 +645,17 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             const url = link.getAttribute('data-url') || window.location.href;
             navigator.clipboard.writeText(url).then(() => {
-                const originalHTML = link.innerHTML;
-                link.innerHTML = '';
-                if (checkTemplate) {
-                    link.appendChild(checkTemplate.content.cloneNode(true));
-                }
+                const originalNodes = Array.from(link.childNodes).map(n => n.cloneNode(true));
+                const nextNodes = checkTemplate ? [checkTemplate.content.cloneNode(true)] : [];
                 if (link.id === 'title-copy-link') {
                     const span = document.createElement('span');
                     span.textContent = 'COPIED';
-                    link.appendChild(span);
+                    nextNodes.push(span);
                 }
+                link.replaceChildren(...nextNodes);
                 link.classList.add('copied');
                 setTimeout(() => {
-                    link.innerHTML = originalHTML;
+                    link.replaceChildren(...originalNodes.map(n => n.cloneNode(true)));
                     link.classList.remove('copied');
                 }, 2000);
             });

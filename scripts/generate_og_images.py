@@ -580,10 +580,15 @@ class OGImageGenerator:
             pages.append((md_file.stem, md_file))
             
         for subdir in content_dir.iterdir():
-            if subdir.is_dir():
-                md_file = subdir / "_index.md"
-                if md_file.exists():
-                    pages.append((subdir.name, md_file))
+            if not subdir.is_dir():
+                continue
+            index_md = subdir / "_index.md"
+            if index_md.exists():
+                pages.append((subdir.name, index_md))
+                continue
+            page_md = subdir / "index.md"
+            if page_md.exists() and subdir.name not in ("llms", "llms-full"):
+                pages.append((subdir.name, page_md))
 
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -593,7 +598,7 @@ class OGImageGenerator:
 
             content = md_file.read_text(encoding='utf-8')
             fm = self._parse_frontmatter(content)
-            if not fm or fm.get("draft"):
+            if not fm or fm.get("draft") or fm.get("og_preview_img"):
                 continue
 
             title = fm.get("title", cat_name.capitalize())
