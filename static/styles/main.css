@@ -2797,11 +2797,15 @@
         white-space: nowrap;
     }
 
+    .footer-crafted {
+        line-height: 1.2;
+    }
+
     .heart-icon {
         width: 18px;
         height: 18px;
         stroke: none;
-        vertical-align: middle;
+        vertical-align: -0.25em;
         margin: 0 2px;
         filter: drop-shadow(0 2px 2px rgba(225, 29, 72, 0.4));
     }
@@ -2862,8 +2866,8 @@
     }
 
     .cc-badge-icon {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
     }
 
     @media screen and (max-width: 600px) {
