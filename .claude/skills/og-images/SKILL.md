@@ -19,14 +19,15 @@ The script `scripts/generate_og_images.py` (Python 3.11+ with Pillow, run via `u
 ### What it generates
 
 1. **Homepage image** (`static/images/og/home.png`) — from `config.toml` title and description
-2. **Landing page images** (`static/images/og/<section>.png`) — for each section's `_index.md`
-3. **Article images** (`static/images/og/<section>/<slug>.png`) — for each published article
+2. **Landing & utility page images** (`static/images/og/<name>.png`) — for `content/*.md`, each section's `_index.md`, and standalone page bundles (`content/<page>/index.md`, excluding `llms` and `llms-full`)
+3. **Article images** (`static/images/og/<section>/<slug>.png`) — for each published article in `extra.og_sections`
 
 ### What it skips
 
-- Articles with `draft = true`
-- Articles with a custom `og_preview_img` set in front matter
-- Articles whose content hash matches the cache (no title/description change)
+- Articles or pages with `draft = true`
+- Articles or pages with a custom `og_preview_img` set in front matter
+- Machine-readable endpoints (`llms`, `llms-full`)
+- Entries whose content hash matches the cache (no title/description change)
 
 ### Cache system
 
@@ -78,4 +79,5 @@ If a social preview image is missing or wrong:
 3. Check if `og_preview_img` is set — custom images bypass generation
 4. Delete `.og_cache.json` and rerun `make og-images` to force regeneration
 5. Check `templates/og.html` — the expected path is `images/og/<page.path trimmed>.png`
+6. Verify every `og:image` URL in `public/` resolves to a file under `static/` (no 404 preview targets)
 

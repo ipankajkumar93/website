@@ -12,8 +12,8 @@ Dual-licensed: GPLv3 (code), CC BY-NC-SA 4.0 (content).
 ## Architecture
 
 - **SSG**: Zola 0.23.6 — `config.toml` is the single source of truth
-- **CSS**: `static/styles/main.css` (4 200 lines, vanilla CSS custom properties, CSS layers) — no Sass
-- **JS**: vanilla — `static/js/{theme,main,analytics,upvote-client,search,search-loader}.js`
+- **CSS**: `static/styles/main.css` (vanilla CSS custom properties, CSS layers) & `static/styles/fonts.css` (`@font-face`, `font-display: swap`) — no Sass
+- **JS**: vanilla — `static/js/{theme,main,analytics,upvote-client,search,search-loader,alias-redirect}.js` (excluding vendor `mermaid.min.js` & `static/katex/`)
 - **Templates**: Tera — `templates/` (`base.html` → `page.html` / `section.html`)
 - **Content**: `content/<section>/<slug>/index.md` (page bundles with TOML front matter)
 - **Build**: `make build` or `bin/build.sh` → `zola build` → OG images → copy .md → fix llms.txt
@@ -140,4 +140,6 @@ Before completing any task:
 | **csp-headers** | Changing CSP, security headers, adding origins (**plan-first**) | `.claude/skills/csp-headers/SKILL.md` |
 | **seo-llms** | Updating SEO, JSON-LD, llms.txt, feeds | `.claude/skills/seo-llms/SKILL.md` |
 | **upvote-function** | Modifying upvote function or client (**plan-first**) | `.claude/skills/upvote-function/SKILL.md` |
+| **upstream-sync** | Syncing upstream template (`zola-slate`) with downstream forks | `.claude/skills/upstream-sync/SKILL.md` |
 | **content-reviewer** | Post review, front matter validation, proofreading | `.claude/agents/content-reviewer.md` |
+| **site-auditor** | Non-content code, CSS, JS, template, CSP & OG audit | `.claude/agents/site-auditor.md` |

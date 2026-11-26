@@ -94,8 +94,11 @@ Server runs at `http://127.0.0.1:1111` with live reload.
 ### Verification checks
 
 ```bash
-# Check for broken internal links and front matter errors
+# Check for broken internal links, external links, and front matter errors
 zola check
+
+# In offline or sandboxed environments with no outbound network access:
+zola check --skip-external-links
 
 # Check for broken external links (requires lychee — optional)
 make check-links
@@ -103,20 +106,22 @@ make check-links
 
 ## What to Verify After Building
 
-1. **`zola check` passes** — no orphan pages, no broken internal links
+1. **`zola check` passes** — no orphan pages, no broken internal links (use `--skip-external-links` only when offline, and note external links as unverified)
 2. **`zola build` completes without warnings** — watch for:
    - "Warning: Found an internal link" (broken `@/` references)
    - "Warning: Page not found" (missing referenced pages)
    - "Warning: Taxonomy" (undefined taxonomy names)
-3. **OG images generated** — check `static/images/og/` for expected PNG files
-4. **llms.txt exists as flat file** — `public/llms.txt` should be a file, not a directory
-5. **Grep diff for forbidden patterns (Definition of Done)**:
+3. **OG images generated & matched** — check `static/images/og/` for expected PNG files and confirm every `og:image` URL in `public/` resolves to a file under `static/`
+4. **llms.txt exists as flat file** — `public/llms.txt` and `public/llms-full.txt` should be files (not directories), and `llms-full.txt` should not contain unstripped `{% raw %}` tags
+5. **Grep diff & first-party code for forbidden patterns (Definition of Done)**:
    ```bash
    git diff | grep -E 'style=|(<style)|on[a-z]+=|javascript:|(\bvar\b)|!important|@import|document\.write'
+   grep -rnE '\bvar\b|document\.write|\beval\(|new Function|\.substr\(|escape\(|unescape\(|execCommand|XMLHttpRequest|innerHTML|unload' static/js/analytics.js static/js/katex-init.js static/js/main.js static/js/mermaid-init.js static/js/search.js static/js/search-loader.js static/js/theme.js static/js/upvote-client.js static/js/alias-redirect.js functions/
    ```
+   (Exclude third-party vendor bundles `static/js/mermaid.min.js` and `static/katex/` when scanning JS.)
    Must return zero matches. If any forbidden patterns exist, refactor to follow code standards.
-6. **CSP & Security check**: If any external origin was added, ensure `static/_headers` was updated and approved.
-7. **Color contrast check**: If CSS changed, verify WCAG AA contrast (4.5:1 body, 3:1 UI/headings) in both light and dark themes.
+6. **CSP & Security check**: If any external origin was added, ensure `static/_headers` was updated and approved, and uses explicit `https://` scheme prefixes.
+7. **Color contrast & fonts check**: If CSS changed, verify WCAG AA contrast (`>= 4.5:1` body/muted text, `>= 3.0:1` UI/headings) in both light and dark themes, and confirm `font-display: swap;` in `static/styles/fonts.css`.
 8. **Mobile mode & responsive check**:
    - The site's primary mobile breakpoint is `@media screen and (max-width: 1024.98px)` (desktop starts at `min-width: 1025px`).
    - Narrow screen ladder: `768px`, `600px`, and `480px`.
